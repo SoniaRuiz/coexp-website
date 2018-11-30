@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row">
+    <nav class="col-sm-3 sidebar">
+        <br />
+        <h4>Please, make your selection:</h4>
+        <br />
+
+        <label for="first">Organism</label>
+        <select id="first" name="first" class="form-control" role="listbox">
+            <option value="0" selected="selected">Select an option ...</option>
+            <option value="human">Human</option>
+            <option value="mouse">Mouse</option>
+        </select>
+
+        <label for="second">Tissue</label>
+        <select id="second" name="second" class="form-control" role="listbox" disabled="disabled">
+            <option value="0" selected="selected">Select an option ...</option>
+            <option value="human_lung">Lung</option>
+            <option value="human_rosmap">Frontal Cortex</option>
+            <option value="human_thyroid">Thyroid</option>
+        </select>
+
+        <label for="third">Net</label>
+        <select id="third" name="third" class="form-control" role="listbox" disabled="disabled">
+            <option value="0" selected="selected">Select an option ...</option>
+            <option value="rosmap_all">All</option>
+            <option value="rosmap_cogdnotxad">Not Alzheimer</option>
+            <option value="rosmap_cogdxprobad">Probably Alzheimer</option>
+            <option value="rosmap_cogdxad">Yes Alzheimer</option>
+        </select>
+        <br/>
+        <button id="sendButton" class="btn btn-primary" href="#" role="button">Accept</button>
+    </nav>
+
+    <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+    </main>
+    <div class="modal"><!-- loading layer --></div>
+</div>
+
+@section Scripts
+ {
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var $select2 = $('#second'), $options2 = $select2.find('option'),
+                $select3 = $('#third'), $options3 = $select3.find('option');
+            $select2.prop("disabled", true);
+            $select3.prop("disabled", true);
+            $('#sendButton').prop("disabled", true);
+
+            $('#first').on('change', function () {
+                //$("#first option[value='0']").remove();
+                $('#second option[value="0"]').prop('selected', true);
+                $('#third option[value="0"]').prop('selected', true);
+
+                $select2.prop("disabled", false);
+                $select2.html($options2.filter('[value^="' + this.value + '"]'));
+
+            });
+
+            $('#second').on('change', function () {    
+                $('#third option[value="0"]').prop('selected', true)
+                $select3.prop("disabled", false);
+                var select2NetValue = (this.value).split("_");
+                $select3.html($options3.filter('[value^="' + select2NetValue[1] + '"]'));
+
+                if (($select3.find('option')).length > 0)
+                    $('#sendButton').prop("disabled", false);
+                else
+                    $('#sendButton').prop("disabled", true);
+            });
+
+            $('#third').on('change', function () {
+                
+                
+            });
+
+            $('#sendButton').on('click', function () {
+                //Get selected values
+                var values = ($('#third').val()).split("_");
+                var which_one = values[0];
+                var tissue = values[1];
+
+                getNetworkFromTissue(which_one, tissue);
+            });
+        });
+        function getNetworkFromTissue(which_one, tissue) {
+            //enable 'loading...'
+            $("body").addClass("loading");
+            //Realizamos la petición
+            $.ajax({
+                url: '/api/API/GetNetworkFromTissue?WhichOne=' + which_one + "&Tissue=" + tissue,
+                type: 'GET',
+                success: function (data) {
+                    $("body").removeClass("loading");
+                    console.log(data);
+                },
+                error: function (data) {
+                    $("body").removeClass("loading");
+                    console.log(data);
+                }
+            });
+        }
+        //$(document).ready(function () {
+        //    console.log("ready!");
+
+        //    $.getJSON("js/coexp_menu_data.json", function (json) {
+        //        simTree({
+        //            el: '#tree',
+        //            data: json,
+        //            check: true,
+        //            linkParent: true,
+        //            onChange: function (item) {
+        //                if (item.length > 0 && item[0].hasOwnProperty("dataset") && item[0].hasOwnProperty("net")) {
+        //                    var whichone = item[0].dataset;
+        //                    var tissue = item[0].net;
+        //                    $("body").addClass("loading");
+        //                    $.ajax({
+        //                        url: "https://snca.atica.um.es/api/coexp/GetNetworkFromTissue",
+        //                        type: "get",
+        //                        data: {
+        //                            tissue: tissue,
+        //                            whichone: whichone
+        //                        },
+        //                        success: function (response) {
+        //                            console.log("hi");
+        //                            $("body").removeClass("loading");
+        //                            $("#tree").hide();
+        //                        },
+        //                        error: function (xhr) {
+        //                            console.log("error");
+        //                            $("body").removeClass("loading");
+        //                            //TODO:remove following line
+        //                            $("#tree").hide();
+        //                        }
+        //                    })
+        //                }
+
+        //            }
+        //        });
+        //    });
+        //});
+    </script>
+}
