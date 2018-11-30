@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CoExp_Web.Models
 {
+    /// <summary>
+    /// Model to store information sent/received from CoExp R application
+    /// </summary>
     public class CoexpModel
     {
         public string WhichOne { get; set; }
@@ -45,7 +48,5 @@ namespace CoExp_Web.Models
             UseGrey = false;
             DisplayCats = null;
         }
-
-        
     }
 }

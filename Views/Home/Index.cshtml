@@ -1,5 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    //View of the main page
+    ViewData["Title"] = "Home";
 }
 <div class="row">
     <nav class="col-sm-3 sidebar">
@@ -42,8 +43,6 @@
 
 @section Scripts
  {
-
-
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -53,16 +52,15 @@
             $select3.prop("disabled", true);
             $('#sendButton').prop("disabled", true);
 
+            //When the value of the first select changes we do:
             $('#first').on('change', function () {
-                //$("#first option[value='0']").remove();
                 $('#second option[value="0"]').prop('selected', true);
                 $('#third option[value="0"]').prop('selected', true);
 
                 $select2.prop("disabled", false);
                 $select2.html($options2.filter('[value^="' + this.value + '"]'));
-
             });
-
+            //When the value of the second select changes we do:
             $('#second').on('change', function () {    
                 $('#third option[value="0"]').prop('selected', true)
                 $select3.prop("disabled", false);
@@ -74,21 +72,24 @@
                 else
                     $('#sendButton').prop("disabled", true);
             });
-
+            //When the value of the second select changes we do:
             $('#third').on('change', function () {
-                
-                
+                //At this moment we do nothing
             });
-
+            //When the user press the 'Send' button we do:
             $('#sendButton').on('click', function () {
                 //Get selected values
                 var values = ($('#third').val()).split("_");
                 var which_one = values[0];
                 var tissue = values[1];
-
+                //Make a request to 'GetNetworkFromTissue' API method.
                 getNetworkFromTissue(which_one, tissue);
             });
         });
+        /*
+         * Get data from 'GetNetworkFromTissue' API method
+         * This method establishes communication with the APIController
+         */
         function getNetworkFromTissue(which_one, tissue) {
             //enable 'loading...'
             $("body").addClass("loading");
@@ -97,10 +98,14 @@
                 url: '/api/API/GetNetworkFromTissue?WhichOne=' + which_one + "&Tissue=" + tissue,
                 type: 'GET',
                 success: function (data) {
+                    //If the request has gone as expected:
+                    //Remove the 'loading...' layer
                     $("body").removeClass("loading");
                     console.log(data);
                 },
                 error: function (data) {
+                    //If an error occurs:
+                    //Remove the 'loading...' layer
                     $("body").removeClass("loading");
                     console.log(data);
                 }
