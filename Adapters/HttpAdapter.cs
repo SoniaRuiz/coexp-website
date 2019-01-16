@@ -23,7 +23,7 @@ namespace CoExp_Web.Adapters
             {
                 var request = WebRequest.Create(url);
                 string data = null;
-                request.Timeout = 15000;
+                request.Timeout = 1500000;
                 request.ContentType = "application/json; charset=utf-8";
                 //Make the request
                 var response = (HttpWebResponse)request.GetResponse();

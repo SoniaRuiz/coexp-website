@@ -6,22 +6,30 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoExp_Web.Models;
 using CoExp_Web.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoExp_Web.Controllers
 {
     public class HomeController : Controller
     {
+        
         public IActionResult Index()
         {
             return View();
         }
+      
+        public IActionResult Case2()
+        {
+            return View("Case2");
+        }
 
-    
+     
         public IActionResult Privacy()
         {
             return View();
         }
 
+      
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
