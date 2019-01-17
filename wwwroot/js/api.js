@@ -27,12 +27,12 @@ API.prototype.menuInit = function(view) {
             .selectpicker('refresh');
 
         //Hide results divs
-        $("#by_ontologycolor").hide();
-        $("#by_celltype").hide();
+        $("#goFromTissue_div").hide();
+        $("#cellType_div").hide();
         $("#error").hide();
     }
     else if (view == 2) {
-        $("#geneannotation_div").hide();
+        $("#reportOnGenes_div").hide();
         $('#genes').prop('disabled', true);
     }
 
@@ -53,8 +53,8 @@ API.prototype.menuInit = function(view) {
 
         if (view == 1) {
             //Hide results divs
-            $("#by_ontologycolor").hide();
-            $("#by_celltype").hide();
+            $("#goFromTissue_div").hide();
+            $("#cellType_div").hide();
             //Clear and disable 'module_selection'
             $('#module_selection')
                 .selectpicker('deselectAll')
@@ -101,21 +101,21 @@ API.prototype.menuInit = function(view) {
             //hide previous errors/results
             $('#error').hide();
             var module_selection_types = $('#module_selection').val();
-            if ($('#by_ontologycolor_table tr').length > 1) {
-                $('#by_ontologycolor_table').DataTable().destroy()
+            if ($('#goFromTissue_table tr').length > 1) {
+                $('#goFromTissue_table').DataTable().destroy()
             }
-            if ($('#by_celltype_table tr').length > 1) {
-                $('#by_celltype_table').DataTable().destroy()
+            if ($('#cellType_table tr').length > 1) {
+                $('#cellType_table').DataTable().destroy()
             }
             //show result divs
             if (module_selection_types.length == 1) {
                 if (module_selection_types[0] == "1") { //only byontology and bycolor
                     API.prototype.getGOFromTissue($('#category').val(), $('#network').val());
-                    $("#by_celltype").hide();
+                    $("#cellType_div").hide();
                 }
                 else {//only bycelltype
                     API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val());   
-                    $("#by_ontologycolor").hide();
+                    $("#goFromTissue_div").hide();
                 }
             }
             else if (module_selection_types.length == 2) {//both bycelltype and bycolor
@@ -123,16 +123,48 @@ API.prototype.menuInit = function(view) {
                 API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val());
             }
             else {
-                $('#by_ontologycolor').hide();
-                $('#by_celltype').hide();
+                $('#goFromTissue_div').hide();
+                $('#cellType_div').hide();
                 $('#error').show();
             }
         }
         else if (view == 2) {
-            if ($('#geneannotation_table tr').length > 1) {
-                $('#geneannotation_table').DataTable().destroy();
+            if ($('#reportOnGenes_table tr').length > 1) {
+                $('#reportOnGenes_table').DataTable().destroy();
             }
             API.prototype.reportOnGenes($('#category').val(), $('#network').val(), $('#genes').val());
+        }
+    });
+    // Add event listener for opening and closing details
+    $('#goFromTissue_table').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = $('#goFromTissue_table').DataTable().row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child(API.prototype.formatGOFromTissue(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
+    // Add event listener for opening and closing details
+    $('#reportOnGenes_table').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = $('#reportOnGenes_table').DataTable().row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child(API.prototype.formatReportOnGenes(row.data())).show();
+            tr.addClass('shown');
         }
     });
 
@@ -191,32 +223,34 @@ API.prototype.getGOFromTissue = function (category, tissue){
 
             console.log(data);
             //data = JSON.parse(data);
-            $('#by_ontologycolor_table').DataTable({
+            $('#goFromTissue_table').DataTable({
                 data: JSON.parse(data),
                 columns: [
-                    //{ data: "X" },
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
                     { data: "query_number" },
-                    //{ data: 'significant' },
                     { data: 'p_value' },
-                    //{ data: 'term_size' },
                     { data: 'query_size' },
-                    //{ data: 'overlap_size' },
-                    //{ data: 'recall' },
-                    //{ data: 'precision' },
                     { data: 'term_id' },
                     { data: 'domain' },
-                    //{ data: 'subgraph_number' },
                     { data: 'term_name' },
-                    //{ data: 'relative_depth' },
-                    { data: 'intersection' }
+                    {
+                        data: 'intersection',
+                        "visible": false,
+                        "searchable": true
+                    }
                 ],
                 dom: 'Bfrtip',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    'copy', 'csv', 'excel', 'print'
                 ]
             });
             $("body").removeClass("loading");
-            $("#by_ontologycolor").show();
+            $("#goFromTissue_div").show();
         },
         error: function (data) {
             //If an error occurs:
@@ -233,21 +267,57 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
         success: function (data) {
 
             console.log(data);
-            $('#by_celltype_table').DataTable({
-                data: JSON.parse(data),
-                columns: [
-                    { title: 'module' },
-                    { title: 'term' },
-                    { title: 'p-value' },
-                    { title: 'ontology' }
-                ],
+            var columns = [];
+            data = JSON.parse(data);
+
+            var hasPValue = false;
+            var cols = Object.keys(data[0]);
+            for (var x = 1; x < cols.length; x++) {
+                hasPValue = false;
+                for (var i = 0; i < data.length; i++) {
+                    if (Object.values(data[i])[x] !== 1) {
+                        hasPValue = true;
+                        break;
+                    }
+                }
+                if (!hasPValue) {
+                    for (var i = 0; i < data.length; i++) {
+                        delete (data[i][Object.keys(data[i])[x]])
+                    }
+                }
+            }
+
+            columnNames = Object.keys(data[0]);
+            for (var i in columnNames) {
+                columns.push({
+                    data: columnNames[i],
+                    title: columnNames[i]
+                });
+            }
+            $('#cellType_table').DataTable({
+                data: data,
+                columns: columns,
                 dom: 'Bfrtip',
+                columnDefs: [
+                    {
+                        targets: 1,
+                        className: 'noVis'
+                    }
+                ],    
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
+                    'copy', 'csv', 'excel', 'print',
+                    {  
+                        extend: 'colvis',
+                        collectionLayout: 'fixed two-column'
+                    }
+                ],
+                drawCallback: function () {
+                    $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
+                }
+            })
+            $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
             $("body").removeClass("loading");
-            $("#by_celltype").show();
+            $("#cellType_div").show();
         },
         error: function (data) {
             //If an error occurs:
@@ -264,28 +334,39 @@ API.prototype.reportOnGenes = function (category, tissue, genes) {
             type: 'GET',
             success: function (data) {
                 console.log(data);
-                $('#geneannotation_table').DataTable({
+                $('#reportOnGenes_table').DataTable({
                     data: JSON.parse(data).report,
                     columns: [
+                        {
+                            className: "details-control",
+                            orderable: false,
+                            data: null,
+                            defaultContent: ''
+                        },
                         { data: 'gene' },
                         { data: 'ensgene' },
                         { data: 'mm' },
                         { data: 'module' },
                         { data: 'size' },
-                        { data: 'go_report' },
+                        {
+                            data: 'go_report',
+                            "visible": false,
+                            "searchable": true
+                        },
                         { data: 'pd_genes' },
                         { data: 'preservation' },
                         { data: 'cell_type_pred' },
                         { data: 'p_val_mods' },
                         { data: '_row' }
                     ],
+                    "order": [[1, 'asc']],
                     dom: 'Bfrtip',
                     buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                        'copy', 'csv', 'excel', 'print'
                     ]
                 });
                 $("body").removeClass("loading");
-                $("#geneannotation_div").show();
+                $("#reportOnGenes_div").show();
             },
             error: function (data) {
                 //If an error occurs:
@@ -298,3 +379,24 @@ API.prototype.reportOnGenes = function (category, tissue, genes) {
         $("body").removeClass("loading");
     }
 }
+
+API.prototype.formatGOFromTissue = function (d) {/* Formatting function for row details - modify as you need */
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        '<tr>' +
+        '<td>genes: </td>' +
+        '<td>' + d.intersection + '</td>' +
+        '</tr>' +
+        '</table>';
+}
+
+API.prototype.formatReportOnGenes = function (d) {/* Formatting function for row details - modify as you need */
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        '<tr>' +
+        '<td>go_report: </td>' +
+        '<td>' + d.go_report + '</td>' +
+        '</tr>' +
+        '</table>';
+}
+
