@@ -33,7 +33,7 @@
                 <br />
                 <h4>Select module by Ontology/Color</h4>
                 <br />
-                <table id="goFromTissue_table" class="table table-striped table-bordered" style="width:100%">
+                <table id="goFromTissue_table" class="table table-striped table-bordered wrap" style="width:100%">
                     <thead>
                         <tr>
                             <th></th>
@@ -53,7 +53,7 @@
                 <h4>Select module by Cell Type</h4>
                 <em>We are showing only p-values lower than 0,05.</em>
                 <br /><br />
-                <table id="cellType_table" class="table table-striped table-bordered" style="width:100%"></table>
+                <table id="cellType_table" class="table table-striped table-bordered nowrap" style="width:100%"></table>
             </div>
             <div id="error">
                 <br />
@@ -67,34 +67,16 @@
 
 @section Scripts
     {
+    <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="~/css/bootstrap-select.css">
     <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
-    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="~/js/api.js"></script>
-
-    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
-    <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
-
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            API.prototype.menuInit(1);
-        });
-    </script>
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
     <style type="text/css">
+
+        /*********************************/
+        /******* DETAILS CONTROLS ********/
+        /*********************************/
         td.details-control {
             background: url('/images/details_open.png') no-repeat center center;
             cursor: pointer;
@@ -104,6 +86,9 @@
             background: url('/images/details_close.png') no-repeat center center;
         }
 
+        /*********************************/
+        /******** BUTTONS COLOUR *********/
+        /*********************************/
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             padding: 01em 0.1em !important;
         }
@@ -132,23 +117,25 @@
                 background: linear-gradient(to bottom, white 0%, white 100%);
             }
 
-        .dt-button buttons-columnVisibility{
+        /*.dt-button buttons-columnVisibility {
             background-color: red !important;
-        }
-            .dt-button buttons-columnVisibility active {
+        }*/
+
+            /*.dt-button buttons-columnVisibility active {
                 background-color: green !important;
                 background-image: -webkit-linear-gradient(top, green 0%, forestgreen 100%) !important;
-            }
+            }*/
 
-        button.dt-button:active:not(.disabled), button.dt-button.active:not(.disabled), div.dt-button:active:not(.disabled), div.dt-button.active:not(.disabled), a.dt-button:active:not(.disabled), a.dt-button.active:not(.disabled) {
+        /*button.dt-button:active:not(.disabled), button.dt-button.active:not(.disabled), div.dt-button:active:not(.disabled), div.dt-button.active:not(.disabled), a.dt-button:active:not(.disabled), a.dt-button.active:not(.disabled) {
             background-color: #e2e2e2;
             background-image: -webkit-linear-gradient(top, green 0%, #e2e2e2 100%);
             background-image: -moz-linear-gradient(top, green 0%, #e2e2e2 100%);
             background-image: -ms-linear-gradient(top, green 0%, #e2e2e2 100%);
             background-image: -o-linear-gradient(top, green 0%, #e2e2e2 100%);
             background-image: linear-gradient(to bottom, green 0%, #e2e2e2 100%);
-        }
-        div.dt-button-collection button.dt-button:active:not(.disabled), div.dt-button-collection button.dt-button.active:not(.disabled), div.dt-button-collection div.dt-button:active:not(.disabled), div.dt-button-collection div.dt-button.active:not(.disabled), div.dt-button-collection a.dt-button:active:not(.disabled), div.dt-button-collection a.dt-button.active:not(.disabled) {
+        }*/
+
+        /*div.dt-button-collection button.dt-button:active:not(.disabled), div.dt-button-collection button.dt-button.active:not(.disabled), div.dt-button-collection div.dt-button:active:not(.disabled), div.dt-button-collection div.dt-button.active:not(.disabled), div.dt-button-collection a.dt-button:active:not(.disabled), div.dt-button-collection a.dt-button.active:not(.disabled) {
             background-color: #dadada;
             background-image: -webkit-linear-gradient(top, green 0%, #dadada 100%);
             background-image: -moz-linear-gradient(top, green 0%, #dadada 100%);
@@ -157,8 +144,56 @@
             background-image: linear-gradient(to bottom, green 0%, #dadada 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='green', EndColorStr='#dadada');
             box-shadow: inset 1px 1px 3px #666;
+        }*/
+
+        /*********************************/
+        /********* FIXED COLUMNS *********/
+        /*********************************/
+        
+
+        /*tr, td {
+            white-space: nowrap;
         }
 
+        div.dataTables_wrapper {
+            width: 800px;
+            margin: 0 auto;
+        }*/
 
+
+
+        table.dataTable {
+            margin-top: 0px !important; 
+            margin-bottom: 0px !important; 
+        }
+
+        .table-bordered {
+            border-top: 0px !important;
+            border-bottom: 0px !important;
+            border-right: 1px solid #ddd !important;
+            border-left: 0px !important;
+        }
     </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/js/api.js"></script>
+
+    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTables.fixedColumns.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            API.prototype.menuInit(1);
+        });
+    </script>
 }

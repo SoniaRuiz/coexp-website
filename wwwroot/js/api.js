@@ -6,7 +6,7 @@ var API = function () {
 };
 
 
-API.prototype.menuInit = function(view) {
+API.prototype.menuInit = function (view) {
 
 
     //At the beginning, we fill the first select
@@ -40,7 +40,7 @@ API.prototype.menuInit = function(view) {
 
     //When the value of the 'Category' changes:
     $('#category').on('change', function () {
-        
+
         //Remove all options (from 'Network' select)
         $('#network').children().remove();
         //Fill the 'Network' with new options
@@ -114,7 +114,7 @@ API.prototype.menuInit = function(view) {
                     $("#cellType_div").hide();
                 }
                 else {//only bycelltype
-                    API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val());   
+                    API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val());
                     $("#goFromTissue_div").hide();
                 }
             }
@@ -168,6 +168,7 @@ API.prototype.menuInit = function(view) {
         }
     });
 
+   //$('#cellType_table').DataTable()
 }
 
 
@@ -273,7 +274,6 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
             var hasPValue = false;
             var cols = Object.keys(data[0]);
             for (var x = 1; x < cols.length; x++) {
-                hasPValue = false;
                 for (var i = 0; i < data.length; i++) {
                     if (Object.values(data[i])[x] !== 1) {
                         hasPValue = true;
@@ -284,7 +284,9 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
                     for (var i = 0; i < data.length; i++) {
                         delete (data[i][Object.keys(data[i])[x]])
                     }
+                    x--;
                 }
+                hasPValue = false;
             }
 
             columnNames = Object.keys(data[0]);
@@ -305,19 +307,60 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
                     }
                 ],    
                 buttons: [
-                    'copy', 'csv', 'excel', 'print',
+                    'copy', 'csv', 'excel', 'print'/*,
                     {  
                         extend: 'colvis',
                         collectionLayout: 'fixed two-column'
-                    }
+                    }*/
                 ],
-                drawCallback: function () {
+                drawCallback: function (settings) {
                     $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
+                },
+                "scrollX": true,
+                paging: true,
+                scrollCollapse: true,
+                fixedColumns: {
+                    leftColumns: 1
                 }
             })
-            $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
+                
+                /*.on('search.dt', function () {
+                    $('#cellType_table').DataTable().columns().every(function () {
+                        var column = this;
+
+                        if ($(this).search($(this).value) != "1") {
+                            alert($(this).value)
+                        }
+                    })
+                    var data = $('#cellType_table tr').get().map(function (row) {
+                        return $(row).find('td').get().map(function (cell) {
+                            return $(cell).html();
+                        });
+                    });
+                    var cols = Object.keys(data[1]); //first row is the header
+                    for (var x = 1; x < cols.length; x++) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (Object.values(data[i])[x] !== 1) {
+                                hasPValue = true;
+                                break;
+                            }
+                        }
+                        if (!hasPValue) {
+                            for (var i = 0; i < data.length; i++) {
+                                delete (data[i][Object.keys(data[i])[x]])
+                            }
+                            x--;
+                        }
+                        hasPValue = false;
+                    }
+                    $('#cellType_table').DataTable().draw();
+                })*/
+            //.search(function () {
+                
+            //})
             $("body").removeClass("loading");
             $("#cellType_div").show();
+            $('#cellType_table').DataTable().draw();
         },
         error: function (data) {
             //If an error occurs:
@@ -353,9 +396,13 @@ API.prototype.reportOnGenes = function (category, tissue, genes) {
                             "visible": false,
                             "searchable": true
                         },
-                        { data: 'pd_genes' },
-                        { data: 'preservation' },
-                        { data: 'cell_type_pred' },
+                        //{ data: 'pd_genes' },
+                        //{ data: 'preservation' },
+                        {
+                            data: 'cell_type_pred',
+                            "visible": false,
+                            "searchable": true
+                        },
                         { data: 'p_val_mods' },
                         { data: '_row' }
                     ],
@@ -396,6 +443,10 @@ API.prototype.formatReportOnGenes = function (d) {/* Formatting function for row
         '<tr>' +
         '<td>go_report: </td>' +
         '<td>' + d.go_report + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>cell_type_pred: </td>' +
+        '<td>' + d.cell_type_pred + '</td>' +
         '</tr>' +
         '</table>';
 }
