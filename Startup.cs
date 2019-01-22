@@ -39,7 +39,16 @@ namespace CoExp_Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsePathBase("/coexp/");
+            //app.UsePathBase("/coexp");
+            app.Use((context, next) =>
+            {
+                if (context.Request.Path.StartsWithSegments("/coexp", out var remainder))
+                {
+                    context.Request.Path = remainder;
+                }
+
+                return next();
+            });
 
             if (env.IsDevelopment())
             {
@@ -47,7 +56,7 @@ namespace CoExp_Web
             }
             else
             {
-                app.UseExceptionHandler("/Run/Error");
+                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
