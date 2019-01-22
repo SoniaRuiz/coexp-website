@@ -47,7 +47,7 @@ namespace CoExp_Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Run/Error");
             }
 
             app.UseStaticFiles();
@@ -57,7 +57,7 @@ namespace CoExp_Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Run}/{action=Case1}/{id?}");
             });
         }
     }

@@ -13,9 +13,9 @@ namespace CoExp_Web.Controllers
     /// <summary>
     /// API controller (does not return a view) to obtain information from different web services
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
-    public class APIController : ControllerBase
+    public class GETController : ControllerBase
     {
         /// <summary>
         /// Welcome method. Used as a tester.

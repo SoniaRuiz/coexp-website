@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoExp_Web.Controllers
 {
-    public class HomeController : Controller
+    public class RunController : Controller
     {
         
-        public IActionResult Index()
+        public IActionResult Case1()
         {
-            return View();
+            return View("Case1");
         }
       
         public IActionResult Case2()

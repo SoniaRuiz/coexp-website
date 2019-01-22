@@ -175,7 +175,7 @@ API.prototype.menuInit = function (view) {
 
 API.prototype.getNetworkCategories = function() {
     $.ajax({
-        url: '/api/API/GetNetworkCategories',
+        url: '/GET/GetNetworkCategories',
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -198,7 +198,7 @@ API.prototype.getNetworkCategories = function() {
 API.prototype.getAvailableNetworks = function (category){
     //Realizamos la petición
     $.ajax({
-        url: '/api/API/GetAvailableNetworks?category=' + category,
+        url: '/GET/GetAvailableNetworks?category=' + category,
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -219,7 +219,7 @@ API.prototype.getAvailableNetworks = function (category){
 
 API.prototype.getGOFromTissue = function (category, tissue){
     $.ajax({
-        url: '/api/API/GetGOFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
+        url: '/GET/GetGOFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
         type: 'GET',
         success: function (data) {
 
@@ -265,7 +265,7 @@ API.prototype.getGOFromTissue = function (category, tissue){
 var global = false;
 API.prototype.getCellTypeFromTissue = function (category, tissue){
     $.ajax({
-        url: '/api/API/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
+        url: '/GET/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
         type: 'GET',
         success: function (data) {
 
@@ -330,7 +330,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
             .on('search.dt', function () {
                 var table = $('#cellType_table').DataTable();
 
-                table.columns({ "filter": "applied" }).every(function (index) {
+                table.columns({ "filter": "applied" }).every(function () {
                     if (this.data().unique().length == 1 && this.data().unique()[0] == "1") 
                         this.visible(false);
                     else 
@@ -352,7 +352,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
 API.prototype.reportOnGenes = function (category, tissue, genes) {
     try {
         $.ajax({
-            url: '/api/API/ReportOnGenes?WhichOne=' + category + '&Tissue=' + tissue + '&Genes=' + genes,
+            url: '/GET/ReportOnGenes?WhichOne=' + category + '&Tissue=' + tissue + '&Genes=' + genes,
             type: 'GET',
             success: function (data) {
                 console.log(data);
