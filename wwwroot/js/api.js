@@ -175,7 +175,7 @@ API.prototype.menuInit = function (view) {
 
 API.prototype.getNetworkCategories = function() {
     $.ajax({
-        url: '/GET/GetNetworkCategories',
+        url: '/coexp/GET/GetNetworkCategories',
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -198,7 +198,7 @@ API.prototype.getNetworkCategories = function() {
 API.prototype.getAvailableNetworks = function (category){
     //Realizamos la petición
     $.ajax({
-        url: '/GET/GetAvailableNetworks?category=' + category,
+        url: '/coexp/GET/GetAvailableNetworks?category=' + category,
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -219,7 +219,7 @@ API.prototype.getAvailableNetworks = function (category){
 
 API.prototype.getGOFromTissue = function (category, tissue){
     $.ajax({
-        url: '/GET/GetGOFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
+        url: '/coexp/GET/GetGOFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
         type: 'GET',
         success: function (data) {
 
@@ -265,7 +265,7 @@ API.prototype.getGOFromTissue = function (category, tissue){
 var global = false;
 API.prototype.getCellTypeFromTissue = function (category, tissue){
     $.ajax({
-        url: '/GET/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
+        url: '/coexp/GET/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
         type: 'GET',
         success: function (data) {
 
@@ -352,7 +352,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
 API.prototype.reportOnGenes = function (category, tissue, genes) {
     try {
         $.ajax({
-            url: '/GET/ReportOnGenes?WhichOne=' + category + '&Tissue=' + tissue + '&Genes=' + genes,
+            url: '/coexp/GET/ReportOnGenes?WhichOne=' + category + '&Tissue=' + tissue + '&Genes=' + genes,
             type: 'GET',
             success: function (data) {
                 console.log(data);

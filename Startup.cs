@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +33,7 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
         }
@@ -39,16 +41,7 @@ namespace CoExp_Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UsePathBase("/coexp");
-            app.Use((context, next) =>
-            {
-                if (context.Request.Path.StartsWithSegments("/coexp", out var remainder))
-                {
-                    context.Request.Path = remainder;
-                }
-
-                return next();
-            });
+            app.UsePathBase("/coexp/");
 
             if (env.IsDevelopment())
             {
@@ -61,12 +54,14 @@ namespace CoExp_Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Run}/{action=Case1}/{id?}");
+                
             });
         }
     }
