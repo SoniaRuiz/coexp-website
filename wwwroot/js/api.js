@@ -168,7 +168,8 @@ API.prototype.menuInit = function (view) {
         }
     });
 
-   //$('#cellType_table').DataTable()
+
+
 }
 
 
@@ -261,6 +262,7 @@ API.prototype.getGOFromTissue = function (category, tissue){
     });
 }
 
+var global = false;
 API.prototype.getCellTypeFromTissue = function (category, tissue){
     $.ajax({
         url: '/api/API/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
@@ -300,6 +302,8 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
                 data: data,
                 columns: columns,
                 dom: 'Bfrtip',
+                autoWidth: false,
+                deferRender: true,
                 columnDefs: [
                     {
                         targets: 1,
@@ -313,51 +317,26 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
                         collectionLayout: 'fixed two-column'
                     }*/
                 ],
-                drawCallback: function (settings) {
+                drawCallback: function () {
                     $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
                 },
                 "scrollX": true,
                 paging: true,
-                scrollCollapse: true,
+                scrollCollapse: true/*,
                 fixedColumns: {
                     leftColumns: 1
-                }
+                }*/
             })
-                
-                /*.on('search.dt', function () {
-                    $('#cellType_table').DataTable().columns().every(function () {
-                        var column = this;
+            .on('search.dt', function () {
+                var table = $('#cellType_table').DataTable();
 
-                        if ($(this).search($(this).value) != "1") {
-                            alert($(this).value)
-                        }
-                    })
-                    var data = $('#cellType_table tr').get().map(function (row) {
-                        return $(row).find('td').get().map(function (cell) {
-                            return $(cell).html();
-                        });
-                    });
-                    var cols = Object.keys(data[1]); //first row is the header
-                    for (var x = 1; x < cols.length; x++) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (Object.values(data[i])[x] !== 1) {
-                                hasPValue = true;
-                                break;
-                            }
-                        }
-                        if (!hasPValue) {
-                            for (var i = 0; i < data.length; i++) {
-                                delete (data[i][Object.keys(data[i])[x]])
-                            }
-                            x--;
-                        }
-                        hasPValue = false;
-                    }
-                    $('#cellType_table').DataTable().draw();
-                })*/
-            //.search(function () {
-                
-            //})
+                table.columns({ "filter": "applied" }).every(function (index) {
+                    if (this.data().unique().length == 1 && this.data().unique()[0] == "1") 
+                        this.visible(false);
+                    else 
+                        this.visible(true);
+                });
+            })
             $("body").removeClass("loading");
             $("#cellType_div").show();
             $('#cellType_table').DataTable().draw();
