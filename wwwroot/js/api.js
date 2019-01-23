@@ -14,7 +14,7 @@ API.prototype.menuInit = function (view) {
 
     //Disable second select
     $('#network')
-        .prop("disabled", true)
+        .prop('disabled', true)
         .selectpicker('refresh');
 
     //Disable 'send' button
@@ -262,7 +262,6 @@ API.prototype.getGOFromTissue = function (category, tissue){
     });
 }
 
-var global = false;
 API.prototype.getCellTypeFromTissue = function (category, tissue){
     $.ajax({
         url: '/coexp/GET/GetCellTypeFromTissue?WhichOne=' + category + '&Tissue=' + tissue,
@@ -321,7 +320,8 @@ API.prototype.getCellTypeFromTissue = function (category, tissue){
                     $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
                 },
                 "scrollX": true,
-                paging: true,
+                "scrollY": "390px",
+                paging: false,
                 scrollCollapse: true/*,
                 fixedColumns: {
                     leftColumns: 1
