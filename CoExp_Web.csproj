@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\simTree.css" />
     <Content Remove="wwwroot\js\coexp_menu_data.json" />
     <Content Remove="wwwroot\js\dependent_dropdown.js" />
-    <Content Remove="wwwroot\js\simTree.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -47,7 +47,7 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        public string GetAvailableNetworks(CoexpModel coexpdata)
+        public string GetAvailableNetworks(CoexpParams coexpdata)
         {
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
@@ -59,11 +59,11 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        public string GetGOFromTissue(CoexpModel coexpdata)
+        public string GetGOFromTissue(CoexpParams coexpdata)
         {
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            _coexpURL = _coexpURL + "getGOFromTissue?tissue=" + coexpdata.Tissue + "&which.one=" + coexpdata.WhichOne;
+            _coexpURL = _coexpURL + "getGOFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
             //Make the request
             var response = _adapter.HttpRequestJSON(_coexpURL);
 
@@ -71,11 +71,11 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        public string GetCellTypeFromTissue(CoexpModel coexpdata)
+        public string GetCellTypeFromTissue(CoexpParams coexpdata)
         {
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            _coexpURL = _coexpURL + "getCellTypeFromTissue?tissue=" + coexpdata.Tissue + "&which.one=" + coexpdata.WhichOne;
+            _coexpURL = _coexpURL + "getCellTypeFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
             //Make the request
             var response = _adapter.HttpRequestJSON(_coexpURL);
 
@@ -83,16 +83,36 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        public string ReportOnGenes(CoexpModel coexpdata)
+        public string ReportOnGenesMultipleTissue(CoexpParams coexpdata)
         {
+
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            _coexpURL = _coexpURL + "reportOnGenes?tissue=" + coexpdata.Tissue + "&which.one=" + coexpdata.WhichOne + "&genes=" + coexpdata.Genes;
-            //Make the request
-            var response = _adapter.HttpRequestJSON(_coexpURL);
+            var finalResponse = string.Empty;
+            //"**CoExpROSMAP**probad,ad,**gtexv6**AntCingCortex"
+            var categories = (coexpdata.MultipleSelectionData).Split("**,");
+            foreach(var category in categories)
+            {
+                if(category != String.Empty)
+                {
+                    var categoryData = category.Split("|");
+                    var categoryLabel = categoryData[0];
+                    var networks = categoryData[1].Remove(categoryData[1].Length - 2);
+
+                    var url = _coexpURL + "reportOnGenesMultipleTissue?tissues=" + networks + "&which.one=" + categoryLabel + "&genes=" + coexpdata.Genes;
+                    var localResponse = _adapter.HttpRequestJSON(url);
+                    if (!localResponse.Contains("error"))
+                    {
+                        finalResponse = finalResponse + localResponse;
+                    }
+                    else
+                        finalResponse = localResponse;
+                }
+                
+            }
 
             //Return the response
-            return response;
+            return finalResponse;
         }
     }
 }

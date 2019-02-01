@@ -9,26 +9,26 @@ namespace CoExp_Web.Models
     /// <summary>
     /// Model to store information sent/received from CoExp R application
     /// </summary>
-    public class CoexpModel
+    public class CoexpParams
     {
-        public string WhichOne { get; set; }
-        public string Tissue { get; set; }
-        public string Module { get; set; }
+        
         public string Category { get; set; }
+        public string Network { get; set; }
+        public string ModuleColor { get; set; }
         public string Genes { get; set; }
+        public string MultipleSelectionData { get; set; }
 
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public CoexpModel()
+        public CoexpParams()
         {
-            WhichOne = "SNIG";
-            Tissue = "rnaseq";
-            Module = "black";
-            Category = "rosmap";
-            Genes = String.Empty;
-
+            //    Category = "CoExpROSMAP";
+            //    Network = "ad";
+            //    ModuleColor = "black";
+            //    Genes = String.Empty;
+            //MultipleSelectionData = new List<string>();
         }
     }
 }

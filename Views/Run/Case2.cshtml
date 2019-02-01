@@ -1,7 +1,12 @@
-﻿
+﻿@model CoexpParams
 @{
     ViewData["Title"] = "Case2";
 }
+
+@Html.HiddenFor(m => m.Category)
+@Html.HiddenFor(m => m.Network)
+@Html.HiddenFor(m => m.ModuleColor)
+@Html.HiddenFor(m => m.Genes)
 
 <div class="row">
     <nav class="col-sm-3 sidebar">
@@ -9,14 +14,7 @@
         <h4>Please, make your selection:</h4>
         <br />
 
-        <label for="category">Category</label>
-        <select id="category" name="category" class="selectpicker" title="Select an option ..."></select>
-        <br /><br />
-
-
-        <label for="network">Network</label>
-        <select id="network" name="network" class="selectpicker" title="Select an option ..."></select>
-        <br /><br />
+        <div id="tree"></div>
 
 
         <label for="genes">Genes:</label>
@@ -29,7 +27,7 @@
 
     <main>
         <nav class="col-sm-9">
-            <div id="reportOnGenes_div">
+            <div id="reportOnGenes_div" style="display:none;">
                 <br />
                 <h4>Gene Annotation</h4>
                 <br />
@@ -44,7 +42,7 @@
                             <th>size</th>
                             <th>go_report</th>
                             @*<th>pd_genes</th>
-                            <th>preservation</th>*@
+                                <th>preservation</th>*@
                             <th>cell_type_pred</th>
                             <th>p_val_mods</th>
                             <th>_row</th>
@@ -52,22 +50,26 @@
                     </thead>
                 </table>
             </div>
+            <br />
+            <div id="error" style="display:none;" class="alert alert-danger">
+                <h4>Sorry. An error has occurred.</h4>
+                <br />
+            </div>
         </nav>
     </main>
     <div class="modal"><!-- loading layer --></div>
 </div>
 @section Scripts
     {
-    <link rel="stylesheet" href="~/css/bootstrap-select.css">
-    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+
+    <!-- Multiselect scripts -->
+    <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
+    <script type="text/javascript" src="~/js/simTree.js"></script>
+
+    <!-- DataTable scripts-->
     <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="~/js/api.js"></script>
-
-
-
     <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
     <script type="text/javascript" src="~/js/jszip.min.js"></script>
@@ -76,12 +78,17 @@
     <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
     <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
 
 
     <script type="text/javascript">
         $(document).ready(function () {
             API.prototype.menuInit(2);
+
+
         });
+
+
     </script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -90,10 +97,15 @@
             background: url('/coexp/images/details_open.png') no-repeat center center;
             cursor: pointer;
         }
-        tr.shown td.details-control { background: url('/coexp/images/details_close.png') no-repeat center center; }
+
+        tr.shown td.details-control {
+            background: url('/coexp/images/details_close.png') no-repeat center center;
+        }
+
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             padding: 01em 0.1em !important;
         }
+
             .dataTables_wrapper .dataTables_paginate .paginate_button:active {
                 outline: none;
                 background-color: white;

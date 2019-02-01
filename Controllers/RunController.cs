@@ -13,17 +13,18 @@ namespace CoExp_Web.Controllers
     public class RunController : Controller
     {
         
-        public IActionResult Case1()
+        public IActionResult Case1(CoexpParams coexpParams)
         {
-            return View("Case1");
+            return View("Case1",coexpParams);
         }
       
-        public IActionResult Case2()
+        public IActionResult Case2(CoexpParams coexpParams)
         {
-            return View("Case2");
+            return View("Case2", coexpParams);
         }
 
-     
+
+
         public IActionResult Privacy()
         {
             return View();

@@ -25,7 +25,7 @@ C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.dll
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.pdb
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete
-C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csprojAssemblyReference.cache
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Case1.g.cshtml.cs
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Case2.g.cshtml.cs
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Privacy.g.cshtml.cs
+C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csprojAssemblyReference.cache

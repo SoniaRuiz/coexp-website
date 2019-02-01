@@ -6,7 +6,9 @@ using CoExp_Web.Models;
 using CoExp_Web.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 
 namespace CoExp_Web.Controllers
 {
@@ -26,20 +28,15 @@ namespace CoExp_Web.Controllers
         {
             return "Welcome!";
         }
-        /// <summary>
-        /// Controller method to obtain data from GetNetworkFromTissue RytenLab_API method
-        /// </summary>
-        /// <param name="coexpdata">Data to be sent to the API</param>
-        /// <returns>Response received from the API</returns>
-        // GET: api/<controller>
-        [HttpGet]
-        [Route("GetNetworkFromTissue")]
-        public string GetNetworkFromTissue([FromQuery] CoexpModel coexpdata)
-        {
-            CoExpRepository repository = new CoExpRepository();
-            //string response = repository.GetNetworkFromTissue(coexpdata);
-            return String.Empty;
-        }
+
+        //[HttpGet]
+        //[Route("GetNetworkFromTissue")]
+        //public string GetNetworkFromTissue([FromQuery] CoexpModel coexpdata)
+        //{
+        //    CoExpRepository repository = new CoExpRepository();
+        //    //string response = repository.GetNetworkFromTissue(coexpdata);
+        //    return String.Empty;
+        //}
 
         [HttpGet]
         [Route("GetNetworkCategories")]
@@ -52,7 +49,7 @@ namespace CoExp_Web.Controllers
         }
         [HttpGet]
         [Route("GetAvailableNetworks")]
-        public string GetAvailableNetworks([FromQuery] CoexpModel coexpdata)
+        public string GetAvailableNetworks([FromQuery] CoexpParams coexpdata)
         {
             CoExpRepository repository = new CoExpRepository();
             string response = repository.GetAvailableNetworks(coexpdata);
@@ -60,7 +57,7 @@ namespace CoExp_Web.Controllers
         }
         [HttpGet]
         [Route("GetGOFromTissue")]
-        public string GetGOFromTissue([FromQuery] CoexpModel coexpdata)
+        public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
         {
             //category = which.one
             //network = tissue
@@ -84,7 +81,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetCellTypeFromTissue")]
-        public string GetCellTypeFromTissue([FromQuery] CoexpModel coexpdata)
+        public string GetCellTypeFromTissue([FromQuery] CoexpParams coexpdata)
         {
             //category = which.one
             //network = tissue
@@ -97,13 +94,13 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
-        [Route("ReportOnGenes")]
-        public string ReportOnGenes([FromQuery] CoexpModel coexpdata)
+        [Route("ReportOnGenesMultipleTissue")]
+        public string ReportOnGenesMultipleTissue([FromQuery] CoexpParams coexpdata)
         {
             //category = which.one
             //network = tissue
             CoExpRepository repository = new CoExpRepository();
-            string response = repository.ReportOnGenes(coexpdata);
+            string response = repository.ReportOnGenesMultipleTissue(coexpdata);
 
             string parsed_response = response.Replace("go.report", "go_report");
             parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
@@ -112,6 +109,59 @@ namespace CoExp_Web.Controllers
 
 
             return parsed_response;
+        }
+
+        [HttpGet]
+        [Route("GetTreeMenuData")]
+        public string GetTreeMenuData(string query)
+        {
+            dynamic jsonCategories = JsonConvert.DeserializeObject(GetNetworkCategories());
+            List<TreeMenuNode> nodes = new List<TreeMenuNode>();
+            //List<Network> networks = new List<Network>();
+            int categoryID = 1;
+            int networkID = 100;
+
+            TreeMenuNode all = new TreeMenuNode();
+            all.name = "All";
+            all.id = "0";
+            all.pid = string.Empty;
+            nodes.Add(all);
+
+            foreach (var categoryName in jsonCategories)
+            {
+                TreeMenuNode category = new TreeMenuNode();
+                category.name = categoryName;
+                category.id = categoryID.ToString();
+                category.pid = "0";
+                category.label = categoryName;
+                nodes.Add(category);
+
+                CoexpParams coexpParams = new CoexpParams();
+                coexpParams.Category = category.name;
+
+
+                dynamic jsonNetworks = JsonConvert.DeserializeObject(GetAvailableNetworks(coexpParams));
+                foreach (var networkName in jsonNetworks)
+                {
+                    TreeMenuNode network = new TreeMenuNode();
+                    network.name = networkName;
+                    network.id = networkID.ToString();
+                    network.pid = categoryID.ToString();
+                    network.label = categoryName;
+
+                    nodes.Add(network);
+                    networkID++;
+
+                }
+ 
+                
+
+                categoryID++;
+                networkID = 100;
+            }
+            var jsonAllData = JsonConvert.SerializeObject(nodes);
+            return jsonAllData;
+
         }
     }
 }
