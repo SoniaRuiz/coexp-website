@@ -137,8 +137,8 @@ API.prototype.menuInit = function (view) {
         }
         else {
             // Open this row
-            row.child(API.prototype.hideRowsGOFromTissue(row.data())).show();
-            tr.addClass('shown');
+            API.prototype.hideRowsGOFromTissue(row.data(), tr, row);
+            
         }
     });
     // Add event listener for opening and closing details
@@ -238,14 +238,27 @@ API.prototype.getNetworkCategories = function (category = null) {
             url: '/coexp/GET/GetNetworkCategories',
             type: 'GET',
             success: function (data) {
-                console.log(data);
-                data = JSON.parse(data);
-                //If the request has gone as expected, we fill the select by adding 'option' type elements:
-                for (var i = 0; i < data.length; i++) {
-                    option = '<option value="' + data[i] + '">' + data[i] + '</option>';
-                    $('#category')
-                        .append(option)
-                        .selectpicker('refresh');
+                if (data.includes("Problems")) {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else if (data == "{}") {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else {
+                    $("#goFromTissue_divError").hide();
+                    console.log(data);
+                    data = JSON.parse(data);
+                    //If the request has gone as expected, we fill the select by adding 'option' type elements:
+                    for (var i = 0; i < data.length; i++) {
+                        option = '<option value="' + data[i] + '">' + data[i] + '</option>';
+                        $('#category')
+                            .append(option)
+                            .selectpicker('refresh');
+                    }
                 }
             },
             error: function (data) {
@@ -273,13 +286,26 @@ API.prototype.getAvailableNetworks = function (category, network = null){
             url: '/coexp/GET/GetAvailableNetworks?Category=' + category,
             type: 'GET',
             success: function (data) {
-                console.log(data);
-                data = JSON.parse(data);
-                for (var i = 0; i < data.length; i++) {
-                    net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
-                    $('#network')
-                        .append(net_option)
-                        .selectpicker('refresh');
+                if (data.includes("Problems")) {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else if (data == "{}") {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else {
+                    $("#goFromTissue_divError").hide();
+                    console.log(data);
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
+                        $('#network')
+                            .append(net_option)
+                            .selectpicker('refresh');
+                    }
                 }
             },
             error: function (data) {
@@ -306,9 +332,18 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
             }
             else {
                 console.log(data);
-                //data = JSON.parse(data);
+                data = JSON.parse(data);
+
+                //Delete from 'data' all rows with p-value = 0
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i]["p_value"] === 0) { //TODO = check p-value column number
+                        data.splice(i, 1);
+                        i--;
+                    }
+                }
+
                 $('#goFromTissue_table').DataTable({
-                    data: JSON.parse(data),
+                    data: data,
                     columns: [
                         {
                             "className": 'details-control',
@@ -319,7 +354,38 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
                         { data: "query_number" },
                         { data: 'p_value' },
                         { data: 'query_size' },
-                        { data: 'term_id' },
+                        {
+                            data: 'term_id',
+                            "visible": false,
+                            "searchable": true
+                            /*render: function (data, type, row, meta) {
+                                var id = (data).split(':')[1];
+                                var orgID = data;
+                                $.ajax({
+                                    url: '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id,
+                                    type: 'GET',
+                                    success: function (data) {
+                                        data = JSON.parse(data);
+                                        if (data["results"].length > 0) {
+                                            data = data["results"][0];
+                                            var goInfo = "<b>Id: </b> " + data.id
+                                                + "<br/><b>Name: </b> " + data.name
+                                                + "<br/><b>Aspect: </b> " + data.aspect
+                                                + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+
+                                            return "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + orgID + "' data-content='" + goInfo + "'>" + orgID + "</a>";
+                                            
+                                        }
+                                        else 
+                                            return "No results found!";
+                                    },
+                                    error: function () {
+                                        return "No results found!";
+                                    }
+                                });    
+                            }*/
+                        },
                         { data: 'domain' },
                         { data: 'term_name' },
                         {
@@ -328,6 +394,7 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
                             "searchable": true
                         }
                     ],
+                    order: [[1, 'desc']],
                     dom: 'Bfrtip',
                     buttons: [
                         'copy', 'csv', 'excel', 'print'
@@ -565,14 +632,71 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
     }
 }
 
-API.prototype.hideRowsGOFromTissue = function (d) {/* Formatting function for row details - modify as you need */
-    // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        '<tr>' +
-        '<td>genes: </td>' +
-        '<td>' + d.intersection + '</td>' +
-        '</tr>' +
-        '</table>';
+API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details - modify as you need */
+
+    /*********************************/
+    /*********** ONTOLOGY ************/
+    /*********************************/
+    var id = (d.term_id).split(':')[1];
+
+    $.ajax({
+        url: '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id,
+        type: 'GET',
+        success: function (data) {
+            data = JSON.parse(data);
+            if (data["results"].length > 0) {
+                data = data["results"][0];
+                var goInfo = "<b>Id: </b> " + data.id
+                    + "<br/><b>Name: </b> " + data.name
+                    + "<br/><b>Aspect: </b> " + data.aspect
+                    + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+                var finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + goInfo + "'>" + d.term_id + "</a>";
+
+                /*********************************/
+                /************* GENES *************/
+                /*********************************/
+                if ((d.intersection).includes(", "))
+                    var allgenes = (d.intersection).split(", ");
+                else if ((d.intersection).includes(" "))
+                    var allgenes = (d.intersection).split(" ");
+                var finalGenesString = null;
+                for (var i = 0; i < allgenes.length; i++) {
+                    var vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + allgenes[i];
+                    var gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
+                    var gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
+
+                    var dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+                    dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+                    dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+                    if (i == 0)
+                        finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='focus' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+                    else
+                        finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='focus' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+                }
+                // `d` is the original data object for the row
+                var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>' +
+                    '<td>term_id: </td>' +
+                    '<td>' + finalOntologyString + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>genes: </td>' +
+                    '<td>' + finalGenesString + '</td>' +
+                    '</tr>' +
+                    '</table>';         
+                row.child(table).show();
+                tr.addClass('shown');
+                $("[data-placement='bottom']").popover();  
+            }
+        },
+        error: function () {
+            return "No results found!";
+        }
+    });    
+    
+
+    
 }
 
 API.prototype.hideRowsReportOnGenes = function (d) {/* Formatting function for row details - modify as you need */
@@ -596,19 +720,25 @@ API.prototype.getTreeMenuData = function () {
         type: 'GET',
         success: function (data) {
             console.log(data);
+            if (data.includes("Problems")) {
+                $("#error").children("p").remove();
+                $("#error").append("<p>" + data + "</p>");
+                $("#error").show();
+            }
+            else {
+                simTree({
+                    el: '#tree',
+                    data: JSON.parse(data),
+                    check: true,
+                    linkParent: true,
+                    onClick: function (item) {
+                        if (item.length > 0)
+                            $('#genes')
+                                .prop('disabled', false);
+                    }
 
-            simTree({
-                el: '#tree',
-                data: JSON.parse(data),
-                check: true,
-                linkParent: true,
-                onClick: function (item) {
-                    if (item.length > 0)
-                        $('#genes')
-                            .prop('disabled', false);
-                }
-
-            });
+                });
+            }
         },
         error: function (data) {
             //If an error occurs:
@@ -631,3 +761,5 @@ API.prototype.searchByModuleColor = function (moduleColor) {
     })
     window.location.href = "/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor; 
 }
+
+

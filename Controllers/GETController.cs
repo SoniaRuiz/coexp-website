@@ -115,53 +115,70 @@ namespace CoExp_Web.Controllers
         [Route("GetTreeMenuData")]
         public string GetTreeMenuData(string query)
         {
-            dynamic jsonCategories = JsonConvert.DeserializeObject(GetNetworkCategories());
-            List<TreeMenuNode> nodes = new List<TreeMenuNode>();
-            //List<Network> networks = new List<Network>();
-            int categoryID = 1;
-            int networkID = 100;
-
-            TreeMenuNode all = new TreeMenuNode();
-            all.name = "All";
-            all.id = "0";
-            all.pid = string.Empty;
-            nodes.Add(all);
-
-            foreach (var categoryName in jsonCategories)
+            try
             {
-                TreeMenuNode category = new TreeMenuNode();
-                category.name = categoryName;
-                category.id = categoryID.ToString();
-                category.pid = "0";
-                category.label = categoryName;
-                nodes.Add(category);
+                dynamic jsonCategories = JsonConvert.DeserializeObject(GetNetworkCategories());
+                List<TreeMenuNode> nodes = new List<TreeMenuNode>();
+                //List<Network> networks = new List<Network>();
+                int categoryID = 1;
+                int networkID = 100;
 
-                CoexpParams coexpParams = new CoexpParams();
-                coexpParams.Category = category.name;
+                TreeMenuNode all = new TreeMenuNode();
+                all.name = "All";
+                all.id = "0";
+                all.pid = string.Empty;
+                nodes.Add(all);
 
-
-                dynamic jsonNetworks = JsonConvert.DeserializeObject(GetAvailableNetworks(coexpParams));
-                foreach (var networkName in jsonNetworks)
+                foreach (var categoryName in jsonCategories)
                 {
-                    TreeMenuNode network = new TreeMenuNode();
-                    network.name = networkName;
-                    network.id = networkID.ToString();
-                    network.pid = categoryID.ToString();
-                    network.label = categoryName;
+                    TreeMenuNode category = new TreeMenuNode();
+                    category.name = categoryName;
+                    category.id = categoryID.ToString();
+                    category.pid = "0";
+                    category.label = categoryName;
+                    nodes.Add(category);
 
-                    nodes.Add(network);
-                    networkID++;
+                    CoexpParams coexpParams = new CoexpParams();
+                    coexpParams.Category = category.name;
 
+
+                    dynamic jsonNetworks = JsonConvert.DeserializeObject(GetAvailableNetworks(coexpParams));
+                    foreach (var networkName in jsonNetworks)
+                    {
+                        TreeMenuNode network = new TreeMenuNode();
+                        network.name = networkName;
+                        network.id = networkID.ToString();
+                        network.pid = categoryID.ToString();
+                        network.label = categoryName;
+
+                        nodes.Add(network);
+                        networkID++;
+
+                    }
+
+
+
+                    categoryID++;
+                    networkID = 100;
                 }
- 
-                
-
-                categoryID++;
-                networkID = 100;
+                var jsonAllData = JsonConvert.SerializeObject(nodes);
+                return jsonAllData;
             }
-            var jsonAllData = JsonConvert.SerializeObject(nodes);
-            return jsonAllData;
+            catch(Exception ex)
+            {
+                return "Problems with web service connection. " + ex.Message;
+            }
 
+        }
+
+        [HttpGet]
+        [Route("GetInfoFromQuickGO")]
+        public string GetInfoFromQuickGO(string goTerm)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromQuickGO(goTerm);
+
+            return response;
         }
     }
 }
