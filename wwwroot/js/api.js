@@ -474,12 +474,26 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                                 delete data[i][columns[x]]
                         hasPValue = false;
                     }
-                }
-                else {
-                    //Delete from 'data' all rows which only has 1s
+                    //Delete from 'data' all rows which only has 1s or 0s
+                    hasPvalue = false;
                     for (var i = 0; i < data.length; i++) {
                         for (var x = 1; x < columns.length; x++)
-                            if (Object.values(data[i])[x] === 1) {
+                            if (Object.values(data[i])[x] !== 1 && Object.values(data[i])[x] !== 0) {
+                                hasPvalue = true;
+                                break;
+                            }
+                        if (!hasPvalue) {
+                            data.splice(i, 1);
+                            i--;
+                        }
+                        hasPvalue = false;
+                    }
+                }
+                else {
+                    //Delete from 'data' all rows which only has 1s or 0s
+                    for (var i = 0; i < data.length; i++) {
+                        for (var x = 1; x < columns.length; x++)
+                            if (Object.values(data[i])[x] === 1 || Object.values(data[i])[x] === 0) {
                                 data.splice(i, 1);
                                 i--;
                             }
@@ -507,7 +521,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                             'copy', 'csv', 'excel', 'print'
                         ],
                         drawCallback: function () {
-                            $('#cellType_table').find('td:contains(.)').css('backgroundColor', 'yellow');
+                            $('#cellType_table').find('td:not(:first-child):contains(.)').css('backgroundColor', 'yellow');
                         },
                         "scrollX": true,
                         //"scrollY": "390px",
@@ -670,9 +684,9 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
                     dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
                     dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
                     if (i == 0)
-                        finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='focus' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+                        finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
                     else
-                        finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='focus' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+                        finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
                 }
                 // `d` is the original data object for the row
                 var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
@@ -731,6 +745,7 @@ API.prototype.getTreeMenuData = function () {
                     data: JSON.parse(data),
                     check: true,
                     linkParent: true,
+                    expand: 'expand',
                     onClick: function (item) {
                         if (item.length > 0)
                             $('#genes')
@@ -738,6 +753,7 @@ API.prototype.getTreeMenuData = function () {
                     }
 
                 });
+                $("ul.show").removeClass("show");
             }
         },
         error: function (data) {
