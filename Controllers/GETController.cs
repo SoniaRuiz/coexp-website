@@ -180,5 +180,15 @@ namespace CoExp_Web.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("GetInfoFromREACTOME")]
+        public string GetInfoFromREACTOME(string reacTerm)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromREACTOME(reacTerm);
+
+            return response;
+        }
     }
 }

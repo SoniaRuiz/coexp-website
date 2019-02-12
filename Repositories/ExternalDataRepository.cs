@@ -30,5 +30,17 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
+
+        public string GetInfoFromREACTOME(string reacTerm)
+        {
+
+            var url = "https://reactome.org/ContentService/data/query/" + reacTerm;
+            //Make the request
+            var response = _adapter.HttpRequestJSON(url);
+
+            //Return the response
+            return response;
+        }
+        
     }
 }

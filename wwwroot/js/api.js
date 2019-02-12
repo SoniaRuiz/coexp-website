@@ -358,33 +358,6 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
                             data: 'term_id',
                             "visible": false,
                             "searchable": true
-                            /*render: function (data, type, row, meta) {
-                                var id = (data).split(':')[1];
-                                var orgID = data;
-                                $.ajax({
-                                    url: '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id,
-                                    type: 'GET',
-                                    success: function (data) {
-                                        data = JSON.parse(data);
-                                        if (data["results"].length > 0) {
-                                            data = data["results"][0];
-                                            var goInfo = "<b>Id: </b> " + data.id
-                                                + "<br/><b>Name: </b> " + data.name
-                                                + "<br/><b>Aspect: </b> " + data.aspect
-                                                + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
-
-
-                                            return "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + orgID + "' data-content='" + goInfo + "'>" + orgID + "</a>";
-                                            
-                                        }
-                                        else 
-                                            return "No results found!";
-                                    },
-                                    error: function () {
-                                        return "No results found!";
-                                    }
-                                });    
-                            }*/
                         },
                         { data: 'domain' },
                         { data: 'term_name' },
@@ -394,7 +367,7 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
                             "searchable": true
                         }
                     ],
-                    order: [[1, 'desc']],
+                    order: [[2, 'asc']],
                     dom: 'Bfrtip',
                     buttons: [
                         'copy', 'csv', 'excel', 'print'
@@ -531,7 +504,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                         .on('search.dt', function () {
                             var table = $('#cellType_table').DataTable();
                             table.columns({ "filter": "applied" }).every(function () {
-                                if (this.data().unique().length == 1 && this.data().unique()[0] == "1")
+                                if (this.data().unique().length == 1 && (this.data().unique()[0] == "1" || this.data().unique()[0] == "0"))
                                     this.visible(false);
                                 else
                                     this.visible(true);
@@ -648,17 +621,50 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
 
 API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details - modify as you need */
 
+    var term = (d.term_id).split(':');
+    var id = term[1];
+    var url = "";
+
+    if (term[0] == "GO") {
+        url = '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id;
+    }
+    else if (term[0] == "REAC") {
+        url = '/coexp/GET/GetInfoFromREACTOME?reacTerm=' + id;
+    }
+
+
     /*********************************/
-    /*********** ONTOLOGY ************/
+    /************* GENES *************/
     /*********************************/
-    var id = (d.term_id).split(':')[1];
+    if ((d.intersection).includes(", "))
+        var allgenes = (d.intersection).split(", ");
+    else if ((d.intersection).includes(" "))
+        var allgenes = (d.intersection).split(" ");
+    var finalGenesString = null;
+    for (var i = 0; i < allgenes.length; i++) {
+        var vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + allgenes[i];
+        var gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
+        var gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
+
+        var dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+        dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+        dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+        if (i == 0)
+            finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+        else
+            finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+    }
+
+    /*********************************/
+    /****** ONTOLOGY # REACTOME ******/
+    /*********************************/
 
     $.ajax({
-        url: '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id,
+        url: url,
         type: 'GET',
         success: function (data) {
             data = JSON.parse(data);
-            if (data["results"].length > 0) {
+            if (term[0] == "GO" && data["results"].length > 0) {
                 data = data["results"][0];
                 var goInfo = "<b>Id: </b> " + data.id
                     + "<br/><b>Name: </b> " + data.name
@@ -667,42 +673,41 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
                 var finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + goInfo + "'>" + d.term_id + "</a>";
 
-                /*********************************/
-                /************* GENES *************/
-                /*********************************/
-                if ((d.intersection).includes(", "))
-                    var allgenes = (d.intersection).split(", ");
-                else if ((d.intersection).includes(" "))
-                    var allgenes = (d.intersection).split(" ");
-                var finalGenesString = null;
-                for (var i = 0; i < allgenes.length; i++) {
-                    var vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + allgenes[i];
-                    var gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
-                    var gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
-
-                    var dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
-                    dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
-                    dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
-                    if (i == 0)
-                        finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
-                    else
-                        finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
-                }
-                // `d` is the original data object for the row
-                var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                    '<tr>' +
-                    '<td>term_id: </td>' +
-                    '<td>' + finalOntologyString + '</td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<td>genes: </td>' +
-                    '<td>' + finalGenesString + '</td>' +
-                    '</tr>' +
-                    '</table>';         
-                row.child(table).show();
-                tr.addClass('shown');
-                $("[data-placement='bottom']").popover();  
             }
+            else if (term[0] == "REAC" && data.dbId != null) {
+                console.log(data);
+                var lastElement = "";
+
+                if (data.isInDisease) {
+                    lastElement = "<br/><b>Disease: </b> (" + data.disease[0].displayName + ") " + data.disease[0].definition + "<br/>";
+                }
+                else if (data.goBiologicalProcess != undefined) {
+                    lastElement = "<br/><b>Biological Process: </b> " + data.goBiologicalProcess.definition + "<br/>";
+                }
+
+                var reacInfo = "<b>Id: </b> " + d.term_id
+                    + "<br/><b>Name: </b> " + data.displayName
+                    + "<br/><b>Species: </b> " + data.speciesName
+                    + lastElement;
+
+                var finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + reacInfo + "'>" + d.term_id + "</a>";
+
+            }
+
+            // `d` is the original data object for the row
+            var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>term_id: </td>' +
+                '<td>' + finalOntologyString + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>genes: </td>' +
+                '<td>' + finalGenesString + '</td>' +
+                '</tr>' +
+                '</table>';
+            row.child(table).show();
+            tr.addClass('shown');
+            $("[data-placement='bottom']").popover();
         },
         error: function () {
             return "No results found!";

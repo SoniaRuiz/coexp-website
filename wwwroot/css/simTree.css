@@ -16,9 +16,15 @@
     font-size: 0; }
     .sim-tree li ul {
       display: none;
-      margin-left: 40px; }
-  .sim-tree ul.show, .sim-tree li.show {
-    display: block; }
+      margin-left: 20px; }
+        .sim-tree i.hidden + a {
+            /*display: none;*/
+            margin-left:15px !important;
+        }
+
+    .sim-tree ul.show, .sim-tree li.show {
+        display: block;
+    }
   .sim-tree ul.none, .sim-tree li.none {
     display: none; }
   .sim-tree li.disabled > a {
