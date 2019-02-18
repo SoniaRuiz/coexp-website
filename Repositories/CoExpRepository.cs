@@ -91,26 +91,56 @@ namespace CoExp_Web.Repositories
             var finalResponse = string.Empty;
             //"**CoExpROSMAP**probad,ad,**gtexv6**AntCingCortex"
             var categories = (coexpdata.MultipleSelectionData).Split("**,");
-            foreach(var category in categories)
+            List<JArray> responses = new List<JArray>();
+            JArray finalJSONresponse = new JArray();
+
+            foreach (var category in categories)
             {
                 if(category != String.Empty)
                 {
                     var categoryData = category.Split("|");
                     var categoryLabel = categoryData[0];
-                    var networks = categoryData[1].Remove(categoryData[1].Length - 2);
+                    var networks = string.Empty;
+                    if (categoryData[1].Contains(","))
+                        networks = categoryData[1].Remove(categoryData[1].Length - 2);
+                    else
+                        networks = categoryData[1];
+
+                    if(networks.Contains("**"))
+                        networks = networks.Remove(networks.Length - 2);
 
                     var url = _coexpURL + "reportOnGenesMultipleTissue?tissues=" + networks + "&which.one=" + categoryLabel + "&genes=" + coexpdata.Genes;
                     var localResponse = _adapter.HttpRequestJSON(url);
+
                     if (!localResponse.Contains("error"))
                     {
-                        finalResponse = finalResponse + localResponse;
+                        JObject item = JObject.Parse(localResponse);
+                        responses.Add((JArray)item.SelectToken("report"));
+                        //finalResponse = finalResponse + localResponse;
                     }
                     else
+                    {
                         finalResponse = localResponse;
+                        break;
+                    }
                 }
-                
             }
+            //finalJSONresponse = responses[0];
+            if (finalResponse == string.Empty)
+            {
+    
+                foreach (JArray response in responses)
+                {
+                    foreach(var e in response)
+                    {
+                        finalJSONresponse.Add(e);
+                    }
+                    
+                }
 
+                return finalJSONresponse.ToString();
+            }
+            else
             //Return the response
             return finalResponse;
         }

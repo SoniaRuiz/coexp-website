@@ -171,9 +171,9 @@ namespace CoExp_Web.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetInfoFromQuickGO")]
-        public string GetInfoFromQuickGO(string goTerm)
+        public string GetInfoFromQuickGO([FromForm]string goTerm)
         {
             ExternalDataRepository repository = new ExternalDataRepository();
             string response = repository.GetInfoFromQuickGO(goTerm);

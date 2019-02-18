@@ -79,6 +79,8 @@ API.prototype.menuInit = function (view) {
         $('#send_button').prop("disabled", true);
 
         if (view == 1) {
+            //Hide tabs
+            $("#tabs").hide();
             //Hide results divs
             $("#goFromTissue_div").hide();
             $("#cellType_div").hide();
@@ -153,12 +155,12 @@ API.prototype.menuInit = function (view) {
         }
         else {
             // Open this row
-            row.child(API.prototype.hideRowsReportOnGenes(row.data())).show();
-            tr.addClass('shown');
+            API.prototype.hideRowsReportOnGenes(row.data(), tr, row);
+            
         }
     });
 
-
+    
 
 }
 
@@ -168,32 +170,58 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
     if (view == 1 || view == 11) {
         //hide previous errors/results
         $('#error').hide();
+
+        //get the selection-types selected
         var module_selection_types = $('#module_selection').val();
+
+        //remove old tables
         if ($('#goFromTissue_table tr').length > 1) {
-            $('#goFromTissue_table').DataTable().destroy()
+            $('#goFromTissue_table').DataTable().destroy();
+            $('#goFromTissue_table').remove("tbody");
+            $('#goFromTissue_div').hide();
+
         }
         if ($('#cellType_table tr').length > 1) {
-            $('#cellType_table').DataTable().destroy()
+            $('#cellType_table').DataTable().destroy();
+            $('#cellType_table').children().remove();
+
+            $('#cellType_div').hide();
         }
+
         //show result divs
         if (module_selection_types.length == 1) {
             if (module_selection_types[0] == "1") { //only byontology and bycolor
                 API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                //hide/sow tabs and divs
                 $("#cellType_div").hide();
+               
+                $('.nav-tabs a[href="#tab1"]').tab("show");
+                $('.nav-tabs a[href="#tab1"]').tab().show();
+                $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
             else {//only bycelltype
                 API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                //hide/sow tabs and divs
                 $("#goFromTissue_div").hide();
+
+                $('.nav-tabs a[href="#tab2"]').tab("show");
+                $('.nav-tabs a[href="#tab2"]').tab().show();
+                $('.nav-tabs a[href="#tab1"]').tab().hide();
             }
         }
         else if (module_selection_types.length == 2) {//both bycelltype and bycolor
             API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
             API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+            //Show all tabs
+            $('.nav-tabs a[href="#tab1"]').tab("show");
+            $('.nav-tabs a[href="#tab1"]').tab().show();
+            $('.nav-tabs a[href="#tab2"]').tab().show();
         }
         else {
             $('#goFromTissue_div').hide();
             $('#cellType_div').hide();
             $('#error').show();
+            $("body").removeClass("loading");
         }
     }
     else if (view == 2) {
@@ -540,7 +568,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                 else {
                     console.log(data);
                     $('#reportOnGenes_table').DataTable({
-                        data: JSON.parse(data).report,
+                        data: JSON.parse(data),
                         columns: [
                             {
                                 className: "details-control",
@@ -583,19 +611,39 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                             'copy', 'csv', 'excel', 'print',
                             {
                                 text: 'BEST RESULTS',
+                                attr: {
+                                    id: 'bestResults'
+                                },
                                 action: function (e, dt, node, config) {
                                     //Filter by pvalues lower than 0.05
-                                    $("#reportOnGenes_table").dataTable.ext.search.push(
-                                        function (settings, data, dataIndex) {
-                                            var max = parseFloat(0.05);
-                                            var pvalue = parseFloat(data[8]) || 0;
+                                    
+                                    if ($('#bestResults').hasClass("pressed"))
+                                        $('#bestResults').removeClass("pressed");
+                                    else
+                                        $('#bestResults').addClass("pressed");
+                                    
 
-                                            if (isNaN(max) || pvalue <= max || isNaN(max) || pvalue <= max) {
+                         
+                                    $('#reportOnGenes_table').dataTable.ext.search.push(
+                                        function (settings, data, dataIndex) {
+
+                                            if ($('#bestResults').hasClass("pressed")) {
+                                                var max = parseFloat(0.05);
+                                                var pvalue = parseFloat(data[8]) || 0;
+
+                                                if (isNaN(max) || pvalue <= max || isNaN(max) || pvalue <= max) {
+                                                    return true;
+                                                }
+                                                return false;
+                                            }
+                                            else {
                                                 return true;
                                             }
-                                            return false;
+              
                                         }
                                     );
+                                       
+
                                     dt.draw();
                                 }
                             }
@@ -609,8 +657,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
             },
             error: function (data) {
                 //If an error occurs:
-                console.log(data);
-                
+                console.log(data); 
             }
         });
     }
@@ -718,18 +765,64 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     
 }
 
-API.prototype.hideRowsReportOnGenes = function (d) {/* Formatting function for row details - modify as you need */
+API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting function for row details - modify as you need */
+
+    var finalGoReport = d.go_report;
+    var allGOTerms = d.go_report.match(/GO:[0-9]*/g);
+
+    if (allGOTerms != null) {
+
+        for (var i = 0; i < allGOTerms.length; i++) {
+
+            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content=''>" + allGOTerms[i] + "</a>");
+        }
+    }
+    else
+        finalGoReport = "no data"
+
+
     // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        '<tr>' +
-        '<td>go_report: </td>' +
-        '<td>' + d.go_report + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>cell_type_pred: </td>' +
-        '<td>' + d.cell_type_pred + '</td>' +
-        '</tr>' +
-        '</table>';
+    var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>go_report: </td>' +
+        '<td>' + finalGoReport + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>cell_type_pred: </td>' +
+                '<td>' + d.cell_type_pred + '</td>' +
+                '</tr>' +
+                '</table>';
+
+    row.child(table).show();
+    tr.addClass('shown');
+}
+function getCardData(term) {
+    var url = '/coexp/GET/GetInfoFromQuickGO';
+    
+    $.ajax({
+        url: url,
+        type: 'POST',
+
+        data: {goTerm: term},
+        success: function (data) {
+            data = JSON.parse(data);
+            if (data["results"].length > 0) {
+                data = data["results"][0];
+                var goInfo = "<b>Id: </b> " + data.id
+                    + "<br/><b>Name: </b> " + data.name
+                    + "<br/><b>Aspect: </b> " + data.aspect
+                    + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+                var goTerm = (this.data).split("%3A")[1];
+                $("a[id*='" + goTerm + "']").attr("data-content", goInfo);
+                $("[data-placement='bottom']").popover();
+            }
+            
+        },
+        error: function () {
+            return "No results found!";
+        }
+    });
 }
 
 API.prototype.getTreeMenuData = function () {
@@ -780,7 +873,8 @@ API.prototype.searchByModuleColor = function (moduleColor) {
         else
             network = network + "," + val.innerText
     })
-    window.location.href = "/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor; 
+    $("body").removeClass("loading");
+    window.open(url = "/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
 
 
