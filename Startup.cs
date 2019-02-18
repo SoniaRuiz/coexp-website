@@ -60,7 +60,7 @@ namespace CoExp_Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Run}/{action=Case1}/{id?}");
+                    template: "{controller=Run}/{action=Privacy}/{id?}");
                 
             });
         }

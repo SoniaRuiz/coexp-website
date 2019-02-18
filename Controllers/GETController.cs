@@ -173,20 +173,20 @@ namespace CoExp_Web.Controllers
 
         [HttpPost]
         [Route("GetInfoFromQuickGO")]
-        public string GetInfoFromQuickGO([FromForm]string goTerm)
+        public string GetInfoFromQuickGO([FromForm]string term)
         {
             ExternalDataRepository repository = new ExternalDataRepository();
-            string response = repository.GetInfoFromQuickGO(goTerm);
+            string response = repository.GetInfoFromQuickGO(term);
 
             return response;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetInfoFromREACTOME")]
-        public string GetInfoFromREACTOME(string reacTerm)
+        public string GetInfoFromREACTOME([FromForm]string term)
         {
             ExternalDataRepository repository = new ExternalDataRepository();
-            string response = repository.GetInfoFromREACTOME(reacTerm);
+            string response = repository.GetInfoFromREACTOME(term);
 
             return response;
         }

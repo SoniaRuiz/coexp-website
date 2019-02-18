@@ -671,12 +671,15 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     var term = (d.term_id).split(':');
     var id = term[1];
     var url = "";
+    var dataToSend = "";
 
     if (term[0] == "GO") {
-        url = '/coexp/GET/GetInfoFromQuickGO?goTerm=GO:' + id;
+        url = '/coexp/GET/GetInfoFromQuickGO';
+        dataToSend = d.term_id;
     }
     else if (term[0] == "REAC") {
-        url = '/coexp/GET/GetInfoFromREACTOME?reacTerm=' + id;
+        url = '/coexp/GET/GetInfoFromREACTOME';
+        dataToSend = term[1];
     }
 
 
@@ -708,7 +711,8 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
     $.ajax({
         url: url,
-        type: 'GET',
+        type: 'POST',
+        data: { term: dataToSend },
         success: function (data) {
             data = JSON.parse(data);
             if (term[0] == "GO" && data["results"].length > 0) {
@@ -802,8 +806,7 @@ function getCardData(term) {
     $.ajax({
         url: url,
         type: 'POST',
-
-        data: {goTerm: term},
+        data: {term: term},
         success: function (data) {
             data = JSON.parse(data);
             if (data["results"].length > 0) {
