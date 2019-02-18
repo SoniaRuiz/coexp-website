@@ -877,7 +877,7 @@ API.prototype.searchByModuleColor = function (moduleColor) {
             network = network + "," + val.innerText
     })
     $("body").removeClass("loading");
-    window.open(url = "/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
+    window.open(url = "/coexp/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
 
 
