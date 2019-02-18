@@ -774,7 +774,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting funct
 
         for (var i = 0; i < allGOTerms.length; i++) {
 
-            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content=''>" + allGOTerms[i] + "</a>");
+            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
         }
     }
     else
