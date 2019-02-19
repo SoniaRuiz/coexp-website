@@ -13,12 +13,12 @@ namespace CoExp_Web.Controllers
     public class RunController : Controller
     {
         
-        public IActionResult Case1(CoexpParams coexpParams)
+        public IActionResult Catalog(CoexpParams coexpParams)
         {
             return View("Case1",coexpParams);
         }
       
-        public IActionResult Case2(CoexpParams coexpParams)
+        public IActionResult Annotated(CoexpParams coexpParams)
         {
             return View("Case2", coexpParams);
         }

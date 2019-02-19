@@ -41,6 +41,16 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
+        public string GetInfoFromKEGG(string keggTerm)
+        {
+
+            var url = "http://togows.org/entry/kegg-pathway/map" + keggTerm + ".json";
+            //Make the request
+            var response = _adapter.HttpRequestJSON(url);
+
+            //Return the response
+            return response;
+        }
         
     }
 }

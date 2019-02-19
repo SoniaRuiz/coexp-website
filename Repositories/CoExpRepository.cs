@@ -115,6 +115,14 @@ namespace CoExp_Web.Repositories
                     if (!localResponse.Contains("error"))
                     {
                         JObject item = JObject.Parse(localResponse);
+
+                        //dynamic jsonData = JsonConvert.DeserializeObject(localResponse);
+                        /*var categories =
+                            from c in item["report"].Children().Values<string>()
+                            group c by c
+                            into g
+                            orderby g.Count() descending
+                            select new { Category = g.Key, Count = g.Count() };*/
                         responses.Add((JArray)item.SelectToken("report"));
                         //finalResponse = finalResponse + localResponse;
                     }

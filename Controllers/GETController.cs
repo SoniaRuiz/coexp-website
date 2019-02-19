@@ -106,11 +106,12 @@ namespace CoExp_Web.Controllers
             parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
             parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
             parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
+            parsed_response = parsed_response.Replace("tissue", "network");
 
 
             return parsed_response;
         }
-
+        
         [HttpGet]
         [Route("GetTreeMenuData")]
         public string GetTreeMenuData(string query)
@@ -187,6 +188,16 @@ namespace CoExp_Web.Controllers
         {
             ExternalDataRepository repository = new ExternalDataRepository();
             string response = repository.GetInfoFromREACTOME(term);
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("GetInfoFromKEGG")]
+        public string GetInfoFromKEGG([FromForm]string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromKEGG(term);
 
             return response;
         }

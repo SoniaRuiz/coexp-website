@@ -576,8 +576,11 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: null,
                                 defaultContent: ''
                             },
-                            { data: 'gene' },
+                            
+                            { data: 'gene' },  
+                            { data: 'network' },
                             { data: 'ensgene' },
+                            { data: 'p_val_mods' },
                             { data: 'mm' },
                             {
                                 data: 'module',
@@ -600,12 +603,11 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: 'cell_type_pred',
                                 "visible": false,
                                 "searchable": true
-                            },
-                            { data: 'p_val_mods' },
-                            { data: '_row' }
+                            }
+                            //{ data: '_row' }
                         ],
 
-                        "order": [[8, 'asc']],
+                        "order": [[4, 'asc']],
                         dom: 'Bfrtip',
                         buttons: [
                             'copy', 'csv', 'excel', 'print',
@@ -629,7 +631,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
 
                                             if ($('#bestResults').hasClass("pressed")) {
                                                 var max = parseFloat(0.05);
-                                                var pvalue = parseFloat(data[8]) || 0;
+                                                var pvalue = parseFloat(data[4]) || 0;
 
                                                 if (isNaN(max) || pvalue <= max || isNaN(max) || pvalue <= max) {
                                                     return true;
@@ -679,6 +681,10 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     }
     else if (term[0] == "REAC") {
         url = '/coexp/GET/GetInfoFromREACTOME';
+        dataToSend = term[1];
+    }
+    else {
+        url = '/coexp/GET/GetInfoFromKEGG';
         dataToSend = term[1];
     }
 
@@ -735,13 +741,32 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
                 else if (data.goBiologicalProcess != undefined) {
                     lastElement = "<br/><b>Biological Process: </b> " + data.goBiologicalProcess.definition + "<br/>";
                 }
-
                 var reacInfo = "<b>Id: </b> " + d.term_id
                     + "<br/><b>Name: </b> " + data.displayName
                     + "<br/><b>Species: </b> " + data.speciesName
                     + lastElement;
 
                 var finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + reacInfo + "'>" + d.term_id + "</a>";
+            }
+            else if (term[0] == "KEGG" && data.length > 0) {
+                data = data[0];
+
+                var lastElement = "";
+                if (data.description != "") {
+                    lastElement = "<b>Description: </b> " + data.description + "<br/>";
+                }
+                else if (data.diseases != "") {
+                    lastElement = lastElement + "<b>Diseases: </b> ";
+                    for (var disease in data.diseases) {
+                        lastElement = lastElement + data.diseases[disease] + "<br/>";
+                    }
+                }
+                var keggInfo = "<b>Id: </b> " + data.entry_id
+                    + "<br/><b>Name: </b> " + data.name + "<br/>"
+                    + lastElement;
+
+
+                var finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
 
             }
 
@@ -778,7 +803,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting funct
 
         for (var i = 0; i < allGOTerms.length; i++) {
 
-            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
+            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
         }
     }
     else
@@ -800,7 +825,8 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting funct
     row.child(table).show();
     tr.addClass('shown');
 }
-function getCardData(term) {
+
+API.prototype.getCardData = function(term) {
     var url = '/coexp/GET/GetInfoFromQuickGO';
     
     $.ajax({
@@ -877,7 +903,7 @@ API.prototype.searchByModuleColor = function (moduleColor) {
             network = network + "," + val.innerText
     })
     $("body").removeClass("loading");
-    window.open(url = "/coexp/Run/Case1?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
+    window.open(url = "/coexp/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
 
 
