@@ -101,7 +101,7 @@ namespace CoExp_Web.Repositories
                     var categoryData = category.Split("|");
                     var categoryLabel = categoryData[0];
                     var networks = string.Empty;
-                    if (categoryData[1].Contains(","))
+                    if (categoryData[1].Substring(categoryData[1].Length - 1, 1) == (","))
                         networks = categoryData[1].Remove(categoryData[1].Length - 2);
                     else
                         networks = categoryData[1];
