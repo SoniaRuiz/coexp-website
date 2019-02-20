@@ -39,15 +39,32 @@
                             <th>network</th>
                             <th>ensgene</th>
                             <th>p_val_mods</th>
-                            <th>mm</th>
                             <th>module</th>
+                            <th>mm</th>
                             <th>size</th>
                             <th>go_report</th>
-                            @*<th>pd_genes</th>
-        <th>preservation</th>*@
                             <th>cell_type_pred</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="summariseClustering_div" style="display:none;">
+                <br />
+                <h4>Summarise Clustering</h4>
+                <br />
+                <table id="summariseClustering_table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>network</th>
+                            <th>module</th>
+                            <th>overlap</th>
+                            <th>gene</th>
+                            <th>p_val_mods</th>
+                            <th>size</th>
 
-                            @*<th>_row</th>*@
+                            <th>go_report</th>
+                            <th>cell_type_pred</th>
                         </tr>
                     </thead>
                 </table>
@@ -62,72 +79,71 @@
 </div>
 @section Scripts
     {
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
+        
+        <!--Multiselect scripts -->
+        <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
+        <script type="text/javascript" src="~/js/simTree.js"></script>
 
-    <!-- Multiselect scripts -->
-    <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
-    <script type="text/javascript" src="~/js/simTree.js"></script>
-
-    <!-- DataTable scripts-->
-    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="~/js/api.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
-    <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+        <!-- DataTable scripts-->
+        <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript" src="~/js/api.js"></script>
+        <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" src="~/js/jszip.min.js"></script>
+        <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
+        <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
+        <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
+        <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+        <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
         $(document).ready(function () {
             API.prototype.menuInit(2);
-            
+
         });
+        </script>
 
-
-    </script>
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <style type="text/css">
-        td.details-control {
-            background: url('/coexp/images/details_open.png') no-repeat center center;
-            cursor: pointer;
-        }
-
-        tr.shown td.details-control {
-            background: url('/coexp/images/details_close.png') no-repeat center center;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 01em 0.1em !important;
-        }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-                outline: none;
-                background-color: white;
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
-                background: -webkit-linear-gradient(top, white 0%, white 100%);
-                background: -moz-linear-gradient(top, white 0%, white 100%);
-                background: -ms-linear-gradient(top, white 0%, white 100%);
-                background: -o-linear-gradient(top, white 0%, white 100%);
-                background: linear-gradient(to bottom, white 0%, white 100%);
-                box-shadow: inset 0 0 3px white;
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+        <style type="text/css">
+            td.details-control {
+                background: url('/coexp/images/details_open.png') no-repeat center center;
+                cursor: pointer;
             }
 
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-                color: white !important;
-                border: 1px solid white;
-                background-color: white;
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
-                background: -webkit-linear-gradient(top, white 0%, white 100%);
-                background: -moz-linear-gradient(top, white 0%, white 100%);
-                background: -ms-linear-gradient(top, white 0%, white 100%);
-                background: -o-linear-gradient(top, white 0%, white 100%);
-                background: linear-gradient(to bottom, white 0%, white 100%);
+            tr.shown td.details-control {
+                background: url('/coexp/images/details_close.png') no-repeat center center;
             }
-    </style>
+
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                padding: 01em 0.1em !important;
+            }
+
+                .dataTables_wrapper .dataTables_paginate .paginate_button:active {
+                    outline: none;
+                    background-color: white;
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
+                    background: -webkit-linear-gradient(top, white 0%, white 100%);
+                    background: -moz-linear-gradient(top, white 0%, white 100%);
+                    background: -ms-linear-gradient(top, white 0%, white 100%);
+                    background: -o-linear-gradient(top, white 0%, white 100%);
+                    background: linear-gradient(to bottom, white 0%, white 100%);
+                    box-shadow: inset 0 0 3px white;
+                }
+
+                .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                    color: white !important;
+                    border: 1px solid white;
+                    background-color: white;
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
+                    background: -webkit-linear-gradient(top, white 0%, white 100%);
+                    background: -moz-linear-gradient(top, white 0%, white 100%);
+                    background: -ms-linear-gradient(top, white 0%, white 100%);
+                    background: -o-linear-gradient(top, white 0%, white 100%);
+                    background: linear-gradient(to bottom, white 0%, white 100%);
+                }
+        </style>
 }

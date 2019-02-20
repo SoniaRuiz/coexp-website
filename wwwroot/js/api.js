@@ -144,9 +144,11 @@ API.prototype.menuInit = function (view) {
         }
     });
     // Add event listener for opening and closing details
-    $('#reportOnGenes_table').on('click', 'td.details-control', function () {
+    $('#reportOnGenes_table, #summariseClustering_table').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
-        var row = $('#reportOnGenes_table').DataTable().row(tr);
+        var id = $(this).closest("table")[0].id;
+
+        var row = $('#'+id).DataTable().row(tr);
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -155,7 +157,7 @@ API.prototype.menuInit = function (view) {
         }
         else {
             // Open this row
-            API.prototype.hideRowsReportOnGenes(row.data(), tr, row);
+            API.prototype.hideRowsReportOnGenes(row.data(), tr, row, id);
             
         }
     });
@@ -226,8 +228,12 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
     }
     else if (view == 2) {
         $('#reportOnGenes_div').hide();
+        $('#summariseClustering_div').hide();
         if ($('#reportOnGenes_table tr').length > 1) {
             $('#reportOnGenes_table').DataTable().destroy();
+        }
+        if ($('#summariseClustering_table tr').length > 1) {
+            $('#summariseClustering_table').DataTable().destroy();
         }
 
         var data = [];
@@ -566,7 +572,82 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                     $("#error").show();
                 }
                 else {
+                    
                     console.log(data);
+
+                    /***********************************/
+                    /****** 'Sumarise Clustering' ******/
+                    /***********************************/
+                    var myobject = _.groupBy(JSON.parse(data), ({ network, module }) => `${network}_${module}`);
+                    var mapped = _.map(myobject, o => ({ ...o[0], gene: _.pluck(o, 'gene') }));
+                    $('#summariseClustering_table').DataTable({
+                        data: mapped,
+                        columns: [
+                            {
+                                className: "details-control",
+                                orderable: false,
+                                data: null,
+                                defaultContent: ''
+                            },
+
+                            { data: 'network' },
+                            {
+                                data: 'module',
+                                render: function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\');" title="Find out more ...">' + data + '</a>';
+                                    }
+                                    return data;
+                                }
+                            },
+                            {
+                                data: 'gene',
+                                title: 'overlap',
+                                render: function (data, type, row, meta) {
+
+                                    return data.length;
+                                }
+                            },
+                            {
+                                data: 'gene',
+                                "visible": false,
+                                "searchable": true
+                            },
+                            { data: 'p_val_mods' },
+                            { data: 'size' },
+                            
+                            {
+                                data: 'go_report',
+                                "visible": false,
+                                "searchable": true
+                            },
+                            {
+                                data: 'cell_type_pred',
+                                "visible": false,
+                                "searchable": true
+                            }
+                        ],
+                        "order": [[5, 'asc']],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'print',
+                            {
+                                text: 'EXPAND RESULTS',
+                                action: function (e, dt, node, config) {
+                                    //Hide table
+                                    $('#summariseClustering_div').hide();
+                                    $('#reportOnGenes_div').show();
+                                }
+                            }
+                        ]   
+                    });
+                    //$('#summariseClustering_table').DataTable().Columns["gene"].ColumnName = "overlap";
+                    //$("#summariseClustering_div").show();
+
+
+                    /***********************************/
+                    /******** 'Expand Results' *********/
+                    /***********************************/
                     $('#reportOnGenes_table').DataTable({
                         data: JSON.parse(data),
                         columns: [
@@ -581,7 +662,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                             { data: 'network' },
                             { data: 'ensgene' },
                             { data: 'p_val_mods' },
-                            { data: 'mm' },
+                            
                             {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
@@ -591,6 +672,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                     return data;
                                 }
                             },
+                            { data: 'mm' },
                             { data: 'size' },
                             {
                                 data: 'go_report',
@@ -612,7 +694,14 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                         buttons: [
                             'copy', 'csv', 'excel', 'print',
                             {
-                                text: 'BEST RESULTS',
+                                text: 'SUMMARISE CLUSTERING',
+                                
+                                action: function (e, dt, node, config) {
+                                    //Hide table
+                                    $('#reportOnGenes_div').hide();
+                                    $('#summariseClustering_div').show();
+                                }
+                                /*text: 'BEST RESULTS',
                                 attr: {
                                     id: 'bestResults'
                                 },
@@ -647,10 +736,11 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                        
 
                                     dt.draw();
-                                }
+                                }*/
                             }
                         ]
                     });
+
                     $("#reportOnGenes_div").show();
                     $("#error").hide();
                 }
@@ -794,8 +884,9 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     
 }
 
-API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting function for row details - modify as you need */
+API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details - modify as you need */
 
+    var genes = "";
     var finalGoReport = d.go_report;
     var allGOTerms = d.go_report.match(/GO:[0-9]*/g);
 
@@ -809,12 +900,38 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting funct
     else
         finalGoReport = "no data"
 
+    if (id.indexOf("summarise") >= 0) {
+
+        /*********************************/
+        /************* GENES *************/
+        /*********************************/
+
+        var finalGenesString = null;
+        for (var i = 0; i < (d.gene).length; i++) {
+            var vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + d.gene[i];
+            var gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
+            var gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
+
+            var dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+            dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+            dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+            if (i == 0)
+                finalGenesString = "<a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
+            else
+                finalGenesString = finalGenesString + ", <a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
+        }
+        genes = '<tr>' +
+                '<td>genes: </td>' +
+                '<td>' + finalGenesString + '</td>' +
+                '</tr>';
+    }
 
     // `d` is the original data object for the row
     var table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                genes +
                 '<tr>' +
                 '<td>go_report: </td>' +
-        '<td>' + finalGoReport + '</td>' +
+                '<td>' + finalGoReport + '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '<td>cell_type_pred: </td>' +
@@ -824,6 +941,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row) {/* Formatting funct
 
     row.child(table).show();
     tr.addClass('shown');
+    $("[data-placement='bottom']").popover();
 }
 
 API.prototype.getCardData = function(term) {

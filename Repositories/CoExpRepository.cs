@@ -115,6 +115,7 @@ namespace CoExp_Web.Repositories
                     if (!localResponse.Contains("error"))
                     {
                         JObject item = JObject.Parse(localResponse);
+                        
 
                         //dynamic jsonData = JsonConvert.DeserializeObject(localResponse);
                         /*var categories =
