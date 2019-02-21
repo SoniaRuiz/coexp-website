@@ -240,7 +240,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
         var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
         for (var i = 0; i < categories.length; i++) {
             var categoryLabel = $(categories[i]).children().eq(1).text();
-            var networks = $(categories[i]).find("i.checked").parent();
+            var networks = $(categories[i]).children("ul").find("i.checked").parent();
             var networkLabel = null;
             networks.each(function (i, val) {
                 if (i == 0)
