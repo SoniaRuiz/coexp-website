@@ -404,7 +404,7 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
                     order: [[2, 'asc']],
                     dom: 'Bfrtip',
                     buttons: [
-                        'copy', 'csv', 'excel', 'print'
+                        'copy',  'excel', 'print'
                     ]
                 });
                 if (module != null) {
@@ -525,7 +525,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                             }
                         ],
                         buttons: [
-                            'copy', 'csv', 'excel', 'print'
+                            'copy', 'excel', 'print'
                         ],
                         drawCallback: function () {
                             $('#cellType_table').find('td:not(:first-child):contains(.)').css('backgroundColor', 'yellow');
@@ -595,7 +595,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
                                     if (type === 'display') {
-                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\');" title="Find out more ...">' + data + '</a>';
+                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + row.category + '\',\'' + row.network + '\');" title="Find out more ...">' + data + '</a>';
                                     }
                                     return data;
                                 }
@@ -630,7 +630,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                         "order": [[5, 'asc']],
                         dom: 'Bfrtip',
                         buttons: [
-                            'copy', 'csv', 'excel', 'print',
+                            'copy', 'excel', 'print',
                             {
                                 text: 'EXPAND RESULTS',
                                 action: function (e, dt, node, config) {
@@ -667,7 +667,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
                                     if (type === 'display') {
-                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\');" title="Find out more ...">' + data + '</a>';
+                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + row.category + '\',\'' + row.network + '\');" title="Find out more ...">' + data + '</a>';
                                     }
                                     return data;
                                 }
@@ -692,7 +692,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                         "order": [[4, 'asc']],
                         dom: 'Bfrtip',
                         buttons: [
-                            'copy', 'csv', 'excel', 'print',
+                            'copy',  'excel', 'print',
                             {
                                 text: 'SUMMARISE CLUSTERING',
                                 
@@ -894,7 +894,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 
         for (var i = 0; i < allGOTerms.length; i++) {
 
-            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] + "\")' data-trigger='hover' data-html='true' data-placement='bottom' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
+            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] + "\")' data-placement='bottom' data-trigger='hover' data-html='true' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
         }
     }
     else
@@ -946,7 +946,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 
 API.prototype.getCardData = function(term) {
     var url = '/coexp/GET/GetInfoFromQuickGO';
-    
+    //alert("hi")
     $.ajax({
         url: url,
         type: 'POST',
@@ -954,6 +954,7 @@ API.prototype.getCardData = function(term) {
         success: function (data) {
             data = JSON.parse(data);
             if (data["results"].length > 0) {
+                //alert("hi")
                 data = data["results"][0];
                 var goInfo = "<b>Id: </b> " + data.id
                     + "<br/><b>Name: </b> " + data.name
@@ -961,8 +962,10 @@ API.prototype.getCardData = function(term) {
                     + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
 
                 var goTerm = (this.data).split("%3A")[1];
+                
                 $("a[id*='" + goTerm + "']").attr("data-content", goInfo);
-                $("[data-placement='bottom']").popover();
+                //$("a[id*='" + goTerm + "']").focus();
+
             }
             
         },
@@ -1008,10 +1011,10 @@ API.prototype.getTreeMenuData = function () {
     });
 }
 
-API.prototype.searchByModuleColor = function (moduleColor) {
+API.prototype.searchByModuleColor = function (moduleColor, category, network) {
     $("body").addClass("loading");   
 
-    var category = $("i.checked").closest("li [data-level*=2]").children().eq(1).text();
+    /*var category = $("i.checked").closest("li [data-level*=2]").children().eq(1).text();
     var selectedData = $("i.checked").parent();
     var network = null;
     selectedData.each(function (i, val) {
@@ -1019,7 +1022,7 @@ API.prototype.searchByModuleColor = function (moduleColor) {
             network = val.innerText;
         else
             network = network + "," + val.innerText
-    })
+    })*/
     $("body").removeClass("loading");
     window.open(url = "/coexp/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
