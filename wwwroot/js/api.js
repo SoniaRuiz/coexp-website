@@ -250,7 +250,13 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
             })
             data[i] = categoryLabel + "|" + networkLabel + "**";
         }
-        API.prototype.reportOnGenesMultipleTissue(data, $('#genes').val());
+        if (($('#genes').val()).indexOf('"') > -1) {
+            alert("Please, introduce your gene list without using quotes.");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else
+            API.prototype.reportOnGenesMultipleTissue(data, $('#genes').val());
     }
 }
 
@@ -449,6 +455,8 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
 
                 //Create array with columns to show
                 columnNames = Object.keys(data[0]);
+                //columnNames.unshift(columnNames.pop());
+
                 for (var i in columnNames) {
                     if (moduleColor != null) {
                         if (i == 0 || columnNames[i] == moduleColor)
@@ -672,7 +680,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                     return data;
                                 }
                             },
-                            { data: 'mm' },
+                            //{ data: 'mm' },
                             { data: 'size' },
                             {
                                 data: 'go_report',
@@ -1026,5 +1034,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
     $("body").removeClass("loading");
     window.open(url = "/coexp/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
+
+
 
 

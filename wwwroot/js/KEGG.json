@@ -1,0 +1,129 @@
+[
+  {
+    "entry_id": "map00190",
+    "name": "Oxidative phosphorylation",
+    "description": "",
+    "classes": [
+      "Metabolism",
+      "Energy metabolism"
+    ],
+    "diseases": {
+      "H00068": "Leber hereditary optic atrophy",
+      "H00473": "Mitochondrial complex I deficiency",
+      "H00920": "Exocrine pancreatic insufficiency, dyserythropoietic anemia, and calvarial hyperostosis",
+      "H01177": "Infantile bilateral striatal necrosis",
+      "H01200": "Fatal infantile cardioencephalomyopathy",
+      "H01347": "MELAS Syndrome",
+      "H01354": "Leigh syndrome",
+      "H01355": "Kearns-Sayre syndrome",
+      "H01356": "Myoclonic Epilepsy and Ragged-Red Fiber Disease",
+      "H01363": "NARP syndrome",
+      "H01365": "Leber hereditary optic neuropathy and dystonia",
+      "H01368": "Cytochrome c oxidase (COX) deficiency",
+      "H01369": "ATP synthase deficiency",
+      "H01904": "Microphthalmia with linear skin defects syndrome",
+      "H02005": "Mitochondrial complex II deficiency",
+      "H02086": "Mitochondrial complex III deficiency"
+    },
+    "dblinks": {
+    },
+    "pathways": {
+      "map00190": "Oxidative phosphorylation"
+    },
+    "orthologs": {
+    },
+    "references": [
+      {
+        "authors": [
+          "Sazanov LA",
+          "Hinchliffe P."
+        ],
+        "title": "Structure of the hydrophilic domain of respiratory complex I from Thermus thermophilus.",
+        "journal": "Science 311:1430-6 (2006) DOI:10.1126/science.1123809",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "year": "",
+        "pubmed": "16469879",
+        "medline": "",
+        "doi": null,
+        "abstract": "",
+        "url": null,
+        "mesh": [
+
+        ],
+        "embl_gb_record_number": null,
+        "sequence_position": null,
+        "comments": null,
+        "affiliations": [
+
+        ]
+      },
+      {
+        "authors": [
+          "Hinchliffe P",
+          "Carroll J",
+          "Sazanov LA."
+        ],
+        "title": "Identification of a novel subunit of respiratory complex I from Thermus thermophilus.",
+        "journal": "Biochemistry 45:4413-20 (2006) DOI:10.1021/bi0600998",
+        "volume": "",
+        "issue": "",
+        "pages": "",
+        "year": "",
+        "pubmed": "16584177",
+        "medline": "",
+        "doi": null,
+        "abstract": "",
+        "url": null,
+        "mesh": [
+
+        ],
+        "embl_gb_record_number": null,
+        "sequence_position": null,
+        "comments": null,
+        "affiliations": [
+
+        ]
+      }
+    ],
+    "modules": {
+      "M00142": "NADH:ubiquinone oxidoreductase, mitochondria [PATH:map00190]",
+      "M00143": "NADH dehydrogenase (ubiquinone) Fe-S protein/flavoprotein complex, mitochondria [PATH:map00190]",
+      "M00144": "NADH:quinone oxidoreductase, prokaryotes [PATH:map00190]",
+      "M00145": "NAD(P)H:quinone oxidoreductase, chloroplasts and cyanobacteria [PATH:map00190]",
+      "M00146": "NADH dehydrogenase (ubiquinone) 1 alpha subcomplex [PATH:map00190]",
+      "M00147": "NADH dehydrogenase (ubiquinone) 1 beta subcomplex [PATH:map00190]",
+      "M00148": "Succinate dehydrogenase (ubiquinone) [PATH:map00190]",
+      "M00149": "Succinate dehydrogenase, prokaryotes [PATH:map00190]",
+      "M00150": "Fumarate reductase, prokaryotes [PATH:map00190]",
+      "M00151": "Cytochrome bc1 complex respiratory unit [PATH:map00190]",
+      "M00152": "Cytochrome bc1 complex [PATH:map00190]",
+      "M00153": "Cytochrome bd ubiquinol oxidase [PATH:map00190]",
+      "M00154": "Cytochrome c oxidase [PATH:map00190]",
+      "M00155": "Cytochrome c oxidase, prokaryotes [PATH:map00190]",
+      "M00156": "Cytochrome c oxidase, cbb3-type [PATH:map00190]",
+    
+24b
+  "M00157": "F-type ATPase, prokaryotes and chloroplasts [PATH:map00190]",
+      "M00158": "F-type ATPase, eukaryotes [PATH:map00190]",
+      "M00159": "V/A-type ATPase, prokaryotes [PATH:map00190]",
+      "M00160": "V-type ATPase, eukaryotes [PATH:map00190]",
+      "M00416": "Cytochrome aa3-600 menaquinol oxidase [PATH:map00190]",
+      "M00417": "Cytochrome o ubiquinol oxidase [PATH:map00190]"
+    },
+    "organism": "",
+    "genes": {
+    },
+    "enzymes": [
+
+    ],
+    "reactions": {
+    },
+    "compounds": {
+    },
+    "rel_pathways": {
+    },
+    "ko_pathway": "ko00190"
+  }
+]
