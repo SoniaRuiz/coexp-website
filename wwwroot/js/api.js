@@ -437,22 +437,27 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
     $.ajax({
         url: '/coexp/GET/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
-        success: function (data) {
-            if (data.includes("Problems")) {
+        success: function (midata) {
+            if (midata.includes("Problems")) {
                 $("#cellType_divError").children("p").remove();
-                $("#cellType_divError").append("<p>" + data + "</p>");
+                $("#cellType_divError").append("<p>" + midata + "</p>");
                 $("#cellType_divError").show();
             }
-            else if (data == "{}") {
+            else if (midata == "{}") {
                 $("#cellType_divError").children("p").remove();
                 $("#cellType_divError").append("<p>No data has been received!</p>");
                 $("#cellType_divError").show();
             }
             else {
-                console.log(data);
+                console.log(midata);
                 var columns = [];
-                data = JSON.parse(data);
+                data = JSON.parse(midata);
 
+                for (var i = 0; i < data.length; i++) {          
+                    var value = Object.keys(data[i]).sort();
+                    data[i] = JSON.parse(JSON.stringify(data[i], value));             
+                }
+                
                 //Create array with columns to show
                 columnNames = Object.keys(data[0]);
                 //columnNames.unshift(columnNames.pop());
@@ -520,7 +525,9 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                     $("#cellType_div").append("<p>The module '" + moduleColor + "' does not have any significant p-values over any cell type.</p>");
                 }
                 else {
+                    
                     $('#cellType_table').DataTable({
+                        colReorder: true,
                         data: data,
                         columns: columns,
                         dom: 'Bfrtip',
@@ -543,19 +550,20 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
                         paging: true,
                         scrollCollapse: true
                     })
-                        .on('search.dt', function () {
-                            var table = $('#cellType_table').DataTable();
-                            table.columns({ "filter": "applied" }).every(function () {
-                                if (this.data().unique().length == 1 && (this.data().unique()[0] == "1" || this.data().unique()[0] == "0"))
-                                    this.visible(false);
-                                else
-                                    this.visible(true);
-                            });
-                        })
+                    .on('search.dt', function () {
+                        var table = $('#cellType_table').DataTable();
+                        table.columns({ "filter": "applied" }).every(function () {
+                            if (this.data().unique().length == 1 && (this.data().unique()[0] == "1" || this.data().unique()[0] == "0"))
+                                this.visible(false);
+                            else
+                                this.visible(true);
+                        });
+                    })
                     $('#cellType_table').DataTable().draw();
                 }
                 $("#cellType_div").show();
                 $("#cellType_divError").hide();
+                $('#cellType_table').DataTable().draw();
             }
             $("body").removeClass("loading");
             $("#tabs").show();
