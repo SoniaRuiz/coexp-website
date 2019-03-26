@@ -673,12 +673,12 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: null,
                                 defaultContent: ''
                             },
-                            
-                            { data: 'gene' },  
+
+                            { data: 'gene' },
                             { data: 'network' },
                             { data: 'ensgene' },
                             { data: 'p_val_mods' },
-                            
+
                             {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
@@ -688,7 +688,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                     return data;
                                 }
                             },
-                            //{ data: 'mm' },
+                            { data: 'mm' },
                             { data: 'size' },
                             {
                                 data: 'go_report',
@@ -708,10 +708,10 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                         "order": [[4, 'asc']],
                         dom: 'Bfrtip',
                         buttons: [
-                            'copy',  'excel', 'print',
+                            'copy', 'excel', 'print',
                             {
                                 text: 'SUMMARISE CLUSTERING',
-                                
+
                                 action: function (e, dt, node, config) {
                                     //Hide table
                                     $('#reportOnGenes_div').hide();
@@ -756,10 +756,13 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                             }
                         ]
                     });
+                    
+                    
 
                     $("#reportOnGenes_div").show();
                     $("#error").hide();
                 }
+                
                 $("body").removeClass("loading");
                 
             },
@@ -773,7 +776,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
         $("body").removeClass("loading");
     }
 }
-
+$.fn.dataTable.ext.errMode = 'none';
 API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details - modify as you need */
 
     var term = (d.term_id).split(':');
