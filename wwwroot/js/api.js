@@ -251,7 +251,12 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
             data[i] = categoryLabel + "|" + networkLabel + "**";
         }
         if (($('#genes').val()).indexOf('"') > -1) {
-            alert("Please, introduce your gene list without using quotes.");
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else if (($('#genes').val()).indexOf('  ') > -1) {
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
             $('#genes').val("");
             $("body").removeClass("loading");
         }
@@ -607,6 +612,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                             },
 
                             { data: 'network' },
+                            { data: 'category' },
                             {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
@@ -675,6 +681,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                             },
 
                             { data: 'gene' },
+                            { data: 'category' },
                             { data: 'network' },
                             { data: 'ensgene' },
                             { data: 'p_val_mods' },
