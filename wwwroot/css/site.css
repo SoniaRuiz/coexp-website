@@ -52,7 +52,7 @@ body {
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
+    background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
 }
 
 /* When the body has the loading class, we turn
