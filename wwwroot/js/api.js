@@ -59,7 +59,7 @@ API.prototype.menuInit = function (view) {
 
         API.prototype.sendButtonFunction(view, moduleColor);  
     }
-    else if (view == 2){
+    else if (view == 2 || view == 3){
         $('#genes')
             .prop('disabled', true);
         API.prototype.getTreeMenuData(); 
@@ -161,6 +161,23 @@ API.prototype.menuInit = function (view) {
             
         }
     });
+    $('#globalReportOnGenes_table, #globalSummariseReportOnGenes_table').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var id = $(this).closest("table")[0].id;
+
+        var row = $('#' + id).DataTable().row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            API.prototype.hideRowsReportOnGenes(row.data(), tr, row, id);
+
+        }
+    });
 
     
 
@@ -196,7 +213,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
                 API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
-               
+
                 $('.nav-tabs a[href="#tab1"]').tab("show");
                 $('.nav-tabs a[href="#tab1"]').tab().show();
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
@@ -262,6 +279,43 @@ API.prototype.sendButtonFunction = function (view, moduleColor = null) {
         }
         else
             API.prototype.reportOnGenesMultipleTissue(data, $('#genes').val());
+    }
+    else if (view == 3) {
+        $('#globalReportOnGenes_div').hide();
+        $('#globalSummariseReportOnGenes_div').hide();
+        if ($('#globalReportOnGenes_table tr').length > 1) {
+            $('#globalReportOnGenes_table').DataTable().destroy();
+        }
+        if ($('#globalSummariseReportOnGenes_table tr').length > 1) {
+            $('#globalSummariseReportOnGenes_table').DataTable().destroy();
+        }
+
+        var data = [];
+        var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
+        for (var i = 0; i < categories.length; i++) {
+            var categoryLabel = $(categories[i]).children().eq(1).text();
+            var networks = $(categories[i]).children("ul").find("i.checked").parent();
+            var networkLabel = null;
+            networks.each(function (i, val) {
+                if (i == 0)
+                    networkLabel = val.innerText;
+                else
+                    networkLabel = networkLabel + "," + val.innerText
+            })
+            data[i] = categoryLabel + "|" + networkLabel + "**";
+        }
+        if (($('#genes').val()).indexOf('"') > -1) {
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else if (($('#genes').val()).indexOf('  ') > -1) {
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else
+            API.prototype.globalReportOnGenes(data, $('#genes').val());
     }
 }
 
@@ -635,7 +689,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 "visible": false,
                                 "searchable": true
                             },
-                            { data: 'p_val_mods' },
+                            { data: 'fisher' },
                             { data: 'size' },
                             
                             {
@@ -679,13 +733,11 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: null,
                                 defaultContent: ''
                             },
-
                             { data: 'gene' },
                             { data: 'category' },
                             { data: 'network' },
                             { data: 'ensgene' },
-                            { data: 'p_val_mods' },
-
+                            { data: 'fisher' },
                             {
                                 data: 'module',
                                 render: function (data, type, row, meta) {
@@ -783,7 +835,182 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
         $("body").removeClass("loading");
     }
 }
+
+API.prototype.globalReportOnGenes = function (data, genes) {
+    try {
+        $.ajax({
+            url: '/coexp_test/GET/GlobalReportOnGenes?MultipleSelectionData=' + data + '&Genes=' + genes,
+            type: 'GET',
+            success: function (data) {
+                if (data.includes("Problems")) {
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>" + data + "</p>");
+                    $("#error").show();
+                }
+                else {
+
+                    console.log(data);
+
+                    /***********************************/
+                    /****** 'Sumarise Clustering' ******/
+                    /***********************************/
+                    var myobject = _.groupBy(JSON.parse(data), ({ network, module }) => `${network}_${module}`);
+                    var mapped = _.map(myobject, o => ({ ...o[0], gene: _.pluck(o, 'gene') }));
+                    $('#globalSummariseReportOnGenes_table').DataTable({
+                        data: mapped,
+                        columns: [
+                            {
+                                className: "details-control",
+                                orderable: false,
+                                data: null,
+                                defaultContent: ''
+                            },
+
+                            { data: 'network' },
+                            { data: 'category' },
+                            {
+                                data: 'module',
+                                render: function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + row.category + '\',\'' + row.network + '\');" title="Find out more ...">' + data + '</a>';
+                                    }
+                                    return data;
+                                }
+                            },
+                            {
+                                data: 'gene',
+                                title: 'overlap',
+                                render: function (data, type, row, meta) {
+
+                                    return data.length;
+                                }
+                            },
+                            {
+                                data: 'gene',
+                                "visible": false,
+                                "searchable": true
+                            },
+                            { data: 'fisher' },
+                            {
+                                data: 'FDR'
+                            },
+                            { data: 'Bonferroni' },
+                            { data: 'size' },
+
+                            {
+                                data: 'go_report',
+                                "visible": false,
+                                "searchable": true
+                            },
+                            {
+                                data: 'cell_type_pred',
+                                "visible": false,
+                                "searchable": true
+                            }
+                        ],
+                        "order": [[5, 'asc']],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'excel', 'print',
+                            {
+                                text: 'EXPAND RESULTS',
+                                action: function (e, dt, node, config) {
+                                    //Hide table
+                                    $('#globalSummariseReportOnGenes_div').hide();
+                                    $('#globalReportOnGenes_div').show();
+                                }
+                            }
+                        ]
+                    });
+                    //$('#summariseClustering_table').DataTable().Columns["gene"].ColumnName = "overlap";
+                    //$("#summariseClustering_div").show();
+
+
+                    /***********************************/
+                    /******** 'Expand Results' *********/
+                    /***********************************/
+                    $('#globalReportOnGenes_table').DataTable({
+                        data: JSON.parse(data),
+                        columns: [
+                            {
+                                className: "details-control",
+                                orderable: false,
+                                data: null,
+                                defaultContent: ''
+                            },
+
+                            { data: 'gene' },
+                            { data: 'category' },
+                            { data: 'network' },
+                            { data: 'ensgene' },
+                            { data: 'fisher' },
+                            {
+                                data: 'FDR'
+                            },
+                            { data: 'Bonferroni' },
+                            {
+                                data: 'module',
+                                render: function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + row.category + '\',\'' + row.network + '\');" title="Find out more ...">' + data + '</a>';
+                                    }
+                                    return data;
+                                }
+                            },
+                            { data: 'mm' },
+                            { data: 'size' },
+                            {
+                                data: 'go_report',
+                                "visible": false,
+                                "searchable": true
+                            },
+                            //{ data: 'pd_genes' },
+                            //{ data: 'preservation' },
+                            {
+                                data: 'cell_type_pred',
+                                "visible": false,
+                                "searchable": true
+                            }
+                            //{ data: '_row' }
+                        ],
+
+                        "order": [[4, 'asc']],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copy', 'excel', 'print',
+                            {
+                                text: 'SUMMARISE CLUSTERING',
+
+                                action: function (e, dt, node, config) {
+                                    //Hide table
+                                    $('#globalReportOnGenes_div').hide();
+                                    $('#globalSummariseReportOnGenes_div').show();
+                                }
+                            }
+                        ]
+                    });
+
+
+
+                    $("#globalReportOnGenes_div").show();
+                    $("#error").hide();
+                }
+
+                $("body").removeClass("loading");
+
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
+    }
+    catch (err) {
+        $("body").removeClass("loading");
+    }
+}
 $.fn.dataTable.ext.errMode = 'none';
+
 API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details - modify as you need */
 
     var term = (d.term_id).split(':');

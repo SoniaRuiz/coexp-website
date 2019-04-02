@@ -144,5 +144,67 @@ namespace CoExp_Web.Repositories
             return finalResponse;
         }
 
+        public string GlobalReportOnGenes(CoexpParams coexpdata)
+        {
+            //"**CoExpROSMAP**probad,ad,**gtexv6**AntCingCortex"
+            var categories = (coexpdata.MultipleSelectionData).Split("**,");
+            var categoriesLabel = string.Empty;
+            var localCategory = string.Empty;
+            var networks = string.Empty;
+            var localNetworks = string.Empty;
+
+            JArray finalJSONresponse = new JArray();
+
+            foreach (var category in categories)
+            {
+                if (category != String.Empty)
+                {
+                    var categoryData = category.Split("|");
+                    localCategory = categoryData[0];
+                    if (categoriesLabel.Length == 0)
+                        categoriesLabel = categoryData[0];
+                    else
+                        categoriesLabel = categoriesLabel + "," + categoryData[0];
+
+
+                    if (categoryData[1].Substring(categoryData[1].Length - 1, 1) == (","))
+                    {
+                        localNetworks = categoryData[1].Remove(categoryData[1].Length - 2);
+                        if (networks.Length > 0)
+                            networks = networks + "," + categoryData[1].Remove(categoryData[1].Length - 2);
+                        else
+                            networks = categoryData[1].Remove(categoryData[1].Length - 2);
+                    }
+                    else
+                    {
+                        localNetworks = categoryData[1];
+                        if (networks.Length > 0)
+                            networks = networks + "," + categoryData[1];
+                        else
+                            networks = categoryData[1];
+                    }
+
+                    if (networks.Contains("**"))
+                        networks = networks.Remove(networks.Length - 2);
+
+                    String[] allNetworks = networks.Split(",");
+                    String[] allCategories = networks.Split(",");
+                    if (localNetworks.Split(",").Length > 1)
+                    {
+                        for(var i = 0; i< localNetworks.Split(",").Length-1; i++)
+                        {
+                            categoriesLabel = categoriesLabel + "," + localCategory;
+                        }
+                    }
+
+                    
+                }
+            }
+            var url = _coexpURL + "globalReportOnGenes?tissues=" + networks + "&categories=" + categoriesLabel + "&genes=" + coexpdata.Genes;
+            var finalResponse = _adapter.HttpRequestJSON(url);
+
+            return finalResponse;
+        }
+
     }
 }

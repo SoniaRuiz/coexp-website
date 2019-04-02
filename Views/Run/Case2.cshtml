@@ -39,7 +39,7 @@
                             <th>category</th>
                             <th>network</th>
                             <th>ensgene</th>
-                            <th>p_val_mods</th>
+                            <th>fisher</th>
                             <th>module</th>
                             <th>mm</th>
                             <th>size</th>
@@ -62,9 +62,55 @@
                             <th>module</th>
                             <th>overlap</th>
                             <th>gene</th>
-                            <th>p_val_mods</th>
+                            <th>fisher</th>
                             <th>size</th>
-
+                            <th>go_report</th>
+                            <th>cell_type_pred</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="globalReportOnGenes_div" style="display:none;">
+                <br />
+                <h4>Gene Annotation</h4>
+                <br />
+                <table id="globalReportOnGenes_table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>gene</th>
+                            <th>category</th>
+                            <th>network</th>
+                            <th>ensgene</th>
+                            <th>fisher</th>
+                            <th>FDR</th>
+                            <th>Bonferroni</th>
+                            <th>module</th>
+                            <th>mm</th>
+                            <th>size</th>
+                            <th>go_report</th>
+                            <th>cell_type_pred</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="globalSummariseReportOnGenes_div" style="display:none;">
+                <br />
+                <h4>Summarise Clustering</h4>
+                <br />
+                <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>network</th>
+                            <th>category</th>
+                            <th>module</th>
+                            <th>overlap</th>
+                            <th>gene</th>
+                            <th>fisher</th>
+                            <th>FDR</th>
+                            <th>Bonferroni</th>
+                            <th>size</th>
                             <th>go_report</th>
                             <th>cell_type_pred</th>
                         </tr>
@@ -104,7 +150,7 @@
 
         <script type="text/javascript">
         $(document).ready(function () {
-            API.prototype.menuInit(2);
+            API.prototype.menuInit(3);
 
         });
         </script>
