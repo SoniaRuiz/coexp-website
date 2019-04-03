@@ -1153,7 +1153,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
     else
         finalGoReport = "no data"
 
-    if (id.indexOf("summarise") >= 0) {
+    if (id.toLowerCase().indexOf("summarise") >= 0) {
 
         /*********************************/
         /************* GENES *************/
