@@ -28,7 +28,7 @@ namespace CoExp_Web.Repositories
         public CoExpRepository()
         {
             _adapter = new HttpAdapter();
-            _coexpURL = "https://snca.atica.um.es/api/";
+            _coexpURL = "https://snca.atica.um.es/api_test/";
         }
         /// <summary>
         /// Method to obtain data from 'getNetworkCategories' API method
