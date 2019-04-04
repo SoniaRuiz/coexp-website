@@ -15,15 +15,18 @@ namespace CoExp_Web.Controllers
         
         public IActionResult Catalog(CoexpParams coexpParams)
         {
-            return View("Case1",coexpParams);
+            return View(coexpParams);
         }
       
         public IActionResult Annotated(CoexpParams coexpParams)
         {
-            return View("Case2", coexpParams);
+            return View(coexpParams);
         }
 
-
+        public IActionResult Help(CoexpParams coexpParams)
+        {
+            return View(coexpParams);
+        }
 
         public IActionResult Privacy()
         {
