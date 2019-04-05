@@ -334,7 +334,7 @@ API.prototype.getNetworkCategories = function (category = null) {
     }
     else
         $.ajax({
-            url: '/coexp_test/GET/GetNetworkCategories',
+            url: '/coexp/GET/GetNetworkCategories',
             type: 'GET',
             success: function (data) {
                 if (data.includes("Problems")) {
@@ -382,7 +382,7 @@ API.prototype.getAvailableNetworks = function (category, network = null){
     }
     else
         $.ajax({
-            url: '/coexp_test/GET/GetAvailableNetworks?Category=' + category,
+            url: '/coexp/GET/GetAvailableNetworks?Category=' + category,
             type: 'GET',
             success: function (data) {
                 if (data.includes("Problems")) {
@@ -416,7 +416,7 @@ API.prototype.getAvailableNetworks = function (category, network = null){
 
 API.prototype.getGOFromTissue = function (category, tissue, module = null){
     $.ajax({
-        url: '/coexp_test/GET/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
+        url: '/coexp/GET/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
         success: function (data) {
             if (data.includes("Problems")) {
@@ -494,7 +494,7 @@ API.prototype.getGOFromTissue = function (category, tissue, module = null){
 
 API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = null){
     $.ajax({
-        url: '/coexp_test/GET/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
+        url: '/coexp/GET/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
         success: function (midata) {
             if (midata.includes("Problems")) {
@@ -638,7 +638,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor = 
 API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
     try {
         $.ajax({
-            url: '/coexp_test/GET/ReportOnGenesMultipleTissue?MultipleSelectionData=' + data + '&Genes=' + genes,
+            url: '/coexp/GET/ReportOnGenesMultipleTissue?MultipleSelectionData=' + data + '&Genes=' + genes,
             type: 'GET',
             success: function (data) {
                 if (data.includes("Problems")) {
@@ -839,7 +839,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
 API.prototype.globalReportOnGenes = function (data, genes) {
     try {
         $.ajax({
-            url: '/coexp_test/GET/GlobalReportOnGenes?MultipleSelectionData=' + data + '&Genes=' + genes,
+            url: '/coexp/GET/GlobalReportOnGenes?MultipleSelectionData=' + data + '&Genes=' + genes,
             type: 'GET',
             success: function (data) {
                 if (data.includes("Problems")) {
@@ -1019,15 +1019,15 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     var dataToSend = "";
 
     if (term[0] == "GO") {
-        url = '/coexp_test/GET/GetInfoFromQuickGO';
+        url = '/coexp/GET/GetInfoFromQuickGO';
         dataToSend = d.term_id;
     }
     else if (term[0] == "REAC") {
-        url = '/coexp_test/GET/GetInfoFromREACTOME';
+        url = '/coexp/GET/GetInfoFromREACTOME';
         dataToSend = term[1];
     }
     else {
-        url = '/coexp_test/GET/GetInfoFromKEGG';
+        url = '/coexp/GET/GetInfoFromKEGG';
         dataToSend = term[1];
     }
 
@@ -1198,7 +1198,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 }
 
 API.prototype.getCardData = function(term) {
-    var url = '/coexp_test/GET/GetInfoFromQuickGO';
+    var url = '/coexp/GET/GetInfoFromQuickGO';
     //alert("hi")
     $.ajax({
         url: url,
@@ -1231,7 +1231,7 @@ API.prototype.getCardData = function(term) {
 API.prototype.getTreeMenuData = function () {
 
     $.ajax({
-        url: '/coexp_test/GET/GetTreeMenuData',
+        url: '/coexp/GET/GetTreeMenuData',
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -1277,7 +1277,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
             network = network + "," + val.innerText
     })*/
     $("body").removeClass("loading");
-    window.open(url = "/coexp_test/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
+    window.open(url = "/coexp/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor, "_blank","resizable=no,top=300,left=500,width=700,height=700"); 
 }
 
 

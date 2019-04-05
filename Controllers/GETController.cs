@@ -15,7 +15,7 @@ namespace CoExp_Web.Controllers
     /// <summary>
     /// API controller (does not return a view) to obtain information from different web services
     /// </summary>
-    [Route("/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GETController : ControllerBase
     {
