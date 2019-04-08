@@ -35,6 +35,7 @@
                         <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">?<span class="caret"></span></a>
                         <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
                             <li><a asp-area="" asp-controller="Run" asp-action="Help">Help</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="About">About CoExp</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -58,6 +59,14 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129116044-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-129116044-1');
+        </script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"

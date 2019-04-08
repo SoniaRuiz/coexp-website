@@ -30,3 +30,4 @@ C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Annotated.g.cshtml.cs
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Catalog.g.cshtml.cs
 C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Help.g.cshtml.cs
+C:\Users\skgtsg0\source\repos\CoExp_Web\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\About.g.cshtml.cs

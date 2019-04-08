@@ -23,9 +23,14 @@ namespace CoExp_Web.Controllers
             return View(coexpParams);
         }
 
-        public IActionResult Help(CoexpParams coexpParams)
+        public IActionResult Help()
         {
-            return View(coexpParams);
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
         }
 
         public IActionResult Privacy()

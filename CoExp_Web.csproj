@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="tutorialCoExp\**" />
+    <Content Remove="tutorialCoExp\**" />
+    <EmbeddedResource Remove="tutorialCoExp\**" />
+    <None Remove="tutorialCoExp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\coexp_menu_data.json" />
     <Content Remove="wwwroot\js\dependent_dropdown.js" />
   </ItemGroup>

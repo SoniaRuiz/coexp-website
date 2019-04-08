@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "About";
+}
+
+<header>
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+    }
+    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+    {
+        @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+    }
+</header>
+<div class="row">
+    <main>
+        <nav class="col-sm-12">
+            <h2 style="color:black;">About</h2>
+            <details>
+
+                <summary>CoExp v1.0.0</summary>
+                <br />
+                <p>
+                    <em>
+                        CoExp Web application is a web interface for the effortless usage and management of CoExp R software (a family of R packages which altogether conform a R framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription).<br />
+                        Within CoExp Web application, all CoExp models are available and can also be accessed and used for your own research.
+                    </em>
+                </p>
+                <p><b>Authors:</b> <span class="author"><a href="">Sonia García-Ruiz</a></span> and <span class="author"><a href="">Juan A. Botía</a></span></p>
+                <p><b>Home Page:</b> <a href="http://www.rytenlab.com/" target="_blank">http://www.rytenlab.com/</a></p>
+            </details>
+
+            <br />
+            <div>
+                <fieldset>
+                    <legend>GNU General Public License</legend>
+                    <p>TODO: Add some text here</p>
+                </fieldset>
+            </div>
+
+        </nav>
+    </main>
+</div>
+
+
