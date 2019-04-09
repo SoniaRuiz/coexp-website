@@ -41,7 +41,10 @@ namespace CoExp_Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsePathBase("/coexp_test/");
+            //ATN_5843218Gt
+            //coexp_test
+            //coexp
+            app.UsePathBase("/ATN_5843218Gt/");
 
             if (env.IsDevelopment())
             {
