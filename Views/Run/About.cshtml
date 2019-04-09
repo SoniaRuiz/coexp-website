@@ -10,7 +10,7 @@
     }
     @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
     {
-        @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        @:> @Html.ActionLink("About CoExp", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
 </header>
 <div class="row">
@@ -27,7 +27,7 @@
                         Within CoExp Web application, all CoExp models are available and can also be accessed and used for your own research.
                     </em>
                 </p>
-                <p><b>Authors:</b> <span class="author"><a href="">Sonia García-Ruiz</a></span> and <span class="author"><a href="">Juan A. Botía</a></span></p>
+                <p><b>Authors:</b> <span class="author"><a href="http://www.rytenlab.com/RytenLab/MemberInfo?ID=7" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a></span> and <span class="author"><a href="http://www.rytenlab.com/RytenLab/MemberInfo?ID=1" target="_blank" title="Juan A. Botía">Juan A. Botía</a></span></p>
                 <p><b>Home Page:</b> <a href="http://www.rytenlab.com/" target="_blank">http://www.rytenlab.com/</a></p>
             </details>
 

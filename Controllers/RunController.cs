@@ -15,22 +15,58 @@ namespace CoExp_Web.Controllers
         
         public IActionResult Catalog(CoexpParams coexpParams)
         {
-            return View(coexpParams);
+            try
+            {
+                return View(coexpParams);
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel();
+                errorModel.Message = e.Message;
+                return View("Error", errorModel);
+            }
         }
       
         public IActionResult Annotated(CoexpParams coexpParams)
         {
-            return View(coexpParams);
+            try
+            {
+                return View(coexpParams);
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel();
+                errorModel.Message = e.Message;
+                return View("Error", errorModel);
+            }
         }
 
         public IActionResult Help()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel();
+                errorModel.Message = e.Message;
+                return View("Error", errorModel);
+            }
         }
 
         public IActionResult About()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel();
+                errorModel.Message = e.Message;
+                return View("Error", errorModel);
+            }
         }
 
         public IActionResult Privacy()

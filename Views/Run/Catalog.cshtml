@@ -17,7 +17,7 @@
     }
     @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
     {
-        @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        @:> @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
 </header>
 <div class="row">
