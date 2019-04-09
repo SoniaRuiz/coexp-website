@@ -4,7 +4,7 @@ var API = function () {
     /// API namespace constructor
     /// </summary>
 };
-var environment = "coexp_test";//"coexp"
+var environment = "ATN_5843218Gt";//"coexp"//coexp_test
 
 API.prototype.menuInit = function (view) {
 
