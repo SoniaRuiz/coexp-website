@@ -1,7 +1,8 @@
-﻿:root {
-    --environment: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
-    --td-details-control-background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
-    --tr-shown-td-details-control-background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
+﻿/*ATN_5843218Gt*/
+:root {
+    --environment: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
+    --td-details-control-background: url('/coexp_test/images/details_open.png') no-repeat center center;
+    --tr-shown-td-details-control-background: url('/coexp_test/images/details_close.png') no-repeat center center;
 }
 
 header {
@@ -58,23 +59,20 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 10000;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    background: var(--environment);
+    /*background: var(--environment);*/
+    background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
 }
 
-/* When the body has the loading class, we turn
-   the scrollbar off with overflow:hidden */
+
 body.loading .modal {
+    /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
     overflow: hidden;
-}
-
-/* Anytime the body has the loading class, our
-   modal element will be visible */
-body.loading .modal {
+    /* Anytime the body has the loading class, our modal element will be visible */
     display: block;
 }
 
@@ -111,4 +109,13 @@ body.loading .modal {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle,
+.navbar,
+.navbar-inverse .navbar-inner {
+    filter: none !important;
+    background-image: none !important;
 }
