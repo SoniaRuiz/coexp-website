@@ -4,7 +4,7 @@ var API = function () {
     /// API namespace constructor
     /// </summary>
 };
-var environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
+var environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
 
 
 API.prototype.sendButtonFunction = function (view, moduleColor) {
