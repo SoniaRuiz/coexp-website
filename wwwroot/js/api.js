@@ -906,8 +906,11 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                     hasPvalue = false;
                     for (var i = 0; i < data.length; i++) {
                         for (var x = 1; x < columns.length; x++)
-                            var dataValues = Object.keys(data[i]).map(function (itm) { return data[itm]; });
-                            if (dataValues[x] !== 1 && dataValues[x] !== 0) {
+                            //var dataValues = Object.keys(data[i]).map(function (itm) { return data[itm]; });
+                            //var dataValues = Object.keys(obj).map(function (e) {
+                            //    return obj[e]
+                            //})
+                            if (data[i][Object.keys(data[i])[x]] !== 1 && data[i][Object.keys(data[i])[x]]!== 0) {
                                 hasPvalue = true;
                                 break;
                             }
@@ -922,8 +925,8 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                     //Delete from 'data' all rows which only has 1s or 0s
                     for (var i = 0; i < data.length; i++) {
                         for (var x = 1; x < columns.length; x++)
-                            var dataValues = Object.keys(data[i]).map(function (itm) { return data[itm]; });
-                            if (dataValues[x] === 1 || dataValues[x] === 0) {
+                            //var dataValues = Object.keys(data[i]).map(function (itm) { return data[itm]; });
+                            if (data[i][Object.keys(data[i])[x]] === 1 || data[i][Object.keys(data[i])[x]] === 0) {
                                 data.splice(i, 1);
                                 i--;
                             }
