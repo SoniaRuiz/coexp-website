@@ -39,7 +39,7 @@ namespace CoExp_Web.Repositories
             //var production_env = "https://snca.atica.um.es/rytenlab_api/";
             //var test_env = "https://snca.atica.um.es/api_test/";
             //var private_env = "https://snca.atica.um.es/api_private/";
-            _coexpURL = "https://snca.atica.um.es/rytenlab_api/";
+            _coexpURL = "https://snca.atica.um.es/api_test/";
             _method = "POST";
             _postData = null;
 
