@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CoExp_Web.Adapters
 {
@@ -22,9 +25,11 @@ namespace CoExp_Web.Adapters
             try
             {
                 var request = WebRequest.Create(url);
+
                 string data = null;
                 request.Timeout = 1500000;
                 request.ContentType = "application/json; charset=utf-8";
+                
                 //Make the request
                 var response = (HttpWebResponse)request.GetResponse();
                 //Read the response
@@ -41,5 +46,40 @@ namespace CoExp_Web.Adapters
                 return message;
             }
         }
+
+
+        public string POSTHttpRequestJSON(string url, string postData = null)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                
+                request.Timeout = 1500000;
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=utf-8";
+
+                if (postData != null)
+                {
+                    using(var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        Debug.Write(postData);
+                        streamWriter.Write(postData);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                    }
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                //Return data
+                return responseString;
+            }
+            catch (Exception e)
+            {
+                string message = "Problems with web service connection. Please try again. " + e.Message;
+                return message;
+            }
+        }
+
+       
     }
 }

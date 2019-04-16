@@ -169,7 +169,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
 API.prototype.getTreeMenuData = function () {
 
     $.ajax({
-        url: '/' + environment + '/GET/GetTreeMenuData',
+        url: '/' + environment + '/API/GetTreeMenuData',
         type: 'GET',
         success: function (data) {
             console.log(data);
@@ -209,7 +209,7 @@ API.prototype.getTreeMenuData = function () {
     });
 }
 API.prototype.getCardData = function (term) {
-    var url = '/' + environment + '/GET/GetInfoFromQuickGO';
+    var url = '/' + environment + '/API/GetInfoFromQuickGO';
     //alert("hi")
     $.ajax({
         url: url,
@@ -305,15 +305,15 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
     var dataToSend = "";
 
     if (term[0] == "GO") {
-        url = '/' + environment + '/GET/GetInfoFromQuickGO';
+        url = '/' + environment + '/API/GetInfoFromQuickGO';
         dataToSend = d.term_id;
     }
     else if (term[0] == "REAC") {
-        url = '/' + environment + '/GET/GetInfoFromREACTOME';
+        url = '/' + environment + '/API/GetInfoFromREACTOME';
         dataToSend = term[1];
     }
     else {
-        url = '/' + environment + '/GET/GetInfoFromKEGG';
+        url = '/' + environment + '/API/GetInfoFromKEGG';
         dataToSend = term[1];
     }
 
@@ -425,8 +425,13 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 API.prototype.globalReportOnGenes = function (data, genes) {
     try {
         $.ajax({
-            url: '/' + environment + '/GET/GlobalReportOnGenes?MultipleSelectionData=' + data + '&Genes=' + genes,
-            type: 'GET',
+            url: '/' + environment + '/API/PostGlobalReportOnGenes',
+            data: JSON.stringify({
+                "MultipleSelectionData": "{"+data+"}",
+                "Genes": genes
+            }),
+            method: 'POST',
+            contentType: 'application/json',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").children("p").remove();
@@ -450,15 +455,13 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                             module: group[0].module,
                             gene: _.pluck(group, 'gene'),
                             fisher: group[0].fisher,
+                            FDR: group[0].FDR,
                             Bonferroni: group[0].Bonferroni,
                             size: group[0].size,
                             go_report: group[0].go_report,
                             cell_type_pred: group[0].cell_type_pred
                         }
                     });
-
-
-
                     $('#globalSummariseReportOnGenes_table').DataTable({
                         data: mapped,
                         deferRender: true,
@@ -526,9 +529,6 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                             }
                         ]
                     });
-                    //$('#summariseClustering_table').DataTable().Columns["gene"].ColumnName = "overlap";
-                    //$("#summariseClustering_div").show();
-
 
                     /***********************************/
                     /******** 'Expand Results' *********/
@@ -617,8 +617,14 @@ API.prototype.globalReportOnGenes = function (data, genes) {
 API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
     try {
         $.ajax({
-            url: '/' + environment + '/GET/ReportOnGenesMultipleTissue?MultipleSelectionData=' + data + '&Genes=' + genes,
-            type: 'GET',
+            url: '/' + environment + '/API/PostReportOnGenesMultipleTissue',
+            data: JSON.stringify({
+                "MultipleSelectionData": data,
+                "Genes": genes
+            }),
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").children("p").remove();
@@ -837,7 +843,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
         moduleColor = null;
     }
     $.ajax({
-        url: '/' + environment + '/GET/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
+        url: '/' + environment + '/API/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
         success: function (midata) {
             if (midata.indexOf("Problems") >= 0) {
@@ -984,7 +990,7 @@ API.prototype.getGOFromTissue = function (category, tissue, module) {
         module = null;
     }
     $.ajax({
-        url: '/' + environment + '/GET/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
+        url: '/' + environment + '/API/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
         success: function (data) {
             if (data.indexOf("Problems") >= 0) {
@@ -1078,7 +1084,7 @@ API.prototype.getAvailableNetworks = function (category, network) {
     }
     else
         $.ajax({
-            url: '/' + environment + '/GET/GetAvailableNetworks?Category=' + category,
+            url: '/' + environment + '/API/GetAvailableNetworks?Category=' + category,
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
@@ -1127,7 +1133,7 @@ API.prototype.getNetworkCategories = function (category) {
     }
     else
         $.ajax({
-            url: '/' + environment + '/GET/GetNetworkCategories',
+            url: '/' + environment + '/API/GetNetworkCategories',
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {

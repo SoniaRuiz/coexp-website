@@ -17,7 +17,7 @@ namespace CoExp_Web.Controllers
     /// </summary>
     [Route("[controller]")]
     [ApiController]
-    public class GETController : ControllerBase
+    public class APIController : ControllerBase
     {
         /// <summary>
         /// Welcome method. Used as a tester.
@@ -29,15 +29,6 @@ namespace CoExp_Web.Controllers
             return "Welcome!";
         }
 
-        //[HttpGet]
-        //[Route("GetNetworkFromTissue")]
-        //public string GetNetworkFromTissue([FromQuery] CoexpModel coexpdata)
-        //{
-        //    CoExpRepository repository = new CoExpRepository();
-        //    //string response = repository.GetNetworkFromTissue(coexpdata);
-        //    return String.Empty;
-        //}
-
         [HttpGet]
         [Route("GetNetworkCategories")]
         public string GetNetworkCategories()
@@ -47,6 +38,7 @@ namespace CoExp_Web.Controllers
             string response = repository.GetNetworkCategories();
             return response;
         }
+
         [HttpGet]
         [Route("GetAvailableNetworks")]
         public string GetAvailableNetworks([FromQuery] CoexpParams coexpdata)
@@ -55,6 +47,7 @@ namespace CoExp_Web.Controllers
             string response = repository.GetAvailableNetworks(coexpdata);
             return response;
         }
+
         [HttpGet]
         [Route("GetGOFromTissue")]
         public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
@@ -91,44 +84,6 @@ namespace CoExp_Web.Controllers
             string response = repository.GetCellTypeFromTissue(coexpdata);
             return response;
             //return "[[\"green\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"REACTOME\"],[\"green\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"REACTOME\"],[\"green\", \"myelination GO:0042552\", \"2.76E-09\", \"MF\"],[\"green\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"REACTOME\"],[\"green\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"KEGG\"],[\"yellow\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"CC\"],[\"yellow\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"CC\"],[\"black\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"BB\"],[\"black\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"BB\"],[\"black\", \"myelination GO:0042552\", \"2.76E-09\", \"BB\"],[\"black\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"BB\"],[\"black\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"BB\"],[\"yellow\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"CC\"],[\"yellow\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"CC\"],[\"yellow\", \"myelination GO:0042552\", \"2.76E-09\", \"CC\"]]";
-        }
-
-        [HttpGet]
-        [Route("ReportOnGenesMultipleTissue")]
-        public string ReportOnGenesMultipleTissue([FromQuery] CoexpParams coexpdata)
-        {
-            //category = which.one
-            //network = tissue
-            CoExpRepository repository = new CoExpRepository();
-            string response = repository.ReportOnGenesMultipleTissue(coexpdata);
-
-            string parsed_response = response.Replace("go.report", "go_report");
-            parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
-            parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
-            //parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
-            parsed_response = parsed_response.Replace("tissue", "network");
-
-
-            return parsed_response;
-        }
-
-        [HttpGet]
-        [Route("GlobalReportOnGenes")]
-        public string GlobalReportOnGenes([FromQuery] CoexpParams coexpdata)
-        {
-            //category = which.one
-            //network = tissue
-            CoExpRepository repository = new CoExpRepository();
-            string response = repository.GlobalReportOnGenes(coexpdata);
-
-            string parsed_response = response.Replace("go.report", "go_report");
-            parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
-            parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
-            //parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
-            parsed_response = parsed_response.Replace("tissue", "network");
-
-
-            return parsed_response;
         }
 
         [HttpGet]
@@ -189,6 +144,48 @@ namespace CoExp_Web.Controllers
                 return "Problems with web service connection. " + ex.Message;
             }
 
+        }
+
+        /****************************************************************************/
+        /******************************* POST METHODS *******************************/
+        /****************************************************************************/
+
+        [HttpPost]
+        [Route("PostReportOnGenesMultipleTissue")]
+        public string PostReportOnGenesMultipleTissue([FromBody] CoexpParams coexpdata)
+        {
+            //category = which.one
+            //network = tissue
+            CoExpRepository repository = new CoExpRepository();
+            string response = repository.ReportOnGenesMultipleTissue(coexpdata);
+
+            string parsed_response = response.Replace("go.report", "go_report");
+            parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
+            parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
+            //parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
+            parsed_response = parsed_response.Replace("tissue", "network");
+
+
+            return parsed_response;
+        }
+
+        [HttpPost]
+        [Route("PostGlobalReportOnGenes")]
+        public string PostGlobalReportOnGenes([FromBody] CoexpParams coexpdata)
+        {
+            //category = which.one
+            //network = tissue
+            CoExpRepository repository = new CoExpRepository();
+            string response = repository.GlobalReportOnGenes(coexpdata);
+
+            string parsed_response = response.Replace("go.report", "go_report");
+            parsed_response = parsed_response.Replace("pd.genes", "pd_genes");
+            parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
+            //parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
+            parsed_response = parsed_response.Replace("tissue", "network");
+
+
+            return parsed_response;
         }
 
         [HttpPost]
