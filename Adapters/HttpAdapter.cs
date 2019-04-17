@@ -16,7 +16,7 @@ namespace CoExp_Web.Adapters
     public class HttpAdapter
     {
         /// <summary>
-        /// Method to make a http request and have a JSON as response
+        /// Method to make a GET http request and have a JSON as response
         /// </summary>
         /// <param name="url">URL where we want to make the request</param>
         /// <returns>Response (in JSON format) received from the URL</returns>
@@ -47,7 +47,12 @@ namespace CoExp_Web.Adapters
             }
         }
 
-
+        /// <summary>
+        /// Method to make a POST http request and have a JSON as response
+        /// </summary>
+        /// <param name="url">URL where we want to make the request</param>
+        /// <param name="postData">parameters to send in the request body</param>
+        /// <returns>Response (in JSON format) received from the URL</returns>
         public string POSTHttpRequestJSON(string url, string postData = null)
         {
             try

@@ -147,6 +147,21 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $('#genes').val("");
             $("body").removeClass("loading");
         }
+        
+        else if (($('#genes').val()).indexOf('{') > -1 || ($('#genes').val()).indexOf('}') > -1) {
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else if (($('#genes').val()).indexOf('[') > -1 || ($('#genes').val()).indexOf(']') > -1) {
+            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+            $('#genes').val("");
+            $("body").removeClass("loading");
+        }
+        else if (($('#genes').val()).indexOf('\n') > -1) {
+            var formatedGenes = $('#genes').val().replace(/\n/g, " ");
+            API.prototype.globalReportOnGenes(data, formatedGenes);
+        }
         else
             API.prototype.globalReportOnGenes(data, $('#genes').val());
     }
