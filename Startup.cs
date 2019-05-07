@@ -33,9 +33,11 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //Add trailing slash to the end
+            services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,14 +59,14 @@ namespace CoExp_Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+           
             
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Run}/{action=Catalog}/{id?}");
-                
+                    template: "{controller=Run}/{action=Index}/{id?}");
             });
         }
     }
