@@ -31,6 +31,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Run" asp-action="Catalog">Network Catalog</a></li>
                     <li><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
+                    @*<li><a asp-area="" asp-controller="Run" asp-action="Plot">Plot</a></li>*@
                     <li class="dropdown">
                         <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">?<span class="caret"></span></a>
                         <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
@@ -52,7 +53,9 @@
             <p>&copy; 2019 - CoExp_Web</p>
         </footer>
     </div>
-
+    <script>
+        var environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
+    </script>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

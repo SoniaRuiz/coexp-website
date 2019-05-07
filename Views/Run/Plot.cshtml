@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Plot";
+}
+
+<header>
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+    }
+    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+    {
+        @:> @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+    }
+</header>
+<div class="row">
+    <nav class="col-sm-3 sidebar">
+        <br />
+        <h4>Please, make your selection:</h4>
+        <br />
+        @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
+        <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
+
+        <label for="network">Network</label>
+        <select id="network" name="network" class="selectpicker" title="Select an option ...">
+            <option value="SNIG">Substantia Nigra</option>
+            <option value="PUTM">Putamen</option>
+        </select>
+        <br /><br />
+
+        <label for="module_color">Module selection</label>
+        <select id="module_color" class="selectpicker" title="Select an option ...">
+            <option value="black">Black</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="purple">Purple</option>
+            <option value="red">Red</option>
+        </select>
+        <br /><br />
+
+        <label for="genes_range">Number of genes</label>
+        <input id="genes_range" type="range" min="1" max="100" value="50" link-to="text_box_name">
+        <br>
+        <input type="text" id="text_box_name">
+        <br /><br />
+
+        <button id="generate_plot_button" class="btn btn-primary" href="#" role="button">Accept</button>
+    </nav>
+    <main>
+        <nav class="col-sm-9">
+            <br />
+            <table align="center" width="800" height="600" border="1" id="network_plot_table">
+                <td>
+                    <div id="network_plot" width="800" height="600"></div>
+                </td>
+            </table>
+        </nav>
+    </main>
+    <div class="modal"><!-- loading layer --></div>
+</div>
+@section Scripts
+    {
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="~/js/net_v2.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#generate_plot_button').on('click', function () {
+                //clean
+                $("#network_plot").html('');
+                //get tissue value
+                var network = $('#network').find(":selected").val();
+                //get module value
+                var moduleColor = $('#module_color').find(":selected").val();
+                //get slider-range value
+                var top = $('#text_box_name').val();
+
+                var url_network_plot = '/' + environment + '/API/GetTomDataBRAINEAC?moduleColor=' + moduleColor + '&network=' + network + '&top=' +top;
+                //make request
+                $.ajax({
+                    url: url_network_plot,
+                    type: 'GET',
+                    //url : 'data/networkv4.json',
+                    url: url_network_plot,
+                    success: function (data) {
+                        //transform string to array
+                        data = JSON.parse(data);
+                        net_plot(data);
+                    },
+                    error: function () { }
+                });
+            });
+
+
+            $(function () {
+                $('input').filter(function () { return this.type == 'range' }).each(function () {
+                    var $slider = $(this),
+                        $text_box = $('#' + $(this).attr('link-to'));
+
+                    $text_box.val(this.value);
+
+                    $slider.change(function () {
+                        $text_box.val(this.value);
+                    });
+
+                    $text_box.change(function () {
+                        $slider.val($text_box.val());
+                    });
+
+                });
+            });
+
+        });
+    </script>
+}
+

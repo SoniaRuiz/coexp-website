@@ -146,6 +146,48 @@ namespace CoExp_Web.Controllers
 
         }
 
+        [HttpPost]
+        [Route("GetInfoFromQuickGO")]
+        public string GetInfoFromQuickGO([FromForm]string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromQuickGO(term);
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("GetInfoFromREACTOME")]
+        public string GetInfoFromREACTOME([FromForm]string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromREACTOME(term);
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("GetInfoFromKEGG")]
+        public string GetInfoFromKEGG([FromForm]string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromKEGG(term);
+
+            return response;
+        }
+
+        /********************* BRAINEAC ************************/
+        [HttpGet]
+        [Route("GetTomDataBRAINEAC")]
+        public string GetTomDataBRAINEAC(string network, string moduleColor, string top)
+        {
+            //getNetworkCategories()
+            BraineacRepository repository = new BraineacRepository();
+            string response = repository.GetJSONTomData(network, moduleColor,top);
+
+            return response;
+        }
+
         /****************************************************************************/
         /******************************* POST METHODS *******************************/
         /****************************************************************************/
@@ -188,34 +230,6 @@ namespace CoExp_Web.Controllers
             return parsed_response;
         }
 
-        [HttpPost]
-        [Route("GetInfoFromQuickGO")]
-        public string GetInfoFromQuickGO([FromForm]string term)
-        {
-            ExternalDataRepository repository = new ExternalDataRepository();
-            string response = repository.GetInfoFromQuickGO(term);
-
-            return response;
-        }
-
-        [HttpPost]
-        [Route("GetInfoFromREACTOME")]
-        public string GetInfoFromREACTOME([FromForm]string term)
-        {
-            ExternalDataRepository repository = new ExternalDataRepository();
-            string response = repository.GetInfoFromREACTOME(term);
-
-            return response;
-        }
-
-        [HttpPost]
-        [Route("GetInfoFromKEGG")]
-        public string GetInfoFromKEGG([FromForm]string term)
-        {
-            ExternalDataRepository repository = new ExternalDataRepository();
-            string response = repository.GetInfoFromKEGG(term);
-
-            return response;
-        }
+        
     }
 }

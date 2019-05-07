@@ -4,7 +4,7 @@ var API = function () {
     /// API namespace constructor
     /// </summary>
 };
-var environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
+
 
 
 API.prototype.sendButtonFunction = function (view, moduleColor) {
@@ -1359,3 +1359,5 @@ API.prototype.menuInit = function (view) {
 }
 
 $.fn.dataTable.ext.errMode = 'none';
+
+

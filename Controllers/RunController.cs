@@ -69,6 +69,20 @@ namespace CoExp_Web.Controllers
             }
         }
 
+        public IActionResult Plot()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel();
+                errorModel.Message = e.Message;
+                return View("Error", errorModel);
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();
