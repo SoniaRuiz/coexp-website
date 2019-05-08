@@ -43,18 +43,73 @@ function net_plot(data_network_temp) {
 	var default_node_color = "#ccc";
 	//var default_node_color = "rgb(3,190,100)";
 	var default_link_color = "#7C7C7C";
-	var nominal_base_node_size = 6;
-	var nominal_text_size = 6;
-	var max_text_size = 10;
-	var nominal_stroke = 1;
-	var max_stroke = 0.5;
-	var max_base_node_size = 8;
+	//var nominal_base_node_size = 6;
+	//var nominal_text_size = 6;
+	//var max_text_size = 10;
+	//var nominal_stroke = 1;
+	//var max_stroke = 0.5;
+ //   var max_base_node_size = 8;
+    var nominal_base_node_size = 8;//6
+    var max_base_node_size = 18;//8
+
+    var nominal_text_size = 10;//6
+    var max_text_size = 14;//10
+    var nominal_stroke = 1;//1
+    var max_stroke = 15;
+    
 	var min_zoom = 0.1;
 	var max_zoom = 7;
 	var svg = d3.select("#network_plot").append("svg");
-	var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
-		var g = svg.append("g");
-	svg.style("cursor", "move");
+    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
+        .on("zoom", function () {
+
+            stroke = nominal_stroke;
+            if (nominal_stroke * zoom.scale() > max_stroke)
+                stroke = max_stroke / zoom.scale();
+            // .style("stroke-width", function (d) {
+            // return (((d.value - min_link_value) / (max_link_value - min_link_value)) * stroke);
+            // });
+            circle.style("stroke-width", stroke);
+            // console.log(zoom.scale());
+            // val_new = max_link_value / zoom.scale();
+            // link.style("stroke-width", function (d) {
+            // //console.log(link.style("stroke-width"));
+            // return parseFloat(link.style("stroke-width")) * val_new;
+            // });
+
+
+            //console.log(parseInt(link.style("stroke-width")) * 2);
+
+            var base_radius = nominal_base_node_size;
+            if (nominal_base_node_size * zoom.scale() > max_base_node_size)
+                base_radius = max_base_node_size / zoom.scale();
+            circle.attr("d", d3.svg.symbol()
+                .size(function (d) {
+                    return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+                })
+                .type(function (d) {
+                    return d.type;
+                }))
+
+            //circle.attr("r", function(d) { return (size(d.size)*base_radius/nominal_base_node_size||base_radius); })
+            if (!text_center)
+                text.attr("dx", function (d) {
+                    return (size(d.size) * base_radius / nominal_base_node_size || base_radius);
+                });
+
+            var text_size = nominal_text_size;
+            if (nominal_text_size * zoom.scale() > max_text_size)
+                text_size = max_text_size / zoom.scale();
+            text.style("font-size", text_size + "px");
+
+            g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        });
+    svg.call(zoom);
+
+    var g = svg.append("g");
+    svg.style("cursor", "move");
+
+
 	//From the .json coming from the server, 3 values of each object is NAN
 	var number_of_NAN = 3;
 	var links_value_treshold = 0;
@@ -342,7 +397,38 @@ function net_plot(data_network_temp) {
 				return o.source.index == d.index || o.target.index == d.index ? highlight_color : ((isNumber(o.score) && o.score >= 0) ? color(o.score) : default_link_color);
 
 			});
-		}
+        }
+
+        /********************* ADD CARD DATA *************************/
+        //var url = '/' + environment + '/API/GetInfoFromQuickGO';
+        //var term = d.id;
+        ////alert("hi")
+        //$.ajax({
+        //    url: url,
+        //    type: 'POST',
+        //    data: { term: term },
+        //    success: function (data) {
+        //        data = JSON.parse(data);
+        //        if (data["results"].length > 0) {
+        //            //alert("hi")
+        //            data = data["results"][0];
+        //            var goInfo = "<b>Id: </b> " + data.id
+        //                + "<br/><b>Name: </b> " + data.name
+        //                + "<br/><b>Aspect: </b> " + data.aspect
+        //                + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+        //            var goTerm = (this.data).split("%3A")[1];
+
+        //            alert(goTerm + " " + goInfo);
+        //            //$("a[id*='" + goTerm + "']").focus();
+
+        //        }
+
+        //    },
+        //    error: function () {
+        //        return "No results found!";
+        //    }
+        //});
 	}
 
 	var hiding_nodes = false;
@@ -496,53 +582,14 @@ function net_plot(data_network_temp) {
 
 	});
 
-	zoom.on("zoom", function () {
+	
+    
+	
 
-		stroke = nominal_stroke;
-		if (nominal_stroke * zoom.scale() > max_stroke)
-			stroke = max_stroke / zoom.scale();
-		// .style("stroke-width", function (d) {
-		// return (((d.value - min_link_value) / (max_link_value - min_link_value)) * stroke);
-		// });
-		circle.style("stroke-width", stroke);
-		// console.log(zoom.scale());
-		// val_new = max_link_value / zoom.scale();
-		// link.style("stroke-width", function (d) {
-		// //console.log(link.style("stroke-width"));
-		// return parseFloat(link.style("stroke-width")) * val_new;
-		// });
+    resize();
 
 
-		//console.log(parseInt(link.style("stroke-width")) * 2);
-
-		var base_radius = nominal_base_node_size;
-		if (nominal_base_node_size * zoom.scale() > max_base_node_size)
-			base_radius = max_base_node_size / zoom.scale();
-		circle.attr("d", d3.svg.symbol()
-			.size(function (d) {
-				return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
-			})
-			.type(function (d) {
-				return d.type;
-			}))
-
-		//circle.attr("r", function(d) { return (size(d.size)*base_radius/nominal_base_node_size||base_radius); })
-		if (!text_center)
-			text.attr("dx", function (d) {
-				return (size(d.size) * base_radius / nominal_base_node_size || base_radius);
-			});
-
-		var text_size = nominal_text_size;
-		if (nominal_text_size * zoom.scale() > max_text_size)
-			text_size = max_text_size / zoom.scale();
-		text.style("font-size", text_size + "px");
-
-		g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-	});
-
-	svg.call(zoom);
-
-	resize();
+    
 	//window.focus();
 	//d3.select(window).on("resize", resize).on("keydown", keydown);
 
@@ -577,15 +624,16 @@ function net_plot(data_network_temp) {
 	});
 
 	function resize() {
-		var width = w,
-		height = h;
+		var width = w, height = h;
 		svg.attr("width", width).attr("height", height);
 
-		force.size([force.size()[0] + (width - w) / zoom.scale(), force.size()[1] + (height - h) / zoom.scale()]).resume();
-		w = width;
-		h = height;
-	}
+        force.size([force.size()[0] / zoom.scale(), force.size()[1] / zoom.scale()]).resume();  
+      
+    }
 
+    svg.call(zoom);
+    
+   
 	// function keydown() {
 	// if (d3.event.keyCode == 32) {
 	// force.stop();

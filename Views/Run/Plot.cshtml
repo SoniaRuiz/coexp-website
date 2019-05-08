@@ -23,14 +23,14 @@
 
         <label for="network">Network</label>
         <select id="network" name="network" class="selectpicker" title="Select an option ...">
-            <option value="SNIG">Substantia Nigra</option>
+            <option value="SNIG" selected>Substantia Nigra</option>
             <option value="PUTM">Putamen</option>
         </select>
         <br /><br />
 
         <label for="module_color">Module selection</label>
         <select id="module_color" class="selectpicker" title="Select an option ...">
-            <option value="black">Black</option>
+            <option value="black" selected>Black</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
             <option value="purple">Purple</option>
@@ -39,7 +39,7 @@
         <br /><br />
 
         <label for="genes_range">Number of genes</label>
-        <input id="genes_range" type="range" min="1" max="100" value="50" link-to="text_box_name">
+        <input id="genes_range" type="range" min="2" max="50" value="20" link-to="text_box_name">
         <br>
         <input type="text" id="text_box_name">
         <br /><br />

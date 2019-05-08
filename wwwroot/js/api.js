@@ -7,165 +7,7 @@ var API = function () {
 
 
 
-API.prototype.sendButtonFunction = function (view, moduleColor) {
 
-    if (moduleColor === undefined) {
-        moduleColor = null;
-    }
-    
-    $("body").addClass("loading");
-
-    if (view == 1 || view == 11) {
-
-        //hide previous errors/results
-        $('#error').hide();
-        //get the selection-types selected
-        var module_selection_types = $('#module_selection').val();
-
-        $("body").addClass("loading");
-
-        //remove old tables
-        if ($('#goFromTissue_table tr').length > 1) {
-            $('#goFromTissue_table').DataTable().destroy();
-            $('#goFromTissue_table').remove("tbody");
-            $('#goFromTissue_div').hide();
-        }
-        if ($('#cellType_table tr').length > 1) {
-            $('#cellType_table').DataTable().destroy();
-            $('#cellType_table').children().remove();
-            $('#cellType_div').hide();
-        }
-        $("body").addClass("loading");
-        //show result divs
-        if (module_selection_types.length == 1) {
-            if (module_selection_types[0] == "1") { //only byontology and bycolor
-                API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
-                //hide/sow tabs and divs
-                $("#cellType_div").hide();
-
-                $('.nav-tabs a[href="#tab1"]').tab("show");
-                $('.nav-tabs a[href="#tab1"]').tab().show();
-                $('.nav-tabs a[href="#tab2"]').tab().hide();
-            }
-            else {//only bycelltype
-                API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
-                //hide/sow tabs and divs
-                $("#goFromTissue_div").hide();
-
-                $('.nav-tabs a[href="#tab2"]').tab("show");
-                $('.nav-tabs a[href="#tab2"]').tab().show();
-                $('.nav-tabs a[href="#tab1"]').tab().hide();
-            }
-        }
-        else if (module_selection_types.length == 2) {//both bycelltype and bycolor
-            API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
-            API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
-            //Show all tabs
-            $('.nav-tabs a[href="#tab1"]').tab("show");
-            $('.nav-tabs a[href="#tab1"]').tab().show();
-            $('.nav-tabs a[href="#tab2"]').tab().show();
-        }
-        else {
-            $('#goFromTissue_div').hide();
-            $('#cellType_div').hide();
-            $('#error').show();
-            $("body").removeClass("loading");
-        }
-    }
-    else if (view == 2) {
-        $("body").addClass("loading");
-        $("genes").focus();
-        $('#reportOnGenes_div').hide();
-        $('#summariseClustering_div').hide();
-        if ($('#reportOnGenes_table tr').length > 1) {
-            $('#reportOnGenes_table').DataTable().destroy();
-        }
-        if ($('#summariseClustering_table tr').length > 1) {
-            $('#summariseClustering_table').DataTable().destroy();
-        }
-
-        var data = [];
-        var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
-        for (var i = 0; i < categories.length; i++) {
-            var categoryLabel = $(categories[i]).children().eq(1).text();
-            var networks = $(categories[i]).children("ul").find("i.checked").parent();
-            var networkLabel = null;
-            networks.each(function (i, val) {
-                if (i == 0)
-                    networkLabel = val.innerText;
-                else
-                    networkLabel = networkLabel + "," + val.innerText
-            })
-            data[i] = categoryLabel + "|" + networkLabel + "**";
-        }
-        if (($('#genes').val()).indexOf('"') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        else if (($('#genes').val()).indexOf('  ') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        else
-            API.prototype.reportOnGenesMultipleTissue(data, $('#genes').val());
-    }
-    else if (view == 3) {
-        $("body").addClass("loading");
-        $("genes").focus();
-        $('#globalReportOnGenes_div').hide();
-        $('#globalSummariseReportOnGenes_div').hide();
-        if ($('#globalReportOnGenes_table tr').length > 1) {
-            $('#globalReportOnGenes_table').DataTable().destroy();
-        }
-        if ($('#globalSummariseReportOnGenes_table tr').length > 1) {
-            $('#globalSummariseReportOnGenes_table').DataTable().destroy();
-        }
-
-        var data = [];
-        var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
-        for (var i = 0; i < categories.length; i++) {
-            var categoryLabel = $(categories[i]).children().eq(1).text();
-            var networks = $(categories[i]).children("ul").find("i.checked").parent();
-            var networkLabel = null;
-            networks.each(function (i, val) {
-                if (i == 0)
-                    networkLabel = val.innerText;
-                else
-                    networkLabel = networkLabel + "," + val.innerText
-            })
-            data[i] = categoryLabel + "|" + networkLabel + "**";
-        }
-        if (($('#genes').val()).indexOf('"') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        else if (($('#genes').val()).indexOf('  ') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        
-        else if (($('#genes').val()).indexOf('{') > -1 || ($('#genes').val()).indexOf('}') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        else if (($('#genes').val()).indexOf('[') > -1 || ($('#genes').val()).indexOf(']') > -1) {
-            alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-            $('#genes').val("");
-            $("body").removeClass("loading");
-        }
-        else if (($('#genes').val()).indexOf('\n') > -1) {
-            var formatedGenes = $('#genes').val().replace(/\n/g, " ");
-            API.prototype.globalReportOnGenes(data, formatedGenes);
-        }
-        else
-            API.prototype.globalReportOnGenes(data, $('#genes').val());
-    }
-}
 API.prototype.searchByModuleColor = function (moduleColor, category, network) {
     $("body").addClass("loading");
 
@@ -1084,6 +926,178 @@ API.prototype.getGOFromTissue = function (category, tissue, module) {
         }
     });
 }
+API.prototype.sendButtonFunction = function (view, moduleColor) {
+
+    if (moduleColor === undefined) {
+        moduleColor = null;
+    }
+
+    $("body").addClass("loading");
+
+    if (view == 1 || view == 11) {
+        
+        //hide previous errors/results
+        $('#error').hide();
+        //get the selection-types selected
+        var module_selection_types = $('#module_selection').val();
+
+        $("body").addClass("loading");
+
+        //remove old tables
+        if ($('#goFromTissue_table tr').length > 1) {
+            $('#goFromTissue_table').DataTable().destroy();
+            $('#goFromTissue_table').remove("tbody");
+            $('#goFromTissue_div').hide();
+        }
+        if ($('#cellType_table tr').length > 1) {
+            $('#cellType_table').DataTable().destroy();
+            $('#cellType_table').children().remove();
+            $('#cellType_div').hide();
+        }
+        $("body").addClass("loading");
+        //show result divs
+        if (module_selection_types.length == 1) {
+            if (module_selection_types[0] == "1") { //only byontology and bycolor
+                API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                //hide/sow tabs and divs
+                $("#cellType_div").hide();
+
+                $('.nav-tabs a[href="#tab1"]').tab("show");
+                $('.nav-tabs a[href="#tab1"]').tab().show();
+                $('.nav-tabs a[href="#tab2"]').tab().hide();
+            }
+            else {//only bycelltype
+                API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                //hide/sow tabs and divs
+                $("#goFromTissue_div").hide();
+
+                $('.nav-tabs a[href="#tab2"]').tab("show");
+                $('.nav-tabs a[href="#tab2"]').tab().show();
+                $('.nav-tabs a[href="#tab1"]').tab().hide();
+            }
+        }
+        else if (module_selection_types.length == 2) {//both bycelltype and bycolor
+            API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
+            API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+            //Show all tabs
+            $('.nav-tabs a[href="#tab1"]').tab("show");
+            $('.nav-tabs a[href="#tab1"]').tab().show();
+            $('.nav-tabs a[href="#tab2"]').tab().show();
+        }
+        else {
+            $('#goFromTissue_div').hide();
+            $('#cellType_div').hide();
+            $('#error').show();
+            $("body").removeClass("loading");
+        }
+        
+    }
+    else if (view == 2) {
+        if ($('#genes').val() == "" || $("i.checked").length == 0) {
+            alert("Please, make your input selection.")
+            $("body").removeClass("loading");
+        }
+        else {
+            $("body").addClass("loading");
+            $("genes").focus();
+            $('#reportOnGenes_div').hide();
+            $('#summariseClustering_div').hide();
+            if ($('#reportOnGenes_table tr').length > 1) {
+                $('#reportOnGenes_table').DataTable().destroy();
+            }
+            if ($('#summariseClustering_table tr').length > 1) {
+                $('#summariseClustering_table').DataTable().destroy();
+            }
+
+            var data = [];
+            var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
+            for (var i = 0; i < categories.length; i++) {
+                var categoryLabel = $(categories[i]).children().eq(1).text();
+                var networks = $(categories[i]).children("ul").find("i.checked").parent();
+                var networkLabel = null;
+                networks.each(function (i, val) {
+                    if (i == 0)
+                        networkLabel = val.innerText;
+                    else
+                        networkLabel = networkLabel + "," + val.innerText
+                })
+                data[i] = categoryLabel + "|" + networkLabel + "**";
+            }
+            if (($('#genes').val()).indexOf('"') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+            else if (($('#genes').val()).indexOf('  ') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+            else
+                API.prototype.reportOnGenesMultipleTissue(data, $('#genes').val());
+        }
+    }
+    else if (view == 3) {
+        if ($('#genes').val() == "" || $("i.checked").length == 0) {
+            alert("Please, make your input selection.")
+            $("body").removeClass("loading");
+        }
+        else {
+            $("body").addClass("loading");
+            $("genes").focus();
+            $('#globalReportOnGenes_div').hide();
+            $('#globalSummariseReportOnGenes_div').hide();
+            if ($('#globalReportOnGenes_table tr').length > 1) {
+                $('#globalReportOnGenes_table').DataTable().destroy();
+            }
+            if ($('#globalSummariseReportOnGenes_table tr').length > 1) {
+                $('#globalSummariseReportOnGenes_table').DataTable().destroy();
+            }
+
+            var data = [];
+            var categories = $("i.checked").closest("li [data-level*=2]");//.children().eq(1).text();
+            for (var i = 0; i < categories.length; i++) {
+                var categoryLabel = $(categories[i]).children().eq(1).text();
+                var networks = $(categories[i]).children("ul").find("i.checked").parent();
+                var networkLabel = null;
+                networks.each(function (i, val) {
+                    if (i == 0)
+                        networkLabel = val.innerText;
+                    else
+                        networkLabel = networkLabel + "," + val.innerText
+                })
+                data[i] = categoryLabel + "|" + networkLabel + "**";
+            }
+            if (($('#genes').val()).indexOf('"') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+            else if (($('#genes').val()).indexOf('  ') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+
+            else if (($('#genes').val()).indexOf('{') > -1 || ($('#genes').val()).indexOf('}') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+            else if (($('#genes').val()).indexOf('[') > -1 || ($('#genes').val()).indexOf(']') > -1) {
+                alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
+                $('#genes').val("");
+                $("body").removeClass("loading");
+            }
+            else if (($('#genes').val()).indexOf('\n') > -1) {
+                var formatedGenes = $('#genes').val().replace(/\n/g, " ");
+                API.prototype.globalReportOnGenes(data, formatedGenes);
+            }
+            else
+                API.prototype.globalReportOnGenes(data, $('#genes').val());
+        }
+    }
+}
 API.prototype.getAvailableNetworks = function (category, network) {
     if (network === undefined) {
         network = null;
@@ -1185,10 +1199,12 @@ API.prototype.getNetworkCategories = function (category) {
 }
 API.prototype.menuInit = function (view) {
 
-    //Disable 'send' button
-    $('#send_button').prop("disabled", true);
+    
 
     if (view == 1) {
+        //Disable 'send' button
+        $('#send_button').prop("disabled", true);
+
         //At the beginning, we fill the first select
         API.prototype.getNetworkCategories();
 
@@ -1208,6 +1224,9 @@ API.prototype.menuInit = function (view) {
         $("#error").hide();
     }
     else if (view == 11) {
+        //Disable 'send' button
+        $('#send_button').prop("disabled", true);
+
         //if the model has data:
         var category = $("#Category").val();
         var network = $("#Network").val();
@@ -1292,14 +1311,14 @@ API.prototype.menuInit = function (view) {
         $('#send_button').prop("disabled", false);
     });
     //When the value of 'Genes' textarea changes:
-    $('#genes').on('change', function () {
-        if ($('#genes').val() != "")
-            //Enable 'button'
-            $('#send_button').prop("disabled", false);
-        else
-            //Disable 'button'
-            $('#send_button').prop("disabled", true);
-    });
+    //$('#genes').on('change', function () {
+    //    if ($('#genes').val() != "")
+    //        //Enable 'button'
+    //        $('#send_button').prop("disabled", false);
+    //    else
+    //        //Disable 'button'
+    //        $('#send_button').prop("disabled", true);
+    //});
     //When the user press the 'Send' button:
     $('#send_button').on('click', function () {
         API.prototype.sendButtonFunction(view);

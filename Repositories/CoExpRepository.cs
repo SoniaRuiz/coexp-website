@@ -47,7 +47,7 @@ namespace CoExp_Web.Repositories
             _productionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
             _testEnv = "https://snca.atica.um.es/api_test/";
             _privateEnv = "https://snca.atica.um.es/api_private/";
-            _coexpURL = _productionEnv;
+            _coexpURL = _testEnv;
             _postData = null;
 
         }

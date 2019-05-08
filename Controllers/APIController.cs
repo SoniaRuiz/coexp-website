@@ -146,6 +146,24 @@ namespace CoExp_Web.Controllers
 
         }
 
+        
+
+        /********************* BRAINEAC ************************/
+        [HttpGet]
+        [Route("GetTomDataBRAINEAC")]
+        public string GetTomDataBRAINEAC(string network, string moduleColor, string top)
+        {
+            //getNetworkCategories()
+            BraineacRepository repository = new BraineacRepository();
+            string response = repository.GetJSONTomData(network, moduleColor,top);
+
+            return response;
+        }
+
+        /****************************************************************************/
+        /******************************* POST METHODS *******************************/
+        /****************************************************************************/
+
         [HttpPost]
         [Route("GetInfoFromQuickGO")]
         public string GetInfoFromQuickGO([FromForm]string term)
@@ -175,22 +193,6 @@ namespace CoExp_Web.Controllers
 
             return response;
         }
-
-        /********************* BRAINEAC ************************/
-        [HttpGet]
-        [Route("GetTomDataBRAINEAC")]
-        public string GetTomDataBRAINEAC(string network, string moduleColor, string top)
-        {
-            //getNetworkCategories()
-            BraineacRepository repository = new BraineacRepository();
-            string response = repository.GetJSONTomData(network, moduleColor,top);
-
-            return response;
-        }
-
-        /****************************************************************************/
-        /******************************* POST METHODS *******************************/
-        /****************************************************************************/
 
         [HttpPost]
         [Route("PostReportOnGenesMultipleTissue")]

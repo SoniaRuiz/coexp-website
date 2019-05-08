@@ -46,7 +46,7 @@ namespace CoExp_Web
             //ATN_5843218Gt
             //coexp_test
             //coexp
-            app.UsePathBase("/coexp/");
+            app.UsePathBase("/coexp_test/");
 
             if (env.IsDevelopment())
             {
