@@ -150,9 +150,6 @@ namespace CoExp_Web.Controllers
 
         }
 
-        
-
-        /*** BRAINEAC ***/
         [HttpGet]
         [Route("GetTomDataBRAINEAC")]
         public string GetTomDataBRAINEAC([FromQuery] BraineacParams braineacData)
@@ -235,7 +232,6 @@ namespace CoExp_Web.Controllers
 
             return parsed_response;
         }
-
-        
+ 
     }
 }

@@ -25,7 +25,7 @@ namespace CoExp_Web.Repositories
             
             var url = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/terms/" + goTerm;
             //Make the request
-            var response = _adapter.HttpRequestJSON(url);
+            var response = _adapter.GETHttpRequestJSON(url);
 
             //Return the response
             return response;
@@ -36,7 +36,7 @@ namespace CoExp_Web.Repositories
 
             var url = "https://reactome.org/ContentService/data/query/" + reacTerm;
             //Make the request
-            var response = _adapter.HttpRequestJSON(url);
+            var response = _adapter.GETHttpRequestJSON(url);
 
             //Return the response
             return response;
@@ -46,7 +46,7 @@ namespace CoExp_Web.Repositories
 
             var url = "http://togows.org/entry/kegg-pathway/map" + keggTerm + ".json";
             //Make the request
-            var response = _adapter.HttpRequestJSON(url);
+            var response = _adapter.GETHttpRequestJSON(url);
 
             //Return the response
             return response;

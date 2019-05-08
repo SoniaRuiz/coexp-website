@@ -66,7 +66,7 @@ namespace CoExp_Web.Repositories
             else
                 _coexpURL = _coexpURL + "getNetworkCategories";
             //Make the request
-            response = _adapter.HttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(_coexpURL);
 
             //Return the response
             return response;
@@ -83,7 +83,7 @@ namespace CoExp_Web.Repositories
                 _coexpURL = _coexpURL + "getAvailableNetworks?category=" + coexpdata.Category;
 
             //Make the request
-            response = _adapter.HttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(_coexpURL);
             
 
             //Return the response
@@ -103,7 +103,7 @@ namespace CoExp_Web.Repositories
 
            
             //Make the request
-            response = _adapter.HttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(_coexpURL);
 
 
             //Return the response
@@ -123,7 +123,7 @@ namespace CoExp_Web.Repositories
 
             
             //Make the request
-            response = _adapter.HttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(_coexpURL);
 
             //Return the response
             return response;

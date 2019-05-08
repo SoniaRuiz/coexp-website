@@ -160,7 +160,6 @@
     <link rel="stylesheet" href="https://nightly.datatables.net/buttons/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
 
-
     <script type="text/javascript">
         $(document).ready(function () {
             API.prototype.menuInit(3);
@@ -169,48 +168,6 @@
     </script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <style type="text/css">
-        td.details-control {
-            background: var(--td-details-control-background);
-            background: url('/coexp_test/images/details_open.png') no-repeat center center;
-            cursor: pointer;
-        }
+    <link rel="stylesheet" href="~/css/custom.dataTables.css" />
 
-        tr.shown td.details-control {
-            background: url('/coexp_test/images/details_close.png') no-repeat center center;
-            background: var(--tr-shown-td-details-control-background);
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 01em 0.1em !important;
-        }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-                outline: none;
-                background-color: white;
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
-                background: -webkit-linear-gradient(top, white 0%, white 100%);
-                background: -moz-linear-gradient(top, white 0%, white 100%);
-                background: -ms-linear-gradient(top, white 0%, white 100%);
-                background: -o-linear-gradient(top, white 0%, white 100%);
-                background: linear-gradient(to bottom, white 0%, white 100%);
-                box-shadow: inset 0 0 3px white;
-            }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-                color: white !important;
-                border: 1px solid white;
-                background-color: white;
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white));
-                background: -webkit-linear-gradient(top, white 0%, white 100%);
-                background: -moz-linear-gradient(top, white 0%, white 100%);
-                background: -ms-linear-gradient(top, white 0%, white 100%);
-                background: -o-linear-gradient(top, white 0%, white 100%);
-                background: linear-gradient(to bottom, white 0%, white 100%);
-            }
-
-        h1, h2, h3, h4, h5 {
-            color: black !important;
-        }
-    </style>
 }

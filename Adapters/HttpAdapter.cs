@@ -20,7 +20,7 @@ namespace CoExp_Web.Adapters
         /// </summary>
         /// <param name="url">URL where we want to make the request</param>
         /// <returns>Response (in JSON format) received from the URL</returns>
-        public string HttpRequestJSON(string url)
+        public string GETHttpRequestJSON(string url)
         {
             try
             {
