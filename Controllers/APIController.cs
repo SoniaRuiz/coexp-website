@@ -19,6 +19,10 @@ namespace CoExp_Web.Controllers
     [ApiController]
     public class APIController : ControllerBase
     {
+        /****************************************************************************/
+        /******************************* GET METHODS *******************************/
+        /****************************************************************************/
+
         /// <summary>
         /// Welcome method. Used as a tester.
         /// </summary>
@@ -88,7 +92,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetTreeMenuData")]
-        public string GetTreeMenuData(string query)
+        public string GetTreeMenuData()
         {
             try
             {
@@ -148,14 +152,14 @@ namespace CoExp_Web.Controllers
 
         
 
-        /********************* BRAINEAC ************************/
+        /*** BRAINEAC ***/
         [HttpGet]
         [Route("GetTomDataBRAINEAC")]
-        public string GetTomDataBRAINEAC(string network, string moduleColor, string top)
+        public string GetTomDataBRAINEAC([FromQuery] BraineacParams braineacData)
         {
             //getNetworkCategories()
             BraineacRepository repository = new BraineacRepository();
-            string response = repository.GetJSONTomData(network, moduleColor,top);
+            string response = repository.GetJSONTomData(braineacData);
 
             return response;
         }
