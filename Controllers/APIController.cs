@@ -154,10 +154,10 @@ namespace CoExp_Web.Controllers
         [Route("GetTomDataBRAINEAC")]
         public string GetTomDataBRAINEAC([FromQuery] BraineacParams braineacData)
         {
-            //BraineacRepository repository = new BraineacRepository();
-            //string response = repository.GetJSONTomData(braineacData);
+            BraineacRepository repository = new BraineacRepository();
+            string response = repository.GetJSONTomData(braineacData);
 
-            return "hello world";
+            return response;
         }
 
         /****************************************************************************/
