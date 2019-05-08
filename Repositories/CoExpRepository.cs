@@ -265,13 +265,19 @@ namespace CoExp_Web.Repositories
                     }
                 }
             }
-            
-            
+
+
             if (_coexpURL == _productionEnv)
+            {
                 _coexpURL = _coexpURL + "GlobalReportOnGenes";
+                _postData = "{\"categories\":\"" + categoriesLabel + "\",\"networks\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+            }
             else
+            {
                 _coexpURL = _coexpURL + "globalReportOnGenes";
-            _postData = "{\"categories\":\"" + categoriesLabel + "\",\"networks\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+                _postData = "{\"categories\":\"" + categoriesLabel + "\",\"tissues\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+            }
+            
             //Make the request
             finalResponse = _adapter.POSTHttpRequestJSON(_coexpURL, _postData);
             

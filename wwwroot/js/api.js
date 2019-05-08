@@ -993,8 +993,12 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         
     }
     else if (view == 2) {
-        if ($('#genes').val() == "" || $("i.checked").length == 0) {
-            alert("Please, make your input selection.")
+        if ($('#genes').val() == "") {
+            alert("Please, enter your gene set.")
+            $("body").removeClass("loading");
+        }
+        else if($("i.checked").length == 0) {
+            alert("Please, select your preferred network.")
             $("body").removeClass("loading");
         }
         else {
@@ -1038,8 +1042,12 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         }
     }
     else if (view == 3) {
-        if ($('#genes').val() == "" || $("i.checked").length == 0) {
-            alert("Please, make your input selection.")
+        if ($('#genes').val() == "") {
+            alert("Please, enter your gene set.")
+            $("body").removeClass("loading");
+        }
+        else if ($("i.checked").length == 0) {
+            alert("Please, select your preferred network.")
             $("body").removeClass("loading");
         }
         else {
