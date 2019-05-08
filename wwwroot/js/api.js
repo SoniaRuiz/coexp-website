@@ -1111,12 +1111,7 @@ API.prototype.getAvailableNetworks = function (category, network) {
         network = null;
     }
     if (network != null) {
-        /*for (var i = 0; i < network.length; i++) {
-            net_option = '<option value="' + network[i] + '" selected>' + network[i] + '</option>';
-            $('#network')
-                .append(net_option)
-                .selectpicker('refresh');
-        }*/
+
         net_option = '<option value="' + network + '" selected>' + network + '</option>';
         $('#network')
             .append(net_option)
@@ -1160,12 +1155,7 @@ API.prototype.getNetworkCategories = function (category) {
         category = null;
     }
     if (category != null) {
-        /*for (var i = 0; i < category.length; i++) {
-            option = '<option value="' + category[i] + '">' + category[i] + '</option>';
-            $('#category')
-                .append(option)
-                .selectpicker('refresh');
-        }*/
+
         option = '<option value="' + category + '" selected>' + category + '</option>';
         $('#category')
             .append(option)
@@ -1205,9 +1195,9 @@ API.prototype.getNetworkCategories = function (category) {
             }
         });
 }
+
 API.prototype.menuInit = function (view) {
 
-    
 
     if (view == 1) {
         //Disable 'send' button
@@ -1264,8 +1254,6 @@ API.prototype.menuInit = function (view) {
         API.prototype.sendButtonFunction(view, moduleColor);  
     }
     else if (view == 2 || view == 3){
-        //$('#genes')
-        //    .prop('disabled', true);
         API.prototype.getTreeMenuData(); 
     }
 
@@ -1313,24 +1301,17 @@ API.prototype.menuInit = function (view) {
             $('#genes').prop('disabled', false);
         }
     });
-    //When the value of 'Network' changes:
+    //When the value of 'Module_selection' changes:
     $('#module_selection').on('change', function () {
         //Enable 'button'
         $('#send_button').prop("disabled", false);
     });
-    //When the value of 'Genes' textarea changes:
-    //$('#genes').on('change', function () {
-    //    if ($('#genes').val() != "")
-    //        //Enable 'button'
-    //        $('#send_button').prop("disabled", false);
-    //    else
-    //        //Disable 'button'
-    //        $('#send_button').prop("disabled", true);
-    //});
+
     //When the user press the 'Send' button:
     $('#send_button').on('click', function () {
         API.prototype.sendButtonFunction(view);
     });
+
     // Add event listener for opening and closing details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
@@ -1347,7 +1328,6 @@ API.prototype.menuInit = function (view) {
             
         }
     });
-    // Add event listener for opening and closing details
     $('#reportOnGenes_table, #summariseClustering_table').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var id = $(this).closest("table")[0].id;

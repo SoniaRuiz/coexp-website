@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CoExp_Web.Models
 {
     /// <summary>
-    /// Model to store information sent/received from CoExp R application
+    /// Model created to store information both sent and received from CoExp R application
     /// </summary>
     public class CoexpParams
     {
@@ -18,17 +18,5 @@ namespace CoExp_Web.Models
         public string Genes { get; set; }
         public string MultipleSelectionData { get; set; }
 
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public CoexpParams()
-        {
-            //    Category = "CoExpROSMAP";
-            //    Network = "ad";
-            //    ModuleColor = "black";
-            //    Genes = String.Empty;
-            //MultipleSelectionData = new List<string>();
-        }
     }
 }

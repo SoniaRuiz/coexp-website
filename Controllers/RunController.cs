@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoExp_Web.Controllers
 {
+    /// <summary>
+    /// Controller to return views.
+    /// </summary>
     public class RunController : Controller
     {
         

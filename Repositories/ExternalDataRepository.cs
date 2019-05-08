@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CoExp_Web.Repositories
 {
+    /// <summary>
+    /// Repository class that contains the methods to query JSON data to external WebAPIs (such as GO, REACTOME or KEGG).
+    /// </summary>
     public class ExternalDataRepository
     {
         /// <summary>

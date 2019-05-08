@@ -1,4 +1,8 @@
-﻿td.details-control {
+﻿/*
+* Custom CSS dataTables
+*/
+
+td.details-control {
     background: url('/coexp_test/images/details_open.png') no-repeat center center;
     cursor: pointer;
 }
