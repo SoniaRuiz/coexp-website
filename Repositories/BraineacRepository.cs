@@ -33,7 +33,7 @@ namespace CoExp_Web.Repositories
             //Set the URL with parameters. This URL will allow us to establish a communication with
             _braineacURL = _braineacURL + "tomdata?module=" + data.ModuleColor + "&tissue=" + data.Network + "&top=" + data.Top;
             //Make the request
-            response = "hello everybody";//_adapter.GETHttpRequestJSON(_braineacURL);
+            response = _adapter.GETHttpRequestJSON(_braineacURL);
 
             //Return the response
             return response;
