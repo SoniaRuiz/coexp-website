@@ -84,7 +84,5 @@ namespace CoExp_Web.Adapters
                 return message;
             }
         }
-
-       
     }
 }

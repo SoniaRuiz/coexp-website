@@ -137,7 +137,7 @@
                     .columns.adjust();
             });
 
-            var modelReceived = @(Model.ModuleColor == null ? 0 : 1);
+            const modelReceived = @(Model.ModuleColor == null ? 0 : 1);
 
             //If the model doesn't have any data:
             if (modelReceived == 0)
@@ -150,6 +150,7 @@
                 $("div.row").children(".sidebar").hide();
 
             }
+            $.fn.dataTable.ext.errMode = 'none';
 
         });
     </script>

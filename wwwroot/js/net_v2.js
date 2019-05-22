@@ -11,11 +11,14 @@
 // key2 = true,
 // key3 = true,
 // key0 = true;
-function net_plot(data_network_temp) {
+var svg, w, h;
 
+
+function net_plot(data_network_temp) {
+    
 	var data_network_raw = data_network_temp;
-	var w = 800;
-	var h = 600;
+	w = 800;
+	h = 600;
 	var multi_node = 20;
 	var focus_node = null,
 	highlight_node = null;
@@ -37,8 +40,8 @@ function net_plot(data_network_temp) {
 		.domain([1, 100])
 		.range([8, 24]);
 
-	var min_treshold_value = 10;
-	var max_treshold_value = -1;
+	var min_threshold_value = 10;
+	var max_threshold_value = -1;
 
 	var default_node_color = "#ccc";
 	//var default_node_color = "rgb(3,190,100)";
@@ -59,7 +62,7 @@ function net_plot(data_network_temp) {
     
 	var min_zoom = 0.1;
 	var max_zoom = 7;
-	var svg = d3.select("#network_plot").append("svg");
+	svg = d3.select("#network_plot").append("svg");
     var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
         .on("zoom", function () {
 
@@ -122,11 +125,11 @@ function net_plot(data_network_temp) {
 	//var number_of_genes = parseInt($("#network_number_of_genes").val());
 	//lenght of the data
 	//console.log(Object.keys(data_network_raw.results).length);
-    var number_of_genes = parseInt($('#text_box_name').val());
-	/*if (parseInt($("#slider_number_to_display").slider("value")) <= Object.keys(data_network_raw.results).length)
-		number_of_genes = parseInt($("#slider_number_to_display").slider("value"));
+    var number_of_genes = parseInt($('#text-box_genes-range').val());
+    if (parseInt($("#genes-range").val()) <= Object.keys(data_network_raw.results).length)
+        number_of_genes = parseInt($("#genes-range").val());
 	else
-		number_of_genes = Object.keys(data_network_raw.results).length;*/
+		number_of_genes = Object.keys(data_network_raw.results).length;
 
 	//set the size
 	var size_of_genes = [];
@@ -153,11 +156,11 @@ function net_plot(data_network_temp) {
 		for (var j = 0; j < number_of_genes + number_of_NAN; j++) {
 			if (start_storing) {
 
-				if (data_network_raw.results[i][j] < min_treshold_value)
-					min_treshold_value = data_network_raw.results[i][j];
+				if (data_network_raw.results[i][j] < min_threshold_value)
+					min_threshold_value = data_network_raw.results[i][j];
 
-				if (data_network_raw.results[i][j] > max_treshold_value)
-					max_treshold_value = data_network_raw.results[i][j];
+				if (data_network_raw.results[i][j] > max_threshold_value)
+					max_threshold_value = data_network_raw.results[i][j];
 
 				if (data_network_raw.results[i][j] > links_value_treshold)
 					links += '{"source":' + i + ',"target":' + (j - number_of_NAN) + ',"value":' + data_network_raw.results[i][j] + '},';
@@ -170,8 +173,8 @@ function net_plot(data_network_temp) {
 	links = links.substring(0, links.length - 1);
 	links += ']}';
 
-	console.log(min_treshold_value);
-	console.log(max_treshold_value);
+	console.log(min_threshold_value);
+	console.log(max_threshold_value);
 
 	var data_network = nodes + links;
 
@@ -200,15 +203,17 @@ function net_plot(data_network_temp) {
 			return d.score;
 		});
 
-	var min_treshold_value_temp = min_treshold_value - parseFloat((min_treshold_value.toString().substring(0, min_treshold_value.toString().length - 5)));
+	var min_threshold_value_temp = min_threshold_value - parseFloat((min_threshold_value.toString().substring(0, min_threshold_value.toString().length - 5)));
 
-	//set teh values for the treshold
-	/*$('#slider-range-treshold').slider("option", "min", min_treshold_value - min_treshold_value_temp);
-	$('#slider-range-treshold').slider("option", "value", min_treshold_value - min_treshold_value_temp);
-	$('#slider-range-treshold').slider("option", "max", max_treshold_value);
-	$("#treshold_network").val($("#slider-range-treshold").slider("value"));*/
+    // Set the values (default, min and max numbers) for the threshold.
+    const minThresholdValue = min_threshold_value - min_threshold_value_temp
+    $('#slider-range-treshold').attr("min", minThresholdValue);
+    $('#slider-range-treshold').attr("value", minThresholdValue);
+    $('#slider-range-treshold').attr("max", max_threshold_value - ((max_threshold_value - minThresholdValue) / parseFloat(10)));
+    $('#slider-range-treshold').attr("step", ((max_threshold_value - minThresholdValue) / parseFloat(10))); 
+	$("#threshold_network").val($("#slider-range-treshold").val());
 
-	var linkedByIndex = {};
+	let linkedByIndex = {};
 	data_network.links.forEach(function (d) {
 		linkedByIndex[d.source + "," + d.target] = true;
 	});
@@ -217,17 +222,17 @@ function net_plot(data_network_temp) {
 		return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
 	}
 
-	function hasConnections(a) {
-		for (var property in linkedByIndex) {
-			s = property.split(",");
-			if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
-				return true;
-		}
-		return false;
-	}
+	//function hasConnections(a) {
+	//	for (var property in linkedByIndex) {
+	//		s = property.split(",");
+	//		if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
+	//			return true;
+	//	}
+	//	return false;
+	//}
 
-	var value_distance;
-	var value_strenght;
+	let value_distance = null;
+	//var value_strenght;
 
 	var force = d3.layout.force()
 		.charge(-300)
@@ -244,13 +249,13 @@ function net_plot(data_network_temp) {
 		})
 		.size([w, h]);
 
-	force
-	.nodes(data_network.nodes)
-	.links(data_network.links)
-	.start();
+    force
+        .nodes(data_network.nodes)
+	    .links(data_network.links)
+	    .start();
 
-	var link = layer1.selectAll(".link")
-		.data(data_network.links)
+    var link = layer1.selectAll(".link")
+        .data(data_network.links)
 		.enter().append("line")
 		.attr("class", "link")
 		.style("stroke-width", function (d) {
@@ -432,30 +437,30 @@ function net_plot(data_network_temp) {
 	}
 
 	var hiding_nodes = false;
-	var current_node = 0;
-	var esta_solo;
+	let current_node = 0;
+	let node_isalone = false;
 
-	$("#hide_nodes").change(function () {
-		$("#hide_nodes").checkboxradio("refresh");
+    /*
+     * This function is executed when the 'Hide isolated genes' checkbox changes
+     * */
+    $("#hide_nodes").click(function () {
+		//$("#hide_nodes").checkboxradio("refresh");
 		hiding_nodes = !hiding_nodes;
 		if (hiding_nodes) {
 			//console.log(Object.keys(data_network.links).length);
 			current_node = 0;
-			for (var i = 0; i <= Object.keys(data_network.nodes).length; i++) {
-				esta_solo = true;
+			for (let i = 0; i <= Object.keys(data_network.nodes).length; i++) {
+                node_isalone = true;
 				data_network.links.forEach(function (d) {
 					//console.log("source: " + d.source.index + " -  target: " + d.target.index + " == " + current_node);
-
 					if (d.source.index == current_node || d.target.index == current_node) {
-						esta_solo = false;
-						//console.log("entriiiiii");
+                        node_isalone = false;
 					}
 				});
 
-				if (esta_solo) {
+                if (node_isalone) {
 					d3.select("#node_" + current_node).style("visibility", "hidden");
 					d3.select("#text_node_" + current_node).style("visibility", "hidden");
-
 				}
 				current_node++;
 			}
@@ -465,19 +470,21 @@ function net_plot(data_network_temp) {
 				d3.select("#text_node_" + i).style("visibility", "visible");
 			}
 		}
-
 		//node.style("visibility", "visible")
 	});
 
-	$("#slider-range-treshold").on("slide slidestop", function (event, ui) {
+    /*
+     * This function is executed when the threshold range changes
+     * */
+	$("#slider-range-treshold").on("change", function () {
 
-		var start_storing;
-		var links = '"links" : [';
-		var has_value = false;
-		for (var i = 0; i < number_of_genes; i++) {
+		let start_storing = false;
+		let links = '"links" : [';
+		let has_value = false;
+		for (let i = 0; i < number_of_genes; i++) {
 			start_storing = false;
-			for (var j = 0; j < number_of_genes + number_of_NAN; j++) {
-				if (start_storing && data_network_raw.results[i][j] > $("#treshold_network").val()) {
+			for (let j = 0; j < number_of_genes + number_of_NAN; j++) {
+				if (start_storing && data_network_raw.results[i][j] > $("#threshold_network").val()) {
 					links += '{"source":' + i + ',"target":' + (j - number_of_NAN) + ',"value":' + data_network_raw.results[i][j] + '},';
 					has_value = true;
 				}
@@ -506,12 +513,12 @@ function net_plot(data_network_temp) {
 				linkedByIndex[d.source + "," + d.target] = true;
 			});
 
-			link.enter().append("line")
-			.attr("class", "link")
-			.style("stroke-width", function (d) {
-				return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
-			})
-			.style("stroke", default_link_color);
+            link.enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", function (d) {
+                    return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
+                })
+                .style("stroke", default_link_color);
 
 			link.exit().remove();
 
@@ -545,27 +552,27 @@ function net_plot(data_network_temp) {
 				});
 			});
 
-			force
-			.links(data_network.links)
-			.start();
+            force
+                .links(data_network.links)
+                .start();
 		}
 
 		//hide not linked
 		if (hiding_nodes) {
 			//console.log(Object.keys(data_network.links).length);
 			current_node = 0;
-			for (var i = 0; i <= Object.keys(data_network.nodes).length; i++) {
-				esta_solo = true;
+			for (let i = 0; i <= Object.keys(data_network.nodes).length; i++) {
+                node_isalone = true;
 				data_network.links.forEach(function (d) {
 					//console.log("source: " + d.source.index + " -  target: " + d.target.index + " == " + current_node);
 
 					if (d.source.index == current_node || d.target.index == current_node) {
-						esta_solo = false;
+                        node_isalone = false;
 						//console.log("entriiiiii");
 					}
 				});
 
-				if (esta_solo) {
+                if (node_isalone) {
 					d3.select("#node_" + current_node).style("visibility", "hidden");
 					d3.select("#text_node_" + current_node).style("visibility", "hidden");
 
@@ -583,9 +590,6 @@ function net_plot(data_network_temp) {
 	});
 
 	
-    
-	
-
     resize();
 
 

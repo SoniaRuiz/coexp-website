@@ -39,7 +39,7 @@ namespace CoExp_Web.Repositories
         /// </summary>
         public string _privateEnv { get; set; }
         /// <summary>
-        /// Constructor. Here we initialize class properties with a default value.
+        /// Constructor. Here, we initialize all class' properties using default values.
         /// </summary>
         public CoExpRepository()
         {
@@ -52,7 +52,7 @@ namespace CoExp_Web.Repositories
 
         }
         /// <summary>
-        /// Method to obtain data from 'getNetworkCategories' API method
+        /// Method to obtain data from 'getNetworkCategories' API method. This method makes a GET request.
         /// </summary>
         /// <param name="coexpdata">Data to be sent to 'getNetworkCategories' CoExp API method</param>
         /// <returns>Response received from 'getNetworkCategories' CoExp API method</returns>
@@ -71,7 +71,11 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
-
+        /// <summary>
+        /// Method to obtain data from 'getAvailableNetworks' API method. This method makes a GET request.
+        /// </summary>
+        /// <param name="coexpdata">Data to be sent to 'getAvailableNetworks' CoExp API method</param>
+        /// <returns>Response received from 'getAvailableNetworks' CoExp API method</returns>
         public string GetAvailableNetworks(CoexpParams coexpdata)
         {
             string response = string.Empty;
@@ -89,7 +93,11 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
-
+        /// <summary>
+        /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
+        /// </summary>
+        /// <param name="coexpdata">Data to be sent to 'getGOFromTissue' CoExp API method</param>
+        /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
         public string GetGOFromTissue(CoexpParams coexpdata)
         {
             string response = string.Empty;
@@ -109,7 +117,11 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
-
+        /// <summary>
+        /// Method to obtain data from 'getCellTypeFromTissue' API method. This method makes a GET request.
+        /// </summary>
+        /// <param name="coexpdata">Data to be sent to 'getCellTypeFromTissue' CoExp API method</param>
+        /// <returns>Response received from 'getCellTypeFromTissue' CoExp API method</returns>
         public string GetCellTypeFromTissue(CoexpParams coexpdata)
         {
             string response = string.Empty;

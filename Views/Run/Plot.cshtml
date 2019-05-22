@@ -19,17 +19,19 @@
         <h4>Please, make your selection:</h4>
         <br />
         @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
-        <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
+            <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
 
-        <label for="network">Network</label>
-        <select id="network" name="network" class="selectpicker" title="Select an option ...">
-            <option value="SNIG" selected>Substantia Nigra</option>
-            <option value="PUTM">Putamen</option>
-        </select>
+        <label for="category">Category</label>
+        <select id="category" name="category" class="selectpicker" title="Select an option ..."></select>
         <br /><br />
 
-        <label for="module_color">Module selection</label>
-        <select id="module_color" class="selectpicker" title="Select an option ...">
+        <label for="network">Network</label>
+        <select id="network" name="network" class="selectpicker" title="Select an option ..."></select>
+        <br /><br />
+
+
+        <label for="module_selection">Module</label>
+        <select id="module_selection" class="selectpicker" title="Select an option ...">
             <option value="black" selected>Black</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
@@ -38,14 +40,17 @@
         </select>
         <br /><br />
 
-        <label for="genes_range">Number of genes</label>
-        <input id="genes_range" type="range" min="2" max="30" value="30" link-to="text_box_name">
-        <br>
-        <input type="text" id="text_box_name">
+        <label for="genes-range">Number of genes</label>
+        <input id="genes-range" type="range" min="2" max="30" value="30" link-to="text-box_genes-range">
+        <input id="text-box_genes-range" type="text" value="30">
         <br /><br />
 
-        <button id="generate_plot_button" class="btn btn-primary" href="#" role="button">Accept</button>
+        <button id="send_button" class="btn btn-primary" href="#" role="button">Accept</button>
     </nav>
+
+
+
+
     <main>
         <nav class="col-sm-9">
             <br />
@@ -54,52 +59,62 @@
                     <div id="network_plot" width="800" height="600"></div>
                 </td>
             </table>
+            <br />
+            <div id="button_area" class="pull-right" style="margin-right:20px;">
+                <button id="save_plot" class="btn btn-primary" href="#" role="button">Save Plot</button>
+                <button id="save_data" class="btn btn-primary" href="#" role="button">Save Data</button>
+
+            </div>
+            <br />
+            <table align="center" width="500" height="20" border="0" style="display: table;" id="table_treshold">
+                <tbody>
+                    <tr>
+                        <td align="middle">
+                            Link threshold<br />
+                            <input id="slider-range-treshold" type="range" link-to="threshold_network">
+                            <input id="threshold_network" type="text" size="40" style="text-align: center" value=""><br />
+                            <font size="1">The links shown above are over this threshold value</font>
+                        </td>
+                       
+                        <td align="middle">
+                            <label for="hide_nodes">Hide isolated nodes</label>
+                            <input id="hide_nodes" type="checkbox" name="hide_nodes" >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="dvjson"></div>
         </nav>
     </main>
     <div class="modal"><!-- loading layer --></div>
 </div>
 @section Scripts
     {
-    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>
     <script type="text/javascript" src="~/js/net_v2.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="~/js/api.js"></script>
+
+
+    <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $('#generate_plot_button').on('click', function () {
-                //clean
-                $("#network_plot").html('');
-                //get tissue value
-                var network = $('#network').find(":selected").val();
-                //get module value
-                var moduleColor = $('#module_color').find(":selected").val();
-                //get slider-range value
-                var top = $('#text_box_name').val();
-
-                var url_network_plot = '/' + environment + '/API/GetTomDataBRAINEAC?moduleColor=' + moduleColor + '&network=' + network + '&top=' +top;
-                //make request
-                $.ajax({
-                    url: url_network_plot,
-                    type: 'GET',
-                    //url : 'data/networkv4.json',
-                    url: url_network_plot,
-                    success: function (data) {
-                        //transform string to array
-                        data = JSON.parse(data);
-                        net_plot(data);
-                    },
-                    error: function () { }
-                });
-            });
-
+            
+            API.prototype.menuInit(4);
 
             $(function () {
                 $('input').filter(function () { return this.type == 'range' }).each(function () {
-                    var $slider = $(this),
-                        $text_box = $('#' + $(this).attr('link-to'));
+                    let $slider = $(this);
+                    let $text_box = "";
+                    if ($(this)[0].id == "genes-range") {
+                        $text_box = $('#text-box_genes-range');
+                        $text_box.val(this.value);
+                    } else {
+                        $text_box = $('#threshold_network');
+                    }
 
-                    $text_box.val(this.value);
+                    
 
                     $slider.change(function () {
                         $text_box.val(this.value);
@@ -108,7 +123,6 @@
                     $text_box.change(function () {
                         $slider.val($text_box.val());
                     });
-
                 });
             });
 

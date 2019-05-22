@@ -12,8 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\Blob.js" />
+    <Content Remove="wwwroot\js\canvas-toBlob.js" />
     <Content Remove="wwwroot\js\coexp_menu_data.json" />
     <Content Remove="wwwroot\js\dependent_dropdown.js" />
+    <Content Remove="wwwroot\js\eqtl_view.js" />
+    <Content Remove="wwwroot\js\excelexportjs.js" />
+    <Content Remove="wwwroot\js\FileSaver.js" />
+    <Content Remove="wwwroot\js\plugins.js" />
+    <Content Remove="wwwroot\js\shim.min.js" />
+    <Content Remove="wwwroot\js\site.js" />
+    <Content Remove="wwwroot\js\site.min.js" />
   </ItemGroup>
 
   <ItemGroup>
