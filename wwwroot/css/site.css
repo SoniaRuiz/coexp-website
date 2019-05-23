@@ -1,11 +1,4 @@
-﻿/*ATN_5843218Gt*/
-/*:root {
-    --environment: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
-    --td-details-control-background: url('/coexp/images/details_open.png') no-repeat center center;
-    --tr-shown-td-details-control-background: url('/coexp/images/details_close.png') no-repeat center center;
-}*/
-
-header {
+﻿header {
     background-color: #F1F1F1;
     padding: 20px;
 }
@@ -64,8 +57,6 @@ body {
     left: 0;
     height: 100%;
     width: 100%;
-    /*background: var(--environment);*/
-    background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
 }
 
 

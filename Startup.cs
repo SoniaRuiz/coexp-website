@@ -17,6 +17,7 @@ namespace CoExp_Web
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -46,15 +47,23 @@ namespace CoExp_Web
             //ATN_5843218Gt
             //coexp_test
             //coexp
-            app.UsePathBase("/coexp_test/");
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UsePathBase("/coexp_test/");
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                if (env.IsProduction())
+                {
+                    app.UsePathBase("/coexp/");
+                }
+                else if (env.IsEnvironment("Private"))
+                {
+                    app.UsePathBase("/ATN_5843218Gt/");
+                }
             }
 
             app.UseStaticFiles();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoExp_Web.Models;
 using CoExp_Web.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -19,6 +20,12 @@ namespace CoExp_Web.Controllers
     [ApiController]
     public class APIController : ControllerBase
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public APIController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
         /****************************************************************************/
         /******************************* GET METHODS *******************************/
         /****************************************************************************/
@@ -38,7 +45,7 @@ namespace CoExp_Web.Controllers
         public string GetNetworkCategories()
         {
             //getNetworkCategories()
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetNetworkCategories();
             return response;
         }
@@ -47,7 +54,7 @@ namespace CoExp_Web.Controllers
         [Route("GetAvailableNetworks")]
         public string GetAvailableNetworks([FromQuery] CoexpParams coexpdata)
         {
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetAvailableNetworks(coexpdata);
             return response;
         }
@@ -58,7 +65,7 @@ namespace CoExp_Web.Controllers
         {
             //category = which.one
             //network = tissue
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetGOFromTissue(coexpdata);
             
             //REPLACE CHARACTERS
@@ -80,14 +87,9 @@ namespace CoExp_Web.Controllers
         [Route("GetCellTypeFromTissue")]
         public string GetCellTypeFromTissue([FromQuery] CoexpParams coexpdata)
         {
-            //category = which.one
-            //network = tissue
-            //request to 'getCellTypeFromTissue'
-
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetCellTypeFromTissue(coexpdata);
             return response;
-            //return "[[\"green\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"REACTOME\"],[\"green\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"REACTOME\"],[\"green\", \"myelination GO:0042552\", \"2.76E-09\", \"MF\"],[\"green\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"REACTOME\"],[\"green\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"KEGG\"],[\"yellow\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"CC\"],[\"yellow\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"CC\"],[\"black\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"BB\"],[\"black\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"BB\"],[\"black\", \"myelination GO:0042552\", \"2.76E-09\", \"BB\"],[\"black\", \"oligodendrocyte differentiation GO:0048709\", \"6.78E-09\", \"BB\"],[\"black\", \"glial cell differentiation GO:0010001\", \"1.57E-07\", \"BB\"],[\"yellow\", \"ensheathment of neurons GO:0007272\", \"5.83E-10\", \"CC\"],[\"yellow\", \"axon ensheathment GO:0008366\", \"5.83E-10\", \"CC\"],[\"yellow\", \"myelination GO:0042552\", \"2.76E-09\", \"CC\"]]";
         }
 
         [HttpGet]
@@ -200,7 +202,7 @@ namespace CoExp_Web.Controllers
         {
             //category = which.one
             //network = tissue
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.ReportOnGenesMultipleTissue(coexpdata);
 
             string parsed_response = response.Replace("go.report", "go_report");
@@ -219,7 +221,7 @@ namespace CoExp_Web.Controllers
         {
             //category = which.one
             //network = tissue
-            CoExpRepository repository = new CoExpRepository();
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GlobalReportOnGenes(coexpdata);
 
             string parsed_response = response.Replace("go.report", "go_report");

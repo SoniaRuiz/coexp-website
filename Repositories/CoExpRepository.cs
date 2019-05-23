@@ -1,5 +1,6 @@
 ﻿using CoExp_Web.Adapters;
 using CoExp_Web.Models;
+using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,6 +15,7 @@ namespace CoExp_Web.Repositories
     /// </summary>
     public class CoExpRepository
     {
+       
         /// <summary>
         /// Property to manage the http connection
         /// </summary>
@@ -38,17 +40,32 @@ namespace CoExp_Web.Repositories
         /// API private environment URL
         /// </summary>
         public string _privateEnv { get; set; }
+
+        
         /// <summary>
         /// Constructor. Here, we initialize all class' properties using default values.
         /// </summary>
-        public CoExpRepository()
+        public CoExpRepository(IHostingEnvironment hostingEnvironment)
         {
             _adapter = new HttpAdapter();
             _productionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
             _testEnv = "https://snca.atica.um.es/api_test/";
             _privateEnv = "https://snca.atica.um.es/api_private/";
-            _coexpURL = _testEnv;
             _postData = null;
+           
+
+            if(hostingEnvironment.EnvironmentName == "Production")
+            {
+                _coexpURL = _productionEnv;
+            }
+            else if (hostingEnvironment.EnvironmentName == "Development")
+            {
+                _coexpURL = _testEnv;
+            }
+            else if (hostingEnvironment.EnvironmentName == "Private")
+            {
+                _coexpURL = _privateEnv;
+            }
 
         }
         /// <summary>

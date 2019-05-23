@@ -8,21 +8,32 @@
     }
   },
   "profiles": {
-    "IIS Express": {
+    "Development": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "Run/Catalog/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "CoExp_Web": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5004/"
+      "applicationUrl": "http://localhost:5003/"
+      //},
+      //"Development": {
+      //  "commandName": "IISExpress",
+      //  "launchBrowser": true,
+      //  "launchUrl": "Run/Catalog/",
+      //  "environmentVariables": {
+      //    "ASPNETCORE_ENVIRONMENT": "Development"
+      //  },
+      //  "applicationUrl": "http://localhost:5004/"
+      //},
+      //"Private": {
+      //  "commandName": "IISExpress",
+      //  "launchBrowser": true,
+      //  "launchUrl": "Run/Catalog/",
+      //  "environmentVariables": {
+      //    "ASPNETCORE_ENVIRONMENT": "Private"
+      //  },
+      //  "applicationUrl": "http://localhost:5005"
+      //}
     }
   }
-}

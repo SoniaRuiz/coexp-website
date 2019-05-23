@@ -31,7 +31,9 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Run" asp-action="Catalog">Network Catalog</a></li>
                     <li><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
-                    <li><a asp-area="" asp-controller="Run" asp-action="Plot">Plot</a></li>
+                    <environment include="Development">
+                        <li><a asp-area="" asp-controller="Run" asp-action="Plot">Plot</a></li>
+                    </environment>
                     <li class="dropdown">
                         <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">?<span class="caret"></span></a>
                         <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
@@ -53,15 +55,66 @@
             <p>&copy; 2019 - CoExp_Web</p>
         </footer>
     </div>
-    <script>
-        const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
-    </script>
     <environment include="Development">
+        <script type="text/javascript">
+            const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
+        </script>
+
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
+            }
+            td.details-control {
+                background: url('/coexp_test/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+            tr.shown td.details-control {
+                background: url('/coexp_test/images/details_close.png') no-repeat center center;
+            }
+        </style>
     </environment>
-    <environment exclude="Development">
+
+    <environment include="Private">
+        <script type="text/javascript">
+            const environment = "ATN_5843218Gt";//"ATN_5843218Gt"//"coexp"//coexp_test
+        </script>
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
+            }
+            td.details-control {
+                background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+            tr.shown td.details-control {
+                background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
+            }
+        </style>
+    </environment>
+
+    <environment include="Production">
+
+        <script type="text/javascript">
+            const environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
+        </script>
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
+            }
+            td.details-control {
+                background: url('/coexp/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+            tr.shown td.details-control {
+                background: url('/coexp/images/details_close.png') no-repeat center center;
+            }
+        </style>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129116044-1"></script>
         <script>
@@ -82,7 +135,6 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        @*<script src="~/js/site.min.js" asp-append-version="true"></script>*@
     </environment>
 
     @RenderSection("Scripts", required: false)
