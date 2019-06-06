@@ -30,7 +30,7 @@
         <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..." style="resize:vertical;"></textarea>
 
         <br /><br />
-        <button id="send_button" class="btn btn-primary" href="#" role="button">Accept</button>
+        <button id="send_button" class="btn btn-primary">Accept</button>
     </nav>
 
 
@@ -135,41 +135,51 @@
     <div class="modal"><!-- loading layer --></div>
 
 </div><br />
-@section Scripts
-    {
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
+@section Styles{
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
+    
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/custom.dataTables.css" />
+        <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
+    </environment>
+    <environment include="Production,Private">
+        <link rel="stylesheet" href="~/css/custom.dataTables.min.css" />
+        <link type="text/css" rel="stylesheet" href="~/css/simTree.min.css">
+    </environment>
+}
+@section Scripts{
+    <script type="text/javascript" src="~/js/underscore-min.js"></script>
 
     <!--Multiselect scripts -->
-    <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
-    <script type="text/javascript" src="~/js/simTree.js"></script>
+    <script type="text/javascript" src="~/js/simTree.min.js"></script>
 
     <!-- DataTable scripts-->
     <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="~/js/api.js"></script>
 
-    <script type="text/javascript" src="https://nightly.datatables.net/buttons/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://nightly.datatables.net/buttons/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="https://nightly.datatables.net/buttons/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://nightly.datatables.net/buttons/js/buttons.print.min.js"></script>
+    <environment include="Development">
+        <script type="text/javascript" src="~/js/api.js"></script>
+    </environment>
+    <environment include="Production,Private">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+    </environment>
 
+    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="~/js/jszip.min.js"></script>
     <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
     <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
 
-    <link rel="stylesheet" href="https://nightly.datatables.net/buttons/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
 
     <script type="text/javascript">
         $(document).ready(function () {
             API.prototype.menuInit(3);
-
             $.fn.dataTable.ext.errMode = 'none';
-
         });
     </script>
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="~/css/custom.dataTables.css" />
-
 }

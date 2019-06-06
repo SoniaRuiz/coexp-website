@@ -18,8 +18,6 @@
         <br />
         <h4>Please, make your selection:</h4>
         <br />
-        @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
-            <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
 
         <label for="category">Category</label>
         <select id="category" name="category" class="selectpicker" title="Select an option ..."></select>
@@ -45,11 +43,8 @@
         <input id="text-box_genes-range" type="text" value="30">
         <br /><br />
 
-        <button id="send_button" class="btn btn-primary" href="#" role="button">Accept</button>
+        <button id="send_button" class="btn btn-primary">Accept</button>
     </nav>
-
-
-
 
     <main>
         <nav class="col-sm-9">
@@ -69,16 +64,16 @@
             <table align="center" width="500" height="20" border="0" style="display: table;" id="table_treshold">
                 <tbody>
                     <tr>
-                        <td align="middle">
+                        <td align="center">
                             Link threshold<br />
                             <input id="slider-range-treshold" type="range" link-to="threshold_network">
                             <input id="threshold_network" type="text" size="40" style="text-align: center" value=""><br />
                             <font size="1">The links shown above are over this threshold value</font>
                         </td>
-                       
-                        <td align="middle">
+
+                        <td align="center">
                             <label for="hide_nodes">Hide isolated nodes</label>
-                            <input id="hide_nodes" type="checkbox" name="hide_nodes" >
+                            <input id="hide_nodes" type="checkbox" name="hide_nodes">
                         </td>
                     </tr>
                 </tbody>
@@ -88,19 +83,25 @@
     </main>
     <div class="modal"><!-- loading layer --></div>
 </div>
-@section Scripts
-    {
-    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>
-    <script type="text/javascript" src="~/js/net_v2.js"></script>
+@section Scripts{
+
+    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>   
     <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
-    <script type="text/javascript" src="~/js/api.js"></script>
+    <environment include="Development">
+        <script type="text/javascript" src="~/js/api.js"></script>
+        <script type="text/javascript" src="~/js/net_v2.js"></script>
+    </environment>
+    <environment include="Production,Private">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+        <script type="text/javascript" src="~/js/net_v2.min.js"></script>
+    </environment>
 
 
     <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            
+
             API.prototype.menuInit(4);
 
             $(function () {
@@ -113,8 +114,6 @@
                     } else {
                         $text_box = $('#threshold_network');
                     }
-
-                    
 
                     $slider.change(function () {
                         $text_box.val(this.value);

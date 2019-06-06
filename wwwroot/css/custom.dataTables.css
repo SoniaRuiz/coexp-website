@@ -2,8 +2,6 @@
 * Custom CSS dataTables
 */
 
-
-
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 01em 0.1em !important;
 }

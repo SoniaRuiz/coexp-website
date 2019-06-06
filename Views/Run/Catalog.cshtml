@@ -42,9 +42,8 @@
         </select>
 
         <br /><br />
-        <button id="send_button" class="btn btn-primary" href="#" role="button">Accept</button>
+        <button id="send_button" class="btn btn-primary">Accept</button>
     </nav>
-
 
     <main>
         <nav class="col-sm-9">
@@ -105,15 +104,25 @@
     </main>
     <div class="modal"><!-- loading layer --></div>
 </div>
+@section Styles{
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/custom.dataTables.min.css" />
+}
+@section Scripts{
 
-@section Scripts
-    {
-
-
+    <script type="text/javascript" src="~/js/underscore-min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
     <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="~/js/api.js"></script>
+    <environment include="Development">
+        <script type="text/javascript" src="~/js/api.js"></script>
+    </environment>
+    <environment include="Production,Private">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+    </environment>
 
     <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
@@ -129,8 +138,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("[data-placement='bottom']").popover();
-            //API.prototype.showPopOver("SNCA");
-            //API.prototype.showPopOver("0016054",true)
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 $($.fn.dataTable.tables(true)).DataTable()
@@ -151,8 +158,6 @@
 
             }
             $.fn.dataTable.ext.errMode = 'none';
-
         });
     </script>
-    <link rel="stylesheet" href="~/css/custom.dataTables.css" />
 }

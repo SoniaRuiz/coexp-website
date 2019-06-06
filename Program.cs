@@ -15,14 +15,13 @@ namespace CoExp_Web
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args)
-                .UseEnvironment("Production")
+                .UseEnvironment("Development")
                 .Build()
                 .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:5003")
                 .UseKestrel()
                 .UseStartup<Startup>();
     }

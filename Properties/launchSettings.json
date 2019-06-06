@@ -8,14 +8,14 @@
     }
   },
   "profiles": {
-    "Development": {
+    "Default": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "Run/Catalog/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5003/"
+      "applicationUrl": "http://localhost:5004/"
       //},
       //"Development": {
       //  "commandName": "IISExpress",
@@ -37,3 +37,4 @@
       //}
     }
   }
+}
