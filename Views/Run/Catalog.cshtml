@@ -50,8 +50,8 @@
             <br />
             <!-- Nav tabs -->
             <ul id="tabs" class="nav nav-tabs" role="tablist" style="display:none">
-                <li role="presentation" class="active"><a href="#tab1" aria-controls="example1-tab1" role="tab" data-toggle="tab">By Ontology</a></li>
-                <li role="presentation"><a href="#tab2" aria-controls="example1-tab2" role="tab" data-toggle="tab">By Cell Type</a></li>
+                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">By Ontology</a></li>
+                <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">By Cell Type</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -104,7 +104,8 @@
     </main>
     <div class="modal"><!-- loading layer --></div>
 </div>
-@section Styles{
+@section Styles
+{
     <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="~/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
@@ -113,29 +114,29 @@
 }
 @section Scripts{
 
-    <script type="text/javascript" src="~/js/underscore-min.js"></script>
-    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
-    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/underscore-min.js"></script>
+    <script src="~/js/bootstrap-select.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
     <environment include="Development">
-        <script type="text/javascript" src="~/js/api.js"></script>
+        <script src="~/js/api.js"></script>
     </environment>
     <environment include="Production,Private">
-        <script type="text/javascript" src="~/js/api.min.js"></script>
+        <script src="~/js/api.min.js"></script>
     </environment>
 
-    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.fixedColumns.min.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.flash.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/buttons.colVis.min.js"></script>
+    <script src="~/js/dataTables.fixedColumns.min.js"></script>
 
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             $("[data-placement='bottom']").popover();
 

@@ -151,32 +151,32 @@
     </environment>
 }
 @section Scripts{
-    <script type="text/javascript" src="~/js/underscore-min.js"></script>
+    <script src="~/js/underscore-min.js"></script>
 
     <!--Multiselect scripts -->
-    <script type="text/javascript" src="~/js/simTree.min.js"></script>
+    <script src="~/js/simTree.min.js"></script>
 
     <!-- DataTable scripts-->
-    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
 
     <environment include="Development">
-        <script type="text/javascript" src="~/js/api.js"></script>
+        <script src="~/js/api.js"></script>
     </environment>
     <environment include="Production,Private">
-        <script type="text/javascript" src="~/js/api.min.js"></script>
+        <script src="~/js/api.min.js"></script>
     </environment>
 
-    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="~/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.flash.min.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
 
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             API.prototype.menuInit(3);
             $.fn.dataTable.ext.errMode = 'none';

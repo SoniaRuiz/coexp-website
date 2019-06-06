@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" />
     </environment>
 
-    @RenderSection("Styles", false)
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -60,7 +60,7 @@
         </footer>
     </div>
     <environment include="Development">
-        <script type="text/javascript">
+        <script>
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
 
@@ -81,7 +81,7 @@
     </environment>
 
     <environment include="Private">
-        <script type="text/javascript">
+        <script>
             const environment = "ATN_5843218Gt";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
 
@@ -104,7 +104,7 @@
 
     <environment include="Production">
 
-        <script type="text/javascript">
+        <script>
             const environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
         <style>

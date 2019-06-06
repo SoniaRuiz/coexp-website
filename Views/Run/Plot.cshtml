@@ -85,21 +85,21 @@
 </div>
 @section Scripts{
 
-    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>   
-    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+    <script src="~/js/d3.v3.min.js"></script>   
+    <script src="~/js/bootstrap-select.js"></script>
     <environment include="Development">
-        <script type="text/javascript" src="~/js/api.js"></script>
-        <script type="text/javascript" src="~/js/net_v2.js"></script>
+        <script src="~/js/api.js"></script>
+        <script src="~/js/net_v2.js"></script>
     </environment>
     <environment include="Production,Private">
-        <script type="text/javascript" src="~/js/api.min.js"></script>
-        <script type="text/javascript" src="~/js/net_v2.min.js"></script>
+        <script src="~/js/api.min.js"></script>
+        <script src="~/js/net_v2.min.js"></script>
     </environment>
 
 
-    <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
+    <script src="~/js/xlsx.full.min.js"></script>
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
 
             API.prototype.menuInit(4);
