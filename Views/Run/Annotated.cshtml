@@ -27,7 +27,7 @@
 
 
         <label for="genes">Genes:</label>
-        <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..." style="resize:vertical;"></textarea>
+        <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
 
         <br /><br />
         <button id="send_button" class="btn btn-primary">Accept</button>
@@ -40,7 +40,7 @@
 
                 <h3><u>Gene Annotation</u></h3>
                 <br />
-                <table id="reportOnGenes_table" class="table table-striped table-bordered" style="width:100%">
+                <table id="reportOnGenes_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -58,11 +58,11 @@
                     </thead>
                 </table>
             </div>
-            <div id="summariseClustering_div" style="display:none;">
+            <div id="summariseClustering_div">
                 <br />
                 <h3><u>Summarise Clustering</u></h3>
                 <br />
-                <table id="summariseClustering_table" class="table table-striped table-bordered" style="width:100%">
+                <table id="summariseClustering_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -79,11 +79,11 @@
                     </thead>
                 </table>
             </div>
-            <div id="globalReportOnGenes_div" style="display:none;">
+            <div id="globalReportOnGenes_div">
                 <br />
                 <h3><u>Gene Annotation</u></h3>
                 <br />
-                <table id="globalReportOnGenes_table" class="table table-striped table-bordered" style="width:100%">
+                <table id="globalReportOnGenes_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -103,11 +103,11 @@
                     </thead>
                 </table>
             </div>
-            <div id="globalSummariseReportOnGenes_div" style="display:none;">
+            <div id="globalSummariseReportOnGenes_div">
                 <br />
                 <h3><u>Summarise Clustering</u></h3>
                 <br />
-                <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered" style="width:100%">
+                <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -127,7 +127,7 @@
                 </table>
             </div>
             <br />
-            <div id="error" style="display:none;" class="alert alert-danger">
+            <div id="error" class="alert alert-danger">
                 <h4>Sorry. An error has occurred.</h4>
             </div>
         </nav>
@@ -174,7 +174,6 @@
     <script src="~/js/jszip.min.js"></script>
     <script src="~/js/pdfmake.min.js"></script>
     <script src="~/js/vfs_fonts.js"></script>
-
 
     <script>
         $(document).ready(function () {

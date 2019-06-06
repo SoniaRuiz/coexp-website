@@ -39,7 +39,7 @@
         <br /><br />
 
         <label for="genes-range">Number of genes</label>
-        <input id="genes-range" type="range" min="2" max="30" value="30" data- link-to="text-box_genes-range">
+        <input id="genes-range" type="range" min="2" max="30" value="30">
         <input id="text-box_genes-range" type="text" value="30">
         <br /><br />
 
@@ -49,10 +49,10 @@
     <main>
         <nav class="col-sm-9">
             <br />
-            <table border="1" id="network_plot_table" >
+            <table id="network_plot_table" >
                 <tr>
                     <td>
-                        <div id="network_plot" style="text-align: center;margin: 0 auto;width:800px;height:600px;"></div>
+                        <div id="network_plot"></div>
                     </td>
                 </tr>
             </table>
@@ -63,13 +63,13 @@
 
             </div>
             <br />
-            <table style="text-align: center;margin: 0 auto;width:500px;height:20px;border:0px;" id="table_treshold">
+            <table id="table_treshold">
                 <tbody>
                     <tr>
                         <td >
                             Link threshold<br />
-                            <input id="slider-range-treshold" type="range" link-to="threshold_network">
-                            <input id="threshold_network" type="text" size="40" style="text-align: center" value=""><br />
+                            <input id="slider-range-treshold" type="range">
+                            <input id="threshold_network" type="text" size="40" value=""><br />
                             <small>The links shown above are over this threshold value</small>
                         </td>
 

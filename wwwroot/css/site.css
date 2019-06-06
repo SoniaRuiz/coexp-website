@@ -272,3 +272,42 @@ input[type=range] {
     input[type=range]:focus::-ms-fill-upper {
         background: rgb(196, 196, 196);
     }
+
+/*****************************/
+/******* PLOT TAB ************/
+#network_plot {
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    height: 600px;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+}
+#table_treshold {
+    text-align: center;
+    margin: 0 auto;
+    width: 500px;
+    height: 20px;
+    border: 0px;
+}
+#threshold_network {
+    text-align: center;
+}
+
+
+/*****************************/
+/******* ANNOTATED TAB *******/
+#genes {
+    resize:vertical;
+}
+#reportOnGenes_table, #summariseClustering_table,
+#globalReportOnGenes_table, #globalSummariseReportOnGenes_table {
+    width: 100%;
+}
+#summariseClustering_div, #globalReportOnGenes_div,
+#globalSummariseReportOnGenes_div, #error {
+    display: none;
+}
+
+
