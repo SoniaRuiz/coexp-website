@@ -5,19 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoExp WebSite</title>
     <link rel="icon" href="~/images/ucl-icon.png" type="image/gif" sizes="16x16">
-    
+
     <link rel="stylesheet" href="~/css/bootstrap-select.min.css">
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
+            }
+
+            td.details-control {
+                background: url('/coexp_test/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            tr.shown td.details-control {
+                background: url('/coexp_test/images/details_close.png') no-repeat center center;
+            }
+        </style>
     </environment>
     <environment include="Production,Private">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" />
     </environment>
+    <environment include="Private">
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
+            }
 
-    @RenderSection("Styles", required: false)
+            td.details-control {
+                background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            tr.shown td.details-control {
+                background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
+            }
+        </style>
+    </environment>
+    <environment include="Production">
+        <style>
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
+            }
+
+            td.details-control {
+                background: url('/coexp/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            tr.shown td.details-control {
+                background: url('/coexp/images/details_close.png') no-repeat center center;
+            }
+        </style>
+    </environment>
+    @if (IsSectionDefined("HeadStyles"))
+    {
+        @RenderSection("HeadStyles", required: false)
+    }
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -66,18 +115,6 @@
 
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <style>
-            .modal {
-                background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
-            }
-            td.details-control {
-                background: url('/coexp_test/images/details_open.png') no-repeat center center;
-                cursor: pointer;
-            }
-            tr.shown td.details-control {
-                background: url('/coexp_test/images/details_close.png') no-repeat center center;
-            }
-        </style>
     </environment>
 
     <environment include="Private">
@@ -87,19 +124,6 @@
 
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-
-        <style>
-            .modal {
-                background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
-            }
-            td.details-control {
-                background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
-                cursor: pointer;
-            }
-            tr.shown td.details-control {
-                background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
-            }
-        </style>
     </environment>
 
     <environment include="Production">

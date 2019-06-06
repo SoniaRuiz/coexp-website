@@ -39,7 +39,7 @@
         <br /><br />
 
         <label for="genes-range">Number of genes</label>
-        <input id="genes-range" type="range" min="2" max="30" value="30" link-to="text-box_genes-range">
+        <input id="genes-range" type="range" min="2" max="30" value="30" data- link-to="text-box_genes-range">
         <input id="text-box_genes-range" type="text" value="30">
         <br /><br />
 
@@ -49,29 +49,31 @@
     <main>
         <nav class="col-sm-9">
             <br />
-            <table align="center" width="800" height="600" border="1" id="network_plot_table">
-                <td>
-                    <div id="network_plot" width="800" height="600"></div>
-                </td>
+            <table border="1" id="network_plot_table" >
+                <tr>
+                    <td>
+                        <div id="network_plot" style="text-align: center;margin: 0 auto;width:800px;height:600px;"></div>
+                    </td>
+                </tr>
             </table>
             <br />
             <div id="button_area" class="pull-right" style="margin-right:20px;">
-                <button id="save_plot" class="btn btn-primary" href="#" role="button">Save Plot</button>
-                <button id="save_data" class="btn btn-primary" href="#" role="button">Save Data</button>
+                <button id="save_plot" class="btn btn-primary">Save Plot</button>
+                <button id="save_data" class="btn btn-primary">Save Data</button>
 
             </div>
             <br />
-            <table align="center" width="500" height="20" border="0" style="display: table;" id="table_treshold">
+            <table style="text-align: center;margin: 0 auto;width:500px;height:20px;border:0px;" id="table_treshold">
                 <tbody>
                     <tr>
-                        <td align="center">
+                        <td >
                             Link threshold<br />
                             <input id="slider-range-treshold" type="range" link-to="threshold_network">
                             <input id="threshold_network" type="text" size="40" style="text-align: center" value=""><br />
-                            <font size="1">The links shown above are over this threshold value</font>
+                            <small>The links shown above are over this threshold value</small>
                         </td>
 
-                        <td align="center">
+                        <td>
                             <label for="hide_nodes">Hide isolated nodes</label>
                             <input id="hide_nodes" type="checkbox" name="hide_nodes">
                         </td>
