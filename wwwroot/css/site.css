@@ -273,6 +273,12 @@ input[type=range] {
         background: rgb(196, 196, 196);
     }
 
+
+/*****************************/
+/******* ALL TABS ************/
+h2 {
+    color:black !important;
+}
 /*****************************/
 /******* PLOT TAB ************/
 #network_plot {
@@ -311,3 +317,9 @@ input[type=range] {
 }
 
 
+/*****************************/
+/******* CATALOG TAB *********/
+
+#menu {
+    display: none;
+}

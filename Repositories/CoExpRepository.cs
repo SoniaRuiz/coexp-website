@@ -236,32 +236,31 @@ namespace CoExp_Web.Repositories
 
         public string GlobalReportOnGenes(CoexpParams coexpdata)
         {
-            coexpdata.MultipleSelectionData = coexpdata.MultipleSelectionData.Remove(0, 1);
-            coexpdata.MultipleSelectionData = coexpdata.MultipleSelectionData.Remove(coexpdata.MultipleSelectionData.Length - 1, 1);
-
-            //"**CoExpROSMAP**probad,ad,**gtexv6**AntCingCortex"
-            var categories = (coexpdata.MultipleSelectionData).Split("**,");
-            
-            
-            var categoriesLabel = string.Empty;
-            var localCategory = string.Empty;
-            var networks = string.Empty;
-            var localNetworks = string.Empty;
-            var finalResponse = string.Empty;
-
+            //Declare initial variables
+            string categoriesLabel = string.Empty;
+            string localCategory = string.Empty;
+            string networks = string.Empty;
+            string localNetworks = string.Empty;
+            string finalResponse = string.Empty;
+            string[] categoryData;
             JArray finalJSONresponse = new JArray();
 
+            //Remove parenthesis
+            coexpdata.MultipleSelectionData = coexpdata.MultipleSelectionData.Replace("{", "");
+            coexpdata.MultipleSelectionData = coexpdata.MultipleSelectionData.Replace("}", "");
+
+            var categories = (coexpdata.MultipleSelectionData).Split("**");
+            
             foreach (var category in categories)
             {
                 if (category != String.Empty)
                 {
-                    var categoryData = category.Split("|");
+                    categoryData = category.Split("|");
                     localCategory = categoryData[0];
                     if (categoriesLabel.Length == 0)
                         categoriesLabel = categoryData[0];
                     else
                         categoriesLabel = categoriesLabel + "," + categoryData[0];
-
 
                     if (categoryData[1].Substring(categoryData[1].Length - 1, 1) == (","))
                     {
@@ -279,12 +278,6 @@ namespace CoExp_Web.Repositories
                         else
                             networks = categoryData[1];
                     }
-
-                    if (networks.Contains("**"))
-                        networks = networks.Remove(networks.Length - 2);
-
-                    String[] allNetworks = networks.Split(",");
-                    String[] allCategories = networks.Split(",");
                     if (localNetworks.Split(",").Length > 1)
                     {
                         for(var i = 0; i< localNetworks.Split(",").Length-1; i++)
