@@ -1019,12 +1019,14 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                     $("#error").children("p").remove();
                     $("#error").append("<p>" + data + "</p>");
                     $("#error").show();
+                    $("body").removeClass("loading");
                 }
                 else if (data.indexOf("Please") >= 0) {
                     /*$("#error").children("p").remove();
                     $("#error").append("<p>" + data + "</p>");
                     $("#error").show();*/
                     alert(data);
+                    $("body").removeClass("loading");
                 }
                 else {
                     if (JSON.parse(data).message !== undefined) {
@@ -1032,6 +1034,9 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                         const r = confirm(data.message);
                         if (r == true) {
                             API.prototype.globalReportOnGenes(data.multipleData, data.genes);
+                        }
+                        else {
+                            $("body").removeClass("loading");
                         }
                     }
                     else {
@@ -1193,10 +1198,11 @@ API.prototype.globalReportOnGenes = function (data, genes) {
 
                         $("#globalReportOnGenes_div").show();
                         $("#error").hide();
+                        $("body").removeClass("loading");
                     }
                 }
 
-                $("body").removeClass("loading");
+                
 
             },
             error: function (data) {
@@ -1373,7 +1379,10 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 
     if (allGOTerms != null) {
         for (let i = 0; i < allGOTerms.length; i++) {
-            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] + "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] + "\")' data-placement='bottom' data-trigger='hover' data-html='true' title='" + allGOTerms[i] + "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
+            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] +
+                "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] +
+                "\")' data-placement='bottom' data-trigger='hover' data-html='true' title='" + allGOTerms[i] +
+                "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
         }
     }
     else
@@ -1428,7 +1437,8 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
  * @param {string} term Gene name.
  */
 API.prototype.getCardData = function (term) {
-
+    
+        
     let url = '/' + environment + '/API/GetInfoFromQuickGO';
 
     $.ajax({
@@ -1443,11 +1453,15 @@ API.prototype.getCardData = function (term) {
                 const goInfo = "<b>Id: </b> " + data.id
                     + "<br/><b>Name: </b> " + data.name
                     + "<br/><b>Aspect: </b> " + data.aspect
-                    + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+                    + "<br/><b>Definition</b><br/>" + data.definition.text + "<br/>";
 
                 const goTerm = (this.data).split("%3A")[1];
-
                 $("a[id*='" + goTerm + "']").attr("data-content", goInfo);
+
+   
+                var popover = $("a[id*='" + goTerm + "']").data('bs.popover');
+                popover.setContent();
+                popover.$tip.addClass(popover.options.placement);
 
             }
         },
@@ -1455,6 +1469,8 @@ API.prototype.getCardData = function (term) {
             return "No results found!";
         }
     });
+
+    
 }
 
 /**

@@ -14,18 +14,18 @@
     }
 </header>
 <div class="row">
-    <nav class="col-sm-3 sidebar">
-        <br />
+    <div class="col-sm-3 sidebar">
+        <br>
         <h4>Please, make your selection:</h4>
-        <br />
+        <br>
 
         <label for="category">Category</label>
         <select id="category" name="category" class="selectpicker" title="Select an option ..."></select>
-        <br /><br />
+        <br><br>
 
         <label for="network">Network</label>
         <select id="network" name="network" class="selectpicker" title="Select an option ..."></select>
-        <br /><br />
+        <br><br>
 
 
         <label for="module_selection">Module</label>
@@ -36,72 +36,70 @@
             <option value="purple">Purple</option>
             <option value="red">Red</option>
         </select>
-        <br /><br />
+        <br><br>
 
         <label for="genes-range">Number of genes</label>
         <input id="genes-range" type="range" min="2" max="30" value="30">
         <input id="text-box_genes-range" type="text" value="30">
-        <br /><br />
+        <br><br>
 
         <button id="send_button" class="btn btn-primary">Accept</button>
-    </nav>
+    </div>
 
-    <main>
-        <nav class="col-sm-9">
-            <br />
-            <table id="network_plot_table" >
+    <div class="col-sm-9">
+        <br>
+        <table id="network_plot_table" >
+            <tr>
+                <td>
+                    <div id="network_plot"></div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div id="button_area" class="pull-right" style="margin-right:20px;">
+            <button id="save_plot" class="btn btn-primary">Save Plot</button>
+            <button id="save_data" class="btn btn-primary">Save Data</button>
+
+        </div>
+        <br>
+        <table id="table_treshold">
+            <tbody>
                 <tr>
+                    <td >
+                        Link threshold<br>
+                        <input id="slider-range-treshold" type="range">
+                        <input id="threshold_network" type="text" size="40" value=""><br>
+                        <small>The links shown above are over this threshold value</small>
+                    </td>
+
                     <td>
-                        <div id="network_plot"></div>
+                        <label for="hide_nodes">Hide isolated nodes</label>
+                        <input id="hide_nodes" type="checkbox" name="hide_nodes">
                     </td>
                 </tr>
-            </table>
-            <br />
-            <div id="button_area" class="pull-right" style="margin-right:20px;">
-                <button id="save_plot" class="btn btn-primary">Save Plot</button>
-                <button id="save_data" class="btn btn-primary">Save Data</button>
-
-            </div>
-            <br />
-            <table id="table_treshold">
-                <tbody>
-                    <tr>
-                        <td >
-                            Link threshold<br />
-                            <input id="slider-range-treshold" type="range">
-                            <input id="threshold_network" type="text" size="40" value=""><br />
-                            <small>The links shown above are over this threshold value</small>
-                        </td>
-
-                        <td>
-                            <label for="hide_nodes">Hide isolated nodes</label>
-                            <input id="hide_nodes" type="checkbox" name="hide_nodes">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="dvjson"></div>
-        </nav>
-    </main>
+            </tbody>
+        </table>
+        <div id="dvjson"></div>
+    </div>
     <div class="modal"><!-- loading layer --></div>
 </div>
 @section Scripts{
 
-    <script src="~/js/d3.v3.min.js"></script>   
-    <script src="~/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>   
+    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
     <environment include="Development">
-        <script src="~/js/api.js"></script>
-        <script src="~/js/net_v2.js"></script>
+        <script type="text/javascript" src="~/js/api.js"></script>
+        <script type="text/javascript" src="~/js/net_v2.js"></script>
     </environment>
     <environment include="Production,Private">
-        <script src="~/js/api.min.js"></script>
-        <script src="~/js/net_v2.min.js"></script>
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+        <script type="text/javascript" src="~/js/net_v2.min.js"></script>
     </environment>
 
 
-    <script src="~/js/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
 
             API.prototype.menuInit(4);

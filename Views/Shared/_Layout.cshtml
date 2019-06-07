@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta name="generator" content="Sonia Garcia Ruiz - RytenLab. See https://snca.atica.um.es/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoExp WebSite</title>
-    <link rel="icon" href="~/images/ucl-icon.png" type="image/gif" sizes="16x16">
-
-    <link rel="stylesheet" href="~/css/bootstrap-select.min.css">
+    <link type="image/gif" rel="icon" href="~/images/ucl-icon.png" sizes="16x16">
+    <link type="text/css" rel="stylesheet" href="~/css/bootstrap-select.min.css">
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="~/css/site.css" />
         <style>
             .modal {
                 background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
@@ -27,8 +27,8 @@
         </style>
     </environment>
     <environment include="Production,Private">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.min.css" />
+        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="~/css/site.min.css" />
     </environment>
     <environment include="Private">
         <style>
@@ -69,7 +69,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -97,57 +97,43 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
 
     @*<partial name="_CookieConsentPartial" />*@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+        <hr>
+        <div>
             <p>&copy; 2019 - CoExp_Web</p>
-        </footer>
+        </div>
     </div>
     <environment include="Development">
-        <script>
+        <script type="text/javascript">
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
 
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
 
     <environment include="Private">
-        <script>
+        <script type="text/javascript">
             const environment = "ATN_5843218Gt";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
 
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
 
     <environment include="Production">
 
-        <script>
+        <script type="text/javascript">
             const environment = "coexp";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
-        <style>
-            .modal {
-                background: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
-            }
-
-            td.details-control {
-                background: url('/coexp/images/details_open.png') no-repeat center center;
-                cursor: pointer;
-            }
-
-            tr.shown td.details-control {
-                background: url('/coexp/images/details_close.png') no-repeat center center;
-            }
-        </style>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129116044-1"></script>
-        <script>
+        <script type="text/javascript">
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());

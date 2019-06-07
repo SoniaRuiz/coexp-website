@@ -8,7 +8,7 @@
 
 @if (showBanner)
 {
-    <nav id="cookieConsent" class="navbar navbar-default navbar-fixed-top" role="alert">
+    <div id="cookieConsent" class="navbar navbar-default navbar-fixed-top" role="alert">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cookieConsent .navbar-collapse">
@@ -29,8 +29,8 @@
                 </div>
             </div>
         </div>
-    </nav>
-    <script>
+    </div>
+    <script type="text/javascript">
         (function () {
             document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function (el) {
                 document.cookie = el.target.dataset.cookieString;
