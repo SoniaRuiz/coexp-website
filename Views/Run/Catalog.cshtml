@@ -28,11 +28,15 @@
         @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
             <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
         <label for="category_dropdown">Category</label>
-        <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
+        <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
+            <option></option>
+        </select>
         <br><br>
 
         <label for="network_dropdown">Network</label>
-        <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
+        <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ...">
+            <option></option>
+        </select>
         <br><br>
 
         <label for="module_selection">Module selection</label>
@@ -83,7 +87,9 @@
             <div class="tab-pane fade" id="tab2">
                 <div id="cellType_div" style="display:none;">
                     <br>
-                    <table id="cellType_table" class="table table-striped table-bordered nowrap" style="width:100%"></table>
+                    <table id="cellType_table" class="table table-striped table-bordered nowrap" style="width:100%">
+                        <tbody><tr><td></td></tr></tbody>
+                    </table>
                 </div>
                 <br>
                 <div id="cellType_divError" style="display:none;" class="alert alert-danger">
@@ -105,9 +111,9 @@
 @section HeadStyles{
     <link type="text/css" rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/buttons.dataTables.min.css">
-    <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.min.css">
 }
 @section Scripts{
 

@@ -27,6 +27,7 @@ API.prototype.menuInit = function (view) {
         //Disable 'send' button
         $('#send_button').prop("disabled", true);
 
+        $('#category_dropdown').empty();
         //At the beginning, we fill the first select
         API.prototype.getNetworkCategories();
 
@@ -93,7 +94,7 @@ API.prototype.menuInit = function (view) {
         /*
          * This is the view for 'Plot' tab
          * */
-
+        $('#category_dropdown').empty();
         //At the beginning, we fill the select
         API.prototype.getNetworkCategories();
        
