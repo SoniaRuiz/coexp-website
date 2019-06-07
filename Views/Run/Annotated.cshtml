@@ -7,7 +7,8 @@
 @Html.HiddenFor(m => m.Network)
 @Html.HiddenFor(m => m.ModuleColor)
 @Html.HiddenFor(m => m.Genes)
-<header>
+
+<div class="breadcrumb">
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
     {
         <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
@@ -16,7 +17,7 @@
     {
         @:> @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
-</header>
+</div>
 <div class="row">
     <div class="col-sm-3 sidebar">
         <br>

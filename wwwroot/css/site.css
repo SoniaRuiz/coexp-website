@@ -279,6 +279,10 @@ input[type=range] {
 h2 {
     color:black !important;
 }
+.breadcrumb {
+    padding: 20px;
+}
+
 /*****************************/
 /******* PLOT TAB ************/
 #network_plot {

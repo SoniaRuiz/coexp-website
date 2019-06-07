@@ -31,7 +31,7 @@ API.prototype.menuInit = function (view) {
         API.prototype.getNetworkCategories();
 
         //Disable second select
-        $('#network')
+        $('#network_dropdown')
             .prop('disabled', true)
             .selectpicker('refresh');
 
@@ -64,10 +64,10 @@ API.prototype.menuInit = function (view) {
         API.prototype.getAvailableNetworks(category, network);
 
         //Disable all selects and buttons
-        $('#category')
+        $('#category_dropdown')
             .prop('disabled', true)
             .selectpicker('refresh');
-        $('#network')
+        $('#network_dropdown')
             .prop('disabled', true)
             .selectpicker('refresh');
         $('#module_selection')
@@ -98,7 +98,7 @@ API.prototype.menuInit = function (view) {
         API.prototype.getNetworkCategories();
        
         //Disable second select
-        $('#network')
+        $('#network_dropdown')
             .prop('disabled', true)
             .selectpicker('refresh');
 
@@ -124,13 +124,13 @@ API.prototype.menuInit = function (view) {
     * */
 
     //When the value of the 'Category' changes:
-    $('#category').on('change', function () {
+    $('#category_dropdown').on('change', function () {
 
         //Remove all options (from 'Network' dropdown)
-        $('#network').children().remove();
+        $('#network_dropdown').children().remove();
         //Fill the 'Network' with new options and enable 'network' dropdown
         API.prototype.getAvailableNetworks(this.value);
-        $('#network')
+        $('#network_dropdown')
             .prop("disabled", false)
             .selectpicker('refresh');
         //Disable 'Send' button
@@ -155,7 +155,7 @@ API.prototype.menuInit = function (view) {
 
     });
     //When the value of 'Network' changes:
-    $('#network').on('change', function () {
+    $('#network_dropdown').on('change', function () {
         if (view == 1) {
             //Enable 'Module' select
             $('#module_selection')
@@ -240,7 +240,7 @@ API.prototype.getNetworkCategories = function (category) {
     if (category != null) {
         //This option will be executed only when requesting from 'Gen set annotation' tab
         const option = '<option value="' + category + '" selected>' + category + '</option>';
-        $('#category')
+        $('#category_dropdown')
             .append(option)
             .selectpicker('refresh');
     }
@@ -267,7 +267,7 @@ API.prototype.getNetworkCategories = function (category) {
                     //If the request has gone as expected, we fill the select by adding 'option' type elements:
                     for (let i = 0; i < data.length; i++) {
                         const option = '<option value="' + data[i] + '">' + data[i] + '</option>';
-                        $('#category')
+                        $('#category_dropdown')
                             .append(option)
                             .selectpicker('refresh');
                     }
@@ -293,7 +293,7 @@ API.prototype.getAvailableNetworks = function (category, network) {
     if (network != null) {
         //This option will be executed only when requesting from 'Gen set annotation' tab
         const net_option = '<option value="' + network + '" selected>' + network + '</option>';
-        $('#network')
+        $('#network_dropdown')
             .append(net_option)
             .selectpicker('refresh');
     }
@@ -320,7 +320,7 @@ API.prototype.getAvailableNetworks = function (category, network) {
                     data = JSON.parse(data);
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
-                        $('#network')
+                        $('#network_dropdown')
                             .append(net_option)
                             .selectpicker('refresh');
                     }
@@ -423,7 +423,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         //show result divs
         if (module_selection_types.length == 1) {
             if (module_selection_types[0] == "1") { //only byontology and bycolor
-                API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
 
@@ -432,7 +432,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
             else {//only bycelltype
-                API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+                API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#goFromTissue_div").hide();
 
@@ -442,8 +442,8 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             }
         }
         else if (module_selection_types.length == 2) {//both bycelltype and bycolor
-            API.prototype.getGOFromTissue($('#category').val(), $('#network').val(), moduleColor);
-            API.prototype.getCellTypeFromTissue($('#category').val(), $('#network').val(), moduleColor);
+            API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
+            API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             //Show all tabs
             $('.nav-tabs a[href="#tab1"]').tab("show");
             $('.nav-tabs a[href="#tab1"]').tab().show();
@@ -1481,7 +1481,7 @@ API.prototype.generateGraph = function () {
     // Clean older graphs
     $("#network_plot").html('');
     // Get tissue value
-    const network = $('#network').find(":selected").val();
+    const network = $('#network_dropdown').find(":selected").val();
     // Get module value
     const moduleColor = $('#module_color').find(":selected").val();
     // Get slider-range value

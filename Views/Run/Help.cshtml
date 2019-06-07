@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Help";
 }
-<header>
+<div class="breadcrumb">
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
     {
         <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
@@ -11,7 +11,7 @@
     {
         @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
-</header>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <br>

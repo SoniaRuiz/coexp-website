@@ -3,7 +3,7 @@
     ViewData["Title"] = "Plot";
 }
 
-<header>
+<div class="breadcrumb">
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
     {
         <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
@@ -12,19 +12,19 @@
     {
         @:> @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
-</header>
+</div>
 <div class="row">
     <div class="col-sm-3 sidebar">
         <br>
         <h4>Please, make your selection:</h4>
         <br>
 
-        <label for="category">Category</label>
-        <select id="category" name="category" class="selectpicker" title="Select an option ..."></select>
+        <label for="category_dropdown">Category</label>
+        <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
         <br><br>
 
-        <label for="network">Network</label>
-        <select id="network" name="network" class="selectpicker" title="Select an option ..."></select>
+        <label for="network_dropdown">Network</label>
+        <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
         <br><br>
 
 
