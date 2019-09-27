@@ -20,8 +20,8 @@ https://snca.atica.um.es/coexp/Run/Catalog/
 
 ## Authors
 
-* **Sonia García-Ruiz** - *CoExp Webpage development*
-* **Juan A. Botía** - *CoExp R suit-of-packages development* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
+* **Sonia García-Ruiz** - *CoExp Webpage developer*
+* **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
 
 ## Acknowledgments
 
