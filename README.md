@@ -9,6 +9,8 @@ R programming language has spread across the scientific community as the preferr
 #### Why a web-based user interface?
 Over the last few decades, the Internet has experienced a huge growth, [reaching 2160 million users only in Asia](www.internetworldstats.com/stats.htm) in 2018. In addition, due to the huge expansion of mobile devices, is undeniable that a web-page format is the most well-known and accepted way of browsing the Internet around the world. In this sense, a web-page structure was chosen to make [CoExp R suite-of-packages](https://github.com/juanbot/CoExpNets) easily accessible to every potential user around the world, at any time and from anywhere they decide to do so.
 
+**Please, visit our WIKI section for any further information.**
+
 
 ## Getting Started
 
