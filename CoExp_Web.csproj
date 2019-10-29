@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -14,6 +14,8 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\bootstrap-select.css" />
     <Content Remove="wwwroot\css\coexpdata.xlsx" />
+    <Content Remove="wwwroot\css\introjs-rtl.css" />
+    <Content Remove="wwwroot\css\introjs-rtl.min.css" />
     <Content Remove="wwwroot\js\Blob.js" />
     <Content Remove="wwwroot\js\canvas-toBlob.js" />
     <Content Remove="wwwroot\js\coexp_menu_data.json" />

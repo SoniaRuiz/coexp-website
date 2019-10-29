@@ -24,26 +24,14 @@
                 background: url('/coexp_test/images/details_close.png') no-repeat center center;
             }
         </style>
+        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.css">*@
+        <link type="text/css" rel="stylesheet" href="~/css/introjs.css">
     </environment>
     <environment include="Production,Private">
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="~/css/site.min.css">
-    </environment>
-    <environment include="Private">
-        <style type="text/css">
-            .modal {
-                background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
-            }
-
-            td.details-control {
-                background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
-                cursor: pointer;
-            }
-
-            tr.shown td.details-control {
-                background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
-            }
-        </style>
+        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.min.css">*@
+        <link type="text/css" rel="stylesheet" href="~/css/introjs.min.css">
     </environment>
     <environment include="Production">
         <style type="text/css">
@@ -58,6 +46,22 @@
 
             tr.shown td.details-control {
                 background: url('/coexp/images/details_close.png') no-repeat center center;
+            }
+        </style>
+    </environment>
+    <environment include="Private">
+        <style type="text/css">
+            .modal {
+                background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
+            }
+
+            td.details-control {
+                background: url('/ATN_5843218Gt/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            tr.shown td.details-control {
+                background: url('/ATN_5843218Gt/images/details_close.png') no-repeat center center;
             }
         </style>
     </environment>
@@ -114,6 +118,7 @@
 
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/js/intro.js"></script>
     </environment>
 
     <environment include="Private">
@@ -123,6 +128,7 @@
 
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/js/intro.js"></script>
     </environment>
 
     <environment include="Production">
@@ -150,6 +156,7 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
+        <script type="text/javascript" src="~/js/intro.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

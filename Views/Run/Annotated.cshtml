@@ -8,35 +8,45 @@
 @Html.HiddenFor(m => m.ModuleColor)
 @Html.HiddenFor(m => m.Genes)
 
-<div class="breadcrumb">
-    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-    {
-        <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-    }
-    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-    {
-        @:> @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-    }
-</div>
+    <div class="breadcrumb">
+        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+        {
+            <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+
+        }
+        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        {
+            <span class="label-breadcrumbs"> > </span>
+            @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        }
+    </div>
 <div class="row">
-    <div class="col-sm-3 sidebar">
+    <div class="col-sm-3 sidebar menu">
+        <h4>Please, make your selection:</h4>
         <br>
-        <h4 style="padding-top:12px;">Please, make your selection:</h4>
-        <br>
+        <div id="step1">
+            <div id="tree"></div>
+        </div>
 
-        <div id="tree"></div>
-
-
-        <label for="genes">Genes:</label>
-        <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
+        <div id="step2">
+            <label for="genes">Genes:</label>
+            <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
+        </div>
 
         <br><br>
-        <button id="send_button" class="btn btn-primary">Accept</button>
+        <div id="step3">
+            <button id="send_button" class="btn btn-primary">Accept</button>
+        </div>
     </div>
 
 
 
     <div class="col-sm-9">
+        <div id="step4">
+            <div id="empty-initial-results">
+                <p>This is the Results Area.</p>
+            </div>
+        </div>
         <div id="reportOnGenes_div" style="display:none;">
 
             <h3><u>Gene Annotation</u></h3>
@@ -179,6 +189,40 @@
         $(document).ready(function () {
             API.prototype.menuInit(3);
             $.fn.dataTable.ext.errMode = 'none';
+            $("#empty-initial-results").css("visibility", "visible");
+            
         });
+
+        function startIntro(){
+            var intro = introJs();
+              intro.setOptions({
+                steps: [
+                  {
+                    element: '#step1',
+                        intro: "<div class='customHelpHeader'>Category</div><p>Select here your preferred type of co-expression networks.</p>",
+                        position: 'right',
+                
+                    tooltipClass: 'customStep1'
+                  },
+                  {
+                    element: '#step2',
+                    intro: "<b>Genes</b><br/><br/>Type your list of genes.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step3',
+                    intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step4',
+                    intro: "<b>Results</b><br/><br/>This is the results area. Here will appear all your results.",
+                    position: 'right'
+                  }
+                ]
+              });
+
+              intro.start();
+          }
     </script>
 }

@@ -5,11 +5,12 @@
 <div class="breadcrumb">
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
     {
-        <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+        <span class="main-label-breadcrumbs">CoExp</span>
+        <span class="label-breadcrumbs"> > </span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
     }
     @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
     {
-        @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
     }
 </div>
 <div class="row">

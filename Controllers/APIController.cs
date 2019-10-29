@@ -232,7 +232,7 @@ namespace CoExp_Web.Controllers
 
             //Convert both ensembl and typed genes into two different lists
             IEnumerable<string> genes;
-            IEnumerable<string> ensembleData = csvData.Split('\n');
+            IEnumerable<string> ensembleData = csvData.Split("\r\n");
             ensembleData = String.Join(',',ensembleData).Split(',');
             if (coexpdata.Genes.Contains(", ")){
                 genes = coexpdata.Genes.Split(", ");

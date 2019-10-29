@@ -10,6 +10,7 @@ let API = function () {
     /// API namespace constructor
     /// </summary>
     this.SVGData = "";
+    
 };
 
 
@@ -24,6 +25,8 @@ API.prototype.menuInit = function (view) {
          * This is the view for 'Network Catalog' tab
          * */
         $('#menu').show();
+        $('#empty-initial-results').css("visibility","visible");
+        //$('#empty-initial-results').show();
         //Disable 'send' button
         $('#send_button').prop("disabled", true);
 
@@ -88,9 +91,10 @@ API.prototype.menuInit = function (view) {
 
         //Fill the tree-menu
         API.prototype.getTreeMenuData(); 
+        
     }
     else if (view == 4) {
-
+        
         /*
          * This is the view for 'Plot' tab
          * */
@@ -140,6 +144,7 @@ API.prototype.menuInit = function (view) {
         if (view == 1) {
             //Hide tabs
             $("#tabs").hide();
+
             //Hide results divs
             $("#goFromTissue_div").hide();
             $("#cellType_div").hide();
@@ -348,6 +353,7 @@ API.prototype.getTreeMenuData = function () {
             if (data.indexOf("Problems") >= 0) {
                 $("#error").children("p").remove();
                 $("#error").append("<p>" + data + "</p>");
+                $("#empty-initial-results").hide();
                 $("#error").show();
             }
             else {
@@ -373,6 +379,8 @@ API.prototype.getTreeMenuData = function () {
                 $("ul.sim-tree").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
                 $("li[data-id = '1']").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
                 $("li[data-id = '100']").find("i.sim-tree-checkbox").first().addClass("checked")
+
+                startIntro();
             }
         },
         error: function (data) {
@@ -394,6 +402,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         moduleColor = null;
     }
 
+    
     $("body").addClass("loading");
 
     if (view == 1 || view == 11) {
@@ -427,7 +436,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
-
+                $("#empty-initial-results").hide();
                 $('.nav-tabs a[href="#tab1"]').tab("show");
                 $('.nav-tabs a[href="#tab1"]').tab().show();
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
@@ -436,7 +445,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#goFromTissue_div").hide();
-
+                $("#empty-initial-results").hide();
                 $('.nav-tabs a[href="#tab2"]').tab("show");
                 $('.nav-tabs a[href="#tab2"]').tab().show();
                 $('.nav-tabs a[href="#tab1"]').tab().hide();
@@ -445,6 +454,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         else if (module_selection_types.length == 2) {//both bycelltype and bycolor
             API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
+            $("#empty-initial-results").hide();
             //Show all tabs
             $('.nav-tabs a[href="#tab1"]').tab("show");
             $('.nav-tabs a[href="#tab1"]').tab().show();
@@ -453,6 +463,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         else {
             $('#goFromTissue_div').hide();
             $('#cellType_div').hide();
+            $("#empty-initial-results").hide();
             $('#error').show();
             $("body").removeClass("loading");
         }
@@ -560,8 +571,9 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         /*
          * 'Plot' tab
          * */
-
+        $('#empty-initial-results').hide();
         API.prototype.generateGraph();
+        $('#plot_area').show();
         $("body").removeClass("loading");
         $('#save_plot').prop("disabled", false);
         $('#save_data').prop("disabled", false);
@@ -647,6 +659,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                 $("#goFromTissue_div").show();
             }
             $("body").removeClass("loading");
+            $("#empty-initial-results").hide();
             $("#tabs").show();
         },
         error: function (data) {
@@ -801,6 +814,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                 $('#cellType_table').DataTable().draw();
             }
             $("body").removeClass("loading");
+            $("#empty-initial-results").hide();
             $("#tabs").show();
         },
         error: function (data) {
@@ -833,6 +847,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                     $("#error").children("p").remove();
                     $("#error").append("<p>" + data + "</p>");
                     $("#error").show();
+                    $('#empty-initial-results').hide();
                 }
                 else {
 
@@ -914,6 +929,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                     //Hide table
                                     $('#summariseClustering_div').hide();
                                     $('#reportOnGenes_div').show();
+                                    $('#empty-initial-results').hide();
                                 }
                             }
                         ]
@@ -976,12 +992,14 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 action: function (e, dt, node, config) {
                                     //Hide table
                                     $('#reportOnGenes_div').hide();
+                                    $('#empty-initial-results').hide();
                                     $('#summariseClustering_div').show();
                                 }
                             }
                         ]
                     });
                     $("#reportOnGenes_div").show();
+                    $('#empty-initial-results').hide();
                     $("#error").hide();
                 }
 
@@ -1021,6 +1039,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                     $("#error").append("<p>" + data + "</p>");
                     $("#error").show();
                     $("body").removeClass("loading");
+                    $('#empty-initial-results').hide();
                 }
                 else if (data.indexOf("Please") >= 0) {
                     /*$("#error").children("p").remove();
@@ -1127,6 +1146,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                         //Hide table
                                         $('#globalSummariseReportOnGenes_div').hide();
                                         $('#globalReportOnGenes_div').show();
+                                        $('#empty-initial-results').hide();
                                     }
                                 }
                             ]
@@ -1192,12 +1212,14 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                         //Hide table
                                         $('#globalReportOnGenes_div').hide();
                                         $('#globalSummariseReportOnGenes_div').show();
+                                        $('#empty-initial-results').hide();
                                     }
                                 }
                             ]
                         });
 
                         $("#globalReportOnGenes_div").show();
+                        $('#empty-initial-results').hide();
                         $("#error").hide();
                         $("body").removeClass("loading");
                     }

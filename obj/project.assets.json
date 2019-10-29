@@ -12455,11 +12455,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\skgtsg0\\source\\repos\\CoExp_Web\\CoExp_Web\\CoExp_Web.csproj",
+      "projectUniqueName": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
       "projectName": "CoExp_Web",
-      "projectPath": "C:\\Users\\skgtsg0\\source\\repos\\CoExp_Web\\CoExp_Web\\CoExp_Web.csproj",
+      "projectPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
       "packagesPath": "C:\\Users\\skgtsg0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\skgtsg0\\source\\repos\\CoExp_Web\\CoExp_Web\\obj\\",
+      "outputPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

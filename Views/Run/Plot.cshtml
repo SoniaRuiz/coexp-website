@@ -3,83 +3,99 @@
     ViewData["Title"] = "Plot";
 }
 
-<div class="breadcrumb">
-    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-    {
-        <b>CoExp</b>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-    }
-    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-    {
-        @:> @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-    }
-</div>
+    <div class="breadcrumb">
+        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+        {
+            <span class="main-label-breadcrumbs">CoExp</span>
+            <span class="label-breadcrumbs"> > </span>
+        }
+        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        {
+            @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        }
+    </div>
 <div class="row">
-    <div class="col-sm-3 sidebar">
-        <br>
+    <div class="col-sm-3 sidebar menu">
         <h4>Please, make your selection:</h4>
         <br>
 
-        <label for="category_dropdown">Category</label>
-        <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
+        <div id="step1">
+            <label for="category_dropdown">Category</label>
+            <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
+        </div>
         <br><br>
 
-        <label for="network_dropdown">Network</label>
-        <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
+        <div id="step2">
+            <label for="network_dropdown">Network</label>
+            <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
+        </div>
         <br><br>
 
-
-        <label for="module_selection">Module</label>
-        <select id="module_selection" class="selectpicker" title="Select an option ...">
-            <option value="black" selected>Black</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="purple">Purple</option>
-            <option value="red">Red</option>
-        </select>
+        <div id="step3">
+            <label for="module_selection">Module</label>
+            <select id="module_selection" class="selectpicker" title="Select an option ...">
+                <option value="black" selected>Black</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="purple">Purple</option>
+                <option value="red">Red</option>
+            </select>
+        </div>
         <br><br>
 
-        <label for="genes-range">Number of genes</label>
-        <input id="genes-range" type="range" min="2" max="30" value="30">
-        <input id="text-box_genes-range" type="text" value="30">
+        <div id="step4">
+            <label for="genes-range">Number of genes</label>
+            <input id="genes-range" type="range" min="2" max="30" value="30">
+            <input id="text-box_genes-range" type="text" value="30">
+        </div>
+
         <br><br>
 
-        <button id="send_button" class="btn btn-primary">Accept</button>
+        <div id="step5">
+            <button id="send_button" class="btn btn-primary">Accept</button>
+        </div>
     </div>
 
     <div class="col-sm-9">
-        <br>
-        <table id="network_plot_table" >
-            <tr>
-                <td>
-                    <div id="network_plot"></div>
-                </td>
-            </tr>
-        </table>
-        <br>
-        <div id="button_area" class="pull-right" style="margin-right:20px;">
-            <button id="save_plot" class="btn btn-primary">Save Plot</button>
-            <button id="save_data" class="btn btn-primary">Save Data</button>
-
+        <div id="step6">
+            <div id="empty-initial-results">
+                <p>This is the Results Area.</p>
+            </div>
         </div>
-        <br>
-        <table id="table_treshold">
-            <tbody>
+        <div id="plot_area">
+            <table id="network_plot_table">
                 <tr>
-                    <td >
-                        Link threshold<br>
-                        <input id="slider-range-treshold" type="range">
-                        <input id="threshold_network" type="text" size="40" value=""><br>
-                        <small>The links shown above are over this threshold value</small>
-                    </td>
-
                     <td>
-                        <label for="hide_nodes">Hide isolated nodes</label>
-                        <input id="hide_nodes" type="checkbox" name="hide_nodes">
+                        <div id="network_plot"></div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-        <div id="dvjson"></div>
+            </table>
+            <br>
+            <div id="button_area" class="pull-right" style="margin-right:20px;">
+                <button id="save_plot" class="btn btn-primary">Save Plot</button>
+                <button id="save_data" class="btn btn-primary">Save Data</button>
+
+            </div>
+            <br>
+            <table id="table_treshold">
+                <tbody>
+                    <tr>
+                        <td>
+                            Link threshold<br>
+                            <input id="slider-range-treshold" type="range">
+                            <input id="threshold_network" type="text" size="40" value=""><br>
+                            <small>The links shown above are over this threshold value</small>
+                        </td>
+
+                        <td>
+                            <label for="hide_nodes">Hide isolated nodes</label>
+                            <input id="hide_nodes" type="checkbox" name="hide_nodes">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="dvjson"></div>
+        </div>
     </div>
     <div class="modal"><!-- loading layer --></div>
 </div>
@@ -125,7 +141,52 @@
                 });
             });
 
+            $('#empty-initial-results').css("visibility", "visible");
+            startIntro();
+
         });
+
+        function startIntro() {
+            var intro = introJs();
+              intro.setOptions({
+                steps: [
+                  {
+                    element: '#step1',
+                        intro: "<div class='customHelpHeader'>Category</div><p>Select here your preferred type of co-expression networks.</p>",
+                        position: 'right',
+                
+                    tooltipClass: 'customStep1'
+                  },
+                  {
+                    element: '#step2',
+                    intro: "<b>Network</b><br/><br/>Select here your preferred co-expression network.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step3',
+                    intro: "<b>Module</b><br/><br/>Select how you would like to visualize the results.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step4',
+                    intro: "<b>Number of genes</b><br/><br/>Select how many genes you would like the graph to have.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step5',
+                    intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
+                    position: 'right'
+                  },
+                  {
+                    element: '#step6',
+                    intro: "<b>Results</b><br/><br/>This is the results area. Here will appear all your results.",
+                    position: 'bottom'
+                  }
+                ]
+              });
+
+              intro.start();
+          }
     </script>
 }
 
