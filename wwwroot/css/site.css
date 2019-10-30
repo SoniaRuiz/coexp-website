@@ -278,12 +278,8 @@ input[type=range] {
 h2 {
     color:black !important;
 }
-.breadcrumb {
-    padding: 20px;
-}
 
-/*****************************/
-/******* PLOT TAB ************/
+
 #plot_area{
     display:none;
 }
@@ -326,7 +322,12 @@ h2 {
 }
 
 /*****************************/
-/******* CATALOG TAB *********/
+/******* BREADCRUMBS *********/
+
+.breadcrumb {
+    padding: 20px;
+    margin-bottom: 15px !important;
+}
 
 .main-label-breadcrumbs {
     font-size: 18px;
@@ -357,6 +358,12 @@ h2 {
     padding-top: 15px;
 }
 
+.menu-hr {
+    margin-top: 10px;
+    /* border: 0; */
+    border-top: 1px solid #eee;
+}
+
 /***************************************/
 /***** EMPTY INITIAL RESULTS AREA ******/
 
@@ -369,7 +376,7 @@ h2 {
     border-width: 1px;
     border-style: solid;
     padding: 16px 100px 20px;
-    margin-top: 30px;
+    margin-top: 2px;
     text-align: center;
     position: relative;
     min-height: 300px;
@@ -427,3 +434,8 @@ h2 {
         font-weight:bold;
     }
 
+svg {
+
+    width: 100% !important;
+
+}

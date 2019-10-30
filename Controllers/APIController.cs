@@ -228,51 +228,51 @@ namespace CoExp_Web.Controllers
         {
             string parsed_response = string.Empty;
 
-            ////////////////////////////////////////////
-            // 1. First, we check all typed genes
-            ////////////////////////////////////////////
-            var provider = new PhysicalFileProvider(_hostingEnvironment.WebRootPath);
-            var genesfileInfo = provider.GetFileInfo("data/genes.txt");
+            //////////////////////////////////////////////
+            //// 1. First, we check all typed genes
+            //////////////////////////////////////////////
+            //var provider = new PhysicalFileProvider(_hostingEnvironment.WebRootPath);
+            //var genesfileInfo = provider.GetFileInfo("data/genes.txt");
 
-            //Read all ensembl genes from a .csv file.
-            string csvData = System.IO.File.ReadAllText(genesfileInfo.PhysicalPath);
+            ////Read all ensembl genes from a .csv file.
+            //string csvData = System.IO.File.ReadAllText(genesfileInfo.PhysicalPath);
 
-            //Convert both ensembl and typed genes into two different lists
-            IEnumerable<string> genes;
-            IEnumerable<string> ensembleData = csvData.Split("\r\n");
-            ensembleData = String.Join(',',ensembleData).Split(',');
-            if (coexpdata.Genes.Contains(", ")){
-                genes = coexpdata.Genes.Split(", ");
-            }
-            else if (coexpdata.Genes.Contains(",")){
-                genes = coexpdata.Genes.Split(",");
-            }
-            else{
-                genes = coexpdata.Genes.Split(" ");
-            }
+            ////Convert both ensembl and typed genes into two different lists
+            //IEnumerable<string> genes;
+            //IEnumerable<string> ensembleData = csvData.Split("\r\n");
+            //ensembleData = String.Join(',',ensembleData).Split(',');
+            //if (coexpdata.Genes.Contains(", ")){
+            //    genes = coexpdata.Genes.Split(", ");
+            //}
+            //else if (coexpdata.Genes.Contains(",")){
+            //    genes = coexpdata.Genes.Split(",");
+            //}
+            //else{
+            //    genes = coexpdata.Genes.Split(" ");
+            //}
 
-            //Using LINQ we check whether the genes typed exist
-            if(genes.Any(x => ensembleData.Contains(x))) { 
+            ////Using LINQ we check whether the genes typed exist
+            //if(genes.Any(x => ensembleData.Contains(x))) { 
                 
-                IEnumerable<string> genesFound = genes.Where(p => ensembleData.Any(l => p == l)).ToList();
-                IEnumerable<string> genesNotFound = genes.Where(p => !genesFound.Any(p2 => p == p2)).ToList();
+            //    IEnumerable<string> genesFound = genes.Where(p => ensembleData.Any(l => p == l)).ToList();
+            //    IEnumerable<string> genesNotFound = genes.Where(p => !genesFound.Any(p2 => p == p2)).ToList();
 
-                if (genesNotFound.Count() > 0)
-                {
-                    parsed_response = String.Format("The following {0} genes from your list have not been found on Ensembl: {1}.\n\nWould you like to continue the request?",
-                        genesNotFound.Count(),
-                        String.Join(",", genesNotFound));
+            //    if (genesNotFound.Count() > 0)
+            //    {
+            //        parsed_response = String.Format("The following {0} genes from your list have not been found on Ensembl: {1}.\n\nWould you like to continue the request?",
+            //            genesNotFound.Count(),
+            //            String.Join(",", genesNotFound));
 
-                    //parsed_response = "[{\"message\":\""+ parsed_response + "\",\"genes\":\""+ String.Join(',', genesFound)+ "\"}]";
-                    parsed_response = JsonConvert.SerializeObject(new
-                    {
-                        message = parsed_response,
-                        genes = String.Join(",", genesFound),
-                        multipleData = coexpdata.MultipleSelectionData
-                    });
-                }
-                else
-                {
+            //        //parsed_response = "[{\"message\":\""+ parsed_response + "\",\"genes\":\""+ String.Join(',', genesFound)+ "\"}]";
+            //        parsed_response = JsonConvert.SerializeObject(new
+            //        {
+            //            message = parsed_response,
+            //            genes = String.Join(",", genesFound),
+            //            multipleData = coexpdata.MultipleSelectionData
+            //        });
+            //    }
+            //    else
+            //    {
                     /////////////////////////////////////////////////
                     // 2. If, at least one gene has been found, we make a request to CoExp R
                     /////////////////////////////////////////////////
@@ -284,11 +284,11 @@ namespace CoExp_Web.Controllers
                     parsed_response = parsed_response.Replace("cell.type.pred", "cell_type_pred");
                     //parsed_response = parsed_response.Replace("p.val.mods", "p_val_mods");
                     parsed_response = parsed_response.Replace("tissue", "network");
-                }
-            }else
-            {
-                parsed_response = "Please, check your gene list. None of your genes has been found on Ensembl.";
-            }
+            //    }
+            //}else
+            //{
+            //    parsed_response = "Please, check your gene list. None of your genes has been found on Ensembl.";
+            //}
 
             return parsed_response;
         }
