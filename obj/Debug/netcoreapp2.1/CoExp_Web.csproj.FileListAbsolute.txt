@@ -33,3 +33,4 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.dll
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.pdb
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csprojAssemblyReference.cache
