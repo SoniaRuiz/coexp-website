@@ -10,18 +10,18 @@
 @Html.HiddenFor(m => m.Genes)
 
 
-<div class="breadcrumb">
-    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-    {
-        <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-    }
-    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-    {
-        <span class="label-breadcrumbs"> > </span>
-        @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString()) 
-        
-    }
-</div>
+    <div class="breadcrumb">
+        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+        {
+            <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        }
+        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        {
+            @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+
+        }
+    </div>
 <div class="row">
     <div id="menu" class="col-sm-3 sidebar menu">
 

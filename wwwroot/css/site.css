@@ -332,9 +332,9 @@ h2 {
 .main-label-breadcrumbs {
     font-size: 18px;
     line-height: 23px;
-    color: #4182ED;
+    color: #171b27;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .label-breadcrumbs {
@@ -403,9 +403,28 @@ h2 {
 
 
 /**********************/
-/**** CUSTOM LINKS  ****/
-/*
-a {
-    font-size: 15px !important;
+/****** FOOTER  *******/
+#footer {
+    width: 100%;
+    background-color: #171b27;
+    position: absolute;
+    bottom: 0;
 }
-    */
+    
+    #footer p {
+        float: right;
+        margin: 7px 20px;
+        color: #9d9d9d;
+    }
+    #footer span {
+        float: left;
+        margin: 9px 0 0 20px;
+        color: white;
+    }
+    #footer a {
+        float: left;
+        margin: 7px 7px;
+        color: white;
+        font-weight:bold;
+    }
+

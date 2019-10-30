@@ -12,11 +12,10 @@
         @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
         {
             <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-
+            <span class="glyphicon glyphicon-chevron-right"></span>
         }
         @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
-            <span class="label-breadcrumbs"> > </span>
             @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
         }
     </div>

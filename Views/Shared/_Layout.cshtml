@@ -91,7 +91,7 @@
                         <li><a asp-area="" asp-controller="Run" asp-action="Plot">Plot</a></li>
                     </environment>
                     <li class="dropdown">
-                        <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown" >?<span class="caret"></span></a>
+                        <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Support <span class="caret"></span></a>
                         <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
                             <li><a asp-area="" asp-controller="Run" asp-action="Help">Help</a></li>
                             <li><a asp-area="" asp-controller="Run" asp-action="About">About CoExp</a></li>
@@ -107,9 +107,11 @@
     <div class="container body-content">
         @RenderBody()
         <hr>
-        <div>
-            <p>&copy; 2019 - CoExp_Web</p>
-        </div>
+
+    </div>
+    <div id="footer">
+        <span class="glyphicon glyphicon-comment"></span><a href="#">Feedback</a>
+        <p>&copy; 2018 - 2019 - CoExp_Web. All rights reserved.</p>
     </div>
     <environment include="Development">
         <script type="text/javascript">
