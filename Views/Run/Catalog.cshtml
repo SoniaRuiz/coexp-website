@@ -61,7 +61,7 @@
 
     <div id="step5" class="col-sm-9">
         <div id="empty-initial-results">
-            <p>This is the Results Area.</p>
+            <p>Your results will appear here.</p>
         </div>
         <!-- Nav tabs -->
         <ul id="tabs" class="nav nav-tabs" style="display:none">
@@ -212,7 +212,22 @@
             ]
           });
 
-          intro.start();
+        var doneTourCatalog = sessionStorage.getItem('EventTourCatalog') === 'Completed';
+        if (doneTourCatalog) {
+            return;
+        }
+        else {
+            intro.start();
+
+            intro.oncomplete(function () {
+                sessionStorage.setItem('EventTourCatalog', 'Completed');
+            });
+
+            intro.onexit(function () {
+                sessionStorage.setItem('EventTourCatalog', 'Completed');
+            });
+        }
+   
       }
     
         

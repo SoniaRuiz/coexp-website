@@ -185,7 +185,22 @@
                 ]
               });
 
-              intro.start();
+                var doneTourPlot = sessionStorage.getItem('EventTourPlot') === 'Completed';
+                if (doneTourPlot) {
+                    return;
+                }
+                else {
+                    intro.start();
+
+                    intro.oncomplete(function () {
+                        sessionStorage.setItem('EventTourPlot', 'Completed');
+                    });
+
+                    intro.onexit(function () {
+                        sessionStorage.setItem('EventTourPlot', 'Completed');
+                    });
+                }
+
           }
     </script>
 }

@@ -43,7 +43,7 @@
     <div class="col-sm-9">
         <div id="step4">
             <div id="empty-initial-results">
-                <p>This is the Results Area.</p>
+                <p>Your results will appear here.</p>
             </div>
         </div>
         <div id="reportOnGenes_div" style="display:none;">
@@ -221,7 +221,24 @@
                 ]
               });
 
-              intro.start();
+            
+
+            var doneTourAnnotated = sessionStorage.getItem('EventTourAnnotated') === 'Completed';
+            if (doneTourAnnotated) {
+                return;
+            }
+            else {
+                intro.start();
+
+                intro.oncomplete(function () {
+                    sessionStorage.setItem('EventTourAnnotated', 'Completed');
+                });
+
+                intro.onexit(function () {
+                    sessionStorage.setItem('EventTourAnnotated', 'Completed');
+                });
+            }
+
           }
     </script>
 }

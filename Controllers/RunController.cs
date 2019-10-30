@@ -15,7 +15,7 @@ namespace CoExp_Web.Controllers
     /// </summary>
     public class RunController : Controller
     {
-        
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Catalog(CoexpParams coexpParams)
         {
             try
@@ -24,12 +24,14 @@ namespace CoExp_Web.Controllers
             }
             catch (Exception e)
             {
-                ErrorViewModel errorModel = new ErrorViewModel();
-                errorModel.Message = e.Message;
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
                 return View("Error", errorModel);
             }
         }
-      
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Annotated(CoexpParams coexpParams)
         {
             try
@@ -38,8 +40,10 @@ namespace CoExp_Web.Controllers
             }
             catch (Exception e)
             {
-                ErrorViewModel errorModel = new ErrorViewModel();
-                errorModel.Message = e.Message;
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
                 return View("Error", errorModel);
             }
         }
@@ -52,8 +56,10 @@ namespace CoExp_Web.Controllers
             }
             catch (Exception e)
             {
-                ErrorViewModel errorModel = new ErrorViewModel();
-                errorModel.Message = e.Message;
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
                 return View("Error", errorModel);
             }
         }
@@ -66,12 +72,14 @@ namespace CoExp_Web.Controllers
             }
             catch (Exception e)
             {
-                ErrorViewModel errorModel = new ErrorViewModel();
-                errorModel.Message = e.Message;
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
                 return View("Error", errorModel);
             }
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Plot()
         {
             try
@@ -80,8 +88,10 @@ namespace CoExp_Web.Controllers
             }
             catch (Exception e)
             {
-                ErrorViewModel errorModel = new ErrorViewModel();
-                errorModel.Message = e.Message;
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
                 return View("Error", errorModel);
             }
         }
