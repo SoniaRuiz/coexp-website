@@ -60,7 +60,7 @@
     <div class="col-sm-9">
         <div id="step6">
             <div id="empty-initial-results">
-                <p>This is the Results Area.</p>
+                <p>Your results will appear here.</p>
             </div>
         </div>
         <div id="plot_area">
@@ -73,7 +73,7 @@
             </table>
             <br>
             <div id="button_area" class="pull-right" style="margin-right:20px;">
-                <button id="save_plot" class="btn btn-primary">Save Plot</button>
+                <button id="save_plot" class="btn btn-primary">Save Graph</button>
                 <button id="save_data" class="btn btn-primary">Save Data</button>
 
             </div>
@@ -81,16 +81,14 @@
             <table id="table_treshold">
                 <tbody>
                     <tr>
-                        <td>
-                            Link threshold<br>
+                        <td><h4>Link threshold</h4>
                             <input id="slider-range-treshold" type="range">
-                            <input id="threshold_network" type="text" size="40" value=""><br>
-                            <small>The links shown above are over this threshold value</small>
-                        </td>
-
-                        <td>
-                            <label for="hide_nodes">Hide isolated nodes</label>
-                            <input id="hide_nodes" type="checkbox" name="hide_nodes">
+                            <input id="threshold_network" type="text" size="40" value=""><br/>
+                            <small>The links shown above are over this threshold value</small><br />
+                            <div class="center-block">
+                                <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">
+                                <label for="hide_nodes">Hide isolated nodes</label>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
