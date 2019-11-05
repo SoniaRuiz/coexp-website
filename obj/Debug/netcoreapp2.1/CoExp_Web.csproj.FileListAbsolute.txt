@@ -6,13 +6,15 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.runtimeconfig.dev.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.dll
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.pdb
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.Views.dll
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.Views.pdb
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csprojAssemblyReference.cache
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cache
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.AssemblyInfoInputs.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.AssemblyInfo.cs
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.dll
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.pdb
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.Views.dll
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.Views.pdb
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cache
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.TagHelpers.input.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.TagHelpers.output.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorCoreGenerate.cache
@@ -31,6 +33,4 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorTargetAssemblyInfo.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorTargetAssemblyInfo.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.Views.pdb
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.dll
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.pdb
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete

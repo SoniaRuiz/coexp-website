@@ -108,7 +108,7 @@ API.prototype.menuInit = function (view) {
             .selectpicker('refresh');
 
         //Disable third select
-        $('#module_selection')
+        $('#module_dropdown')
             .prop('disabled', true);
 
         //Disable buttons
@@ -158,6 +158,14 @@ API.prototype.menuInit = function (view) {
             $('#genes').val('');
             $('#genes').prop('disabled', true);
         }
+        else if (view == 4) {
+            $('#module_dropdown').children().remove();
+            //Clear and disable 'module_selection'
+            $('#module_dropdown')
+                .prop('disabled', true)
+                .selectpicker('refresh');
+        }
+
 
     });
     //When the value of 'Network' changes:
@@ -173,9 +181,21 @@ API.prototype.menuInit = function (view) {
             $('#genes').prop('disabled', false);
         }
         else if (view == 4) {
+            $('#module_dropdown').children().remove();
+            API.prototype.getAvailableModules($('#category_dropdown').val(),
+                this.value);
             //Disable third select
-            $('#module_selection')
+            $('#module_dropdown')
                 .prop('disabled', false);
+
+            //$('#genes-range').prop("disabled", false);
+            //$('#text-box_genes-range').prop("disabled", false);
+
+            //$('#send_button').prop("disabled", false);
+        }
+    });
+    $('#module_dropdown').on('change', function () {
+        if (view == 4) {
 
             $('#genes-range').prop("disabled", false);
             $('#text-box_genes-range').prop("disabled", false);
@@ -327,6 +347,48 @@ API.prototype.getAvailableNetworks = function (category, network) {
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#network_dropdown')
+                            .append(net_option)
+                            .selectpicker('refresh');
+                    }
+                }
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
+    }
+}
+
+API.prototype.getAvailableModules = function (category, network) {
+
+    if (category === undefined || network === undefined) {
+        alert("Please, select a category and network values.")
+    }
+    else {
+        //Make a request to CoExp-R-software's API
+
+        $.ajax({
+            url: '/' + environment + '/API/GetAvailableModules?Category=' + category + '&Network=' + network,
+            type: 'GET',
+            success: function (data) {
+                if (data.indexOf("Problems") >= 0) {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else if (data == "{}") {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else {
+                    $("#goFromTissue_divError").hide();
+                    console.log(data);
+                    data = JSON.parse(data);
+                    for (let i = 0; i < data.length; i++) {
+                        const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
+                        $('#module_dropdown')
                             .append(net_option)
                             .selectpicker('refresh');
                     }
@@ -917,7 +979,8 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                                 data: 'cell_type_pred',
                                 "visible": false,
                                 "searchable": true
-                            }
+                            },
+
                         ],
                         "order": [[5, 'asc']],
                         dom: 'Bfrtip',
@@ -1448,6 +1511,9 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
         '<td>cell_type_pred: </td>' +
         '<td>' + d.cell_type_pred + '</td>' +
         '</tr>' +
+        '<tr>' +
+        '<td><button type="button" class="btn btn-info" onclick="API.prototype.getMM(\'' + d.network + '\',\'' + d.category + '\',\'' + d.module + '\');">Get Gene List</button></td>' +
+        '</tr>' +
         '</table>';
 
     row.child(table).show();
@@ -1598,4 +1664,69 @@ API.prototype.downloadSVGData = function () {
 
     /* generate an XLSX file */
     XLSX.writeFile(wb, "coexpdata.xlsx"); 
+}
+
+API.prototype.getMM = function (network, category, module) {
+
+
+   
+    if (category === undefined || network === undefined || module === undefined) {
+        alert("No data received.")
+    }
+    else
+        //Make a request to CoExp-R-software's API
+        $.ajax({
+            url: '/' + environment + '/API/GetMM?Category=' + category + '&Network=' + network + '&ModuleColor=' + module,
+            type: 'GET',
+            success: function (data) {
+
+                $("#goFromTissue_divError").hide();
+                console.log(data);
+
+                var createXLSLFormatObj = [];
+
+                /* XLS Head Columns */
+                var xlsHeader = ["ensgene", "name", "module", "mm"];
+
+                /* XLS Rows Data */
+                var xlsRows = JSON.parse(data);
+
+
+                createXLSLFormatObj.push(xlsHeader);
+                $.each(xlsRows, function (index, value) {
+                    var innerRowData = [];
+                    //$("tbody").append('<tr><td>' + value.EmployeeID + '</td><td>' + value.FullName + '</td></tr>');
+                    $.each(value, function (ind, val) {
+
+                        innerRowData.push(val);
+                    });
+                    createXLSLFormatObj.push(innerRowData);
+                });
+
+
+            /* File Name */
+                var dt = new Date();
+                var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear();
+                var filename = category + "_" + network + "_" + module + "_" + time + ".xlsx";
+
+                /* Sheet Name */
+                var ws_name = "FreakySheet";
+
+                if (typeof console !== 'undefined') console.log(new Date());
+                var wb = XLSX.utils.book_new(),
+                    ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+
+                /* Add worksheet to workbook */
+                XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+                /* Write workbook and Download */
+                if (typeof console !== 'undefined') console.log(new Date());
+                XLSX.writeFile(wb, filename);
+                if (typeof console !== 'undefined') console.log(new Date());
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
 }

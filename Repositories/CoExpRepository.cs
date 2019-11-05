@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CoExp_Web.Repositories
@@ -19,27 +20,27 @@ namespace CoExp_Web.Repositories
         /// <summary>
         /// Property to manage the http connection
         /// </summary>
-        private HttpAdapter _adapter;
+        readonly private HttpAdapter _adapter;
         /// <summary>
         /// URL to connect with CoExp R application API (published by Plumber package)
         /// </summary>
-        private string _coexpURL;
+        private string coexpURL;
         /// <summary>
         /// POST request parameters
         /// </summary>
-        private string _postData { get; set; }
+        private string PostData { get; set; }
         /// <summary>
         /// API production environment URL
         /// </summary>
-        public string _productionEnv { get; set; }
+        public string ProductionEnv { get; set; }
         /// <summary>
         /// API test environment URL
         /// </summary>
-        public string _testEnv { get; set; }
+        public string TestEnv { get; set; }
         /// <summary>
         /// API private environment URL
         /// </summary>
-        public string _privateEnv { get; set; }
+        public string PrivateEnv { get; set; }
 
         
         /// <summary>
@@ -48,23 +49,23 @@ namespace CoExp_Web.Repositories
         public CoExpRepository(IHostingEnvironment hostingEnvironment)
         {
             _adapter = new HttpAdapter();
-            _productionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
-            _testEnv = "https://snca.atica.um.es/api_test/";
-            _privateEnv = "https://snca.atica.um.es/api_private/";
-            _postData = null;
+            ProductionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
+            TestEnv = "https://snca.atica.um.es/api_test/";
+            PrivateEnv = "https://snca.atica.um.es/api_private/";
+            PostData = null;
            
 
             if(hostingEnvironment.EnvironmentName == "Production")
             {
-                _coexpURL = _productionEnv;
+                coexpURL = ProductionEnv;
             }
             else if (hostingEnvironment.EnvironmentName == "Development")
             {
-                _coexpURL = _testEnv;
+                coexpURL = TestEnv;
             }
             else if (hostingEnvironment.EnvironmentName == "Private")
             {
-                _coexpURL = _privateEnv;
+                coexpURL = PrivateEnv;
             }
 
         }
@@ -75,15 +76,15 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getNetworkCategories' CoExp API method</returns>
         public string GetNetworkCategories()
         {
-            string response = string.Empty;
+            string response;
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            if(_coexpURL == _productionEnv)
-                _coexpURL = _coexpURL + "GetNetworkCategories";
+            if(coexpURL == ProductionEnv)
+                coexpURL += "GetNetworkCategories";
             else
-                _coexpURL = _coexpURL + "getNetworkCategories";
+                coexpURL += "getNetworkCategories";
             //Make the request
-            response = _adapter.GETHttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return response;
@@ -95,21 +96,56 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getAvailableNetworks' CoExp API method</returns>
         public string GetAvailableNetworks(CoexpParams coexpdata)
         {
-            string response = string.Empty;
+            string response;
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            if (_coexpURL == _productionEnv)
-                _coexpURL = _coexpURL + "GetAvailableNetworks?category=" + coexpdata.Category;
+            if (coexpURL == ProductionEnv)
+                coexpURL = coexpURL + "GetAvailableNetworks?category=" + coexpdata.Category;
             else
-                _coexpURL = _coexpURL + "getAvailableNetworks?category=" + coexpdata.Category;
+                coexpURL = coexpURL + "getAvailableNetworks?category=" + coexpdata.Category;
 
             //Make the request
-            response = _adapter.GETHttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(coexpURL);
             
 
             //Return the response
             return response;
         }
+
+        public string GetAvailableModules(CoexpParams coexpdata)
+        {
+            string response;
+            //Set the URL with parameters. This URL will allow us to establish a communication with
+            //CoExp R application API (published using Plumber R package)
+            if (coexpURL == ProductionEnv)
+                coexpURL = coexpURL + "GetModulesFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+            else
+                coexpURL = coexpURL + "getModulesFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+            //Make the request
+            response = _adapter.GETHttpRequestJSON(coexpURL);
+
+            //Return the response
+            return response;
+        }
+
+        public string GetMM(CoexpParams coexpdata)
+        {
+            string response;
+            //Set the URL with parameters. This URL will allow us to establish a communication with
+            //CoExp R application API (published using Plumber R package)
+            if (coexpURL == ProductionEnv)
+                coexpURL = coexpURL + "GetMM?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category + "&module=" + coexpdata.ModuleColor;
+            else
+                coexpURL = coexpURL + "getMM?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category + "&module=" + coexpdata.ModuleColor;
+            //Make the request
+            response = _adapter.GETHttpRequestJSON(coexpURL);
+
+
+
+            //Return the response
+            return response;
+        }
+
         /// <summary>
         /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
         /// </summary>
@@ -117,18 +153,18 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
         public string GetGOFromTissue(CoexpParams coexpdata)
         {
-            string response = string.Empty;
+            string response;
 
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            if (_coexpURL == _productionEnv)
-                _coexpURL = _coexpURL + "GetGOFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
+            if (coexpURL == ProductionEnv)
+                coexpURL = coexpURL + "GetGOFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
             else
-                _coexpURL = _coexpURL + "getGOFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL = coexpURL + "getGOFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
 
            
             //Make the request
-            response = _adapter.GETHttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(coexpURL);
 
 
             //Return the response
@@ -141,18 +177,18 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getCellTypeFromTissue' CoExp API method</returns>
         public string GetCellTypeFromTissue(CoexpParams coexpdata)
         {
-            string response = string.Empty;
+            string response;
 
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            if (_coexpURL == _productionEnv)
-                _coexpURL = _coexpURL + "GetCellTypeFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
+            if (coexpURL == ProductionEnv)
+                coexpURL = coexpURL + "GetCellTypeFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
             else
-                _coexpURL = _coexpURL + "getCellTypeFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL = coexpURL + "getCellTypeFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
 
             
             //Make the request
-            response = _adapter.GETHttpRequestJSON(_coexpURL);
+            response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return response;
@@ -173,7 +209,7 @@ namespace CoExp_Web.Repositories
             var categories = (coexpdata.MultipleSelectionData).Split("**,");
             List<JArray> responses = new List<JArray>();
             JArray finalJSONresponse = new JArray();
-            string localResponse = string.Empty;
+            string localResponse;
 
             foreach (var category in categories)
             {
@@ -191,15 +227,15 @@ namespace CoExp_Web.Repositories
                         networks = networks.Remove(networks.Length - 2);
 
 
-                    if (_coexpURL == _productionEnv)
-                        _coexpURL = _coexpURL + "ReportOnGenesMultipleTissue";
+                    if (coexpURL == ProductionEnv)
+                        coexpURL += "ReportOnGenesMultipleTissue";
                     else
-                        _coexpURL = _coexpURL + "reportOnGenesMultipleTissue";
+                        coexpURL += "reportOnGenesMultipleTissue";
 
-                    _postData = "{\"tissues\":\"" + networks + "\",\"which.one\":\"" + categoryLabel + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+                    PostData = "{\"tissues\":\"" + networks + "\",\"which.one\":\"" + categoryLabel + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
 
                     //Make the request
-                    localResponse = _adapter.POSTHttpRequestJSON(_coexpURL, _postData);
+                    localResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
                     
                     
 
@@ -238,12 +274,11 @@ namespace CoExp_Web.Repositories
         {
             //Declare initial variables
             string categoriesLabel = string.Empty;
-            string localCategory = string.Empty;
+            string localCategory;
             string networks = string.Empty;
-            string localNetworks = string.Empty;
-            string finalResponse = string.Empty;
+            string localNetworks;
+            string finalResponse;
             string[] categoryData;
-            JArray finalJSONresponse = new JArray();
 
             //Remove parenthesis
             coexpdata.MultipleSelectionData = coexpdata.MultipleSelectionData.Replace("{", "");
@@ -289,19 +324,19 @@ namespace CoExp_Web.Repositories
             }
 
 
-            if (_coexpURL == _productionEnv)
+            if (coexpURL == ProductionEnv)
             {
-                _coexpURL = _coexpURL + "GlobalReportOnGenes";
-                _postData = "{\"categories\":\"" + categoriesLabel + "\",\"networks\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+                coexpURL += "GlobalReportOnGenes";
+                PostData = "{\"categories\":\"" + categoriesLabel + "\",\"networks\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
             }
             else
             {
-                _coexpURL = _coexpURL + "globalReportOnGenes";
-                _postData = "{\"categories\":\"" + categoriesLabel + "\",\"tissues\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
+                coexpURL += "globalReportOnGenes";
+                PostData = "{\"categories\":\"" + categoriesLabel + "\",\"tissues\":\"" + networks + "\",\"genes\":\"" + coexpdata.Genes + "\"}";
             }
             
             //Make the request
-            finalResponse = _adapter.POSTHttpRequestJSON(_coexpURL, _postData);
+            finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
             
             return finalResponse;
         }

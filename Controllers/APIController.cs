@@ -63,6 +63,15 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [Route("GetAvailableModules")]
+        public string GetAvailableModules([FromQuery] CoexpParams coexpdata)
+        {
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            string response = repository.GetAvailableModules(coexpdata);
+            return response;
+        }
+
+        [HttpGet]
         [Route("GetGOFromTissue")]
         public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
         {
@@ -169,6 +178,15 @@ namespace CoExp_Web.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("GetMM")]
+        public string GetMM([FromQuery] CoexpParams coexpdata)
+        {
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            string response = repository.GetMM(coexpdata);
+            return response;
+        }
+
         /****************************************************************************/
         /******************************* POST METHODS *******************************/
         /****************************************************************************/
@@ -226,7 +244,7 @@ namespace CoExp_Web.Controllers
         [Route("PostGlobalReportOnGenes")]
         public string PostGlobalReportOnGenes([FromBody] CoexpParams coexpdata)
         {
-            string parsed_response = string.Empty;
+            string parsed_response;
 
             //////////////////////////////////////////////
             //// 1. First, we check all typed genes
