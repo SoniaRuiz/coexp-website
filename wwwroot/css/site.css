@@ -49,7 +49,7 @@ body {
    with position:fixed. Width, height, top and left speak
    for themselves. Background we set to 80% white with
    our animation centered, and no-repeating */
-.modal {
+.loading_layer {
     display: none;
     position: fixed;
     z-index: 10000;
@@ -60,7 +60,7 @@ body {
 }
 
 
-body.loading .modal {
+body.loading .loading_layer {
     /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
     overflow: hidden;
     /* Anytime the body has the loading class, our modal element will be visible */
@@ -442,6 +442,7 @@ h2 {
     background-color: #171b27;
     position: fixed;
     bottom: 0;
+    z-index:10;
 }
     
     #footer small {
@@ -461,12 +462,36 @@ h2 {
         font-weight:bold;
     }
 
+    #footer .pipe-footer {
+        float: left;
+        margin: 7px 7px;
+        color: white;
+        font-weight: bold;
+    }
+
 svg {
 
     width: 100% !important;
 
 }
 
+/******** GENES NOT FOUND *******/
+#table_genes_not_found thead{
+    font-weight:bold;
+}
 
 
+
+/******** TAB ABOUT ********/
+.about {
+    background-color: #f5f5f5;
+    margin-left: 15px;
+    padding-bottom: 15px;
+}
+
+/************************/
+/******* HELP TAB *******/
+.help_caption {
+    color: #337ab7 !important;
+}
 

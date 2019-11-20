@@ -11,7 +11,7 @@
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="~/css/site.css">
         <style type="text/css">
-            .modal {
+            .loading_layer {
                 background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
             }
 
@@ -35,7 +35,7 @@
     </environment>
     <environment include="Production">
         <style type="text/css">
-            .modal {
+            .loading_layer {
                 background: rgba( 255, 255, 255, .8 ) url('/coexp/images/loading.gif') 50% 50% no-repeat;
             }
 
@@ -51,7 +51,7 @@
     </environment>
     <environment include="Private">
         <style type="text/css">
-            .modal {
+            .loading_layer {
                 background: rgba( 255, 255, 255, .8 ) url('/ATN_5843218Gt/images/loading.gif') 50% 50% no-repeat;
             }
 
@@ -85,18 +85,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Run" asp-action="Catalog">Network Catalog</a></li>
-                    <li><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
+                    <li class="nav-item" id="tab_network_catalog"><a class="navbar-link" asp-controller="Run" asp-action="Catalog">Network Catalog</a></li>
+                    <li class="nav-item" id="tab_gene_set_annotation"><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
                     <environment include="Development">
-                        <li><a asp-area="" asp-controller="Run" asp-action="Plot">Plot</a></li>
+                        <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
                     </environment>
-                    <li class="dropdown">
-                        <a href="#" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Support <span class="caret"></span></a>
+                    <li class="nav-item" id="tab_about"><a asp-area="" asp-controller="Run" asp-action="About">About</a></li>
+                    <li class="nav-item" id="tab_help"><a asp-area="" asp-controller="Run" asp-action="Help">Help</a></li>
+                    @*<li class="dropdown">
+                        <a asp-area="" asp-controller="Run" asp-action="Help" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Support <span class="caret"></span></a>
                         <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
-                            <li><a asp-area="" asp-controller="Run" asp-action="Help">Help</a></li>
-                            <li><a asp-area="" asp-controller="Run" asp-action="About">About CoExp</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Introduction">Introduction</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Catalog">Catalog</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Annotation">Annotation</a></li>
                         </ul>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>
@@ -109,11 +112,68 @@
         <hr>
 
     </div>
-    
+
     <div id="footer">
-        <span class="glyphicon glyphicon-comment"></span><a href="#">Feedback</a>
+        <span class="glyphicon glyphicon-comment"></span>
+        <a href="" data-toggle="modal" data-target="#modalContactForm">Feedback</a>
+        <span class="pipe-footer">|</span>
+        <a asp-area="" asp-controller="Run" asp-action="Terms">Terms & Conditions</a>
+        <span class="pipe-footer">|</span>
+        <a asp-area="" asp-controller="Run" asp-action="Privacy">Privacy</a>
         <small>&copy; 2018 - 2019 - CoExp_Web. All rights reserved.</small>
     </div>
+    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button id="close_feedback" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title w-100 font-weight-bold">Feedback for CoExp Website</h4>
+                    <p>Thanks for taking the time to provide feedback!</p>
+                </div>
+                <div class="modal-body mx-3">
+
+                    <div class="md-form mb-5">
+                        <label for="feedback_name">Your name</label>
+                        <input type="text" id="feedback_name" class="form-control validate">
+                    </div>
+                    <br />
+                    <div class="md-form mb-5">
+                        <label for="feedback_email">Your email</label>
+                        <input type="email" id="feedback_email" class="form-control validate">
+                    </div>
+                    <br />
+                    <div class="md-form">
+                        <label for="feedback_comments">Enter your comments below.</label>
+                        <textarea type="text" id="feedback_comments" class="md-textarea form-control" rows="4"></textarea>
+
+                    </div>
+                    <br />
+                    <div class="md-form mb-5">
+                        <label for="feedback_radio">Are you satisfied with your experience?</label>
+                        <div class="radio">
+                            <label><input type="radio" name="feedback_radio" value="neutral" checked>Neutral</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="feedback_radio" value="yes">Yes</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="feedback_radio" value="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button onclick="javascript: API.prototype.sendFeedback();" class="btn btn-primary disabled">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
     <environment include="Development">
         <script type="text/javascript">
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
@@ -122,6 +182,7 @@
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="~/js/intro.js"></script>
+        <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     </environment>
 
     <environment include="Private">
@@ -162,6 +223,13 @@
         <script type="text/javascript" src="~/js/intro.min.js"></script>
     </environment>
 
+    <script>
+        $(document).ready(function () {
+            
+        });
+    </script>
     @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>

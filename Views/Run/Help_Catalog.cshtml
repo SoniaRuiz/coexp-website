@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewData["Title"] = "Help - Catalog";
+}
+
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <span class="main-label-breadcrumbs">CoExp</span>
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="active">Help - Network Catalog</span>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-11 about">
+        <h2>Surfing the catalog</h2>
+        <small>Created: April 04, 2019<br />Last updated: November 20, 2019</small>
+        <p class="author">
+            by <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=BP98-F74160" target="_blank" title="Juan A. Botía">Juan A. Botía</a> and
+            <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=LO96_F34158" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a>
+        </p>
+        <hr class="menu-hr" />
+        <div>
+            <p>This is the second part of the tutorial series <a asp-area="" asp-controller="Run" asp-action="Help">"Getting started with CoExp WebPage application"</a>.</p>
+            <p><span class="glyphicon glyphicon-chevron-left"></span><b>Previous: </b><a asp-area="" asp-controller="Run" asp-action="Help_Introduction">Introduction</a></p>
+
+            <h3><a id="surfing" style="color:black;">Surfing the catalog</a></h3>
+            <p>Fist, we move onto the tab "Network Catalog", and secondly we check the different categories available within the dropdown menu 'Categories', which is placed in the left-hand side section of the webpage:</p>
+            <div class="figure">
+                <img src="~/images/category.png"
+                     alt="Available categories" title="Fig1: Available categories." />
+                <p><small class="help_caption">Fig1: Available categories.</small></p>
+            </div>
+            <p>If everything has gone as expected, we will be able to see the following list of categories:</p>
+            <ul>
+                <li>
+                    <p>
+                        <b>10UKBEC:</b> these are 10 Illumina microarray based gene expression profiling networks from brain tissue
+                        <a href="http://github.com/juanbot/CoExp10UKBEC" class="uri" target="_blank" title="Visit 'CoExp10UKBEC' GitHub repository">http://github.com/juanbot/CoExp10UKBEC</a>,
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <b>NABEC:</b> a gene co-expression network created from RNA-seq control Cortex samples quantified at transcript level with Salmon
+                        <a href="http://github.com/juanbot/CoExpNABEC" class="uri" target="_blank" title="Visit 'CoExpNABEC' GitHub repository">http://github.com/juanbot/CoExpNABEC</a>,
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <b>GTEx V6:</b> 47 co-expression networks on control tissue including 13 brain areas
+                        <a href="http://github.com/juanbot/CoExpGTEx" class="uri" target="_blank" title="Visit 'CoExpGTEx' GitHub repository">http://github.com/juanbot/CoExpGTEx</a>,
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <b>GTEx V7:</b> a beta version of the same GTEx 47 co-expression networks
+                        <a href="http://github.com/juanbot/CoExpGTExV7" class="uri" target="_blank" title="Visit 'CoExpGTExV7' GitHub repository">http://github.com/juanbot/CoExpGTExV7</a> but now on V7 (i.e. more samples for all them),
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <b>ROSMAP:</b> four networks (all samples, not AD, probable AD and AD) from Frontal Cortex samples, more information here
+                        <a href="http://github.com/juanbot/CoExpROSMAP" class="uri" target="_blank" title="Visit 'CoExpROSMAP' GitHub repository">http://github.com/juanbot/CoExpROSMAP</a>.
+                    </p>
+                </li>
+            </ul>
+            <p>So if, for example we select GTExV6, we get the figure below:</p>
+            <div class="figure">
+                <img src="~/images/gtexv6.png"
+                     alt="Available networks under GTExV6" title="Fig2: Available networks under GTExV6." />
+                <p><small class="help_caption">Fig2: Available networks under GTExV62.</small></p>
+            </div>
+            <p>If we chose Caudate and then selecting the module by ontology and cell typ related terms, we get information on both function annotation (i.e. "By Ontology" tab) and cell type annotation (i.e. "By Cell Type" tab). The GUI caption below is for the "By Ontology" tab. By column</p>
+            <ul>
+                <li><p><b>module:</b> refers to the module, wihtin the network, the annotation term refers to.</p></li>
+                <li><p><b>p.value:</b> gProfiler is the tool we use to annotate genes in the modules. This p-value refers to how significant is the overlap of genes associated to the term and the genes in the module.</p></li>
+                <li><p><b>module.size:</b> refers to the number of genes we can find in the corresponding module.</p></li>
+                <li><p><b>ontology:</b> the annotation ontology the term comes from. BP, CC and MF are subontologies from the Gene Ontology and they refer to Biological Process, Cellular Component and Molecular Function respectively. Terms rea and keg refer to the REACTOME and KEGG ontologies.</p></li>
+            </ul>
+            <p>Note that for all these search results, using the three bottoms in the upper part <code>Copy</code>, <code>Excel</code> and <code>Print</code> you can get the table to the clipboard, download an excel file with the table or send it to a printer, respectively.</p>
+            <div class="figure">
+                <img src="~/images/caudate.png"
+                     alt="Information for the Caudate network" title="Fig3: Information for the Caudate network." />
+                <p><small class="help_caption">Fig3: Information for the Caudate network.</small></p>
+            </div>
+            <p>A co-expression network is a set of modules. These modules (column "module" at the table) are named with colors. They are the clusters genes group into. Currently, we see the Caudate module has 3914 annotations related to function (from the Gene Ontology, REACTOME and KEGG pathways databases mainly). Let´s say we want those terms related with RNA processing. We can use the Search window to select those and we get now only 19 terms out of the 3914 total terms.</p>
+            <div class="figure">
+                <img src="~/images/rnaprocessing.png"
+                     alt="Modules in the Caudate related to RNA processing in any way" title="Fig4: Modules in the Caudate related to RNA processing in any way." />
+                <p><small class="help_caption">Fig4: Modules in the Caudate related to RNA processing in any way.</small></p>
+            </div>
+            <p>We see that the <code>darkred</code> module can be a good candidate if we wanted to study RNA processing in the caudate tissue. And there are also other modules hosting more specific terms as well. Note that we can order the terms by using the <code>ontology</code> column so we can group terms by which ontology they come from as well. Also, on the left of each row there is a green button with the “+” sign. If we click on it, we will get some expanded information for the row. It depends on the context but for this case, you can see the genes from the module implicated on the overlap between the module and the ontology term.</p>
+            <p>Now, let us suppose we are interested only on finding those modules which are specific to the microglia. As we selected to search not only by ontology but also by cell type, we can go to the “By Cell Type” tab, and use again the Search pane and try our luck with “microglia”. What we get now is a different table to that we get in the annotation tab. In this case, we test different marker sets (cell type markers more specifically) against all modules. The values in the table to refer the significance of the result. In this case, you see one column for each module, one row for each marker.</p>
+            <div class="figure">
+                <img src="~/images/microglia.png"
+                     alt="Modules in the Caudate specific to microglial cell type" title="Fig5: Modules in the Caudate specific to microglial cell type." />
+                <p><small class="help_caption">Fig5: Modules in the Caudate specific to microglial cell type.</small></p>
+            </div>
+            <p>And we can see <code>cyan</code>, <code>pink</code> and to a lesser extent <code>grey60</code> show enrichment for microglial markers. The marker sets can be seen on the rows. Having modules as, for example, cyan with significant signals in more than 1 datasets must be understood in the sense of having alternative evidences of similar phenomena. Apart from the significance reflected by the p-value (i.e. which comes from testing the significance of the overlap between the genes in the module and the genes in the marker set) the more signals related to microglia are significant, the more confident we should be about that. Note that in this case, we distinguish between deactivated (Type 1) and activated microglia (Type 2) in modules cyan and pink respectively. In that way, cyan and pink are reflecting different events of the same phenomena. Actually, if we now look at “By Ontology” by module names and order by ontology to get the REACTOME terms first, we get</p>
+            <div class="figure">
+                <img src="~/images/cyan.png"
+                     alt="REACTOME terms in the cyan module" title="Fig6: REACTOME terms in the cyan module." />
+                <p><small class="help_caption">Fig6: REACTOME terms in the cyan module.</small></p>
+            </div>
+            <p>and for the pink term we get:</p>
+            <div class="figure">
+                <img src="~/images/pink.png"
+                     alt="REACTOME terms in the pink module" title="Fig7: REACTOME terms in the pink module." />
+                <p><small class="help_caption">Fig7: REACTOME terms in the pink module.</small></p>
+            </div>
+            <p>It is clear both share generic terms (e.g. Immune System, Innate Immune System) both there are also specific terms for each, i.e. Adaptive immune system for cyan and Cytokine signaling in immune system for pink.</p>
+            <p>Other interesting searches in regard to cell type may include, as we are dealing with PD, dopaminergic neurons. Therefore, by simply tipping <code>dopa</code> we get</p>
+            <div class="figure">
+                <img src="~/images/dopa.png"
+                     alt="Modules in Caudate related with dopaminergic neurons" title="Fig8: Modules in Caudate related with dopaminergic neurons." />
+                <p><small class="help_caption">Fig8: Modules in Caudate related with dopaminergic neurons.</small></p>
+            </div>
+            <p>Even if the enrichment p-values are not highly remarkable, we can get modest signals that may point us to something.</p>
+
+            <br />
+            <p><span class="glyphicon glyphicon-chevron-right"></span><b>Next: </b><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Annotating your genes</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // Turn active current menu's option
+        $(".nav-item").find(".active").removeClass("active");
+        $("#tab_help").addClass("active");
+    });
+
+    </script>
+}

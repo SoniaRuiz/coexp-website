@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "Help_Introduction";
+}
+
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <span class="main-label-breadcrumbs">CoExp</span>
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="active">Help - Introduction</span>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-11 about">
+        <h2>Introduction</h2>
+        <small>Created: April 04, 2019<br />Last updated: November 20, 2019</small>
+        <hr />
+        <p>This is the first part of the tutorial series <a asp-area="" asp-controller="Run" asp-action="Help">"Getting started with CoExp WebPage application"</a>.</p>
+        <div>
+            <h3><a id="introduction" style="color:black;">Introduction</a></h3>
+
+            <p>Let us suppose that we have a list of genes to annotate and we want to use the CoExp WebPage tool to do that. In this particular case, we are interested in seeing:</p>
+            <ul>
+                <li><p>whether our genes cluster together within an specific co-expression module and tissue more significantly than would be expected by chance<br></li>
+                <li><p>whether the module in which the genes cluster is enriched for genes with a specific biological function and the reliability of that prediction for each of the genes of interest</p></li>
+                <li><p>whether the module in which the genes cluster is enriched for any cell-type-specific markers</p></li>
+                <li><p>whether the clustering of the genes of interest is unique to a module within a specific tissue or whether it is observed within multiple gene co-expression networks.</p></li>
+            </ul>
+            <p>We will use as an example, the list of monogenic forms of Parkinson from the Genomics England panel App (only the green genes):</p>
+            <blockquote>
+                <p>ATP13A2 ATP1A3 C19orf12 CSF1R DCTN1 DNAJC6 FBXO7 FTL GBA GCH1 GRN LRRK2 LYST MAPT OPA3 PANK2 PARK7 PINK1 PLA2G6 PRKN PRKRA RAB39B SLC30A10 SLC39A14 SLC6A3 SNCA SPG11 SPR SYNJ1 TH TUBB4A VPS13A VPS35 WDR45</p>
+            </blockquote>
+            <p>
+                The first thing we have to do, is to choose which are the conditions in which we want to study the genes. So, in order to see which genes are available within each category and network, we will firstly surf the catalog of CoExp WebPage UI:
+                @*ATN_5843218Gt//coexp_test//coexp*@
+                <environment names="Production">
+                    <a href="http://www.rytenlab.com/coexp/Run/Catalog/" title="Visit CoExp catalog" class="uri" target="_blank">http://www.rytenlab.com/coexp/Run/Catalog/</a>
+                </environment>
+                <environment names="Development">
+                    <a href="http://www.rytenlab.com/coexp_test/Run/Catalog/" title="Visit CoExp catalog" class="uri" target="_blank">http://www.rytenlab.com/coexp_test/Run/Catalog/</a>
+                </environment>
+                <environment names="Private">
+                    <a href="http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/" title="Visit CoExp catalog" class="uri" target="_blank">http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/</a>
+                </environment>
+            </p>
+            <br />
+
+            <p><span class="glyphicon glyphicon-chevron-right"></span><b>Next: </b><a asp-area="" asp-controller="Run" asp-action="Help_Catalog">Surfing the catalog</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // Turn active current menu's option
+        $(".nav-item").find(".active").removeClass("active");
+        $("#tab_help").addClass("active");
+    });
+
+    </script>
+}
+

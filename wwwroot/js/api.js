@@ -55,8 +55,6 @@ API.prototype.menuInit = function (view) {
          * This is the view for 'Network Catalog' tab when coming from 'Gene Set Annotation' view.
          * */
         $("body").addClass("loading");
-        //Disable 'send' button
-        $('#send_button').prop("disabled", true);
 
         //Get model's data:
         const category = $("#Category").val();
@@ -68,21 +66,33 @@ API.prototype.menuInit = function (view) {
         API.prototype.getAvailableNetworks(category, network);
 
         //Disable all selects and buttons
-        $('#category_dropdown')
-            .prop('disabled', true)
-            .selectpicker('refresh');
-        $('#network_dropdown')
-            .prop('disabled', true)
-            .selectpicker('refresh');
+        //$('#category_dropdown')
+        //    .prop('disabled', true)
+        //    .selectpicker('refresh');
+        //$('#network_dropdown')
+        //    .prop('disabled', true)
+        //    .selectpicker('refresh');
         $('#module_selection')
             .selectpicker('val', ['1', '2'])
-            .prop('disabled', true)
+            //.prop('disabled', true)
             .selectpicker('refresh');
-        $('#send_button').prop("disabled", true);
+        //$('#send_button').prop("disabled", true);
+
+        
 
         //Force 'send' button's click event
-        
         API.prototype.sendButtonFunction(view, moduleColor);  
+
+        //Hide/show different elements from the menu
+        $("div.navbar-collapse").children("ul").remove();
+        $("#menu").show();
+        $("#menu_data").hide();
+        $("#footer").hide();
+        $("#menu_gene_list").removeClass("hidden");
+        $("#get_gene_list").click(function () {
+            API.prototype.getMM(network, category, moduleColor);
+            //alert("API.prototype.getMM('" + network + "', '" + category + "', '" + moduleColor + "');")
+        })
     }
     else if (view == 2 || view == 3) {
         /*
@@ -224,6 +234,7 @@ API.prototype.menuInit = function (view) {
 
     // Add event listener for opening and closing table details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
+
         const tr = $(this).closest('tr');
         const row = $('#goFromTissue_table').DataTable().row(tr);
 
@@ -234,7 +245,7 @@ API.prototype.menuInit = function (view) {
         }
         else {
             // Open this row
-            API.prototype.hideRowsGOFromTissue(row.data(), tr, row);      
+            API.prototype.hideRowsGOFromTissue(row.data(), tr, row);                  
         }
     });
     $('#globalReportOnGenes_table, #globalSummariseReportOnGenes_table, #reportOnGenes_table, #summariseClustering_table').on('click', 'td.details-control', function () {
@@ -657,6 +668,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
         url: '/' + environment + '/API/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
         success: function (data) {
+            
             if (data.indexOf("Problems") >= 0) {
                 $("#goFromTissue_divError").children("p").remove();
                 $("#goFromTissue_divError").append("<p>" + data + "</p>");
@@ -689,7 +701,16 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                             "data": null,
                             "defaultContent": ''
                         },
-                        { data: "query_number" },
+                        {
+                            data: 'query_number',
+                            render: function (data, type, row, meta) {
+                                if (type === 'display' && $("#ModuleColor").val() === "") {
+                                    data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + $('#category_dropdown').val() + '\',\'' + $('#network_dropdown').val() + '\');" title="Find out more ...">' + data + '</a>';
+                                } 
+                                return data;
+                            }
+                        },
+                        //{ data: "query_number" },
                         { data: 'p_value' },
                         { data: 'query_size' },
                         {
@@ -832,6 +853,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
 
                 if (data[0] == undefined) {
                     //We show an error
+                    $('#cellType_table').hide();
                     $("#cellType_div").append("<p>The module '" + moduleColor + "' does not have any significant p-values over any cell type.</p>");
                 }
                 else {
@@ -873,7 +895,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                 }
                 $("#cellType_div").show();
                 $("#cellType_divError").hide();
-                $('#cellType_table').DataTable().draw();
+                //$('#cellType_table').DataTable().draw();
             }
             $("body").removeClass("loading");
             $("#empty-initial-results").hide();
@@ -905,6 +927,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
+                
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").children("p").remove();
                     $("#error").append("<p>" + data + "</p>");
@@ -1098,8 +1121,8 @@ API.prototype.globalReportOnGenes = function (data, genes) {
             contentType: 'application/json',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
-                    $("#error").children("p").remove();
-                    $("#error").append("<p>" + data + "</p>");
+                    $("#error").empty();
+                    $("#error").append("<h4>Sorry, none of the introduced genes have been found in any of the selected networks.</h4><p>Please, try again with another network selection.</p>");
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
@@ -1112,6 +1135,9 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                     $("body").removeClass("loading");
                 }
                 else {
+                    API.prototype.checkGenesFound(data);
+
+
                     if (JSON.parse(data).message !== undefined) {
                         data = JSON.parse(data);
                         const r = confirm(data.message);
@@ -1280,11 +1306,11 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                 }
                             ]
                         });
-
-                        $("#globalReportOnGenes_div").show();
+                        $("body").removeClass("loading");
+                        /*$("#globalReportOnGenes_div").show();
                         $('#empty-initial-results').hide();
                         $("#error").hide();
-                        $("body").removeClass("loading");
+                        $("body").removeClass("loading");*/
                     }
                 }
 
@@ -1315,8 +1341,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
      * This tab will only have information related with the module color clicked by the user.
      * */
     window.open(url = "/" + environment + "/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
-        name = "_blank",
-        specs = "resizable=no,top=300,left=500,width=700,height=700,scrollbars=yes");
+        '', 'toolbar= 0, scrollbars = 1, statusbar = 0,menubar=0,resizable=0,height=500,width=1200');
 }
 
 /**
@@ -1326,7 +1351,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
  * @param {string} tr Table's tr element (html element) to expand/contract
  * @param {string} row Table's row element to expand/contract.
  */
-API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details - modify as you need */
+API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details */
 
     const term = (d.term_id).split(':');
     const id = term[1];
@@ -1379,7 +1404,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
         type: 'POST',
         data: { term: dataToSend },
         success: function (data) {
-
+            $("body").addClass("loading");
             data = JSON.parse(data);
             let finalOntologyString = null;
 
@@ -1428,7 +1453,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
                 finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
             }
-
+            $("body").removeClass("loading");
             const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
                 '<td>term_id: </td>' +
@@ -1457,8 +1482,8 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
  * @param {string} row Table's row element to expand/contract.
  * @param {string} id Table's id. This is for checking whether the user is in the 'summarise' or 'expand' table view.
  */
-API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details - modify as you need */
-
+API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details */
+    $("body").addClass("loading");
     let genes = "";
     let finalGoReport = d.go_report;
     const allGOTerms = d.go_report.match(/GO:[0-9]*/g);
@@ -1511,11 +1536,8 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
         '<td>cell_type_pred: </td>' +
         '<td>' + d.cell_type_pred + '</td>' +
         '</tr>' +
-        '<tr>' +
-        '<td><button type="button" class="btn btn-info" onclick="API.prototype.getMM(\'' + d.network + '\',\'' + d.category + '\',\'' + d.module + '\');">Get Gene List</button></td>' +
-        '</tr>' +
         '</table>';
-
+    $("body").removeClass("loading");
     row.child(table).show();
     tr.addClass('shown');
     $("[data-placement='bottom']").popover();
@@ -1729,4 +1751,125 @@ API.prototype.getMM = function (network, category, module) {
                 console.log(data);
             }
         });
+}
+
+
+
+API.prototype.sendFeedback = function() {
+
+    let comments = $("#feedback_comments").val();
+    let grade_experience = $('input[name=feedback_radio]:checked').val()
+    let name_feedback = $('#feedback_name').val()
+    let email_feedback = $('#feedback_email').val()
+    var email_regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (name_feedback == "") {
+        alert("Please, introduce your name.")
+    } else if (email_feedback == "") {
+        alert("Please, introduce your email.")
+    } else if (comments == "") {
+        alert("Please, introduce your comments.")
+    } else if (!email_regex.test(email_feedback)) {
+        alert("You have entered an invalid e-mail address. Please, try it again.")
+    } else {
+
+        //Make a request to CoExp-R-software's API
+        $.ajax({
+            url: '/' + environment + '/API/SendFeedback?Name=' + name_feedback + '&Address=' + email_feedback
+                +'&Subject=CoExp_Feedback&Content=' + comments + '&LevelSatisfaction=' + grade_experience,
+            type: 'GET',
+            success: function (data) {
+                alert("Your feedback has been successfully sent! Thanks for taking the time to provide it!\n")
+                $("#close_feedback").trigger("click")
+            },
+            error: function (data) {
+                //If an error occurs:
+                alert("Sorry, an error has occurred. You may have entered an invalid e-mail address. Please, try it again.")
+                console.log(data);
+            }
+        });
+    }
+};
+
+
+API.prototype.arrayDiff = function (array1, array2) {
+    var ret = [];
+    for (var i in array1) {
+        if (array2.indexOf(array1[i]) == -1) {
+            ret.push(array1[i]);
+        }
+    }
+    return ret;
+};
+
+API.prototype.checkGenesFound = function (data) {
+
+    //Obtain all genes returned by CoExp R
+    var all_genes_found = _.keys(_.countBy(JSON.parse(data), function (data) { return data.gene; }));
+
+    //Obtain all genes introduced by the user
+    var all_genes_introduced = $("#genes").val()
+    if (all_genes_introduced.indexOf(" ,") > -1) {
+        all_genes_introduced = all_genes_introduced.split(" ,")
+    }
+    else if (all_genes_introduced.indexOf(",") > -1) {
+        all_genes_introduced = all_genes_introduced.split(",")
+    }
+    else if (all_genes_introduced.indexOf(" ") > -1) {
+        all_genes_introduced = all_genes_introduced.split(" ")
+    } else {
+        all_genes_introduced = [all_genes_introduced];
+    }
+
+    //Obtain all genes not found
+    var genes_not_found = API.prototype.arrayDiff(all_genes_introduced, all_genes_found);
+
+    if (genes_not_found.length > 0) {
+        //Clean popup from old rows
+        $("#table_genes_not_found").find('tbody tr').remove();
+        $("#genes_not_found").find(".modal-header .text-left h4").empty();
+        $("#genes_not_found").find(".modal-header .text-left h4").next().next();
+
+        //Clean popup from old rows
+        var genes_not_found_table_data = "";
+
+        //Generate new rows to be added to the popup with the genes not found in CoExp R
+        var ocurrences_gnt = _.countBy(genes_not_found)
+        for (var i in genes_not_found) {
+            if (ocurrences_gnt[genes_not_found[i]] > 1) {
+                genes_not_found_table_data += "<tr><td>" + genes_not_found[i] + "</td><td>Duplicated</td></tr>"
+            } else {
+                genes_not_found_table_data += "<tr><td>" + genes_not_found[i] + "</td><td>Not found in any selected network</td></tr>";
+            }
+        }
+
+        //Add new rows and statistics to the table
+        var genes_found = all_genes_introduced.length - genes_not_found.length
+        var genes_found_text = "Input Gene List (" + genes_found + "/" + all_genes_introduced.length + ")"
+        var genes_not_found_text = "Genes Not Found (" + genes_not_found.length + "/" + all_genes_introduced.length + ")"
+
+        $("#genes_not_found").find(".modal-header .text-left h4").first().append(genes_found_text)
+        $("#genes_not_found").find(".modal-header .text-left h4").next().next().append(genes_not_found_text)
+        $("#table_genes_not_found").find('tbody').append(genes_not_found_table_data);
+        $("#genes_not_found").modal('show');
+    } else {
+        $("#globalReportOnGenes_div").show();
+        $('#empty-initial-results').hide();
+        $("#error").hide();
+    }
+}
+
+API.prototype.genesNotFoundAction = function (value) {
+    if (value == "continue") {
+        $("#globalReportOnGenes_div").show();
+        $('#empty-initial-results').hide();
+        $("#error").hide();
+        
+        
+    }
+    else {
+        $("#empty-initial-results").show();
+    }
+
+    $("#genes_not_found").modal("hide"); 
 }

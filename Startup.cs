@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CoExp_Web.Models.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,10 +35,13 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //Add trailing slash to the end
             services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
+            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddTransient<IEmailService, EmailService>();
+
 
         }
 
@@ -50,12 +54,11 @@ namespace CoExp_Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 if (env.IsProduction())
                 {
                     app.UsePathBase("/coexp/");
@@ -65,11 +68,10 @@ namespace CoExp_Web
                     app.UsePathBase("/ATN_5843218Gt/");
                 }
             }
+            app.UseExceptionHandler("/Home/Error");
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-           
-            
 
             app.UseMvc(routes =>
             {
@@ -77,6 +79,8 @@ namespace CoExp_Web
                     name: "default",
                     template: "{controller=Run}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

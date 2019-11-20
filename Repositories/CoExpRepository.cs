@@ -1,10 +1,16 @@
 ﻿using CoExp_Web.Adapters;
 using CoExp_Web.Models;
+using CoExp_Web.Models.Email;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Hosting;
+using MimeKit;
+using MimeKit.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -42,7 +48,8 @@ namespace CoExp_Web.Repositories
         /// </summary>
         public string PrivateEnv { get; set; }
 
-        
+
+
         /// <summary>
         /// Constructor. Here, we initialize all class' properties using default values.
         /// </summary>
@@ -146,12 +153,23 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        /// <summary>
-        /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
-        /// </summary>
-        /// <param name="coexpdata">Data to be sent to 'getGOFromTissue' CoExp API method</param>
-        /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
-        public string GetGOFromTissue(CoexpParams coexpdata)
+        public void SendFeedback(EmailMessage emailMessage, IEmailConfiguration emailConfiguration)
+        {
+            EmailService emailService = new EmailService(emailConfiguration);
+            emailService.Send(emailMessage);
+        }
+
+
+
+
+
+
+    /// <summary>
+    /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
+    /// </summary>
+    /// <param name="coexpdata">Data to be sent to 'getGOFromTissue' CoExp API method</param>
+    /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
+    public string GetGOFromTissue(CoexpParams coexpdata)
         {
             string response;
 

@@ -13,11 +13,12 @@
         {
             <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
             <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="active">Gene Set Annotation</span>
         }
-        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
             @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }
+        }*@
     </div>
 <div class="row">
     <div class="col-sm-3 sidebar menu">
@@ -48,6 +49,43 @@
                 <p>Your results will appear here.</p>
             </div>
         </div>
+        <div id="genes_not_found" class="modal fade" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button id="close_feedback" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>Your Gene List</h3>
+                        <hr />
+                        <div class="text-left">
+                            <h4></h4><hr/>
+                            <h4></h4>
+                            <p>
+                                The following genes have not been found within the networks selected.<br />
+                                Would you like to continue with your query?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-3 pre-scrollable">
+                        <table id="table_genes_not_found" class="table table-hover table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <td>Entered</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button onclick="javascript:API.prototype.genesNotFoundAction('continue');" class="btn btn-success">Continue</button>
+                        <button onclick="javascript:API.prototype.genesNotFoundAction('cancel');" class="btn btn-dark">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="reportOnGenes_div" style="display:none;">
             <h3><u>Gene Annotation</u></h3>
             <br>
@@ -59,12 +97,7 @@
                         <th>category</th>
                         <th>network</th>
                         <th>ensgene</th>
-                        <th>fisher <span class="glyphicon glyphicon-info-sign"
-                                         data-placement='bottom'
-                                         data-toggle="popover" 
-                                         title="Popover title" 
-                                         data-content="And here's some amazing content. It's very engaging. Right?"></span>
-                        </th>
+                        <th>fisher</th>
                         <th>module</th>
                         <th>mm</th>
                         <th>size</th>
@@ -86,7 +119,7 @@
                         <th>module</th>
                         <th>overlap</th>
                         <th>gene</th>
-                        <th>fisher <span class="glyphicon glyphicon-info-sign"></span></th>
+                        <th>fisher @*<span class="glyphicon glyphicon-info-sign"></span>*@</th>
                         <th>size</th>
                         <th>go_report</th>
                         <th>cell_type_pred</th>
@@ -105,7 +138,7 @@
                         <th>category</th>
                         <th>network</th>
                         <th>ensgene</th>
-                        <th>fisher <span class="glyphicon glyphicon-info-sign"></span></th>
+                        <th>fisher</th>
                         <th>FDR</th>
                         <th>Bonferroni</th>
                         <th>module</th>
@@ -129,7 +162,7 @@
                         <th>module</th>
                         <th>overlap</th>
                         <th>gene</th>
-                        <th>fisher <span class="glyphicon glyphicon-info-sign"></span></th>
+                        <th>fisher @*<span class="glyphicon glyphicon-info-sign"></span>*@</th>
                         <th>FDR</th>
                         <th>Bonferroni</th>
                         <th>size</th>
@@ -141,10 +174,10 @@
         </div>
         <br>
         <div id="error" class="alert alert-danger">
-            <h4>Sorry. An error has occurred.</h4>
+            <h4></h4>
         </div>
     </div>
-    <div class="modal"><!-- loading layer --></div>
+    <div class="loading_layer"><!-- loading layer --></div>
 
 </div><br>
 @section HeadStyles{
@@ -174,7 +207,7 @@
 
     <environment include="Development">
         <script type="text/javascript" src="~/js/api.js"></script>
-        <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        
     </environment>
     <environment include="Production,Private">
         <script type="text/javascript" src="~/js/api.min.js"></script>
@@ -190,6 +223,10 @@
 
     <script>
         $(document).ready(function () {
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_gene_set_annotation").addClass("active");
+
             API.prototype.menuInit(3);
             $.fn.dataTable.ext.errMode = 'none';
             $("#empty-initial-results").css("visibility", "visible");

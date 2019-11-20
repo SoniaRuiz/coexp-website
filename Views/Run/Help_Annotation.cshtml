@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Help - Annotation";
+}
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <span class="main-label-breadcrumbs">CoExp</span>
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="active">Help - Gene Set Annotation</span>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-11 about">
+        <h2>Annotating your genes</h2>
+        <small>Created: April 04, 2019<br />Last updated: November 20, 2019</small>
+        <p class="author">
+            by <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=BP98-F74160" target="_blank" title="Juan A. Botía">Juan A. Botía</a> and
+            <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=LO96_F34158" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a>
+        </p>
+        <hr class="menu-hr" />
+        <p>This is the third and last part of the tutorial series <a asp-area="" asp-controller="Run" asp-action="Help">"Getting started with CoExp WebPage application"</a>.</p>
+        <p><span class="glyphicon glyphicon-chevron-left"></span><b>Previous: </b><a asp-area="" asp-controller="Run" asp-action="Help_Catalog">Surfing the Catalog</a></p>
+
+        <div>
+            <br />
+            <p>After surfing the catalog, let us suppose we want to study these genes in the Putamen and the substantia Nigra. We click in the upper tab <code>Annotated</code> to annotate our genes. What we see now is the catalog in tree based menues we can navigate. If we select <code>gtexv6</code> and then the corresponding networks</p>
+            <div class="figure">
+                <img src="~/images/snigputm.png"
+                     alt="Selecting substantia nigra and putamen networks from GTEx V6" title="Fig9: Selecting substantia nigra and putamen networks from GTEx V6." />
+                <p><small class="help_caption">Fig9: Selecting substantia nigra and putamen networks from GTEx V6.</small></p>
+            </div>
+            <p>Now we input the genes (you can separate them by spaces or commas) and go!</p>
+            <p>And we get this table below. Each row corresponds to one of your genes, and one of the networks you selected. In this particular example we have two rows for each gene (for the nigra and putamen networks, respectively). So we have <code>gene</code>, <code>category</code> and <code>network</code> columns to indicate which gene, the category the network belongs to, and the network respectively. Then we have the <code>ensgene</code> for the Ensembl name of the gene. Then we have three columns which refer to the same thing in different manners. And this is how significant is the overlap between your genes and the genes within each module of the network we are using for annotation. The column <code>fisher</code> refers to the p-value of a Fisher´s Exact test on this overlap. Column <code>FDR</code> refers to the same p-values, adjusted by using False Discovery Rate for multiple testing. The <code>Bonferroni</code> column applies a Bonferroni correction factor to the p-values which is based on the number of modules per network with genes from our set.</p>
+            <div class="figure">
+                <img src="~/images/genes.png"
+                     alt="Annotation results for PD genes" title="Fig10: Annotation results for PD genes." />
+                <p><small class="help_caption">Fig10: Annotation results for PD genes.</small></p>
+            </div>
+            <p>One of the first things we may ask this result is how genes cluster together across modules. This is interesting for many reasons but mainly, all genes clustering together in the same module will receive the same annotation, as the annotation comes from the module as a whole. Therefore, the higher the number of genes within your group of genes, belonging to that module, the stronger the link between the phenomena you are studying and the module´s annotation. For example, if we click on the <code>fisher</code> column to order p-values from lower to higher, we will see the most evident gene groups within modules, as follows</p>
+            <div class="figure">
+                <img src="~/images/genessorted.png"
+                     alt="Gene clustering at the gene level" title="Fig11: Gene clustering at the gene level." />
+                <p><small class="help_caption">Fig11: Gene clustering at the gene level.</small></p>
+            </div>
+            <p>Here we see that genes C19orf12, GCH1, SLC6A3, SNCA, SYNJ1, ATP13A2 and TH cluster together in the darkorange2 module from substantia nigra. We also see that the clustering is far away from being due to random chance as the fisher´s p-value is 10e-4, but it also survive both FDR and Bonferroni corrections. Another interestint point here is that all genes play a strong role within the module. The <code>mm</code> column refers to the module membership of the gene and values from above 0.5 are already strong values. If we click now in any of the <code>darkorange</code> labels at the <code>module</code> column, we can see that this module is enriched for REACTOME terms as “Axon guidance” and BP terms like “regulation of neurotransmitter levels”. The cell type enrichment for the module is totally neuronal, including dopaminergic markers. Thus, this module is clearly Parkinson related. And this analysis suggests all these genes are implicated on those processes, within this cell type, in substantia nigra. Interestingly, you won´t see this replicated in the putamen, that might suggest this happens in nigra but not in the other PD related tissue.</p>
+            <p>Are they other significant clusters in this analysis? If we want to see the same table with a summarized view (one row for each module), we can click on “summarize clustering” button, then order by the overlap column (i.e. it refers to the number of genes from our set that falls within the module) to get this table below.</p>
+            <div class="figure">
+                <img src="~/images/modulecluster.png"
+                     alt="Summarized view of the gene annotation table focused on relevant gene overlaps with modules" title="Fig12: Summarized view of the gene annotation table focused on relevant gene overlaps with modules." />
+                <p><small class="help_caption">Fig12: Summarized view of the gene annotation table focused on relevant gene overlaps with modules.</small></p>
+            </div>
+            <p>So we see that the only one that is statistically significant is that in the darkorange2 module in nigra. However, seeing 4 genes in putamen clustering inthe skyblue module may be interesting even though the p-value is not significant. Note that we are working on a panel of genes for monogenic PD and most likely the panel is incomplete.</p>
+            <p>If we extend the analysis to the whole brain tissues avaiable in GTEx v6, annotate the genes and go to the summarized clustering view, and order by overlap column, from the highest to the lowest values, we get this</p>
+            <div class="figure">
+                <img src="~/images/multicluster.png"
+                     alt="Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx" title="Fig13: Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx." />
+                <p><small class="help_caption">Fig13: Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx.</small></p>
+            </div>
+            <p>And we can see that there is a identical clustering of genes C19orf12, DCTN1, DNAJC6, PANK2, PRKRA, RAB39B, SNCA, SYNJ1, VPS13A, VPS35 in turquoise-Anterior Cingular Cortex but also in brown-Frontal Cortex, and this is somewhat similar to that in substantia nigra. Clearly, in this tissue the cell specificity signal is strongest in dopaminergic neurons.</p>
+            <br>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // Turn active current menu's option
+        $(".nav-item").find(".active").removeClass("active");
+        $("#tab_help").addClass("active");
+    });
+
+    </script>
+}

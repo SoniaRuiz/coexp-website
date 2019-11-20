@@ -18,49 +18,61 @@
         }
         @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
-            @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-
+            <span class="active">Network Catalog</span>
+            @*@if (Model.ModuleColor != null)
+            {
+                <span class="active">Network Catalog</span>
+            }else {
+                @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+            }*@
         }
     </div>
 <div class="row">
     <div id="menu" class="col-sm-3 sidebar menu">
-
-        <h4>Please, make your selection:</h4>
-        <hr class="menu-hr" />
-        @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
+        <div id="menu_gene_list" class="hidden">
+            <h4>Gene List</h4>
+            <hr class="menu-hr" />
+            <h5>Please, click the button below to download the gene list of this module:</h5>
+            <button id="get_gene_list" type="button" class="btn btn-info">Get Gene List</button>
+        </div>
+        <div id="menu_data">
+            <h4>Please, make your selection:</h4>
+            <hr class="menu-hr" />
+            @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
         <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
-        <div id="step1">
-            <label for="category_dropdown">Category</label>
-            <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
-                <option></option>
-            </select>
-        </div>
-        <br>
+            <div id="step1">
+                <label for="category_dropdown">Category</label>
+                <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
+                    <option></option>
+                </select>
+            </div>
+            <br>
 
-        <div id="step2">
-            <label for="network_dropdown">Network</label>
-            <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ...">
-                <option></option>
-            </select>
-        </div>
-        <br>
+            <div id="step2">
+                <label for="network_dropdown">Network</label>
+                <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ...">
+                    <option></option>
+                </select>
+            </div>
+            <br>
 
-        <div id="step3">
-            <label for="module_selection">Module selection</label>
-            <select id="module_selection" class="selectpicker" multiple title="Select an option ...">
-                <option value="1">By ontology/color</option>
-                <option value="2">By cell type</option>
-            </select>
-        </div>
+            <div id="step3">
+                <label for="module_selection">Module selection</label>
+                <select id="module_selection" class="selectpicker" multiple title="Select an option ...">
+                    <option value="1">By ontology/color</option>
+                    <option value="2">By cell type</option>
+                </select>
+            </div>
 
-        <br>
-        <hr class="menu-hr" />
-        <div id="step4">
-            <button id="send_button" class="btn btn-primary">Accept</button>
+            <br>
+            <hr class="menu-hr" />
+            <div id="step4">
+                <button id="send_button" class="btn btn-primary">Accept</button>
+            </div>
         </div>
     </div>
 
-    <div id="step5" class="col-sm-9 ">
+    <div id="step5" class="col-sm-9">
         <div id="empty-initial-results">
             <p>Your results will appear here.</p>
         </div>
@@ -119,7 +131,7 @@
             <br>
         </div>
     </div>
-    <div class="modal"><!-- loading layer --></div>
+    <div class="loading_layer"><!-- loading layer --></div>
 </div>
 @section HeadStyles{
     <link type="text/css" rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
@@ -129,6 +141,11 @@
     <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.min.css">
 }
 @section Scripts{
+    <script type="text/javascript">
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_network_catalog").addClass("active");
+    </script>
 
     <script type="text/javascript" src="~/js/underscore-min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
@@ -154,6 +171,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             $("[data-placement='bottom']").popover();
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -167,12 +185,7 @@
             if (modelReceived == 0)
                 API.prototype.menuInit(1);
             else {
-
-                //$("div.row").children(".sidebar").hide();
                 API.prototype.menuInit(11);
-                $("div.navbar-collapse").children("ul").remove();
-                $("div.row").children(".sidebar").hide();
-
             }
             $.fn.dataTable.ext.errMode = 'none';
             startIntro();

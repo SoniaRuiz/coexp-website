@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CoExp_Web.Models;
+using CoExp_Web.Models.Email;
 using CoExp_Web.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,10 +25,12 @@ namespace CoExp_Web.Controllers
     public class APIController : ControllerBase
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IEmailConfiguration _emailConfiguration;
 
-        public APIController(IHostingEnvironment hostingEnvironment)
+        public APIController(IHostingEnvironment hostingEnvironment,IEmailConfiguration emailConfiguration)
         {
             _hostingEnvironment = hostingEnvironment;
+            _emailConfiguration = emailConfiguration;
         }
         /****************************************************************************/
         /******************************* GET METHODS *******************************/
@@ -185,6 +188,14 @@ namespace CoExp_Web.Controllers
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetMM(coexpdata);
             return response;
+        }
+
+        [HttpGet]
+        [Route("SendFeedback")]
+        public void SendFeedback([FromQuery] EmailMessage emailMessage)
+        {
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            repository.SendFeedback(emailMessage,_emailConfiguration);
         }
 
         /****************************************************************************/

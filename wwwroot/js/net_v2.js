@@ -195,9 +195,9 @@ function net_plot(data_network_temp) {
     console.log(min_link_value);
 
     //max node value
-    var max_node_value = d3.max(data_network.nodes, function (d) {
-        return d.score;
-    });
+    var max_node_value = 5;//d3.max(data_network.nodes, function (d) {
+    //    return d.score;
+    //});
     //min node value
     var min_node_value = d3.min(data_network.nodes, function (d) {
         return d.score;

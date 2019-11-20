@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Plot";
+    ViewData["Title"] = "Plot Gene Network";
 }
 
     <div class="breadcrumb">
@@ -8,11 +8,12 @@
         {
             <span class="main-label-breadcrumbs">CoExp</span>
             <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="active">Plot Gene Network</span>
         }
-        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
             @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }
+        }*@
     </div>
 <div class="row">
     <div class="col-sm-3 sidebar menu">
@@ -90,7 +91,7 @@
             <div id="dvjson"></div>
         </div>
     </div>
-    <div class="modal"><!-- loading layer --></div>
+    <div class="loading_layer"><!-- loading layer --></div>
 </div>
 @section Scripts{
 
@@ -110,6 +111,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_plot").addClass("active");
 
             API.prototype.menuInit(4);
 

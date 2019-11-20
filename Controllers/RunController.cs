@@ -15,6 +15,10 @@ namespace CoExp_Web.Controllers
     /// </summary>
     public class RunController : Controller
     {
+
+        public IActionResult Index(CoexpParams coexpParams) { 
+            return View("Catalog", coexpParams);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Catalog(CoexpParams coexpParams)
         {
@@ -95,13 +99,42 @@ namespace CoExp_Web.Controllers
                 return View("Error", errorModel);
             }
         }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Terms()
+        {
+            try
+            {
+                return View("TermsAndConditions");
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
+                return View("Error", errorModel);
+            }
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
 
-      
+        public IActionResult Help_Introduction()
+        {
+            return View();
+        }
+        public IActionResult Help_Catalog()
+        {
+            return View();
+        }
+        public IActionResult Help_Annotation()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
