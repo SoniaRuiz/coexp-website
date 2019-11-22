@@ -24,40 +24,134 @@
 
         <div>
             <br />
-            <p>After surfing the catalog, let us suppose we want to study these genes in the Putamen and the substantia Nigra. We click in the upper tab <code>Annotated</code> to annotate our genes. What we see now is the catalog in tree based menues we can navigate. If we select <code>gtexv6</code> and then the corresponding networks</p>
+            <p>
+                In the <a asp-area="" asp-controller="Run" asp-action="Help_Catalog">previous</a> tutorial, we explained how to make use of the "Network Catalog" tab. Now, let us suppose that we want to study
+                the same genes than before (these are our list of PD genes obtained from the Genomics England panel App), but now within the Putamen and the Substantia Nigra tissues.
+                In order to do that, we will firstly make click over the <b>Gene Set Annotation</b> tab. Once we are there, we will then move onto the menu placed in left-hand side of the webpage.
+                As we can see, that menu contains a tree-view of all categories and networks available in CoExp. Let's now display the <b>gtexv6</b> category and select both the "Putamen" and "Substantia Nigra" tissues:
+            </p>
             <div class="figure">
                 <img src="~/images/snigputm.png"
                      alt="Selecting substantia nigra and putamen networks from GTEx V6" title="Fig9: Selecting substantia nigra and putamen networks from GTEx V6." />
                 <p><small class="help_caption">Fig9: Selecting substantia nigra and putamen networks from GTEx V6.</small></p>
             </div>
-            <p>Now we input the genes (you can separate them by spaces or commas) and go!</p>
-            <p>And we get this table below. Each row corresponds to one of your genes, and one of the networks you selected. In this particular example we have two rows for each gene (for the nigra and putamen networks, respectively). So we have <code>gene</code>, <code>category</code> and <code>network</code> columns to indicate which gene, the category the network belongs to, and the network respectively. Then we have the <code>ensgene</code> for the Ensembl name of the gene. Then we have three columns which refer to the same thing in different manners. And this is how significant is the overlap between your genes and the genes within each module of the network we are using for annotation. The column <code>fisher</code> refers to the p-value of a Fisher´s Exact test on this overlap. Column <code>FDR</code> refers to the same p-values, adjusted by using False Discovery Rate for multiple testing. The <code>Bonferroni</code> column applies a Bonferroni correction factor to the p-values which is based on the number of modules per network with genes from our set.</p>
+            <p>
+                The next thing we may want to do, is to input our gene list (separated by spaces or commas) in the text-area field placed at the bottom of the menu. Finally, we click the "Accept" button and that's all!
+                After a few seconds, the results will be displayed in the webpage in the shape of a table.
+            </p>
+            <p>
+                If everything has gone as expected, we will be able now to see a similar table to the one below. Each row corresponds to each one of our input genes (in case it has been found in any of the selected networks)
+                found within each of the networks selected. In this particular example, we have two different rows for each gene. Each row corresponds to each one of the tissues selected: the Substantia Nigra and Putamen networks.
+                
+            </p>
             <div class="figure">
                 <img src="~/images/genes.png"
                      alt="Annotation results for PD genes" title="Fig10: Annotation results for PD genes." />
                 <p><small class="help_caption">Fig10: Annotation results for PD genes.</small></p>
             </div>
-            <p>One of the first things we may ask this result is how genes cluster together across modules. This is interesting for many reasons but mainly, all genes clustering together in the same module will receive the same annotation, as the annotation comes from the module as a whole. Therefore, the higher the number of genes within your group of genes, belonging to that module, the stronger the link between the phenomena you are studying and the module´s annotation. For example, if we click on the <code>fisher</code> column to order p-values from lower to higher, we will see the most evident gene groups within modules, as follows</p>
+
+            <p>In terms of columns' meaning, we have:</p>
+
+            <table class="table table-striped table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">COLUMN</th>
+                        <th scope="col">DESCRIPTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">gene, category and network</th>
+                        <td>
+                            These columns indicate one gene from our input list that has been found within one of the categories and network selected.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ensgene</th>
+                        <td>
+                            This column contains the Ensembl name of the gene.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">fisher, FDR and Bonferroni</th>
+                        <td>
+                            These three columns refer to a similar concept but expressed in three different ways.
+                            That similar concept represents how significant is the overlap between your input genes and the genes that lie within each module belonging to your selected network.<br />
+                            In particular, they mean:<br />
+                            <ul>
+                                <li><b>Fisher</b>: p-value obtained from a Fisher´s Exact test executed over the overlap mentioned above.</li>
+                                <li><b>FDR</b>: Fisher's Exact test p-values, but adjusted by a "False Discovery Rate" function for multiple testing.</li>
+                                <li><b>Bonferroni</b>: Bonferroni correction factor applied to the p-values. This test is based on the number of modules per each network that contains any gene from our input set.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">mm</th>
+                        <td>
+                            This column refers to the module membership of the gene. Any value from above 0.5, is representing a strong value to be aware of.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <p>
+                One of the first things we may now be wondering, is how the genes cluster together across different modules.
+                Exploring this is idea might be very interesting for many reasons. For example, all genes that cluster together in the same module will receive the same annotation,
+                as the annotation comes from the module that they belong to as a whole. Therefore, the higher the number of genes from your input list belonging to a particular module, the stronger
+                the link will be between the phenomena you are studying and the module´s annotation. For example, if we now click at the top of the <b>fisher</b> column, we will visualise all Fisher p-values
+                ordered from lower to higher value. This will allow to have a quick view of the most evident groups of genes per each module, as it follows:
+            </p>
             <div class="figure">
                 <img src="~/images/genessorted.png"
                      alt="Gene clustering at the gene level" title="Fig11: Gene clustering at the gene level." />
                 <p><small class="help_caption">Fig11: Gene clustering at the gene level.</small></p>
             </div>
-            <p>Here we see that genes C19orf12, GCH1, SLC6A3, SNCA, SYNJ1, ATP13A2 and TH cluster together in the darkorange2 module from substantia nigra. We also see that the clustering is far away from being due to random chance as the fisher´s p-value is 10e-4, but it also survive both FDR and Bonferroni corrections. Another interestint point here is that all genes play a strong role within the module. The <code>mm</code> column refers to the module membership of the gene and values from above 0.5 are already strong values. If we click now in any of the <code>darkorange</code> labels at the <code>module</code> column, we can see that this module is enriched for REACTOME terms as “Axon guidance” and BP terms like “regulation of neurotransmitter levels”. The cell type enrichment for the module is totally neuronal, including dopaminergic markers. Thus, this module is clearly Parkinson related. And this analysis suggests all these genes are implicated on those processes, within this cell type, in substantia nigra. Interestingly, you won´t see this replicated in the putamen, that might suggest this happens in nigra but not in the other PD related tissue.</p>
-            <p>Are they other significant clusters in this analysis? If we want to see the same table with a summarized view (one row for each module), we can click on “summarize clustering” button, then order by the overlap column (i.e. it refers to the number of genes from our set that falls within the module) to get this table below.</p>
+            <p>
+                In the image above, we can see that the genes <b>C19orf12, GCH1, SLC6A3, SNCA, SYNJ1, ATP13A2, TH </b>, are clustering together within the "darkorange2" module from "Substantia Nigra" tissue.
+                We may also notice that the clustering is far away from being due to random chance. This is because of two main reasons. The first one is that the Fisher's p-value is 10e-4, which is highly significant.
+                Sencondly, the Fisher's p-value obtained also survives from both FDR and Bonferroni corrections (their p-values are lower than 0.05). Another interesting point, is that all genes seem to be playing a strong role
+                within the <b>darkorange2</b> module. As we mention before, values greater than 0.5 in the <b>mm</b> column represent strong values; in our example we have obtained values very near to 1.
+            </p> <br />
+            <p>
+                Let us explore these results in greater depth. For example, if we click now over any of the <b>darkorange2</b> module links, a new popup window should appear.
+                That new window will contain the "Catalog Network" view, but showing all the specific details to the <b>darkorange2</b> module.
+                Thus, if we look onto the table data, we may notice that this module is enriched for REACTOME terms, such as "Axon guidance", and BP terms like "regulation of neurotransmitter levels".
+                On the other hand, the cell type enrichment for the <b>darkorange2</b> module is totally neuronal, including dopaminergic markers.
+                In this sense, we may conclude that this module is clearly Parkinson related. In addition, this analysis suggests that all these genes are also implicated on different "cell type" processes obtained for "Substantia Nigra" tissue.
+                Interestingly, you won´t see the same result replicated in the "Putamen" tissue, which might suggest that this phenomena only happens in Substantia Nigra tissue, and not in the other PD-related tissues.
+            </p><br />
+
+            <p>
+                Another question we may want to answer is <b>"are there other significant clusters in this analysis?</b> To be able to answer that question, we will firstly click on the "SUMMARISE CLUSTERING" button,
+                which is placed at the top of the table. After clicking it, a different view of the table will appear. This new view will show us the same results than before, but summarised now by module.
+                Next, if we order this new table by the "Overlap" column (which refers to the number of genes from our input set that fall within the current module), we will be able to get this table below:
+            </p>
             <div class="figure">
                 <img src="~/images/modulecluster.png"
                      alt="Summarized view of the gene annotation table focused on relevant gene overlaps with modules" title="Fig12: Summarized view of the gene annotation table focused on relevant gene overlaps with modules." />
                 <p><small class="help_caption">Fig12: Summarized view of the gene annotation table focused on relevant gene overlaps with modules.</small></p>
             </div>
-            <p>So we see that the only one that is statistically significant is that in the darkorange2 module in nigra. However, seeing 4 genes in putamen clustering inthe skyblue module may be interesting even though the p-value is not significant. Note that we are working on a panel of genes for monogenic PD and most likely the panel is incomplete.</p>
-            <p>If we extend the analysis to the whole brain tissues avaiable in GTEx v6, annotate the genes and go to the summarized clustering view, and order by overlap column, from the highest to the lowest values, we get this</p>
+            <p>
+                If we observe the results obtained in the table above, we could see that the only statistically-significant module is the <b>darkorange2</b> one, within the Substantia Nigra tissue.
+                However, notice the overlap of 4 Putamen-tissue genes that are clustering together in the <b>skyblue</b> module. Although the p-value obtained is not significant, this result may be pointing to 
+                something interesting. Please, notice that we are working on a panel of genes for monogenic PD, and the likelihood of this panel being incomplete is high.
+            </p>
+            <p>
+                Let's now move onto the analysis of the whole set of brain tissues avaiable in GTEx v6. As we did before, let's first to annotate the genes and then to open the summarized-clustering view.
+                Finally, let's order the results by clicking over the "overlap" column. If everything has gone as expected, we should see a similar table to the following one:
+            </p>
             <div class="figure">
                 <img src="~/images/multicluster.png"
                      alt="Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx" title="Fig13: Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx." />
                 <p><small class="help_caption">Fig13: Almost identical results on genes and modules in nigra, frontal cortex and cortex tissues in GTEx.</small></p>
             </div>
-            <p>And we can see that there is a identical clustering of genes C19orf12, DCTN1, DNAJC6, PANK2, PRKRA, RAB39B, SNCA, SYNJ1, VPS13A, VPS35 in turquoise-Anterior Cingular Cortex but also in brown-Frontal Cortex, and this is somewhat similar to that in substantia nigra. Clearly, in this tissue the cell specificity signal is strongest in dopaminergic neurons.</p>
+            <p>
+                The image above is showing us that an identical clustering of the genes <b>C19orf12, DCTN1, DNAJC6, PANK2, PRKRA, RAB39B, SNCA, SYNJ1, VPS13A, VPS35</b> in both turquoise-Anterior Cingular Cortex 
+                and in brown-Frontal Cortex. This results in somehow similar to the one obtained in Substantia Nigra tissue. As a final thought, we may see that in this tissue the cell specificity signal is strongest 
+                in dopaminergic neurons.
+            </p>
             <br>
         </div>
     </div>
