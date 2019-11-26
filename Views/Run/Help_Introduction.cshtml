@@ -15,6 +15,10 @@
     <div class="col-sm-11 about">
         <h2>Introduction</h2>
         <small>Created: April 04, 2019<br />Last updated: November 20, 2019</small>
+        <p class="author">
+            by <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=BP98-F74160" target="_blank" title="Juan A. Botía">Juan A. Botía</a> and
+            <a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=LO96_F34158" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a>
+        </p>
         <hr />
         <p>This is the first part of the tutorial series <a asp-area="" asp-controller="Run" asp-action="Help">"Getting started with CoExp WebPage application"</a>.</p>
         <div>
@@ -22,8 +26,12 @@
 
             <p>Let us suppose that we have an initial list of genes and that we would like to annotate them by using CoExp WebPage tool. In this particular example, we would be interested in finding out whether:</p>
             <ul>
-                <li><p>our genes cluster together within an specific co-expression module belonging to a particular tissue. In addition, we would also like to know whether that gene clustering is happening
-                    more significantly than would be expected by simple chance.</p></li>
+                <li>
+                    <p>
+                        our genes cluster together within an specific co-expression module belonging to a particular tissue. In addition, we would also like to know whether that gene clustering is happening
+                        more significantly than would be expected by simple chance.
+                    </p>
+                </li>
                 <li><p>the module in which the group of genes cluster together is enriched for genes with a specific biological function. Also, we would like to know the reliability of that prediction for each gene of interest</p></li>
                 <li><p>the module in which the group of genes cluster together is enriched for any kind of cell-type-specific marker.</p></li>
                 <li><p>either the clustering of the genes of interest is unique to an specific module and tissue or it has been observed within multiple gene co-expression networks.</p></li>
@@ -33,7 +41,7 @@
                 <p>ATP13A2 ATP1A3 C19orf12 CSF1R DCTN1 DNAJC6 FBXO7 FTL GBA GCH1 GRN LRRK2 LYST MAPT OPA3 PANK2 PARK7 PINK1 PLA2G6 PRKN PRKRA RAB39B SLC30A10 SLC39A14 SLC6A3 SNCA SPG11 SPR SYNJ1 TH TUBB4A VPS13A VPS35 WDR45</p>
             </blockquote>
             <p>
-                Thus, in order to achive the list of objectives detailed above, the first thing we have to do is to choose which are the conditions in which we would like to study the genes. 
+                Thus, in order to achive the list of objectives detailed above, the first thing we have to do is to choose which are the conditions in which we would like to study the genes.
                 For thar purpose, we will firstly surf through the network catalog of genes available within the tab 'Network Catalog' on the CoExp WebPage tool:
                 @*ATN_5843218Gt//coexp_test//coexp*@
                 <environment names="Production">

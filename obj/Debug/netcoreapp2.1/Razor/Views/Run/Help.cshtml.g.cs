@@ -112,7 +112,7 @@ using CoExp_Web.Models;
             WriteLiteral("   <br /><h4>");
             EndContext();
             BeginContext(2818, 83, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b48aa97f30394f8dadc504e95e6f2cb4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e35b41d5d49c423d8c1c02414ddc88d9", async() => {
                 BeginContext(2885, 12, true);
                 WriteLiteral("INTRODUCTION");
                 EndContext();
@@ -138,7 +138,7 @@ using CoExp_Web.Models;
             WriteLiteral("</h4><br />\r\n            <p>\r\n                This is the first tutorial of the series. It contains the details the use-of-case that we are going to use through the whole example.\r\n            </p>\r\n\r\n            <br /><h4>");
             EndContext();
             BeginContext(3124, 81, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7b0f333d14164c649417444b29d3f357", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7d009ea883d043598b7ba2d214cfb3d3", async() => {
                 BeginContext(3186, 15, true);
                 WriteLiteral("NETWORK CATALOG");
                 EndContext();
@@ -164,7 +164,7 @@ using CoExp_Web.Models;
             WriteLiteral("</h4><br />\r\n            <p>\r\n                This is the second tutorial of the series. It contains the information about how to use the \'CATALOG\' tab.\r\n            </p>\r\n\r\n            <br /><h4>");
             EndContext();
             BeginContext(3401, 88, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f8f44d6e6a3a415db1e0d257ffa0ecaf", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0dc827a20ca84280849344697261b8c0", async() => {
                 BeginContext(3466, 19, true);
                 WriteLiteral("GENE SET ANNOTATION");
                 EndContext();

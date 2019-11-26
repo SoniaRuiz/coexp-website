@@ -114,16 +114,16 @@ body.loading .loading_layer {
 /******************************************/
 /************ DROPDOWN MENU****************/
 /******************************************/
-.dropdown-menu {
+.navbar-nav .dropdown-menu {
     background-color: #101010 !important;
     color: white !important;
 }
-.dropdown-menu a {
-    color: white !important;
-}
-    .dropdown-menu a:hover {
-        color: black !important;
+    .navbar-nav .dropdown-menu a {
+        color: white !important;
     }
+        .navbar-nav .dropdown-menu a:hover {
+            color: black !important;
+        }
 
 /******************************************/
 /************ SLIDER RANGE ****************/
