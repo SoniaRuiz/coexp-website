@@ -87,7 +87,7 @@ using CoExp_Web.Models;
             WriteLiteral("</div>\r\n<div class=\"row\">\r\n    <div class=\"col-sm-11 about\">\r\n        <h2>Introduction</h2>\r\n        <small>Created: April 04, 2019<br />Last updated: November 20, 2019</small>\r\n        <hr />\r\n        <p>This is the first part of the tutorial series ");
             EndContext();
             BeginContext(604, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "313ae3ebcad64965a3bc67b42fbd52a3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f3f49dfe2f54579930ca4293c06cc64", async() => {
                 BeginContext(658, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -136,7 +136,7 @@ using CoExp_Web.Models;
             WriteLiteral("                ");
             EndContext();
             BeginContext(2861, 241, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "68dcf2ae57c94911b1e3db1050e40ff2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b76905d490c144efa414e4435886fc6b", async() => {
                 BeginContext(2893, 195, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/coexp/Run/Catalog/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/coexp/Run/Catalog/</a>\r\n                ");
                 EndContext();
@@ -158,7 +158,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(3120, 228, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c6e51a0425c8473589b617de41850562", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bf56f52731cf4481b285205cbfc7a3ec", async() => {
                 BeginContext(3153, 181, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/coexp_test/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/coexp_test/</a>\r\n                ");
                 EndContext();
@@ -180,7 +180,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(3366, 254, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dc1e4d58e4f04557b4ac1a2a9fcfe778", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d5c2f0429d0c4d8985138f19501e99db", async() => {
                 BeginContext(3395, 211, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/</a>\r\n                ");
                 EndContext();
@@ -202,7 +202,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n            </p>\r\n            <br />\r\n\r\n            <p><span class=\"glyphicon glyphicon-chevron-right\"></span><b>Next: </b>");
             EndContext();
             BeginContext(3745, 93, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "964a9d5e8f1944f692b4a0f19a5c7444", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f490a4a2613a4d148158a105c6c4856a", async() => {
                 BeginContext(3807, 27, true);
                 WriteLiteral("Surfing the Network Catalog");
                 EndContext();

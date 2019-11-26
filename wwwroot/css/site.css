@@ -112,6 +112,20 @@ body.loading .loading_layer {
 }
 
 /******************************************/
+/************ DROPDOWN MENU****************/
+/******************************************/
+.dropdown-menu {
+    background-color: #101010 !important;
+    color: white !important;
+}
+.dropdown-menu a {
+    color: white !important;
+}
+    .dropdown-menu a:hover {
+        color: black !important;
+    }
+
+/******************************************/
 /************ SLIDER RANGE ****************/
 /******************************************/
 /*input[type=range] {
@@ -141,7 +155,6 @@ input[type="range"]::-webkit-slider-thumb {
     border-top: 1px solid #fff;
     border-color: rgba(255,255,255,.3);
 }*/
-
 input[type=range] {
     -webkit-appearance: none;
     margin: 5px 0;
@@ -367,12 +380,18 @@ h2 {
 .menu-hr {
     margin-top: 10px;
     /* border: 0; */
-    border-top: 1px solid #eee;
+    border-top: 2px solid #eee;
+}
+
+/*****************************/
+/******* PUBLICATION TAB *********/
+#div_publication {
+    padding: 10px;
+    /*background-color: #f9f9f9;*/
 }
 
 /***************************************/
 /***** EMPTY INITIAL RESULTS AREA ******/
-
 #empty-initial-results {
     background: #D9E6FB;
     border-color: #4182ED;
@@ -386,7 +405,6 @@ h2 {
     text-align: center;
     position: relative;
     min-height: 300px;
-
     display: table;
     visibility: hidden;
     width: 100%;

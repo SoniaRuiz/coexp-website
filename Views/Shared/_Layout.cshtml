@@ -90,16 +90,25 @@
                     <environment include="Development">
                         <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
                     </environment>
-                    <li class="nav-item" id="tab_about"><a asp-area="" asp-controller="Run" asp-action="About">About</a></li>
-                    <li class="nav-item" id="tab_help"><a asp-area="" asp-controller="Run" asp-action="Help">Help</a></li>
-                    @*<li class="dropdown">
-                        <a asp-area="" asp-controller="Run" asp-action="Help" class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Support <span class="caret"></span></a>
-                        <ul class="nav navbar-nav dropdown-menu" style="background-color:#101010;">
-                            <li><a asp-area="" asp-controller="Run" asp-action="Introduction">Introduction</a></li>
-                            <li><a asp-area="" asp-controller="Run" asp-action="Catalog">Catalog</a></li>
-                            <li><a asp-area="" asp-controller="Run" asp-action="Annotation">Annotation</a></li>
+
+                    <li id="tab_about" class="nav-item dropdown">
+                        <a class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Run" asp-action="About">About</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Publication">Publication</a></li>
                         </ul>
-                    </li>*@
+                    </li>
+                    
+
+                    <li id="tab_help" class="nav-item dropdown">
+                        <a class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Help <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Run" asp-action="Help">Getting started</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Help_Introduction">Introduction</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Help_Catalog">Catalog</a></li>
+                            <li><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Annotation</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

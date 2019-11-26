@@ -134,6 +134,11 @@ namespace CoExp_Web.Controllers
             return View();
         }
 
+        public IActionResult Publication()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
