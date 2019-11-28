@@ -27,7 +27,7 @@
             <h3><a id="surfing" style="color:black;">Surfing the catalog</a></h3>
             <p>
                 As we introduced in the <a asp-area="" asp-controller="Run" asp-action="Help_Introduction">previous</a> tutorial, in this example we would like to annotate a list of genes
-                composed by the monogenic forms of Parkinson disease, which have been obtained from the Genomics England panel App (only the green genes). Thus, firstly we will move into the tab "Network Catalog".
+                composed by the monogenic forms of Parkinson Disease, which have been obtained from the Genomics England panel App (only the green genes). Thus, firstly we will move into the tab "Network Catalog".
                 Secondly, we will check the different categories available within the dropdown menu 'Categories', which is placed in the left-hand side section of the webpage:
             </p>
             <div class="figure">
@@ -35,7 +35,7 @@
                      alt="Available categories" title="Fig1: Available categories." />
                 <p><small class="help_caption">Fig1: All available categories.</small></p>
             </div>
-            <p>If everything has gone as expected, the following list of categories should be now displayed within the 'Categories' dropdown:</p>
+            <p>If everything has gone as expected, the following list of categories should be now displaying within the 'Categories' dropdown:</p>
             <table class="table table-striped table-bordered table-responsive">
                 <thead>
                     <tr>
@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <th scope="row">GTEx V6</th>
-                        <td>It containes 47 co-expression networks on control tissue, including 13 brain areas.</td>
+                        <td>This category contains 47 co-expression networks in control tissue, including 13 brain areas.</td>
                         <td><a href="http://github.com/juanbot/CoExpGTEx" class="uri" target="_blank" title="Visit 'CoExpGTEx' GitHub repository">http://github.com/juanbot/CoExpGTEx</a></td>
                     </tr>
                     <tr>
@@ -65,7 +65,7 @@
                     </tr>
                     <tr>
                         <th scope="row">GTEx V7</th>
-                        <td>This category contains a beta version of the same GTExV6 47 co-expression networks.</td>
+                        <td>This category contains a beta version of the same 47 co-expression networks from GTExV6.</td>
                         <td><a href="http://github.com/juanbot/CoExpGTExV7" class="uri" target="_blank" title="Visit 'CoExpGTExV7' GitHub repository">http://github.com/juanbot/CoExpGTExV7</a></td>
                     </tr>
                     <tr>
@@ -76,7 +76,7 @@
                 </tbody>
             </table>
 
-            <p>Let's select <b>gtexv6</b> category. The next thing we should be able to see, is the 'Network' dropdown field filled with the 47 GTEx tissues, as it's shown in the image below:</p>
+            <p>Let's now select <b>gtexv6</b> category. The next thing we should be able to see, is the 'Network' dropdown field filled with the 47 GTEx tissues, as it's shown in the image below:</p>
             <div class="figure">
                 <img src="~/images/gtexv6.png"
                      alt="Available networks under GTExV6" title="Fig2: Available networks under GTExV6." />
@@ -85,25 +85,27 @@
 
             <br /><h4><u>"BY ONTOLOGY" tab</u></h4>
             <p>
-                In this example, we are going to select the 'Caudate' tissue. After selecting it, the dropdown field 'Module Selection' should be now enabled and filled by two different options: "By Ontology" and "By Cell Type".
-                Both options refer to two different ways of visualising the results. The "By Ontology" option, will generate a table showing the function annotation of the 'Caudate' genes. On the other hand, the "By Cell Type"
+                Let's select the 'Caudate' tissue. The dropdown field 'Module Selection' should be now enabled and filled with two different options: "By Ontology" and "By Cell Type".
+                Both options refer to two different ways of visualising the results. The "By Ontology" option, will generate a table showing the annotation function of the 'Caudate' genes. On the other hand, the "By Cell Type"
                 option, will generate a different table containing the cell type annotation of the genes within the 'Caudate' network.
-                In terms of the "By Ontology" view, the generated table will contain the following set of columns:
             </p>
-            <table class="table table-striped table-bordered table-responsive">
+            <p>
+                In terms of the "By Ontology" view, the table generated will contain the following columns:
+            </p>
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Column name</th>
-                        <th scope="col">Description</th>
+                        <th>COLUMN</th>
+                        <th>DESCRIPTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">module</th>
+                        <th>module</th>
                         <td>It contains the module, wihtin the selected network, that the annotation term obtained refers to.</td>
                     </tr>
                     <tr>
-                        <th scope="row">p.value</th>
+                        <th>p.value</th>
                         <td>
                             In order to annotate each gene within each module, CoExp R suit-of-packages has made use of the <a href="https://biit.cs.ut.ee/gprofiler/gost" target="_blank" title="Link to visit gProfiler webpage">gProfiler</a> tool.
                             This p-value column, therefore, refers to how significant is the overlap of genes associated to both the term and genes found in the current module.
@@ -117,7 +119,7 @@
                         <th scope="row">ontology</th>
                         <td>
                             This column contains the annotation ontology terms. They can refer to Biological Process (BP), Cellular Component (CC) and Molecular Function (MF) respectively.
-                            All of them are subontologies from the <a href="http://geneontology.org/" target="_blank" title="Link to visit the Gene Ontology project website">Gene Ontology</a> project.
+                            All of them are sub-ontologies from the <a href="http://geneontology.org/" target="_blank" title="Link to visit the Gene Ontology project website">Gene Ontology</a> project.
                             In addition, this column can also contain the terms "rea" and "keg", which refer to the <a href="https://reactome.org/" target="_blank" title="Link to visit the REACTOME project website">REACTOME</a>
                             and <a href="https://www.genome.jp/kegg/ko.html" target="_blank" title="Link to visit the KEGG project website">KEGG</a> ontologies respectively.
                         </td>
@@ -139,7 +141,7 @@
             <p>
                 On the other hand, as you may have noticed, every co-expression network is composed by a set of modules.
                 Each module, which is represented within the column "module", is named by one different color.
-                In this sense, each color represents each cluster where the genes have been grouped in. In our particular example, we can see that the "Caudate" module has 3,914 annotations related to different functionality,
+                In this sense, each color represents each cluster where the genes have been grouped together. In our particular example, we can see that the "Caudate" module has 3,914 annotations related to different functionality,
                 which has been mainly obtained from the Gene Ontology, REACTOME and KEGG pathways databases. <br /><br />
                 Now, let us suppose that we want to obtain all terms related with "RNA processing". For that purpose, we can use the "Search" field, which is placed in the upper right-hand side of the table.
                 After typing "RNA processing" in that field, we have obtained only 19 terms out of the 3914 total terms available.
@@ -199,8 +201,10 @@
                      alt="Modules in Caudate related with dopaminergic neurons" title="Fig8: Modules in Caudate related with dopaminergic neurons." />
                 <p><small class="help_caption">Fig8: Modules in Caudate related with dopaminergic neurons.</small></p>
             </div>
-            <p>In this case, we have only obtained three different results matching with the "dopa" term. It is important to highlight that, albeit the enrichment p-values 
-            may not be highly remarkable, they can be modest p-value signals pointing us to something important.</p>
+            <p>
+                In this case, we have only obtained three different results matching with the "dopa" term. It is important to highlight that, albeit the enrichment p-values
+                may not be highly remarkable, they can be modest p-value signals pointing us to something important.
+            </p>
 
             <br />
 

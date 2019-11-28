@@ -97,7 +97,7 @@ using CoExp_Web.Models;
         <p>This is the first part of the tutorial series ");
             EndContext();
             BeginContext(937, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "06f4178f3cff4eb0a7710bd2b7e48bcc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2a3f01ca0b4e4dab9d9d93e7d4f131f1", async() => {
                 BeginContext(991, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -150,7 +150,7 @@ using CoExp_Web.Models;
             WriteLiteral("                ");
             EndContext();
             BeginContext(3285, 241, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ea0a2b824d2f458fa9d9f2d362242e79", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6fecf392da894ce59df962bf82624b13", async() => {
                 BeginContext(3317, 195, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/coexp/Run/Catalog/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/coexp/Run/Catalog/</a>\r\n                ");
                 EndContext();
@@ -172,7 +172,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(3544, 228, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a2a4eb23f809465c824a6e72c05e2783", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0e48165a43f640a9908cd55b3be50b44", async() => {
                 BeginContext(3577, 181, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/coexp_test/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/coexp_test/</a>\r\n                ");
                 EndContext();
@@ -194,7 +194,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(3790, 254, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5b198a4cb823470c876506e69bedb163", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "10ac437d648d4664bb374e87c9047f19", async() => {
                 BeginContext(3819, 211, true);
                 WriteLiteral("\r\n                    <a href=\"http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/\" title=\"Visit CoExp catalog\" class=\"uri\" target=\"_blank\">http://www.rytenlab.com/ATN_5843218Gt/Run/Catalog/</a>\r\n                ");
                 EndContext();
@@ -216,7 +216,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n            </p>\r\n            <br />\r\n\r\n            <p><span class=\"glyphicon glyphicon-chevron-right\"></span><b>Next: </b>");
             EndContext();
             BeginContext(4169, 93, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "796b621b37ec42258b14221ba6f51563", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4ea082ad15da44b5b7702a48dc79082d", async() => {
                 BeginContext(4231, 27, true);
                 WriteLiteral("Surfing the Network Catalog");
                 EndContext();

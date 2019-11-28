@@ -120,7 +120,7 @@ using CoExp_Web.Models;
             <p>This is the second part of the tutorial series ");
             EndContext();
             BeginContext(980, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "21d926f3e7c94d0483396f00feec939a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "147d07292cb74f838045a3eebf8f9576", async() => {
                 BeginContext(1034, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -146,7 +146,7 @@ using CoExp_Web.Models;
             WriteLiteral(".</p>\r\n            <p><span class=\"glyphicon glyphicon-chevron-left\"></span><b>Previous: </b>");
             EndContext();
             BeginContext(1179, 83, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb696ea9c2a24204958a7a6c9f567ea9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57d9cf7a1b6147c1bea54520401c133a", async() => {
                 BeginContext(1246, 12, true);
                 WriteLiteral("Introduction");
                 EndContext();
@@ -172,7 +172,7 @@ using CoExp_Web.Models;
             WriteLiteral("</p>\r\n\r\n            <h3><a id=\"surfing\" style=\"color:black;\">Surfing the catalog</a></h3>\r\n            <p>\r\n                As we introduced in the ");
             EndContext();
             BeginContext(1410, 79, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "24942b791995456fb5a7e6e9a301664f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7443d17f6061415cb747a6d9154541a2", async() => {
                 BeginContext(1477, 8, true);
                 WriteLiteral("previous");
                 EndContext();
@@ -203,7 +203,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(2019, 120, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "018397843a2e43db92a80f3b49d9e4a9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bdc0ab59b0954127bdbbbb5ee9db33ea", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -272,7 +272,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(5543, 140, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "55a456aa43da4b6cb7e2935478e97339", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "30bfa05bca9544d3b52ef250b14c32de", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -343,7 +343,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(9224, 178, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f196a750aab349dea5efaa0c13dc280d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "fbbfc5c0dfd9418d9f719a688a6aec03", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -381,7 +381,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(10877, 203, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "dcc587fceab849a582a4c9f196498680", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "dc9bfd498317417eb0c02c12e0eb6c6a", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -422,7 +422,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(13021, 191, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "1da3e682c6e8471e99249a2f784f832c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2998ed90712c4ceeae6c02a862f5908c", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -455,7 +455,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(14500, 142, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ad5df95b7ec44e3fa8653c1c106d44d4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4af9d7f27ad340cfaa335ac38003ffb1", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -475,7 +475,7 @@ using CoExp_Web.Models;
             WriteLiteral("\r\n                <p><small class=\"help_caption\">Fig6: REACTOME terms in the cyan module.</small></p>\r\n            </div>\r\n            <p>On the other hand, for the pink term we have:</p>\r\n            <div class=\"figure\">\r\n                ");
             EndContext();
             BeginContext(14881, 142, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b260962ccea84d768dde835e74905225", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "7f2b8a7c8ee14b43b039b92fb29c1cc0", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -504,7 +504,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(15664, 180, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "a8e5412f699a40db944b86d425430666", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "0c1ce71474c44d43b2f902ece8780fc8", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -533,7 +533,7 @@ using CoExp_Web.Models;
         <p><span class=""glyphicon glyphicon-chevron-right""></span><b>Next: </b>");
             EndContext();
             BeginContext(16403, 90, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f52bcfa6731441dabc8d7543162e071c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a0aa85c084e44bd88a71b77c94dbc32e", async() => {
                 BeginContext(16468, 21, true);
                 WriteLiteral("Annotating your genes");
                 EndContext();

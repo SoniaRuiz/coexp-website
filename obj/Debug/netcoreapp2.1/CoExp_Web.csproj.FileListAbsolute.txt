@@ -26,6 +26,7 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Help_Introduction.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Plot.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Privacy.cshtml.g.cs
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Publication.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\TermsAndConditions.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
@@ -39,4 +40,3 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.dll
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.pdb
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Publication.cshtml.g.cs
