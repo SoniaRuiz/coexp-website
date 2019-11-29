@@ -28,9 +28,9 @@
                 In the <a asp-area="" asp-controller="Run" asp-action="Help_Catalog">previous</a> tutorial, we explained how to make use of the "Network Catalog" tab.
                 In this one, we will explain how to use the "Gene Set Annotation" tab.
             </p>
-            <p>Let us suppose that we want to study
-                the same genes than in the previous tutorial (these are our list of PD genes obtained from the Genomics England panel App), but now within the Putamen and the Substantia Nigra tissues.
-                In order to do that, we will firstly make click over the <b>Gene Set Annotation</b> tab. Once we are there, we will then move onto the menu placed in left-hand side of the webpage.
+            <p>
+                Let us suppose that we want to study the same genes as in the previous tutorial (these are our list of PD genes obtained from the Genomics England panel App), but now within the Putamen and the Substantia Nigra tissues. 
+                In order to do that, we will firstly make click over the <b>Gene Set Annotation</b> tab. Once we are there, we will then move onto the menu placed on the left-hand side of the webpage. 
                 As we can see, that menu contains a tree-view of all categories and networks available in CoExp. Let's now display the <b>gtexv6</b> category and select both the "Putamen" and "Substantia Nigra" tissues:
             </p>
             <div class="figure">
@@ -39,8 +39,7 @@
                 <p><small class="help_caption">Fig9: Selecting substantia nigra and putamen networks from GTEx V6.</small></p>
             </div>
             <p>
-                The next thing we will need to do, is to paste our list of genes (separated by spaces or commas) in the text-area field placed at the bottom 
-                part of the menu. Finally, we have to click the "Accept" button, and that's all!
+                The next thing we will need to do is to paste our list of genes (separated by spaces or commas) in the text-area field placed at the bottom part of the menu. Finally, we have to click the "Accept" button, and that's all!
                 After a few seconds, the results will be displayed in the middle of the webpage in the shape of a table.
             </p>
             <p>
@@ -101,11 +100,11 @@
 
 
             <p>
-                One of the first things we may now be wondering, is how the genes cluster together across different modules.
+                One of the first things we may now be wondering is how the genes cluster together across different modules.
                 Exploring this is idea might be very interesting for many reasons. For example, all genes that cluster together in the same module will receive the same annotation,
                 as the annotation comes from the module that they belong to as a whole. Therefore, the higher the number of genes from your input list belonging to a particular module, the stronger
-                the link will be between the phenomena you are studying and the module´s annotation. For example, if we now click at the top of the <b>fisher</b> column, we will visualise all Fisher p-values
-                ordered from lower to higher value. This will allow to have a quick view of the most evident groups of genes per each module, as it follows:
+                the link will be between the phenomena you are studying and the module's annotation. For example, if we now click at the top of the <b>fisher</b> column, we will visualize all Fisher p-values ordered from lower to a higher value.
+                This will allow having a quick view of the most evident groups of genes per each module, as it follows:
             </p>
             <div class="figure">
                 <img src="~/images/genessorted.png"
@@ -114,22 +113,24 @@
             </div>
             <p>
                 In the image above, we can see that the genes <b>C19orf12, GCH1, SLC6A3, SNCA, SYNJ1, ATP13A2, TH </b>, are clustering together within the "darkorange2" module from "Substantia Nigra" tissue.
-                We may also notice that the clustering is far away from being due to random chance. This is because of two main reasons. The first one is that the Fisher's p-value is 10e-4, which is highly significant.
-                Sencondly, the Fisher's p-value obtained also survives from both FDR and Bonferroni corrections (their p-values are lower than 0.05). Another interesting point, is that all genes seem to be playing a strong role
-                within the <b>darkorange2</b> module. As we mention before, values greater than 0.5 in the <b>mm</b> column represent strong values; in our example we have obtained values very near to 1.
-            </p> <br />
+                We may also notice that the clustering is far away from being due to random chance. This is because of two main reasons. The first one is that Fisher's p-value is 10e-4, which is highly significant.
+                Secondly, the Fisher's p-value obtained also survives from both FDR and Bonferroni corrections (their p-values are lower than 0.05). Another interesting point is that all genes seem to be playing a strong role
+                within the <b>darkorange2</b> module. As we mention before, values greater than 0.5 in the <b>mm</b> column represent strong values; in our example, we have obtained values very near to 1.
+            </p> 
+            <br />
             <p>
                 Let us explore these results in greater depth. For example, if we click now over any of the <b>darkorange2</b> module links, a new popup window should appear.
                 That new window will contain the "Catalog Network" view, but showing all the specific details to the <b>darkorange2</b> module.
                 Thus, if we look onto the table data, we may notice that this module is enriched for REACTOME terms, such as "Axon guidance", and BP terms like "regulation of neurotransmitter levels".
                 On the other hand, the cell type enrichment for the <b>darkorange2</b> module is totally neuronal, including dopaminergic markers.
-                In this sense, we may conclude that this module is clearly Parkinson related. In addition, this analysis suggests that all these genes are also implicated on different "cell type" processes obtained for "Substantia Nigra" tissue.
-                Interestingly, you won´t see the same result replicated in the "Putamen" tissue, which might suggest that this phenomena only happens in Substantia Nigra tissue, and not in the other PD-related tissues.
-            </p><br />
+                In this sense, we may conclude that this module is clearly Parkinson related. In addition, this analysis suggests that all these genes are also implicated in different "cell type" processes obtained for "Substantia Nigra" tissue.
+                Interestingly, you won´t see the same result replicated in the "Putamen" tissue, which might suggest that this phenomenon only happens in Substantia Nigra tissue, and not in the other PD-related tissues.
+            </p>
+            <br />
 
             <p>
                 Another question we may want to answer is <b>"are there other significant clusters in this analysis?</b> To be able to answer that question, we will firstly click on the "SUMMARISE CLUSTERING" button,
-                which is placed at the top of the table. After clicking it, a different view of the table will appear. This new view will show us the same results than before, but summarised now by module.
+                which is placed at the top of the table. After clicking it, a different view of the table will appear. This new view will show us the same results as before, but summarised now by the module.
                 Next, if we order this new table by the "Overlap" column (which refers to the number of genes from our input set that fall within the current module), we will be able to get this table below:
             </p>
             <div class="figure">
@@ -143,7 +144,7 @@
                 something interesting. Please, notice that we are working on a panel of genes for monogenic PD, and the likelihood of this panel being incomplete is high.
             </p>
             <p>
-                Let's now move onto the analysis of the whole set of brain tissues avaiable in GTEx v6. As we did before, let's first to annotate the genes and then to open the summarized-clustering view.
+                Let's now move onto the analysis of the whole set of brain tissues available in GTEx v6. As we did before, let's first to annotate the genes and then to open the summarized-clustering view.
                 Finally, let's order the results by clicking over the "overlap" column. If everything has gone as expected, we should see a similar table to the following one:
             </p>
             <div class="figure">

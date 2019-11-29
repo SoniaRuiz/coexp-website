@@ -27,7 +27,7 @@
             <h3><a id="surfing" style="color:black;">Surfing the catalog</a></h3>
             <p>
                 As we introduced in the <a asp-area="" asp-controller="Run" asp-action="Help_Introduction">previous</a> tutorial, in this example we would like to annotate a list of genes
-                composed by the monogenic forms of Parkinson Disease, which have been obtained from the Genomics England panel App (only the green genes). Thus, firstly we will move into the tab "Network Catalog".
+                composed by the monogenic forms of Parkinson's disease, which have been obtained from the Genomics England panel App (only the green genes). Thus, firstly we will move into the tab "Network Catalog".
                 Secondly, we will check the different categories available within the dropdown menu 'Categories', which is placed in the left-hand side section of the webpage:
             </p>
             <div class="figure">
@@ -48,7 +48,7 @@
                     <tr>
                         <th scope="row">ROSMAP</th>
                         <td>
-                            This category is composed by four networks (all samples, not AD, probable AD and AD) obtained from Frontal Cortex samples. For any further information, please visit
+                            This category is composed of four networks (all samples, not AD, probable AD and AD) obtained from Frontal Cortex samples. For any further information, please visit
                             <a href="https://www.synapse.org/#!Synapse:syn3219045" target="_blank" title="Visit 'ROSMAP' project">this</a> link.
                         </td>
                         <td><a href="http://github.com/juanbot/CoExpROSMAP" class="uri" target="_blank" title="Visit 'CoExpROSMAP' GitHub repository">http://github.com/juanbot/CoExpROSMAP</a></td>
@@ -60,7 +60,7 @@
                     </tr>
                     <tr>
                         <th scope="row">10UKBEC</th>
-                        <td>These are 10 Illumina microarray based gene expression profiling networks from brain tissue</td>
+                        <td>These are 10 Illumina microarray-based gene expression profiling networks from brain tissue.</td>
                         <td><a href="http://github.com/juanbot/CoExp10UKBEC" class="uri" target="_blank" title="Visit 'CoExp10UKBEC' GitHub repository">http://github.com/juanbot/CoExp10UKBEC</a></td>
                     </tr>
                     <tr>
@@ -86,7 +86,7 @@
             <br /><h4><u>"BY ONTOLOGY" tab</u></h4>
             <p>
                 Let's select the 'Caudate' tissue. The dropdown field 'Module Selection' should be now enabled and filled with two different options: "By Ontology" and "By Cell Type".
-                Both options refer to two different ways of visualising the results. The "By Ontology" option, will generate a table showing the annotation function of the 'Caudate' genes. On the other hand, the "By Cell Type"
+                Both options refer to two different ways of visualizing the results. The "By Ontology" option, will generate a table showing the annotation function of the 'Caudate' genes. On the other hand, the "By Cell Type"
                 option, will generate a different table containing the cell type annotation of the genes within the 'Caudate' network.
             </p>
             <p>
@@ -102,13 +102,13 @@
                 <tbody>
                     <tr>
                         <th>module</th>
-                        <td>It contains the module, wihtin the selected network, that the annotation term obtained refers to.</td>
+                        <td>It contains the module, within the selected network, that the annotation term obtained refers to.</td>
                     </tr>
                     <tr>
                         <th>p.value</th>
                         <td>
                             In order to annotate each gene within each module, CoExp R suit-of-packages has made use of the <a href="https://biit.cs.ut.ee/gprofiler/gost" target="_blank" title="Link to visit gProfiler webpage">gProfiler</a> tool.
-                            This p-value column, therefore, refers to how significant is the overlap of genes associated to both the term and genes found in the current module.
+                            This p-value column, therefore, refers to how significant is the overlap of genes associated with both the term and genes found in the current module.
                         </td>
                     </tr>
                     <tr>
@@ -127,7 +127,7 @@
                 </tbody>
             </table>
 
-            <p>Next, after clicking the "Accept" button, a table - similar to the following one - will appear into the right-hand side of the webpage.</p>
+            <p>Next, after clicking the "Accept" button, a table - similar to the following one - will appear on the right-hand side of the webpage.</p>
             <div class="figure">
                 <img src="~/images/caudate.png"
                      alt="'By Ontology' visualisation of the Caudate network" title="Fig3: 'By Ontology' visualisation of the Caudate network" />
@@ -139,11 +139,11 @@
             </p><br />
 
             <p>
-                On the other hand, as you may have noticed, every co-expression network is composed by a set of modules.
+                On the other hand, as you may have noticed, every co-expression network is composed of a set of modules.
                 Each module, which is represented within the column "module", is named by one different color.
                 In this sense, each color represents each cluster where the genes have been grouped together. In our particular example, we can see that the "Caudate" module has 3,914 annotations related to different functionality,
                 which has been mainly obtained from the Gene Ontology, REACTOME and KEGG pathways databases. <br /><br />
-                Now, let us suppose that we want to obtain all terms related with "RNA processing". For that purpose, we can use the "Search" field, which is placed in the upper right-hand side of the table.
+                Now, let us suppose that we want to obtain all terms related to "RNA processing". For that purpose, we can use the "Search" field, which is placed in the upper right-hand side of the table.
                 After typing "RNA processing" in that field, we have obtained only 19 terms out of the 3914 total terms available.
             </p>
             <div class="figure">
@@ -162,10 +162,10 @@
 
             <br /><h4><u>"BY CELL TYPE" tab</u></h4>
             <p>
-                Now, let us suppose that we are interested on finding only those modules that are specific to the "microglia". As we have selected to search not only by ontology but also by cell type,
+                Now, let us suppose that we are interested in finding only those modules that are specific to the "microglia". As we have selected to search not only by ontology but also by cell type,
                 we can go to the "By Cell Type" tab, and use the "Search" pane to filter the table by the "microglia" term.
                 In this case, the table "By Cell Type" returns the results of testing different marker sets (cell type markers particularly) against all modules.
-                The values shown in the table, therefore, refer to the significance of each result obtained. Thus, the table will contain one column per each module studied and one row per each marker compared.
+                The values that are shown in the table therefore refer to the significance of each result obtained. Thus, the table will contain one column per each module studied and one row per each marker compared.
             </p>
             <div class="figure">
                 <img src="~/images/microglia.png"
@@ -174,11 +174,11 @@
             </div>
             <p>
                 And we can see <b>cyan</b>, <b>pink</b> and to a lesser extent <b>grey60</b>, show enrichment for microglial markers.
-                All marker sets can be seen on the rows. Having modules as, for example, cyan with significant signals in more than 1 datasets, must be understood in the sense of having alternative
-                evidences of similar phenomena. Apart from the significance reflected by the p-value (i.e. which comes from testing the significance of the overlap between the genes in the module and the genes in the marker set),
+                The marker sets can be seen within the table rows. Having modules as, for example, cyan with significant signals in more than 1 datasets, must be understood one module having alternative evidence of similar phenomena but in different datasets. 
+                Apart from the significance reflected by the p-value (i.e. which comes from testing the significance of the overlap between the genes in the module and the genes in the marker set),
                 the more signals related to microglia are significant, the more confident we should be about that.
                 Note that in this case, we distinguish between deactivated (Type 1) and activated microglia (Type 2) in modules cyan and pink respectively.
-                In that way, cyan and pink are reflecting different events of the same phenomena. Actually, if we now look at “By Ontology” by module names and order by ontology to get the REACTOME terms first, we get:
+                In that way, cyan and pink are reflecting different events of the same phenomena. Actually, if we now look at "By Ontology" by module names and order by ontology to get the REACTOME terms first, we get:
             </p>
             <div class="figure">
                 <img src="~/images/cyan.png"
@@ -193,7 +193,7 @@
             </div>
             <p>
                 It seems clear that both modules share generic terms (e.g. Immune System, Innate Immune System). In addition, there are specific terms for each one of them, i.e. "Adaptive immune system" for cyan and
-                "Cytokine signaling in immune system" for pink.
+                "Cytokine signaling in the immune system" for pink.
             </p>
             <p>Other kinds of "cell type" searches may include, for instance, PD or dopaminergic neurons. Let's try it with the <b>dopa</b> term:</p>
             <div class="figure">
@@ -202,7 +202,7 @@
                 <p><small class="help_caption">Fig8: Modules in Caudate related with dopaminergic neurons.</small></p>
             </div>
             <p>
-                In this case, we have only obtained three different results matching with the "dopa" term. It is important to highlight that, albeit the enrichment p-values
+                In this case, we have obtained only three different results matching with the "dopa" term. It is important to highlight that, albeit the enrichment p-values
                 may not be highly remarkable, they can be modest p-value signals pointing us to something important.
             </p>
 
