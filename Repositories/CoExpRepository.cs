@@ -76,6 +76,7 @@ namespace CoExp_Web.Repositories
             }
 
         }
+        
         /// <summary>
         /// Method to obtain data from 'getNetworkCategories' API method. This method makes a GET request.
         /// </summary>
@@ -164,12 +165,12 @@ namespace CoExp_Web.Repositories
 
 
 
-    /// <summary>
-    /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
-    /// </summary>
-    /// <param name="coexpdata">Data to be sent to 'getGOFromTissue' CoExp API method</param>
-    /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
-    public string GetGOFromTissue(CoexpParams coexpdata)
+        /// <summary>
+        /// Method to obtain data from 'getGOFromTissue' API method. This method makes a GET request.
+        /// </summary>
+        /// <param name="coexpdata">Data to be sent to 'getGOFromTissue' CoExp API method</param>
+        /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
+        public string GetGOFromTissue(CoexpParams coexpdata)
         {
             string response;
 
@@ -188,6 +189,7 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
+
         /// <summary>
         /// Method to obtain data from 'getCellTypeFromTissue' API method. This method makes a GET request.
         /// </summary>
@@ -357,6 +359,30 @@ namespace CoExp_Web.Repositories
             finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
             
             return finalResponse;
+        }
+
+        
+        public string GetModuleTOMGraph(CoexpParams coexpdata)
+        {
+
+            //Set the URL with parameters. This URL will allow us to establish a communication with
+            //CoExp R application API (published using Plumber R package)
+            var finalResponse = string.Empty;
+            
+
+            if (coexpURL == ProductionEnv)
+                coexpURL += "GetModuleTOMGraph";
+            else
+                coexpURL += "getModuleTOMGraph";
+            PostData = "{\"tissue\":\"" + coexpdata.Network + 
+                "\",\"which.one\":\"" + coexpdata.Category + 
+                "\",\"module\":\"" + coexpdata.ModuleColor + "\",\"topgenes\":\"" + coexpdata.TopGenes + "\"}";
+
+            //Make the request
+            finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
+            
+            return finalResponse.ToString();
+
         }
     }
 }

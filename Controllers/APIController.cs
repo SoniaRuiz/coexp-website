@@ -321,6 +321,20 @@ namespace CoExp_Web.Controllers
 
             return parsed_response;
         }
- 
+
+
+        [HttpPost]
+        [Route("PostGetModuleTOMGraph")]
+        public string PostGetModuleTOMGraph([FromBody] CoexpParams coexpdata)
+        {
+            /////////////////////////////////////////////////
+            // 2. If, at least one gene has been found, we make a request to CoExp R
+            /////////////////////////////////////////////////
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            string response = repository.GetModuleTOMGraph(coexpdata);
+
+            return response;
+        }
+
     }
 }

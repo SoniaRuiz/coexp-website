@@ -21,25 +21,25 @@
         <hr class="menu-hr" />
 
         <div id="step1">
-            <label for="category_dropdown">Category</label>
+            <label for="category_dropdown">Category</label><br />
             <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
         </div>
         <br>
 
         <div id="step2">
-            <label for="network_dropdown">Network</label>
+            <label for="network_dropdown">Network</label><br />
             <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
         </div>
         <br>
 
         <div id="step3">
-            <label for="module_dropdown">Module</label>
+            <label for="module_dropdown">Module</label><br />
             <select id="module_dropdown" name="module" class="selectpicker" title="Select an option ..."></select>
         </div>
         <br>
 
         <div id="step4">
-            <label for="genes-range">Number of genes</label>
+            <label for="genes-range">Number of genes</label><br />
             <input id="genes-range" type="range" min="2" max="30" value="30">
             <input id="text-box_genes-range" type="text" value="30">
         </div>
@@ -62,7 +62,7 @@
             <table id="network_plot_table">
                 <tr>
                     <td>
-                        <div id="network_plot"></div>
+                        <div id="network_plot" class="text-center"></div>
                     </td>
                 </tr>
             </table>
@@ -78,7 +78,7 @@
                     <tr>
                         <td><h4>Link threshold</h4>
                             <input id="slider-range-treshold" type="range">
-                            <input id="threshold_network" type="text" size="40" value=""><br/>
+                            <input id="threshold_network" type="text" size="30" value=""><br/>
                             <small>The links shown above are over this threshold value</small><br />
                             <div class="center-block">
                                 <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">

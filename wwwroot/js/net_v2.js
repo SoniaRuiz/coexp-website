@@ -1,27 +1,39 @@
-// var keyc = true,
-// keys = true,
-// keyt = true,
-// keyr = true,
-// keyx = true,
-// keyd = true,
-// keyl = true,
-// keym = true,
-// keyh = true,
-// key1 = true,
-// key2 = true,
-// key3 = true,
-// key0 = true;
-var svg, w, h;
+
+let APIPlot = function () {
+    //this.svg;
+    //this.w = $("#network_plot").innerWidth();
+    //this.h = $("#network_plot").innerHeight();;
+    //this.min_threshold_value = 10;
+    //this.max_threshold_value = -1;
+};
+
+APIPlot.prototype.svg;
+APIPlot.prototype.min_threshold_value = 10;
+APIPlot.prototype.max_threshold_value = -1;
+APIPlot.prototype.highlight_color = $('#module_dropdown').find(":selected").val();
+APIPlot.prototype.default_node_color = "#ccc";
+APIPlot.prototype.default_link_color = "#7C7C7C";
+APIPlot.prototype.linkedByIndex = {};
+APIPlot.prototype.highlight_trans = 0.1;
+APIPlot.prototype.number_of_genes = 0;
+APIPlot.prototype.number_of_NAN = 1;
+APIPlot.prototype.links_value_treshold = 0;
+APIPlot.prototype.nodes = '{"nodes" : [';
+APIPlot.prototype.data_network_raw = "";
+APIPlot.prototype.force = d3.layout.force()
 
 
-function net_plot(data_network_temp) {
+APIPlot.prototype.netPlot = function(data_network_temp) {
 
-    var data_network_raw = data_network_temp;
-    w = 800;
-    h = 600;
+    APIPlot.prototype.data_network_raw = data_network_temp;
+
     var multi_node = 20;
     var focus_node = null,
-        highlight_node = null;
+        highlight_node = null,
+        value_distance = null;
+    var hiding_nodes = false,
+        current_node = 0,
+        node_isalone = false;
 
     var text_center = false;
     var outline = false;
@@ -29,156 +41,41 @@ function net_plot(data_network_temp) {
     var min_score = 0;
     var max_score = 1;
 
+    var nominal_base_node_size = 10;//6
+    var max_base_node_size = 20;//8
+    var nominal_text_size = 10;//6
+    var max_text_size = 18;//10
+    var nominal_stroke = 1;//1
+    var max_stroke = 4.5;
+    var min_zoom = 1;
+    var max_zoom = 6.5;
+
+    var tocolor = "fill";
+    var towhite = "stroke";
+
+    var stroke = nominal_stroke;
+    var w = $("#network_plot").innerWidth();
+    var h = $("#network_plot").innerHeight();
+
     var color = d3.scale.linear()
         .domain([min_score, (min_score + max_score) / 2, max_score])
-        .range(["lime", "yellow", "red"]);
-
-    var highlight_color = "#18ff03";
-    var highlight_trans = 0.1;
-
+//        .range(["lime", "yellow", "red"]);
     var size = d3.scale.pow().exponent(1)
         .domain([1, 100])
         .range([8, 24]);
 
-    var min_threshold_value = 10;
-    var max_threshold_value = -1;
+    
 
-    var default_node_color = "#ccc";
-    //var default_node_color = "rgb(3,190,100)";
-    var default_link_color = "#7C7C7C";
-    //var nominal_base_node_size = 6;
-    //var nominal_text_size = 6;
-    //var max_text_size = 10;
-    //var nominal_stroke = 1;
-    //var max_stroke = 0.5;
-    //   var max_base_node_size = 8;
-    var nominal_base_node_size = 8;//6
-    var max_base_node_size = 18;//8
+    APIPlot.prototype.svg = d3.select("#network_plot").append("svg");
+    
 
-    var nominal_text_size = 10;//6
-    var max_text_size = 14;//10
-    var nominal_stroke = 1;//1
-    var max_stroke = 15;
-
-    var min_zoom = 0.1;
-    var max_zoom = 7;
-    svg = d3.select("#network_plot").append("svg");
-    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
-        .on("zoom", function () {
-
-            stroke = nominal_stroke;
-            if (nominal_stroke * zoom.scale() > max_stroke)
-                stroke = max_stroke / zoom.scale();
-            // .style("stroke-width", function (d) {
-            // return (((d.value - min_link_value) / (max_link_value - min_link_value)) * stroke);
-            // });
-            circle.style("stroke-width", stroke);
-            // console.log(zoom.scale());
-            // val_new = max_link_value / zoom.scale();
-            // link.style("stroke-width", function (d) {
-            // //console.log(link.style("stroke-width"));
-            // return parseFloat(link.style("stroke-width")) * val_new;
-            // });
-
-
-            //console.log(parseInt(link.style("stroke-width")) * 2);
-
-            var base_radius = nominal_base_node_size;
-            if (nominal_base_node_size * zoom.scale() > max_base_node_size)
-                base_radius = max_base_node_size / zoom.scale();
-            circle.attr("d", d3.svg.symbol()
-                .size(function (d) {
-                    return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
-                })
-                .type(function (d) {
-                    return d.type;
-                }))
-
-            //circle.attr("r", function(d) { return (size(d.size)*base_radius/nominal_base_node_size||base_radius); })
-            if (!text_center)
-                text.attr("dx", function (d) {
-                    return (size(d.size) * base_radius / nominal_base_node_size || base_radius);
-                });
-
-            var text_size = nominal_text_size;
-            if (nominal_text_size * zoom.scale() > max_text_size)
-                text_size = max_text_size / zoom.scale();
-            text.style("font-size", text_size + "px");
-
-            g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-        });
-    svg.call(zoom);
-
-    var g = svg.append("g");
-    svg.style("cursor", "move");
-
-
-    //From the .json coming from the server, 3 values of each object is NAN
-    var number_of_NAN = 3;
-    var links_value_treshold = 0;
-    var stroke = nominal_stroke;
-
+    var g = APIPlot.prototype.svg.append("g");
     var layer1 = g.append('g');
     var layer2 = g.append('g');
 
-    //creating the .json
-    //var number_of_genes = parseInt($("#network_number_of_genes").val());
-    //lenght of the data
-    //console.log(Object.keys(data_network_raw.results).length);
-    var number_of_genes = parseInt($('#text-box_genes-range').val());
-    if (parseInt($("#genes-range").val()) <= Object.keys(data_network_raw.results).length)
-        number_of_genes = parseInt($("#genes-range").val());
-    else
-        number_of_genes = Object.keys(data_network_raw.results).length;
-
-    //set the size
-    var size_of_genes = [];
-    var acum_value = 0;
-    for (var i = 0; i < number_of_genes; i++) {
-        for (var j = number_of_NAN; j < number_of_genes + number_of_NAN; j++) {
-            acum_value += data_network_raw.results[i][j];
-        }
-        size_of_genes.push(acum_value);
-        acum_value = 0;
-    }
-
-    var nodes = '{"nodes" : [';
-    // number_of_genes - 1 : to set the last one without comma
-    for (var i = 0; i < number_of_genes - 1; i++) {
-        nodes += '{"id" : "' + data_network_raw.results[i][0] + '", "id_node" : "node_' + i + '", "score" : ' + (size_of_genes[i] + 5) + ', "module": "' + data_network_raw.results[i][2] + '", "type": "circle"},';
-    }
-    nodes += '{"id" : "' + data_network_raw.results[number_of_genes - 1][0] + '", "id_node" : "node_' + (number_of_genes - 1) + '", "score" : ' + size_of_genes[number_of_genes - 1] + ', "module": "' + data_network_raw.results[number_of_genes - 1][2] + '", "type": "circle"}],';
-
-    var start_storing;
-    var links = '"links" : [';
-    for (var i = 0; i < number_of_genes; i++) {
-        start_storing = false;
-        for (var j = 0; j < number_of_genes + number_of_NAN; j++) {
-            if (start_storing) {
-
-                if (data_network_raw.results[i][j] < min_threshold_value)
-                    min_threshold_value = data_network_raw.results[i][j];
-
-                if (data_network_raw.results[i][j] > max_threshold_value)
-                    max_threshold_value = data_network_raw.results[i][j];
-
-                if (data_network_raw.results[i][j] > links_value_treshold)
-                    links += '{"source":' + i + ',"target":' + (j - number_of_NAN) + ',"value":' + data_network_raw.results[i][j] + '},';
-            }
-            if (data_network_raw.results[i][j] == 1) {
-                start_storing = true;
-            }
-        }
-    }
-    links = links.substring(0, links.length - 1);
-    links += ']}';
-
-    console.log(min_threshold_value);
-    console.log(max_threshold_value);
-
-    var data_network = nodes + links;
-
-    console.log(data_network);
+    //Generate the JSON that the plot needs from the data received from the server
+    var data_network = APIPlot.prototype.buildJSONtoPlot(APIPlot.prototype.data_network_raw);
+    SVGData = JSON.parse(data_network);
     data_network = JSON.parse(data_network);
     console.log(data_network);
 
@@ -190,52 +87,30 @@ function net_plot(data_network_temp) {
     var min_link_value = d3.min(data_network.links, function (d) {
         return d.value;
     });
-
-    console.log(max_link_value);
-    console.log(min_link_value);
-
     //max node value
-    var max_node_value = 5;//d3.max(data_network.nodes, function (d) {
-    //    return d.score;
-    //});
+    var max_node_value = d3.max(data_network.nodes, function (d) {
+        return d.score;
+    });
     //min node value
     var min_node_value = d3.min(data_network.nodes, function (d) {
         return d.score;
     });
 
-    var min_threshold_value_temp = min_threshold_value - parseFloat((min_threshold_value.toString().substring(0, min_threshold_value.toString().length - 5)));
+    //var min_threshold_value_temp = APIPlot.prototype.min_threshold_value - parseFloat((APIPlot.prototype.min_threshold_value.toString().substring(0, APIPlot.prototype.min_threshold_value.toString().length - 5)));
 
-    // Set the values (default, min and max numbers) for the threshold.
-    const minThresholdValue = min_threshold_value - min_threshold_value_temp
-    $('#slider-range-treshold').attr("min", minThresholdValue);
-    $('#slider-range-treshold').attr("value", minThresholdValue);
-    $('#slider-range-treshold').attr("max", max_threshold_value - ((max_threshold_value - minThresholdValue) / parseFloat($('#text-box_genes-range').val())));
-    $('#slider-range-treshold').attr("step", ((max_threshold_value - minThresholdValue) / parseFloat($('#text-box_genes-range').val())));
-    $("#threshold_network").val($("#slider-range-treshold").val());
 
-    let linkedByIndex = {};
+
+    linkedByIndex = {};
     data_network.links.forEach(function (d) {
-        linkedByIndex[d.source + "," + d.target] = true;
+        APIPlot.prototype.linkedByIndex[d.source + "," + d.target] = true;
     });
 
-    function isConnected(a, b) {
-        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
-    }
+    
 
-    //function hasConnections(a) {
-    //	for (var property in linkedByIndex) {
-    //		s = property.split(",");
-    //		if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property])
-    //			return true;
-    //	}
-    //	return false;
-    //}
 
-    let value_distance = null;
-    //var value_strenght;
 
-    var force = d3.layout.force()
-        .charge(-300)
+    APIPlot.prototype.force = APIPlot.prototype.force
+        .charge(-250)
         .linkDistance(function (d) {
 
             if (max_link_value != min_link_value) {
@@ -247,9 +122,9 @@ function net_plot(data_network_temp) {
             return value_distance;
             //return (1 / d.value) * 10;
         })
-        .size([w, h]);
+        .size([$("#network_plot").innerWidth(), $("#network_plot").innerHeight()]);
 
-    force
+    APIPlot.prototype.force
         .nodes(data_network.nodes)
         .links(data_network.links)
         .start();
@@ -261,7 +136,7 @@ function net_plot(data_network_temp) {
         .style("stroke-width", function (d) {
             return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
         })
-        .style("stroke", default_link_color);
+        .style("stroke", APIPlot.prototype.default_link_color);
 
     var node = layer2.selectAll(".node")
         .data(data_network.nodes)
@@ -271,17 +146,15 @@ function net_plot(data_network_temp) {
             return d.id_node;
         })
         .style("visibility", "visible")
-        .call(force.drag);
+        .call(APIPlot.prototype.force.drag);
 
-    var tocolor = "fill";
-    var towhite = "stroke";
+    
     if (outline) {
         tocolor = "stroke"
         towhite = "fill"
     }
 
     var circle = node.append("path")
-
         .attr("d", d3.svg.symbol()
             .size(function (d) {
                 return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
@@ -289,12 +162,11 @@ function net_plot(data_network_temp) {
             .type(function (d) {
                 return d.type;
             }))
-
         .style(tocolor, function (d) {
-            if (isNumber(d.score) && d.score >= 0)
+            if (APIPlot.prototype.isNumber(d.score) && d.score >= 0)
                 return d.module;
             else
-                return default_node_color;
+                return APIPlot.prototype.default_node_color;
         })
         //.attr("r", function(d) { return size(d.size)||nominal_base_node_size; })
         .style("stroke-width", nominal_stroke)
@@ -311,9 +183,7 @@ function net_plot(data_network_temp) {
         .style("text-shadow", "-1.5px 0 white, 0 1.5px white, 1.5px 0 white, 0 -1.5px white")
 
     if (text_center)
-        text.text(function (d) {
-            return d.id;
-        })
+        text.text(function (d) {return d.id;})
             .style("text-anchor", "middle");
     else
         text.attr("dx", function (d) {
@@ -323,126 +193,45 @@ function net_plot(data_network_temp) {
                 return '\u2002' + d.id;
             });
 
-    node.on("mouseover", function (d) {
-        set_highlight(d);
-    })
+    node.on("mouseover", function (d) { APIPlot.prototype.setHighlight(d, color, focus_node, circle, towhite, text, link);})
         .on("mousedown", function (d) {
             d3.event.stopPropagation();
             focus_node = d;
-            set_focus(d)
+            APIPlot.prototype.setFocus(d, circle, text, link)
             if (highlight_node === null)
-                set_highlight(d)
-
+                APIPlot.prototype.setHighlight(d, color, focus_node, circle, towhite, text, link)
         }).on("mouseout", function (d) {
-            exit_highlight();
-
+            APIPlot.prototype.exitHighlight(color, focus_node, circle, towhite, text, link);
         });
 
-    d3.select(window).on("mouseup",
-        function () {
-            if (focus_node !== null) {
-                focus_node = null;
-                if (highlight_trans < 1) {
-
-                    circle.style("opacity", 1);
-                    text.style("opacity", 1);
-                    link.style("opacity", 1);
-                }
+    d3.select(window).on("mouseup", function () {
+        if (focus_node !== null) {
+            focus_node = null;
+            if (APIPlot.prototype.highlight_trans < 1) {
+                circle.style("opacity", 1);
+                text.style("opacity", 1);
+                link.style("opacity", 1);
             }
-
-            if (highlight_node === null)
-                exit_highlight();
-        });
-
-    function exit_highlight() {
-        highlight_node = null;
-        if (focus_node === null) {
-            svg.style("cursor", "move");
-            if (highlight_color != "white") {
-                circle.style(towhite, "white");
-                text.style("font-weight", "normal");
-                link.style("stroke", function (o) {
-                    return (isNumber(o.score) && o.score >= 0) ? color(o.score) : default_link_color
-                });
-            }
-
         }
-    }
+        if (highlight_node === null)
+            APIPlot.prototype.exitHighlight(color, focus_node, circle, towhite, text, link);
+    });
 
-    function set_focus(d) {
-        if (highlight_trans < 1) {
-            circle.style("opacity", function (o) {
-                return isConnected(d, o) ? 1 : highlight_trans;
-            });
 
-            text.style("opacity", function (o) {
-                return isConnected(d, o) ? 1 : highlight_trans;
-            });
 
-            link.style("opacity", function (o) {
-                return o.source.index == d.index || o.target.index == d.index ? 1 : highlight_trans;
-            });
-        }
-    }
 
-    function set_highlight(d) {
-        svg.style("cursor", "pointer");
-        if (focus_node !== null)
-            d = focus_node;
-        highlight_node = d;
+    /**** Set the values (default, min and max numbers) for the threshold ****/
+    var min_treshold_value_temp = min_link_value - parseFloat((min_link_value.toString().substring(0, min_link_value.toString().length - 5)));
+    var max_treshold_value_temp = max_link_value - parseFloat((max_link_value.toString().substring(0, max_link_value.toString().length - 5)));
 
-        if (highlight_color != "white") {
-            circle.style(towhite, function (o) {
-                return isConnected(d, o) ? highlight_color : "white";
-            });
-            text.style("font-weight", function (o) {
-                return isConnected(d, o) ? "bold" : "normal";
-            });
-            link.style("stroke", function (o) {
-                return o.source.index == d.index || o.target.index == d.index ? highlight_color : ((isNumber(o.score) && o.score >= 0) ? color(o.score) : default_link_color);
+    $('#slider-range-treshold').attr("min", (min_link_value - min_treshold_value_temp));
+    //$('#slider-range-treshold').attr("value", (min_link_value - min_treshold_value_temp));
+    $('#slider-range-treshold').val((min_link_value - min_treshold_value_temp));
+    $('#slider-range-treshold').attr("max", (max_link_value - max_treshold_value_temp));
+    $('#slider-range-treshold').attr("step", parseFloat(((max_link_value - max_treshold_value_temp) - (min_link_value - min_treshold_value_temp)) / 10));
+    $("#threshold_network").val($("#slider-range-treshold").val());
 
-            });
-        }
-
-        /********************* ADD CARD DATA *************************/
-        //var url = '/' + environment + '/API/GetInfoFromQuickGO';
-        //var term = d.id;
-        ////alert("hi")
-        //$.ajax({
-        //    url: url,
-        //    type: 'POST',
-        //    data: { term: term },
-        //    success: function (data) {
-        //        data = JSON.parse(data);
-        //        if (data["results"].length > 0) {
-        //            //alert("hi")
-        //            data = data["results"][0];
-        //            var goInfo = "<b>Id: </b> " + data.id
-        //                + "<br/><b>Name: </b> " + data.name
-        //                + "<br/><b>Aspect: </b> " + data.aspect
-        //                + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
-
-        //            var goTerm = (this.data).split("%3A")[1];
-
-        //            alert(goTerm + " " + goInfo);
-        //            //$("a[id*='" + goTerm + "']").focus();
-
-        //        }
-
-        //    },
-        //    error: function () {
-        //        return "No results found!";
-        //    }
-        //});
-    }
-
-    var hiding_nodes = false;
-    let current_node = 0;
-    let node_isalone = false;
-
-    /*
-     * This function is executed when the 'Hide isolated genes' checkbox changes
-     * */
+    /**** This function is executed when the 'Hide isolated genes' checkbox changes ****/
     $("#hide_nodes").click(function () {
         //$("#hide_nodes").checkboxradio("refresh");
         hiding_nodes = !hiding_nodes;
@@ -473,22 +262,23 @@ function net_plot(data_network_temp) {
         //node.style("visibility", "visible")
     });
 
-    /*
-     * This function is executed when the threshold range changes
-     * */
-    $("#slider-range-treshold").on("change", function () {
+    /**** This function is executed when the threshold range changes ****/
+    $("#slider-range-treshold").on("change", function (e) {
 
-        let start_storing = false;
-        let links = '"links" : [';
-        let has_value = false;
-        for (let i = 0; i < number_of_genes; i++) {
+        let start_storing = false,
+            links = '"links" : [',
+            has_value = false;
+        for (let i = 0; i < APIPlot.prototype.number_of_genes; i++) {
             start_storing = false;
-            for (let j = 0; j < number_of_genes + number_of_NAN; j++) {
-                if (start_storing && data_network_raw.results[i][j] > $("#threshold_network").val()) {
-                    links += '{"source":' + i + ',"target":' + (j - number_of_NAN) + ',"value":' + data_network_raw.results[i][j] + '},';
+            for (let j = 0; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
+                if (start_storing && APIPlot.prototype.data_network_raw[i][j] > $("#threshold_network").val()) {
+                    links += '{"source":' + i + ',"target":' + (j - APIPlot.prototype.number_of_NAN) + ',"value":' +
+                        APIPlot.prototype.data_network_raw[i][j] + '},';
                     has_value = true;
                 }
-                if (data_network_raw.results[i][j] == 1) {
+                
+                console.log(APIPlot.prototype.number_of_genes +" " + i + " " + j)
+                if (APIPlot.prototype.data_network_raw[i][j] == 1) {
                     start_storing = true;
                 }
             }
@@ -498,9 +288,9 @@ function net_plot(data_network_temp) {
             links = links.substring(0, links.length - 1);
 
             links += ']}';
-            data_network = nodes + links;
+            data_network_onchange = APIPlot.prototype.nodes + links;
 
-            data_network = JSON.parse(data_network);
+            data_network = JSON.parse(data_network_onchange);
 
             link = layer1.selectAll(".link")
                 .data(data_network.links, function (d) {
@@ -508,9 +298,9 @@ function net_plot(data_network_temp) {
                 });
 
             //update the connected nodes
-            linkedByIndex = {};
+            APIPlot.prototype.linkedByIndex = {};
             data_network.links.forEach(function (d) {
-                linkedByIndex[d.source + "," + d.target] = true;
+                APIPlot.prototype.linkedByIndex[d.source + "," + d.target] = true;
             });
 
             link.enter().append("line")
@@ -518,11 +308,11 @@ function net_plot(data_network_temp) {
                 .style("stroke-width", function (d) {
                     return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
                 })
-                .style("stroke", default_link_color);
+                .style("stroke", APIPlot.prototype.default_link_color);
 
             link.exit().remove();
 
-            force.on("tick", function () {
+            APIPlot.prototype.force.on("tick", function () {
 
                 node.attr("transform", function (d) {
                     return "translate(" + d.x + "," + d.y + ")";
@@ -530,7 +320,6 @@ function net_plot(data_network_temp) {
                 text.attr("transform", function (d) {
                     return "translate(" + d.x + "," + d.y + ")";
                 });
-
                 link.attr("x1", function (d) {
                     return d.source.x;
                 })
@@ -543,7 +332,6 @@ function net_plot(data_network_temp) {
                     .attr("y2", function (d) {
                         return d.target.y;
                     });
-
                 node.attr("cx", function (d) {
                     return d.x;
                 })
@@ -552,7 +340,7 @@ function net_plot(data_network_temp) {
                     });
             });
 
-            force
+            APIPlot.prototype.force
                 .links(data_network.links)
                 .start();
         }
@@ -585,27 +373,16 @@ function net_plot(data_network_temp) {
             }
         }
 
-        //hide not linked
-
+        e.preventDefault();
     });
 
-
-    resize();
-
-
-
-    //window.focus();
-    //d3.select(window).on("resize", resize).on("keydown", keydown);
-
-    force.on("tick", function () {
-
+    APIPlot.prototype.force.on("tick", function () {
         node.attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
         text.attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
-
         link.attr("x1", function (d) {
             return d.source.x;
         })
@@ -618,7 +395,6 @@ function net_plot(data_network_temp) {
             .attr("y2", function (d) {
                 return d.target.y;
             });
-
         node.attr("cx", function (d) {
             return d.x;
         })
@@ -627,131 +403,211 @@ function net_plot(data_network_temp) {
             });
     });
 
-    function resize() {
-        var width = w, height = h;
-        svg.attr("width", width).attr("height", height);
+    
 
-        force.size([force.size()[0] / zoom.scale(), force.size()[1] / zoom.scale()]).resume();
+    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
+        .on("zoom", function () {
 
-    }
+            stroke = nominal_stroke;
+            if (nominal_stroke * zoom.scale() > max_stroke)
+                stroke = max_stroke / zoom.scale();
 
-    svg.call(zoom);
+            circle.style("stroke-width", stroke);
 
+            var base_radius = nominal_base_node_size;
+            if (nominal_base_node_size * zoom.scale() > max_base_node_size)
+                base_radius = max_base_node_size / zoom.scale();
 
-    // function keydown() {
-    // if (d3.event.keyCode == 32) {
-    // force.stop();
-    // } else if (d3.event.keyCode >= 48 && d3.event.keyCode <= 90 && !d3.event.ctrlKey && !d3.event.altKey && !d3.event.metaKey) {
-    // switch (String.fromCharCode(d3.event.keyCode)) {
-    // case "C":
-    // keyc = !keyc;
-    // break;
-    // case "S":
-    // keys = !keys;
-    // break;
-    // case "T":
-    // keyt = !keyt;
-    // break;
-    // case "R":
-    // keyr = !keyr;
-    // break;
-    // case "X":
-    // keyx = !keyx;
-    // break;
-    // case "D":
-    // keyd = !keyd;
-    // break;
-    // case "L":
-    // keyl = !keyl;
-    // break;
-    // case "M":
-    // keym = !keym;
-    // break;
-    // case "H":
-    // keyh = !keyh;
-    // break;
-    // case "1":
-    // key1 = !key1;
-    // break;
-    // case "2":
-    // key2 = !key2;
-    // break;
-    // case "3":
-    // key3 = !key3;
-    // break;
-    // case "0":
-    // key0 = !key0;
-    // break;
-    // }
+            circle.attr("d", d3.svg.symbol()
+                .size(function (d) {
+                    return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+                })
+                .type(function (d) {
+                    return d.type;
+                }))
 
-    // link.style("display", function (d) {
-    // var flag = vis_by_type(d.source.type) && vis_by_type(d.target.type) && vis_by_node_score(d.source.score) && vis_by_node_score(d.target.score) && vis_by_link_score(d.score);
-    // linkedByIndex[d.source.index + "," + d.target.index] = flag;
-    // return flag ? "inline" : "none";
-    // });
-    // node.style("display", function (d) {
-    // return (key0 || hasConnections(d)) && vis_by_type(d.type) && vis_by_node_score(d.score) ? "inline" : "none";
-    // });
-    // text.style("display", function (d) {
-    // return (key0 || hasConnections(d)) && vis_by_type(d.type) && vis_by_node_score(d.score) ? "inline" : "none";
-    // });
+            if (!text_center)
+                text.attr("dx", function (d) {
+                    return (size(d.size) * base_radius / nominal_base_node_size || base_radius);
+                });
 
-    // if (highlight_node !== null) {
-    // if ((key0 || hasConnections(highlight_node)) && vis_by_type(highlight_node.type) && vis_by_node_score(highlight_node.score)) {
-    // if (focus_node !== null)
-    // set_focus(focus_node);
-    // set_highlight(highlight_node);
-    // } else {
-    // exit_highlight();
-    // }
-    // }
+            var text_size = nominal_text_size;
+            if (nominal_text_size * zoom.scale() > max_text_size)
+                text_size = max_text_size / zoom.scale();
+            text.style("font-size", text_size + "px");
 
-    // }
-    // }
+            g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        });
+
+    APIPlot.prototype.svg
+        .style("cursor", "move")
+        .attr("width", w)
+        .attr("height", h)
+        .call(zoom)
+        //.select("g").attr("transform", "translate(" + w / 2 + "," + h / 2 + ")scale(2)");
+
+    APIPlot.prototype.force.size([APIPlot.prototype.force.size()[0] / zoom.scale(), APIPlot.prototype.force.size()[1] / zoom.scale()]).resume();
+        
+
 }
 
-// function vis_by_type(type) {
-// switch (type) {
-// case "circle":
-// return keyc;
-// case "square":
-// return keys;
-// case "triangle-up":
-// return keyt;
-// case "diamond":
-// return keyr;
-// case "cross":
-// return keyx;
-// case "triangle-down":
-// return keyd;
-// default:
-// return true;
-// }
-// }
-// function vis_by_node_score(score) {
-// if (isNumber(score)) {
-// if (score >= 0.666)
-// return keyh;
-// else if (score >= 0.333)
-// return keym;
-// else if (score >= 0)
-// return keyl;
-// }
-// return true;
-// }
 
-// function vis_by_link_score(score) {
-// if (isNumber(score)) {
-// if (score >= 0.666)
-// return key3;
-// else if (score >= 0.333)
-// return key2;
-// else if (score >= 0)
-// return key1;
-// }
-// return true;
-// }
-
-function isNumber(n) {
+APIPlot.prototype.isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+APIPlot.prototype.removeNumber = function (myString) {
+    if (/\d/.test(myString)) {
+        myString = myString.replace(/\d+/g, '')
+    }
+    return myString;
+}
+
+APIPlot.prototype.isConnected = function (a, b) {
+    return APIPlot.prototype.linkedByIndex[a.index + "," + b.index] || APIPlot.prototype.linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+}
+
+APIPlot.prototype.setHighlight = function (d, color, focus_node, circle, towhite, text, link) {
+    APIPlot.prototype.svg.style("cursor", "pointer");
+    if (focus_node !== null)
+        d = focus_node;
+    highlight_node = d;
+
+    APIPlot.prototype.highlight_color = APIPlot.prototype.removeNumber($('#module_dropdown').find(":selected").val());
+
+    if (APIPlot.prototype.highlight_color != "white") {
+        circle.style(towhite, function (o) {
+            return APIPlot.prototype.isConnected(d, o) ? APIPlot.prototype.highlight_color : "white";
+        });
+        text.style("font-weight", function (o) {
+            return APIPlot.prototype.isConnected(d, o) ? "bold" : "normal";
+        });
+        link.style("stroke", function (o) {
+            return o.source.index == d.index ||
+                o.target.index == d.index ?
+                APIPlot.prototype.highlight_color : ((APIPlot.prototype.isNumber(o.score) && o.score >= 0) ? color(o.score) : APIPlot.prototype.default_link_color);
+
+        });
+    }
+
+    /********************* ADD CARD DATA *************************/
+    //var url = '/' + environment + '/API/GetInfoFromQuickGO';
+    //var term = d.id;
+    ////alert("hi")
+    //$.ajax({
+    //    url: url,
+    //    type: 'POST',
+    //    data: { term: term },
+    //    success: function (data) {
+    //        data = JSON.parse(data);
+    //        if (data["results"].length > 0) {
+    //            //alert("hi")
+    //            data = data["results"][0];
+    //            var goInfo = "<b>Id: </b> " + data.id
+    //                + "<br/><b>Name: </b> " + data.name
+    //                + "<br/><b>Aspect: </b> " + data.aspect
+    //                + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+    //            var goTerm = (this.data).split("%3A")[1];
+
+    //            alert(goTerm + " " + goInfo);
+    //            //$("a[id*='" + goTerm + "']").focus();
+
+    //        }
+
+    //    },
+    //    error: function () {
+    //        return "No results found!";
+    //    }
+    //});
+}
+
+APIPlot.prototype.exitHighlight = function (color, focus_node, circle, towhite, text, link) {
+    highlight_node = null;
+    if (focus_node === null) {
+        APIPlot.prototype.svg.style("cursor", "move");
+        if (APIPlot.prototype.highlight_color != "white") {
+            circle.style(towhite, "white");
+            text.style("font-weight", "normal");
+            link.style("stroke", function (o) {
+                return (APIPlot.prototype.isNumber(o.score) && o.score >= 0) ? color(o.score) : APIPlot.prototype.default_link_color
+            });
+        }
+
+    }
+}
+
+APIPlot.prototype.setFocus = function (d, circle, text, link) {
+    if (APIPlot.prototype.highlight_trans < 1) {
+        circle.style("opacity", function (o) {
+            return APIPlot.prototype.isConnected(d, o) ? 1 : APIPlot.prototype.highlight_trans;
+        });
+
+        text.style("opacity", function (o) {
+            return APIPlot.prototype.isConnected(d, o) ? 1 : APIPlot.prototype.highlight_trans;
+        });
+
+        link.style("opacity", function (o) {
+            return o.source.index == d.index || o.target.index == d.index ? 1 : APIPlot.prototype.highlight_trans;
+        });
+    }
+}
+
+
+APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
+
+    
+    APIPlot.prototype.number_of_genes = parseInt($('#text-box_genes-range').val());
+    if (parseInt($("#genes-range").val()) <= data_network_raw.length)
+        APIPlot.prototype.number_of_genes = parseInt($("#genes-range").val());
+    else
+        APIPlot.prototype.number_of_genes = data_network_raw.length;
+
+    //set the size
+    var size_of_genes = [];
+    var acum_value = 0;
+    for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
+        for (var j = APIPlot.prototype.number_of_NAN; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
+            acum_value += parseFloat(data_network_raw[i][j]);
+        }
+        size_of_genes.push(acum_value);
+        acum_value = 0;
+    }
+
+    APIPlot.prototype.nodes = '{"nodes" : [';
+    // number_of_genes - 1 : to set the last one without comma
+    for (var i = 0; i < APIPlot.prototype.number_of_genes - 1; i++) {
+        APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[i][0] + '", "id_node" : "node_' + i + '", "score" : ' + (size_of_genes[i] + 5) + ', "module": "' + data_network_raw[i][2] + '", "type": "circle"},';
+    }
+    APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][0] + '", "id_node" : "node_' + (APIPlot.prototype.number_of_genes - 1)
+        + '", "score" : ' + size_of_genes[APIPlot.prototype.number_of_genes - 1]
+        + ', "module": "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][2] + '", "type": "circle"}],';
+
+    var start_storing;
+    var links = '"links" : [';
+    for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
+        start_storing = false;
+        for (var j = 0; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
+            if (start_storing) {
+
+                if (data_network_raw[i][j] < APIPlot.prototype.min_threshold_value)
+                    APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+
+                if (data_network_raw[i][j] > APIPlot.prototype.max_threshold_value)
+                    APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
+
+                if (data_network_raw[i][j] > APIPlot.prototype.links_value_treshold)
+                    links += '{"source":' + i + ',"target":' + (j - APIPlot.prototype.number_of_NAN) + ',"value":' + data_network_raw[i][j] + '},';
+            }
+            if (data_network_raw[i][j] == 1) {
+                start_storing = true;
+            }
+        }
+    }
+    links = links.substring(0, links.length - 1);
+    links += ']}';
+
+    return APIPlot.prototype.nodes + links;
+
+}
+

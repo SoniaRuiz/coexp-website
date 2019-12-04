@@ -1588,37 +1588,88 @@ API.prototype.getCardData = function (term) {
  * Function to generate the graph within the 'Plot' tab. 
  */
 API.prototype.generateGraph = function () {
-
+    
     // Clean older graphs
     $("#network_plot").html('');
+    const category = $('#category_dropdown').find(":selected").val();
     // Get tissue value
     const network = $('#network_dropdown').find(":selected").val();
     // Get module value
-    const moduleColor = $('#module_color').find(":selected").val();
+    const moduleColor = $('#module_dropdown').find(":selected").val();
     // Get slider-range value
-    const top = $('#text_box_name').val();
+    const top = $('#text-box_genes-range').val();
 
-    const url_network_plot = '/' + environment + '/API/GetTomDataBRAINEAC?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
+    //const url_network_plot = '/' + environment + '/API/PostGetModuleTOMGraph?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
+    try {
+        $("body").addClass("loading");
+        $.ajax({
+            url: '/' + environment + '/API/PostGetModuleTOMGraph',
+            data: JSON.stringify({
+                "Category": category,
+                "Network": network,
+                "ModuleColor": moduleColor,
+                "TopGenes": top
+            }),
+            method: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.indexOf("Problems") >= 0) {
+                    $("#error").empty();
+                    $("#error").append("<h4>Sorry, an error has ocurred when generating the plot.</h4>",data,"<p>Please, try again with another selection.</p>");
+                    $("#error").show();
+                    $("body").removeClass("loading");
+                    $('#empty-initial-results').hide();
+                }
+                //else if (data.indexOf("Please") >= 0) {
+                //    /*$("#error").children("p").remove();
+                //    $("#error").append("<p>" + data + "</p>");
+                //    $("#error").show();*/
+                //    alert(data);
+                //    $("body").removeClass("loading");
+                //}
+                else {
+                    
+                    //Update global variable with the JSON data. Necessary to download the xlsx file.
+                    data = JSON.parse(data);
+                    console.log(data);
+                    APIPlot.prototype.netPlot(data);
+                    $("#slider-range-treshold").prop('disabled', false);
+                    //$("#threshold_network").prop('disabled', false);
+                    $("#hide_nodes").prop('disabled', false);
+                    $("body").removeClass("loading");
+                }
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
+    }
+    catch (err) {
+        $("body").removeClass("loading");
+    }
+
+
     //make request
-    $.ajax({
-        url: url_network_plot,
-        type: 'GET',
-        success: function (data) {
-            //const generateCSV = () => {
-            console.log(JSON.parse(data))
+    //$.ajax({
+    //    url: url_network_plot,
+    //    type: 'GET',
+    //    success: function (data) {
+    //        //const generateCSV = () => {
+    //        console.log(JSON.parse(data))
 
-            data = JSON.parse(data);
-            net_plot(data);
+    //        data = JSON.parse(data);
+    //        net_plot(data);
 
-            //Update global variable with the JSON data. Necessary to download the xlsx file.
-            SVGData = data;
+    //        //Update global variable with the JSON data. Necessary to download the xlsx file.
+    //        SVGData = data;
 
-            //Range for the links connection
-            $('#slider-range-treshold').prop("disabled", false);
-            $('#threshold_network').prop("disabled", false);
-        },
-        error: function () { }
-    });
+    //        //Range for the links connection
+    //        $('#slider-range-treshold').prop("disabled", false);
+    //        $('#threshold_network').prop("disabled", false);
+    //    },
+    //    error: function () { }
+    //});
 }
 
 /**
@@ -1634,14 +1685,25 @@ API.prototype.downloadSVGPlot = function () {
     svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
     svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
 
-    const width = 800;
-    const height = 600;
+    const width = $("#network_plot").innerWidth()*3;
+    const height = $("#network_plot").innerHeight()*3;
+
 
     // Fill the canvas object with the serialized SVG object
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
+
+
+    const category = $('#category_dropdown').find(":selected").val();
+    const network = $('#network_dropdown').find(":selected").val();
+    const moduleColor = $('#module_dropdown').find(":selected").val();
+    const top = $('#text-box_genes-range').val();
+    var dt = new Date();
+    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
+    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
+
 
     let image = new Image();
     image.onload = function () {
@@ -1657,8 +1719,8 @@ API.prototype.downloadSVGPlot = function () {
             alert("This feature is only available on Chrome and Firefox.");          
         } else {
             let link = document.createElement('a');
-            link.setAttribute('download', 'coexpgraph.png');
-            link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+            link.setAttribute('download', fileName);
+            link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
             // create a mouse event
             let event = new MouseEvent('click');
             // dispatching it will open a save as dialog in FF
@@ -1674,18 +1736,23 @@ API.prototype.downloadSVGPlot = function () {
  */
 API.prototype.downloadSVGData = function () {
 
-    /* Set the worksheet column's names*/
-    SVGData.results.unshift(SVGData.columns);
-
     /* make the worksheet */
-    const ws = XLSX.utils.json_to_sheet(SVGData.results, { skipHeader: true })
+    const ws = XLSX.utils.json_to_sheet(SVGData.nodes, { header: Object.keys(SVGData.nodes[1]) })
 
     /* add to workbook */
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "CoExpData");
 
+    const category = $('#category_dropdown').find(":selected").val();
+    const network = $('#network_dropdown').find(":selected").val();
+    const moduleColor = $('#module_dropdown').find(":selected").val();
+    const top = $('#text-box_genes-range').val();
+    var dt = new Date();
+    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
+    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.xlsx';
+
     /* generate an XLSX file */
-    XLSX.writeFile(wb, "coexpdata.xlsx"); 
+    XLSX.writeFile(wb, fileName); 
 }
 
 API.prototype.getMM = function (network, category, module) {
@@ -1753,8 +1820,6 @@ API.prototype.getMM = function (network, category, module) {
         });
 }
 
-
-
 API.prototype.sendFeedback = function() {
 
     let comments = $("#feedback_comments").val();
@@ -1790,7 +1855,6 @@ API.prototype.sendFeedback = function() {
         });
     }
 };
-
 
 API.prototype.arrayDiff = function (array1, array2) {
     var ret = [];

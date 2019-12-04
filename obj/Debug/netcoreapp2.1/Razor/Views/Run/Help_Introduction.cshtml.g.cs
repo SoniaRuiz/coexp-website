@@ -93,7 +93,7 @@ using CoExp_Web.Models;
         <p>This is the first part of the tutorial series ");
             EndContext();
             BeginContext(937, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2d5106a18b7642d5803fff1e2d7cd8e9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6cfb4f573e3b4e62b943ffa9afb15849", async() => {
                 BeginContext(991, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -148,7 +148,7 @@ using CoExp_Web.Models;
             WriteLiteral(" we will firstly surf through the network catalog of genes available within the tab \'Network Catalog\' on the CoExp WebPage tool.\r\n            </p>\r\n            <br />\r\n\r\n            <p><span class=\"glyphicon glyphicon-chevron-right\"></span><b>Next: </b>");
             EndContext();
             BeginContext(3344, 93, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f877a70818b24ffeb85ddaaebcaf7b92", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3e5623ff02714cc89f5ae645a1cfa8e5", async() => {
                 BeginContext(3406, 27, true);
                 WriteLiteral("Surfing the Network Catalog");
                 EndContext();

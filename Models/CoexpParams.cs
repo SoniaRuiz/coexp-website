@@ -17,6 +17,7 @@ namespace CoExp_Web.Models
         public string ModuleColor { get; set; }
         public string Genes { get; set; }
         public string MultipleSelectionData { get; set; }
+        public int TopGenes { get; set; }
 
     }
 }

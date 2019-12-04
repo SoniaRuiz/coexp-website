@@ -110,7 +110,7 @@ using CoExp_Web.Models;
         <p>This is the third and last part of the tutorial series ");
             EndContext();
             BeginContext(976, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7a8df4f2a3ca4f4d833d12098ee01e10", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e9f414e2f9454c2fbae937a1463c2870", async() => {
                 BeginContext(1030, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -136,7 +136,7 @@ using CoExp_Web.Models;
             WriteLiteral(".</p>\r\n        <p><span class=\"glyphicon glyphicon-chevron-left\"></span><b>Previous: </b>");
             EndContext();
             BeginContext(1171, 85, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0e4d9a22bc094f8495c10c5c9c0a231c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "46233f1aafed4b03bcb690de9f5e5440", async() => {
                 BeginContext(1233, 19, true);
                 WriteLiteral("Surfing the Catalog");
                 EndContext();
@@ -162,7 +162,7 @@ using CoExp_Web.Models;
             WriteLiteral("</p>\r\n\r\n        <div>\r\n            <br />\r\n            <p>\r\n                In the ");
             EndContext();
             BeginContext(1339, 74, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "16cc4a16ba0d4a91b1b5fcb484b9feed", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7fe2edd3c8314019866de29737ed3cd7", async() => {
                 BeginContext(1401, 8, true);
                 WriteLiteral("previous");
                 EndContext();
@@ -197,7 +197,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(2337, 200, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "873a9182389d4d0fbf3a8d8b64b17b68", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "de71caa0dcf24054b7ada54b86a206dc", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -229,7 +229,7 @@ using CoExp_Web.Models;
             WriteLiteral("          </p>\r\n            <div class=\"figure\">\r\n                ");
             EndContext();
             BeginContext(3627, 140, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "7ce026ea20d6422ca6e4ccf7dc4f9f01", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3a7062546b2e43be82618087bb01f9cc", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -310,7 +310,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(7347, 150, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "d05835d628684ddf8729bdb690c40f33", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6f6fccc1cba74673943782e24503e806", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -358,7 +358,7 @@ using CoExp_Web.Models;
                 ");
             EndContext();
             BeginContext(10452, 268, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f212b58c76284805b8a9bb8669b07ad8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "fd548e60f605408883ba73d482fe095d", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -389,7 +389,7 @@ using CoExp_Web.Models;
             WriteLiteral("               Finally, let\'s order the results by clicking over the \"overlap\" column. If everything has gone as expected, we should see a similar table to the following one:\r\n            </p>\r\n            <div class=\"figure\">\r\n                ");
             EndContext();
             BeginContext(11988, 279, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "a8ebfcd6ba6f4730a66df638d2d96856", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "356d5d16b14e4cbb814f5264360b0546", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -421,7 +421,7 @@ using CoExp_Web.Models;
         <p>This is the end of the tutorial series ");
             EndContext();
             BeginContext(13067, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7fbf402f93f044a3916851fcf62b39d6", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a578085e57b549dfa3bbcbfe7baebe4e", async() => {
                 BeginContext(13121, 48, true);
                 WriteLiteral("\"Getting started with CoExp WebPage application\"");
                 EndContext();
@@ -447,7 +447,7 @@ using CoExp_Web.Models;
             WriteLiteral(".</p>\r\n        <p><span class=\"glyphicon glyphicon-chevron-left\"></span><b>Go to the first part of the tutorial: </b>");
             EndContext();
             BeginContext(13290, 83, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "66949024cb444efaa6330b74910f5fb9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f3d9b9304fec4b86a8b741775b2cf70d", async() => {
                 BeginContext(13357, 12, true);
                 WriteLiteral("Introduction");
                 EndContext();
