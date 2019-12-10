@@ -154,9 +154,9 @@ namespace CoExp_Web.Repositories
             return response;
         }
 
-        public void SendFeedback(EmailMessage emailMessage, IEmailConfiguration emailConfiguration)
+        public void SendFeedback(EmailMessage emailMessage)
         {
-            EmailService emailService = new EmailService(emailConfiguration);
+            EmailService emailService = new EmailService();
             emailService.Send(emailMessage);
         }
 

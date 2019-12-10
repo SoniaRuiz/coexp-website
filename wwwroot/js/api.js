@@ -1676,7 +1676,7 @@ API.prototype.generateGraph = function () {
  * Function to download a png image from the SVG graph. 
  */
 API.prototype.downloadSVGPlot = function () {
-
+    $("body").addClass("loading");
     // Serialize the SVG object
     const svgNode = document.getElementsByTagName('svg')[0];
     svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
@@ -1729,6 +1729,7 @@ API.prototype.downloadSVGPlot = function () {
     };
 
     image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
+    $("body").removeClass("loading");
 }
 
 /**

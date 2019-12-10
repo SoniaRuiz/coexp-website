@@ -39,7 +39,7 @@ namespace CoExp_Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //Add trailing slash to the end
             services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
-            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
 
 

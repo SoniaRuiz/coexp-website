@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
 using System;
@@ -16,12 +17,13 @@ namespace CoExp_Web.Models.Email
 
     public class EmailService : IEmailService
     {
-        private readonly IEmailConfiguration _emailConfiguration;
+        private readonly String _smtpServer = "smtp.office365.com";
+        private readonly int _smptPort = 587;
 
-        public EmailService(IEmailConfiguration emailConfiguration)
-        {
-            _emailConfiguration = emailConfiguration;
-        }
+        //public EmailService(IOptions<EmailConfiguration> emailConfiguration)
+        //{
+        //    _emailConfiguration = emailConfiguration;
+        //}
 
         //public List<EmailMessage> ReceiveEmail(int maxCount = 10)
         //{
@@ -45,12 +47,12 @@ namespace CoExp_Web.Models.Email
             using (var emailClient = new SmtpClient())
             {
                 //The last parameter here is to use SSL (Which you should!)
-                emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, false);
+                emailClient.Connect(_smtpServer, _smptPort, false);
 
                 //Remove any OAuth functionality as we won't be using it. 
                 emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
+                emailClient.Authenticate("", "");
 
                 emailClient.Send(message);
 

@@ -25,12 +25,12 @@ namespace CoExp_Web.Controllers
     public class APIController : ControllerBase
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IEmailConfiguration _emailConfiguration;
+        //private readonly IEmailConfiguration _emailConfiguration;
 
-        public APIController(IHostingEnvironment hostingEnvironment,IEmailConfiguration emailConfiguration)
+        public APIController(IHostingEnvironment hostingEnvironment)//,IEmailConfiguration emailConfiguration)
         {
             _hostingEnvironment = hostingEnvironment;
-            _emailConfiguration = emailConfiguration;
+            //_emailConfiguration = emailConfiguration;
         }
         /****************************************************************************/
         /******************************* GET METHODS *******************************/
@@ -195,7 +195,7 @@ namespace CoExp_Web.Controllers
         public void SendFeedback([FromQuery] EmailMessage emailMessage)
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
-            repository.SendFeedback(emailMessage,_emailConfiguration);
+            repository.SendFeedback(emailMessage);
         }
 
         /****************************************************************************/
