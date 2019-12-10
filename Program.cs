@@ -15,7 +15,7 @@ namespace CoExp_Web
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args)
-                .UseEnvironment("Development")
+                .UseEnvironment("Docker")
                 .Build()
                 .Run();
         }

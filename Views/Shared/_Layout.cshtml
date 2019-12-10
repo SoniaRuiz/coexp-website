@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="encoding" content="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>CoExp WebSite</title>
     <link type="image/gif" rel="icon" href="~/images/ucl-icon.png">
     <link type="text/css" rel="stylesheet" href="~/css/bootstrap-select.min.css">
 
-    <environment include="Development">
+    <environment include="Development,Docker">
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="~/css/site.css">
         <style type="text/css">
@@ -87,7 +89,7 @@
                 <ul class="nav navbar-nav">
                     <li class="nav-item" id="tab_network_catalog"><a class="navbar-link" asp-controller="Run" asp-action="Catalog">Network Catalog</a></li>
                     <li class="nav-item" id="tab_gene_set_annotation"><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
-                    <environment include="Development">
+                    <environment include="Development,Docker">
                         <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
                     </environment>
 
@@ -183,7 +185,7 @@
 
     
 
-    <environment include="Development">
+    <environment include="Development,Docker">
         <script type="text/javascript">
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>

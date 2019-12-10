@@ -47,6 +47,10 @@ namespace CoExp_Web.Repositories
         /// API private environment URL
         /// </summary>
         public string PrivateEnv { get; set; }
+        /// <summary>
+        /// API Docker environment URL
+        /// </summary>
+        public string DockerEnv { get; set; }
 
 
 
@@ -59,6 +63,7 @@ namespace CoExp_Web.Repositories
             ProductionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
             TestEnv = "https://snca.atica.um.es/api_test/";
             PrivateEnv = "https://snca.atica.um.es/api_private/";
+            DockerEnv = "http://localhost:8000";
             PostData = null;
            
 
@@ -69,6 +74,10 @@ namespace CoExp_Web.Repositories
             else if (hostingEnvironment.EnvironmentName == "Development")
             {
                 coexpURL = TestEnv;
+            }
+            else if (hostingEnvironment.EnvironmentName == "Docker")
+            {
+                coexpURL = DockerEnv;
             }
             else if (hostingEnvironment.EnvironmentName == "Private")
             {
@@ -367,7 +376,7 @@ namespace CoExp_Web.Repositories
 
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
-            var finalResponse = string.Empty;
+            //var finalResponse = string.Empty;
             
 
             if (coexpURL == ProductionEnv)
@@ -379,7 +388,7 @@ namespace CoExp_Web.Repositories
                 "\",\"module\":\"" + coexpdata.ModuleColor + "\",\"topgenes\":\"" + coexpdata.TopGenes + "\"}";
 
             //Make the request
-            finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
+            var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
             
             return finalResponse.ToString();
 
