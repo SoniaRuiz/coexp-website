@@ -63,7 +63,7 @@ namespace CoExp_Web.Repositories
             ProductionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
             TestEnv = "https://snca.atica.um.es/api_test/";
             PrivateEnv = "https://snca.atica.um.es/api_private/";
-            DockerEnv = "http://localhost:8800/";
+            DockerEnv = "http://rcoexp:8800/";
             PostData = null;
            
 
