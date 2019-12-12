@@ -15,7 +15,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Docker"
       },
-      "applicationUrl": "http://localhost:5004/"
+      "applicationUrl": "http://localhost/"
       //},
       //"Development": {
       //  "commandName": "IISExpress",
@@ -37,5 +37,4 @@
       //}
     }
   }
-
 }
