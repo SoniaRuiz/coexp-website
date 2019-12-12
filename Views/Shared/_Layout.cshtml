@@ -9,7 +9,7 @@
     <link type="image/gif" rel="icon" href="~/images/ucl-icon.png">
     <link type="text/css" rel="stylesheet" href="~/css/bootstrap-select.min.css">
 
-    <environment include="Development,Docker">
+    <environment include="Development">
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="~/css/site.css">
         <style type="text/css">
@@ -24,6 +24,26 @@
 
             tr.shown td.details-control {
                 background: url('/coexp_test/images/details_close.png') no-repeat center center;
+            }
+        </style>
+        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.css">*@
+        <link type="text/css" rel="stylesheet" href="~/css/introjs.css">
+    </environment>
+    <environment include="Docker">
+        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+        <link type="text/css" rel="stylesheet" href="~/css/site.css">
+        <style type="text/css">
+            .loading_layer {
+                background: rgba( 255, 255, 255, .8 ) url('/images/loading.gif') 50% 50% no-repeat;
+            }
+
+            td.details-control {
+                background: url('/images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+
+            tr.shown td.details-control {
+                background: url('/images/details_close.png') no-repeat center center;
             }
         </style>
         @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.css">*@
@@ -100,7 +120,7 @@
                             <li><a asp-area="" asp-controller="Run" asp-action="Publication">Publication</a></li>
                         </ul>
                     </li>
-                    
+
 
                     <li id="tab_help" class="nav-item dropdown">
                         <a class="nav navbar-nav dropdown-toggle" data-toggle="dropdown">Help <span class="caret"></span></a>
@@ -185,9 +205,9 @@
     </div>
 
 
-    
+    <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
 
-    <environment include="Development,Docker">
+    <environment include="Development">
         <script type="text/javascript">
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
@@ -195,7 +215,17 @@
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="~/js/intro.js"></script>
-        <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+    </environment>
+    <environment include="Docker">
+        <script type="text/javascript">
+            const environment = "";//"ATN_5843218Gt"//"coexp"//coexp_test
+        </script>
+
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/js/intro.js"></script>
+
     </environment>
 
     <environment include="Private">
@@ -238,7 +268,7 @@
 
     <script>
         $(document).ready(function () {
-            
+
         });
     </script>
     @RenderSection("Scripts", required: false)

@@ -52,11 +52,16 @@ namespace CoExp_Web
             //coexp_test
             //coexp
 
-            if (env.IsDevelopment() || env.IsEnvironment("Docker"))
+            if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
             }
+            //else if (env.IsEnvironment("Docker"))
+            //{
+            //    //app.UseDeveloperExceptionPage();
+            //    app.UsePathBase("/");
+            //}
             else
             {
                 if (env.IsProduction())
