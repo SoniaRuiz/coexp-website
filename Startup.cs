@@ -23,8 +23,10 @@ namespace CoExp_Web
         {
             Configuration = configuration;
         }
+        readonly string CoExpDockerSpecificOrigins = "_CoExpDockerSpecificOrigins";
 
         public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,6 +37,15 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CoExpDockerSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost");
+                });
+            });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //Add trailing slash to the end
@@ -56,21 +67,19 @@ namespace CoExp_Web
                 //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
             }
-            else if (env.IsEnvironment("Docker")){
-                app.UsePathBase("/");
-            }
             else
             {
-                if (env.IsProduction())
-                {
+                if (env.IsProduction()){
                     app.UsePathBase("/coexp/");
                 }
-                else if (env.IsEnvironment("Private"))
-                {
+                else if (env.IsEnvironment("Private")){
                     app.UsePathBase("/ATN_5843218Gt/");
                 }
             }
             app.UseExceptionHandler("/Home/Error");
+
+            app.UseCors(CoExpDockerSpecificOrigins);
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
