@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CoExp_Web.Models;
 using CoExp_Web.Models.Email;
 using CoExp_Web.Repositories;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace CoExp_Web.Controllers
     /// <summary>
     /// API controller (does not return a view) to obtain information from different web services
     /// </summary>
+    
     [Route("[controller]")]
     [ApiController]
     public class APIController : ControllerBase
@@ -48,6 +50,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetNetworkCategories")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetNetworkCategories()
         {
             //getNetworkCategories()
@@ -58,6 +61,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetAvailableNetworks")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetAvailableNetworks([FromQuery] CoexpParams coexpdata)
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
@@ -67,6 +71,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetAvailableModules")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetAvailableModules([FromQuery] CoexpParams coexpdata)
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
@@ -76,6 +81,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetGOFromTissue")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
         {
             //category = which.one
@@ -100,6 +106,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetCellTypeFromTissue")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetCellTypeFromTissue([FromQuery] CoexpParams coexpdata)
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
@@ -109,6 +116,7 @@ namespace CoExp_Web.Controllers
 
         [HttpGet]
         [Route("GetTreeMenuData")]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         public string GetTreeMenuData()
         {
             try
@@ -172,6 +180,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("GetTomDataBRAINEAC")]
         public string GetTomDataBRAINEAC(/*[FromQuery] BraineacParams braineacData*/)
         {
@@ -182,6 +191,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("GetMM")]
         public string GetMM([FromQuery] CoexpParams coexpdata)
         {
@@ -191,6 +201,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("SendFeedback")]
         public void SendFeedback([FromQuery] EmailMessage emailMessage)
         {
@@ -203,6 +214,7 @@ namespace CoExp_Web.Controllers
         /****************************************************************************/
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("GetInfoFromQuickGO")]
         public string GetInfoFromQuickGO([FromForm]string term)
         {
@@ -213,6 +225,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("GetInfoFromREACTOME")]
         public string GetInfoFromREACTOME([FromForm]string term)
         {
@@ -223,6 +236,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("GetInfoFromKEGG")]
         public string GetInfoFromKEGG([FromForm]string term)
         {
@@ -233,6 +247,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("PostReportOnGenesMultipleTissue")]
         public string PostReportOnGenesMultipleTissue([FromBody] CoexpParams coexpdata)
         {
@@ -252,6 +267,7 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("PostGlobalReportOnGenes")]
         public string PostGlobalReportOnGenes([FromBody] CoexpParams coexpdata)
         {
@@ -324,6 +340,7 @@ namespace CoExp_Web.Controllers
 
 
         [HttpPost]
+        [EnableCors("CoExpDockerSpecificOrigins")]
         [Route("PostGetModuleTOMGraph")]
         public string PostGetModuleTOMGraph([FromBody] CoexpParams coexpdata)
         {

@@ -42,7 +42,7 @@ namespace CoExp_Web
                 options.AddPolicy(CoExpDockerSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost");
+                    builder.WithOrigins("http://localhost:8800");
                 });
             });
 
