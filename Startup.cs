@@ -69,11 +69,9 @@ namespace CoExp_Web
             //coexp
 
             if (env.IsDevelopment()){
-                //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
                 app.UseHttpsRedirection();
-            }else if(env.IsEnvironment("Docker"))
-            {
+            }else if(env.IsEnvironment("Docker")){
                 app.UsePathBase("/docker/");
             }
             else
@@ -87,10 +85,9 @@ namespace CoExp_Web
                     app.UseHttpsRedirection();
                 }
             }
+
             app.UseExceptionHandler("/Home/Error");
 
-            
-            
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

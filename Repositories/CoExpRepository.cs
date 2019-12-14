@@ -106,6 +106,7 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
+
         /// <summary>
         /// Method to obtain data from 'getAvailableNetworks' API method. This method makes a GET request.
         /// </summary>
@@ -117,9 +118,9 @@ namespace CoExp_Web.Repositories
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetAvailableNetworks?category=" + coexpdata.Category;
+                coexpURL = coexpURL + "GetAvailableNetworks?which.one=" + coexpdata.Category;
             else
-                coexpURL = coexpURL + "getAvailableNetworks?category=" + coexpdata.Category;
+                coexpURL = coexpURL + "getAvailableNetworks?which.one=" + coexpdata.Category;
 
             PostData = "{\"category\":\"" + coexpdata.Category + "\"}";
 
