@@ -29,7 +29,15 @@ namespace CoExp_Web.Adapters
                 string data = null;
                 request.Timeout = 1500000;
                 request.ContentType = "application/json; charset=utf-8";
-                
+                request.Headers["Access-Control-Allow-Origin"] = "*";
+                request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
+                request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
+                request.Headers["Access-Control-Allow-Credentials"] = "true";
+                request.Headers[HttpRequestHeader.Allow] = "*";
+                request.Headers[HttpRequestHeader.Authorization] = "*";
+  
+
+
                 //Make the request
                 var response = (HttpWebResponse)request.GetResponse();
                 //Read the response
@@ -62,6 +70,16 @@ namespace CoExp_Web.Adapters
                 request.Timeout = 1500000;
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=utf-8";
+
+
+                request.Headers["Access-Control-Allow-Origin"] = "*";
+                request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
+                request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
+                request.Headers["Access-Control-Allow-Credentials"] = "true";
+                request.Headers[HttpRequestHeader.Allow] = "*";
+                request.Headers[HttpRequestHeader.Authorization] = "*";
+
+
 
                 if (postData != null)
                 {

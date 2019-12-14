@@ -23,7 +23,6 @@ namespace CoExp_Web.Controllers
     /// </summary>
     
     [Route("[controller]")]
-    [EnableCors(PolicyName = "CoExpDockerSpecificOrigins")]
     [ApiController]
     public class APIController : ControllerBase
     {
@@ -50,7 +49,6 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
-        [EnableCors(PolicyName = "CoExpDockerSpecificOrigins")]
         [Route("GetNetworkCategories")]
         public string GetNetworkCategories()
         {

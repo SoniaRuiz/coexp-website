@@ -71,6 +71,7 @@ namespace CoExp_Web
             if (env.IsDevelopment()){
                 //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
+                app.UseHttpsRedirection();
             }
             else if(env.IsEnvironment("Docker"))
             {
@@ -80,15 +81,17 @@ namespace CoExp_Web
             {
                 if (env.IsProduction()){
                     app.UsePathBase("/coexp/");
+                    app.UseHttpsRedirection();
                 }
                 else if (env.IsEnvironment("Private")){
                     app.UsePathBase("/ATN_5843218Gt/");
+                    app.UseHttpsRedirection();
                 }
             }
             app.UseExceptionHandler("/Home/Error");
 
             
-            app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
