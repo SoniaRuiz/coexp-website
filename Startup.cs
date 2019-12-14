@@ -37,16 +37,16 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CoExpDockerSpecificOrigins",
-                builder =>
-                {
-                    builder.WithOrigins("http://localhost/")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CoExpDockerSpecificOrigins",
+            //    builder =>
+            //    {
+            //        builder.WithOrigins("http://localhost/")
+            //        .AllowAnyHeader()
+            //        .AllowAnyMethod();
+            //    });
+            //});
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -73,10 +73,10 @@ namespace CoExp_Web
                 app.UsePathBase("/coexp_test/");
                 app.UseHttpsRedirection();
             }
-            else if(env.IsEnvironment("Docker"))
-            {
-                app.UseCors("CoExpDockerSpecificOrigins");
-            }
+            //else if(env.IsEnvironment("Docker"))
+            //{
+            //    app.UseCors("CoExpDockerSpecificOrigins");
+            //}
             else
             {
                 if (env.IsProduction()){
