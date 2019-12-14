@@ -29,12 +29,12 @@ namespace CoExp_Web.Adapters
                 string data = null;
                 request.Timeout = 1500000;
                 request.ContentType = "application/json; charset=utf-8";
-                request.Headers["Access-Control-Allow-Origin"] = "*";
-                request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
-                request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
-                request.Headers["Access-Control-Allow-Credentials"] = "true";
-                request.Headers[HttpRequestHeader.Allow] = "*";
-                request.Headers[HttpRequestHeader.Authorization] = "*";
+                //request.Headers["Access-Control-Allow-Origin"] = "*";
+                //request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
+                //request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
+                //request.Headers["Access-Control-Allow-Credentials"] = "true";
+                //request.Headers[HttpRequestHeader.Allow] = "*";
+                //request.Headers[HttpRequestHeader.Authorization] = "*";
   
 
 
@@ -72,12 +72,12 @@ namespace CoExp_Web.Adapters
                 request.ContentType = "application/json; charset=utf-8";
 
 
-                request.Headers["Access-Control-Allow-Origin"] = "*";
-                request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
-                request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
-                request.Headers["Access-Control-Allow-Credentials"] = "true";
-                request.Headers[HttpRequestHeader.Allow] = "*";
-                request.Headers[HttpRequestHeader.Authorization] = "*";
+                //request.Headers["Access-Control-Allow-Origin"] = "*";
+                //request.Headers["Access-Control-Allow-Headers"] = "Content-Type";
+                //request.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
+                //request.Headers["Access-Control-Allow-Credentials"] = "true";
+                //request.Headers[HttpRequestHeader.Allow] = "*";
+                //request.Headers[HttpRequestHeader.Authorization] = "*";
 
 
 

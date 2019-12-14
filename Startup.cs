@@ -72,11 +72,10 @@ namespace CoExp_Web
                 //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
                 app.UseHttpsRedirection();
+            }else if(env.IsEnvironment("Docker"))
+            {
+                app.UsePathBase("/docker/");
             }
-            //else if(env.IsEnvironment("Docker"))
-            //{
-            //    app.UseCors("CoExpDockerSpecificOrigins");
-            //}
             else
             {
                 if (env.IsProduction()){
