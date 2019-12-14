@@ -23,7 +23,7 @@ namespace CoExp_Web
         {
             Configuration = configuration;
         }
-        readonly string CoExpDockerSpecificOrigins = "_CoExpDockerSpecificOrigins";
+
 
         public IConfiguration Configuration { get; }
 
@@ -39,10 +39,10 @@ namespace CoExp_Web
             });
             services.AddCors(options =>
             {
-                options.AddPolicy(CoExpDockerSpecificOrigins,
+                options.AddPolicy("CoExpDockerSpecificOrigins",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:8800");
+                    builder.WithOrigins("http://localhost");
                 });
             });
 
@@ -67,6 +67,10 @@ namespace CoExp_Web
                 //app.UseDeveloperExceptionPage();
                 app.UsePathBase("/coexp_test/");
             }
+            else if(env.IsEnvironment("Docker"))
+            {
+                app.UseCors("CoExpDockerSpecificOrigins");
+            }
             else
             {
                 if (env.IsProduction()){
@@ -78,7 +82,7 @@ namespace CoExp_Web
             }
             app.UseExceptionHandler("/Home/Error");
 
-            app.UseCors(CoExpDockerSpecificOrigins);
+            
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
