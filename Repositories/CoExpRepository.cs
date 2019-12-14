@@ -114,21 +114,17 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getAvailableNetworks' CoExp API method</returns>
         public string GetAvailableNetworks(CoexpParams coexpdata)
         {
-            //string response;
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetAvailableNetworks?which.one=" + coexpdata.Category;
+                coexpURL += "GetAvailableNetworks";
             else
-                coexpURL = coexpURL + "getAvailableNetworks?which.one=" + coexpdata.Category;
+                coexpURL += "getAvailableNetworks";
 
             PostData = "{\"category\":\"" + coexpdata.Category + "\"}";
 
             //Make the request
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
-
-            //Make the request
-            //response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return finalResponse;
@@ -136,13 +132,12 @@ namespace CoExp_Web.Repositories
 
         public string GetAvailableModules(CoexpParams coexpdata)
         {
-            //string response;
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetModulesFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL += "GetModulesFromTissue";
             else
-                coexpURL = coexpURL + "getModulesFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL += "getModulesFromTissue";
 
             PostData = "{\"tissue\":\"" + coexpdata.Network +
                 "\",\"which.one\":\"" + coexpdata.Category + "\"}";
@@ -150,8 +145,6 @@ namespace CoExp_Web.Repositories
             //Make the request
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
 
-            //Make the request
-            //response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return finalResponse;
@@ -159,13 +152,12 @@ namespace CoExp_Web.Repositories
 
         public string GetMM(CoexpParams coexpdata)
         {
-            //string response;
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetMM?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category + "&module=" + coexpdata.ModuleColor;
+                coexpURL += "GetMM";
             else
-                coexpURL = coexpURL + "getMM?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category + "&module=" + coexpdata.ModuleColor;
+                coexpURL += "getMM";
 
 
             PostData = "{\"tissue\":\"" + coexpdata.Network +
@@ -174,9 +166,6 @@ namespace CoExp_Web.Repositories
 
             //Make the request
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
-
-            //Make the request
-            //response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return finalResponse;
@@ -224,23 +213,18 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getCellTypeFromTissue' CoExp API method</returns>
         public string GetCellTypeFromTissue(CoexpParams coexpdata)
         {
-            //string response;
-
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetCellTypeFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
+                coexpURL += "GetCellTypeFromTissue";
             else
-                coexpURL = coexpURL + "getCellTypeFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL += "getCellTypeFromTissue";
 
             PostData = "{\"tissue\":\"" + coexpdata.Network +
                 "\",\"which.one\":\"" + coexpdata.Category + "\"}";
 
             //Make the request
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
-
-            //Make the request
-            //response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return finalResponse;
