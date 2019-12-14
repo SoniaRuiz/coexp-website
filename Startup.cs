@@ -42,14 +42,19 @@ namespace CoExp_Web
                 options.AddPolicy("CoExpDockerSpecificOrigins",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost");
+                    builder.WithOrigins("http://localhost/")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 });
             });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             //Add trailing slash to the end
             services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
+            
+            
             //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
 
@@ -84,9 +89,9 @@ namespace CoExp_Web
 
             
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
 
             app.UseMvc(routes =>
             {

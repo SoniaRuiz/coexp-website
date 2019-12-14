@@ -11,30 +11,10 @@
     "Default": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "Run/Catalog/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Docker"
       },
       "applicationUrl": "http://localhost/"
-      //},
-      //"Development": {
-      //  "commandName": "IISExpress",
-      //  "launchBrowser": true,
-      //  "launchUrl": "Run/Catalog/",
-      //  "environmentVariables": {
-      //    "ASPNETCORE_ENVIRONMENT": "Development"
-      //  },
-      //  "applicationUrl": "http://localhost:5004/"
-      //},
-      //"Private": {
-      //  "commandName": "IISExpress",
-      //  "launchBrowser": true,
-      //  "launchUrl": "Run/Catalog/",
-      //  "environmentVariables": {
-      //    "ASPNETCORE_ENVIRONMENT": "Private"
-      //  },
-      //  "applicationUrl": "http://localhost:5005"
-      //}
     }
   }
 }
