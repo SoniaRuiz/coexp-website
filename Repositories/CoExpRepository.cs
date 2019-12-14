@@ -200,23 +200,18 @@ namespace CoExp_Web.Repositories
         /// <returns>Response received from 'getGOFromTissue' CoExp API method</returns>
         public string GetGOFromTissue(CoexpParams coexpdata)
         {
-            //string response;
-
             //Set the URL with parameters. This URL will allow us to establish a communication with
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
-                coexpURL = coexpURL + "GetGOFromTissue?tissue=" + coexpdata.Network + "&category=" + coexpdata.Category;
+                coexpURL += "GetGOFromTissue";
             else
-                coexpURL = coexpURL + "getGOFromTissue?tissue=" + coexpdata.Network + "&which.one=" + coexpdata.Category;
+                coexpURL += "getGOFromTissue";
 
             PostData = "{\"tissue\":\"" + coexpdata.Network +
                 "\",\"which.one\":\"" + coexpdata.Category + "\"}";
 
             //Make the request
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
-
-            //Make the request
-            //response = _adapter.GETHttpRequestJSON(coexpURL);
 
             //Return the response
             return finalResponse;
