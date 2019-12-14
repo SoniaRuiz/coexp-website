@@ -284,7 +284,7 @@ API.prototype.getNetworkCategories = function (category) {
     else
         //Make a request to CoExp-R-software's API
         $.ajax({
-            url: '/' + environment + '/API/GetNetworkCategories',
+            url: "http://rcoexp:8800/getNetworkCategories",//'/' + environment + '/API/GetNetworkCategories',
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
