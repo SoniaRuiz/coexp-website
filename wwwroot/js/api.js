@@ -1874,8 +1874,8 @@ API.prototype.checkGenesFound = function (data) {
 
     //Obtain all genes introduced by the user
     var all_genes_introduced = $("#genes").val()
-    if (all_genes_introduced.indexOf(" ,") > -1) {
-        all_genes_introduced = all_genes_introduced.split(" ,")
+    if (all_genes_introduced.indexOf(", ") > -1) {
+        all_genes_introduced = all_genes_introduced.split(", ")
     }
     else if (all_genes_introduced.indexOf(",") > -1) {
         all_genes_introduced = all_genes_introduced.split(",")
