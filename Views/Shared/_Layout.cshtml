@@ -145,7 +145,7 @@
     </div>
 
     <div id="footer">
-        <environment include="Production,Development,Private">
+        <environment include="Development,Private">
             <span class="glyphicon glyphicon-comment"></span>
             <a href="" data-toggle="modal" data-target="#modalContactForm">Feedback</a>
             <span class="pipe-footer">|</span>
@@ -153,7 +153,7 @@
         <a asp-area="" asp-controller="Run" asp-action="Terms">Terms & Conditions</a>
         <span class="pipe-footer">|</span>
         <a asp-area="" asp-controller="Run" asp-action="Privacy">Privacy</a>
-        <small>&copy; 2018 - 2019 - CoExp_Web. All rights reserved.</small>
+        <small>&copy; 2018 - 2020 - CoExp_Web. All rights reserved.</small>
     </div>
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -266,13 +266,6 @@
         <script type="text/javascript" src="~/js/intro.min.js"></script>
     </environment>
 
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
     @RenderSection("Scripts", required: false)
-
-
 </body>
 </html>

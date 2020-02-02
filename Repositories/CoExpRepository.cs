@@ -136,7 +136,7 @@ namespace CoExp_Web.Repositories
             //CoExp R application API (published using Plumber R package)
             if (coexpURL == ProductionEnv)
             {
-                coexpURL += "GetModulesFromTissue";
+                coexpURL += "GetAvailableModules";
                 PostData = "{\"network\":\"" + coexpdata.Network +
                 "\",\"category\":\"" + coexpdata.Category + "\"}";
             }
