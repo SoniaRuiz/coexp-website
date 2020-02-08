@@ -24,6 +24,17 @@ CoExp Webpage is fully working and can be reached following [this link](https://
 * [Plumber](https://www.rplumber.io/) - The R package used to create an API to expose CoExp R methods.
 * [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-3.0) - Web server natively used by .NET Core web applications.
 
+## Toolkits and Plug-ins used
+
+* [Bootstrap](https://getbootstrap.com/) - To make the webpage responsible.
+* [DataTables](https://datatables.net/) - To display the data in a datatable format.
+* [SheetJS](https://sheetjs.com/) - To export data in a *xlsx* format.
+* [Underscore](https://underscorejs.org/) - To enhance the JavaScript functionality of the webpage.
+* [Intro.js](https://introjs.com/) - To generate the initial tour through the different options of the webpage.
+* [D3](https://d3js.org/) - To generate the plot.
+* [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
+* [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
+
 
 ## Authors
 
