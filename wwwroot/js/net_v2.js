@@ -14,7 +14,7 @@ APIPlot.prototype.highlight_color = $('#module_dropdown').find(":selected").val(
 APIPlot.prototype.default_node_color = "#ccc";
 APIPlot.prototype.default_link_color = "#7C7C7C";
 APIPlot.prototype.linkedByIndex = {};
-APIPlot.prototype.highlight_trans = 0.1;
+APIPlot.prototype.highlight_trans = 0.2;
 APIPlot.prototype.number_of_genes = 0;
 APIPlot.prototype.number_of_NAN = 1;
 APIPlot.prototype.links_value_treshold = 0;
@@ -41,9 +41,9 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     var min_score = 0;
     var max_score = 1;
 
-    var nominal_base_node_size = 10;//6
-    var max_base_node_size = 20;//8
-    var nominal_text_size = 10;//6
+    var nominal_base_node_size = 6;//6
+    var max_base_node_size = 8;//8
+    var nominal_text_size = 6;//6
     var max_text_size = 18;//10
     var nominal_stroke = 1;//1
     var max_stroke = 4.5;
@@ -136,6 +136,9 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         .style("stroke-width", function (d) {
             return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
         })
+        .style("opacity", function (o) {
+            return APIPlot.prototype.highlight_trans;
+        })
         .style("stroke", APIPlot.prototype.default_link_color);
 
     var node = layer2.selectAll(".node")
@@ -157,7 +160,10 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     var circle = node.append("path")
         .attr("d", d3.svg.symbol()
             .size(function (d) {
+                console.log("hi: ", d.score, " -", min_node_value, " - ", max_node_value," - ", multi_node)
+                console.log(d.score - min_node_value, " - ",(max_node_value - min_node_value) + 1)
                 return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+                //return (d.score)
             })
             .type(function (d) {
                 return d.type;
@@ -307,6 +313,9 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
                 .attr("class", "link")
                 .style("stroke-width", function (d) {
                     return ((d.value - min_link_value) / (max_link_value - min_link_value) + 0.2) / 2;
+                })
+                .style("opacity", function (o) {
+                    return APIPlot.prototype.highlight_trans;
                 })
                 .style("stroke", APIPlot.prototype.default_link_color);
 
@@ -487,7 +496,12 @@ APIPlot.prototype.setHighlight = function (d, color, focus_node, circle, towhite
                 o.target.index == d.index ?
                 APIPlot.prototype.highlight_color : ((APIPlot.prototype.isNumber(o.score) && o.score >= 0) ? color(o.score) : APIPlot.prototype.default_link_color);
 
-        });
+        })
+            .style("opacity", function (o) {
+                return  o.source.index == d.index ||
+                    o.target.index == d.index ?
+                    1 : APIPlot.prototype.highlight_trans;
+            });
     }
 
     /********************* ADD CARD DATA *************************/
@@ -531,6 +545,9 @@ APIPlot.prototype.exitHighlight = function (color, focus_node, circle, towhite, 
             text.style("font-weight", "normal");
             link.style("stroke", function (o) {
                 return (APIPlot.prototype.isNumber(o.score) && o.score >= 0) ? color(o.score) : APIPlot.prototype.default_link_color
+            });
+            link.style("opacity", function (o) {
+                return APIPlot.prototype.highlight_trans;
             });
         }
 

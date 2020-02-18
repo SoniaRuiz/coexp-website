@@ -644,6 +644,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         /*
          * 'Plot' tab
          * */
+        $('#send_button').prop("disabled", true);
         $('#empty-initial-results').hide();
         API.prototype.generateGraph();
         $('#plot_area').show();
@@ -1619,6 +1620,7 @@ API.prototype.generateGraph = function () {
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
+                    $('#send_button').prop("disabled", false);
                 }
                 //else if (data.indexOf("Please") >= 0) {
                 //    /*$("#error").children("p").remove();
@@ -1637,11 +1639,13 @@ API.prototype.generateGraph = function () {
                     //$("#threshold_network").prop('disabled', false);
                     $("#hide_nodes").prop('disabled', false);
                     $("body").removeClass("loading");
+                    $('#send_button').prop("disabled", false);
                 }
             },
             error: function (data) {
                 //If an error occurs:
                 console.log(data);
+                $('#send_button').prop("disabled", false);
             }
         });
     }
