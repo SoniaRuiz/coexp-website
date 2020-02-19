@@ -1639,7 +1639,7 @@ API.prototype.generateGraph = function () {
                     //$("#threshold_network").prop('disabled', false);
                     $("#hide_nodes").prop('disabled', false);
                     $("body").removeClass("loading");
-                    $('#send_button').prop("disabled", false);
+                    
                 }
             },
             error: function (data) {

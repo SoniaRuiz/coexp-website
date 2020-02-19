@@ -14,7 +14,7 @@ APIPlot.prototype.highlight_color = $('#module_dropdown').find(":selected").val(
 APIPlot.prototype.default_node_color = "#ccc";
 APIPlot.prototype.default_link_color = "#7C7C7C";
 APIPlot.prototype.linkedByIndex = {};
-APIPlot.prototype.highlight_trans = 0.2;
+APIPlot.prototype.highlight_trans = 0.3;
 APIPlot.prototype.number_of_genes = 0;
 APIPlot.prototype.number_of_NAN = 1;
 APIPlot.prototype.links_value_treshold = 0;
@@ -89,11 +89,11 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     });
     //max node value
     var max_node_value = d3.max(data_network.nodes, function (d) {
-        return d.score;
+        return d.score*2;
     });
     //min node value
     var min_node_value = d3.min(data_network.nodes, function (d) {
-        return d.score;
+        return d.score/2;
     });
 
     //var min_threshold_value_temp = APIPlot.prototype.min_threshold_value - parseFloat((APIPlot.prototype.min_threshold_value.toString().substring(0, APIPlot.prototype.min_threshold_value.toString().length - 5)));
@@ -160,8 +160,8 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     var circle = node.append("path")
         .attr("d", d3.svg.symbol()
             .size(function (d) {
-                console.log("hi: ", d.score, " -", min_node_value, " - ", max_node_value," - ", multi_node)
-                console.log(d.score - min_node_value, " - ",(max_node_value - min_node_value) + 1)
+                //console.log("hi: ", d.score, " -", min_node_value, " - ", max_node_value," - ", multi_node)
+                //console.log(d.score - min_node_value, " - ",(max_node_value - min_node_value) + 1)
                 return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
                 //return (d.score)
             })
@@ -456,7 +456,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         //.select("g").attr("transform", "translate(" + w / 2 + "," + h / 2 + ")scale(2)");
 
     APIPlot.prototype.force.size([APIPlot.prototype.force.size()[0] / zoom.scale(), APIPlot.prototype.force.size()[1] / zoom.scale()]).resume();
-        
+    $('#send_button').prop("disabled", false);     
 
 }
 
