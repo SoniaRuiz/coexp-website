@@ -8,8 +8,8 @@ let APIPlot = function () {
 };
 
 APIPlot.prototype.svg;
-APIPlot.prototype.min_threshold_value = 10;
-APIPlot.prototype.max_threshold_value = -1;
+//APIPlot.prototype.min_threshold_value = 10;
+//APIPlot.prototype.max_threshold_value = -1;
 APIPlot.prototype.highlight_color = $('#module_dropdown').find(":selected").val();
 APIPlot.prototype.default_node_color = "#ccc";
 APIPlot.prototype.default_link_color = "#7C7C7C";
@@ -17,7 +17,7 @@ APIPlot.prototype.linkedByIndex = {};
 APIPlot.prototype.highlight_trans = 0.3;
 APIPlot.prototype.number_of_genes = 0;
 APIPlot.prototype.number_of_NAN = 1;
-APIPlot.prototype.links_value_treshold = 0;
+//APIPlot.prototype.links_value_treshold = 0;
 APIPlot.prototype.nodes = '{"nodes" : [';
 APIPlot.prototype.data_network_raw = "";
 APIPlot.prototype.force = d3.layout.force()
@@ -26,8 +26,8 @@ APIPlot.prototype.force = d3.layout.force()
 APIPlot.prototype.netPlot = function(data_network_temp) {
 
     APIPlot.prototype.data_network_raw = data_network_temp;
-
-    var multi_node = 20;
+    $('body').addClass("loading");
+    //var multi_node = 20;
     var focus_node = null,
         highlight_node = null,
         value_distance = null;
@@ -36,7 +36,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         node_isalone = false;
 
     var text_center = false;
-    var outline = false;
+    //var outline = false;
 
     var min_score = 0;
     var max_score = 1;
@@ -89,11 +89,11 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     });
     //max node value
     var max_node_value = d3.max(data_network.nodes, function (d) {
-        return d.score*2;
+        return d.score;
     });
     //min node value
     var min_node_value = d3.min(data_network.nodes, function (d) {
-        return d.score/2;
+        return d.score;
     });
 
     //var min_threshold_value_temp = APIPlot.prototype.min_threshold_value - parseFloat((APIPlot.prototype.min_threshold_value.toString().substring(0, APIPlot.prototype.min_threshold_value.toString().length - 5)));
@@ -104,10 +104,6 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     data_network.links.forEach(function (d) {
         APIPlot.prototype.linkedByIndex[d.source + "," + d.target] = true;
     });
-
-    
-
-
 
     APIPlot.prototype.force = APIPlot.prototype.force
         .charge(-250)
@@ -122,12 +118,14 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             return value_distance;
             //return (1 / d.value) * 10;
         })
-        .size([$("#network_plot").innerWidth(), $("#network_plot").innerHeight()]);
-
-    APIPlot.prototype.force
+        .size([$("#network_plot").innerWidth(), $("#network_plot").innerHeight()])
         .nodes(data_network.nodes)
         .links(data_network.links)
         .start();
+
+
+
+   
 
     var link = layer1.selectAll(".link")
         .data(data_network.links)
@@ -152,25 +150,28 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         .call(APIPlot.prototype.force.drag);
 
     
-    if (outline) {
-        tocolor = "stroke"
-        towhite = "fill"
-    }
+    //if (outline) {
+    //    tocolor = "stroke"
+    //    towhite = "fill"
+    //}
 
     var circle = node.append("path")
         .attr("d", d3.svg.symbol()
             .size(function (d) {
-                //console.log("hi: ", d.score, " -", min_node_value, " - ", max_node_value," - ", multi_node)
+               //console.log("hi: ", d.score * d.score, " -", min_node_value, " - ", max_node_value," - ", multi_node)
                 //console.log(d.score - min_node_value, " - ",(max_node_value - min_node_value) + 1)
-                return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+
+                // Only get the decimal part of the current gene score.
+                return (((d.score - min_node_value) / (max_node_value) + 1) * d.importance);//(((d.score - min_node_value) / (max_node_value) + 1) * multi_node);
                 //return (d.score)
             })
             .type(function (d) {
                 return d.type;
             }))
+       
         .style(tocolor, function (d) {
             if (APIPlot.prototype.isNumber(d.score) && d.score >= 0)
-                return d.module;
+                return d.score;
             else
                 return APIPlot.prototype.default_node_color;
         })
@@ -227,14 +228,14 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
 
 
     /**** Set the values (default, min and max numbers) for the threshold ****/
-    var min_treshold_value_temp = min_link_value - parseFloat((min_link_value.toString().substring(0, min_link_value.toString().length - 5)));
-    var max_treshold_value_temp = max_link_value - parseFloat((max_link_value.toString().substring(0, max_link_value.toString().length - 5)));
+    var min_threshold_value_temp = min_link_value - parseFloat((min_link_value.toString().substring(0, min_link_value.toString().length - 5)));
+    var max_threshold_value_temp = max_link_value - parseFloat((max_link_value.toString().substring(0, max_link_value.toString().length - 5)));
 
-    $('#slider-range-treshold').attr("min", (min_link_value - min_treshold_value_temp));
-    //$('#slider-range-treshold').attr("value", (min_link_value - min_treshold_value_temp));
-    $('#slider-range-treshold').val((min_link_value - min_treshold_value_temp));
-    $('#slider-range-treshold').attr("max", (max_link_value - max_treshold_value_temp));
-    $('#slider-range-treshold').attr("step", parseFloat(((max_link_value - max_treshold_value_temp) - (min_link_value - min_treshold_value_temp)) / 10));
+    $('#slider-range-treshold').attr("min", (min_link_value - min_threshold_value_temp));
+    //$('#slider-range-treshold').attr("value", (min_link_value - min_threshold_value_temp));
+    $('#slider-range-treshold').val((min_link_value - min_threshold_value_temp));
+    $('#slider-range-treshold').attr("max", (max_link_value - max_threshold_value_temp));
+    $('#slider-range-treshold').attr("step", parseFloat(((max_link_value - max_threshold_value_temp) - (min_link_value - min_threshold_value_temp)) / 10));
     $("#threshold_network").val($("#slider-range-treshold").val());
 
     /**** This function is executed when the 'Hide isolated genes' checkbox changes ****/
@@ -283,7 +284,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
                     has_value = true;
                 }
                 
-                console.log(APIPlot.prototype.number_of_genes +" " + i + " " + j)
+                //console.log(APIPlot.prototype.number_of_genes +" " + i + " " + j)
                 if (APIPlot.prototype.data_network_raw[i][j] == 1) {
                     start_storing = true;
                 }
@@ -322,7 +323,6 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             link.exit().remove();
 
             APIPlot.prototype.force.on("tick", function () {
-
                 node.attr("transform", function (d) {
                     return "translate(" + d.x + "," + d.y + ")";
                 });
@@ -385,6 +385,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         e.preventDefault();
     });
 
+
     APIPlot.prototype.force.on("tick", function () {
         node.attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
@@ -412,7 +413,8 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             });
     });
 
-    
+
+
 
     var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
         .on("zoom", function () {
@@ -429,7 +431,8 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
 
             circle.attr("d", d3.svg.symbol()
                 .size(function (d) {
-                    return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+                    //return (((d.score - min_node_value) / (max_node_value - min_node_value) + 1) * multi_node);
+                    return (((d.score - min_node_value) / (max_node_value) + 1) * d.importance);
                 })
                 .type(function (d) {
                     return d.type;
@@ -570,51 +573,77 @@ APIPlot.prototype.setFocus = function (d, circle, text, link) {
     }
 }
 
-
 APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
 
-    
+    // Get the total number of genes depending on the UI range-selection 
     APIPlot.prototype.number_of_genes = parseInt($('#text-box_genes-range').val());
     if (parseInt($("#genes-range").val()) <= data_network_raw.length)
         APIPlot.prototype.number_of_genes = parseInt($("#genes-range").val());
     else
         APIPlot.prototype.number_of_genes = data_network_raw.length;
 
-    //set the size
+    //Set the size that every gene must have depending on the scores derived from the matrix
     var size_of_genes = [];
     var acum_value = 0;
     for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
         for (var j = APIPlot.prototype.number_of_NAN; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
-            acum_value += parseFloat(data_network_raw[i][j]);
+            //To avoid adding the number 1 corresponding with the 1s in the diagonal of the matrix
+            if (i != j) {
+                acum_value += parseFloat(data_network_raw[i][j]);
+                //console.log(JSON.stringify(data_network_raw[i]))
+            }
         }
         size_of_genes.push(acum_value);
         acum_value = 0;
     }
-
+    
     APIPlot.prototype.nodes = '{"nodes" : [';
-    // number_of_genes - 1 : to set the last one without comma
+    // number_of_genes - 1 : to get off the loop before setting the last element with a comma
     for (var i = 0; i < APIPlot.prototype.number_of_genes - 1; i++) {
-        APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[i][0] + '", "id_node" : "node_' + i + '", "score" : ' + (size_of_genes[i] + 5) + ', "module": "' + data_network_raw[i][2] + '", "type": "circle"},';
+        APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[i][0]
+            + '", "id_node" : "node_' + i
+            + '", "score" : ' + size_of_genes[i]
+            + ', "importance" : ' + ((APIPlot.prototype.number_of_genes+5) -i)
+            + '},';
+            //+ ', "module": "' + data_network_raw[i][2] + '"},';
     }
-    APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][0] + '", "id_node" : "node_' + (APIPlot.prototype.number_of_genes - 1)
+    // And now, we set the last element (it must contain a '}],' at the end)
+    APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][0]
+        + '", "id_node" : "node_' + (APIPlot.prototype.number_of_genes - 1)
         + '", "score" : ' + size_of_genes[APIPlot.prototype.number_of_genes - 1]
-        + ', "module": "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][2] + '", "type": "circle"}],';
+        + ', "importance" : 5' 
+        //+ ', "module": "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][2] + '"}],';
+        + '}],';
+        
 
+
+    //Creating the links between genes ---> Setting the strength of the connection between genes
     var start_storing;
     var links = '"links" : [';
+    //var set_min_max_threshold = true;
     for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
         start_storing = false;
         for (var j = 0; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
             if (start_storing) {
+                //if (set_min_max_threshold) {
+                //    APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+                //    APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
+                //    set_min_max_threshold = false;
+                //} else {
+                //    if (data_network_raw[i][j] < APIPlot.prototype.min_threshold_value) {
+                //        APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+                //    }
+                //    if (data_network_raw[i][j] > APIPlot.prototype.max_threshold_value) {
+                //        APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
+                //    }
+                //}
+                   
 
-                if (data_network_raw[i][j] < APIPlot.prototype.min_threshold_value)
-                    APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+                //if (data_network_raw[i][j] > APIPlot.prototype.links_value_treshold)
+                links += '{"source":' + i
+                    + ',"target":' + (j - APIPlot.prototype.number_of_NAN)
+                    + ',"value":' + data_network_raw[i][j] + '},';
 
-                if (data_network_raw[i][j] > APIPlot.prototype.max_threshold_value)
-                    APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
-
-                if (data_network_raw[i][j] > APIPlot.prototype.links_value_treshold)
-                    links += '{"source":' + i + ',"target":' + (j - APIPlot.prototype.number_of_NAN) + ',"value":' + data_network_raw[i][j] + '},';
             }
             if (data_network_raw[i][j] == 1) {
                 start_storing = true;
@@ -624,6 +653,8 @@ APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
     links = links.substring(0, links.length - 1);
     links += ']}';
 
+    //console.log("Min: ", APIPlot.prototype.min_threshold_value)
+    //console.log("Max: ", APIPlot.prototype.max_threshold_value)
     return APIPlot.prototype.nodes + links;
 
 }

@@ -645,12 +645,15 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
          * 'Plot' tab
          * */
         $('#send_button').prop("disabled", true);
+
         $('#empty-initial-results').hide();
+
         API.prototype.generateGraph();
         $('#plot_area').show();
-        $("body").removeClass("loading");
+        //$("body").removeClass("loading");
         $('#save_plot').prop("disabled", false);
         $('#save_data').prop("disabled", false);
+
     }
 }
 
@@ -1634,6 +1637,7 @@ API.prototype.generateGraph = function () {
                     //Update global variable with the JSON data. Necessary to download the xlsx file.
                     data = JSON.parse(data);
                     console.log(data);
+                    
                     APIPlot.prototype.netPlot(data);
                     $("#slider-range-treshold").prop('disabled', false);
                     //$("#threshold_network").prop('disabled', false);
