@@ -14,7 +14,7 @@ Over the last few decades, the Internet has experienced a huge growth, [reaching
 
 ## Getting Started
 
-CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/Run/Catalog/).
+CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/Run/Catalogue/).
 
 ## Built With
 

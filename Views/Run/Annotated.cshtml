@@ -8,19 +8,19 @@
 @Html.HiddenFor(m => m.ModuleColor)
 @Html.HiddenFor(m => m.Genes)
 
-    <div class="breadcrumb">
-        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-        {
-            <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="active">Gene Set Annotation</span>
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="active">Gene Set Annotation</span>
 
-        }
-        @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+    }
+    @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
             @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
         }*@
-    </div>
+</div>
 <div class="row">
     <div class="col-sm-3 sidebar menu">
         <h4>Please, make your selection:</h4>
@@ -45,11 +45,11 @@
 
 
     <div id="step4" class="col-md-9">
-     
+
         <div id="empty-initial-results">
             <p>Your results will appear here.</p>
         </div>
-    
+
         <div id="genes_not_found" class="modal fade" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -60,7 +60,7 @@
                         <h3>Your Gene List</h3>
                         <hr />
                         <div class="text-left">
-                            <h4></h4><hr/>
+                            <h4></h4><hr />
                             <h4></h4>
                             <p>
                                 The following genes have not been found within the networks selected.<br />
@@ -180,16 +180,17 @@
     </div>
     <div class="loading_layer"><!-- loading layer --></div>
 
-</div><br>
+</div>
+<br>
 @section HeadStyles{
     <link type="text/css" rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/buttons.dataTables.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
     <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
-    
 
-        <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.css" />
-        <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
+
+    <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
 
 }
 @section Scripts{
@@ -201,7 +202,13 @@
     <!-- DataTable scripts-->
     <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript" src="~/js/api.js"></script>
+
+    <environment include="Development,Docker,Private">
+        <script type="text/javascript" src="~/js/api.js"></script>
+    </environment>
+    <environment include="Production">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+    </environment>
 
 
     <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
@@ -221,39 +228,39 @@
             API.prototype.menuInit(3);
             $.fn.dataTable.ext.errMode = 'none';
             $("#empty-initial-results").css("visibility", "visible");
-            
+
         });
 
-        function startIntro(){
+        function startIntro() {
             var intro = introJs();
-              intro.setOptions({
+            intro.setOptions({
                 steps: [
-                  {
-                    element: '#step1',
+                    {
+                        element: '#step1',
                         intro: "<div class='customHelpHeader'>Category</div><p>Select here your preferred type of co-expression networks.</p>",
                         position: 'right',
-                
-                    tooltipClass: 'customStep1'
-                  },
-                  {
-                    element: '#step2',
-                    intro: "<b>Genes</b><br/><br/>Type your list of genes.",
-                    position: 'right'
-                  },
-                  {
-                    element: '#step3',
-                    intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
-                    position: 'right'
-                  },
-                  {
-                    element: '#step4',
-                    intro: "<b>Results</b><br/><br/>This is the results area. Here will appear all your results.",
-                    position: 'right'
-                  }
-                ]
-              });
 
-            
+                        tooltipClass: 'customStep1'
+                    },
+                    {
+                        element: '#step2',
+                        intro: "<b>Genes</b><br/><br/>Type your list of genes.",
+                        position: 'right'
+                    },
+                    {
+                        element: '#step3',
+                        intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
+                        position: 'right'
+                    },
+                    {
+                        element: '#step4',
+                        intro: "<b>Results</b><br/><br/>This is the results area. Here will appear all your results.",
+                        position: 'right'
+                    }
+                ]
+            });
+
+
 
             var doneTourAnnotated = sessionStorage.getItem('EventTourAnnotated') === 'Completed';
             if (doneTourAnnotated) {
@@ -271,6 +278,6 @@
                 });
             }
 
-          }
+        }
     </script>
 }

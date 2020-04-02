@@ -18,12 +18,12 @@
         }
         @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
         {
-            <span class="active">Network Catalog</span>
+            <span class="active">Network Catalogue</span>
             @*@if (Model.ModuleColor != null)
             {
-                <span class="active">Network Catalog</span>
+                <span class="active">Network Catalogue</span>
             }else {
-                @Html.ActionLink("Network Catalog", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+                @Html.ActionLink("Network Catalogue", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
             }*@
         }
     </div>
@@ -41,7 +41,14 @@
             @*<p><a id="SNCA" href='#' data-trigger="focus" data-html='true' data-placement="bottom" title='SNCA' data-content=''>SNCA</a></p>
         <p><a id="0016054" href='#' data-trigger="hover" data-html='true' data-placement="bottom" title='GO:0016054' data-content=''>GO:0016054</a></p>*@
             <div id="step1">
-                <label for="category_dropdown">Category</label><br />
+                <label for="category_dropdown">Category</label>
+                <i class="glyphicon glyphicon-info-sign"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
+                   style="vertical-align: middle;"></i>
+                <br />
                 <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
                     <option></option>
                 </select>
@@ -49,7 +56,13 @@
             <br>
 
             <div id="step2">
-                <label for="network_dropdown">Network</label><br />
+                <label for="network_dropdown">Network</label>
+                <i class="glyphicon glyphicon-info-sign"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>NETWORK</p><hr/><p>Contains all co-expression networks that belong to the category selected in the 'Category' dropdown menu.</p><br/>"
+                   style="vertical-align: middle;"></i><br />
                 <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ...">
                     <option></option>
                 </select>
@@ -57,10 +70,16 @@
             <br>
 
             <div id="step3">
-                <label for="module_selection">Module selection</label><br />
+                <label for="module_selection">Show results by ...</label>
+                <i class="glyphicon glyphicon-info-sign"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>SHOW RESULTS BY ...</p><hr/><p>These are the different types of results that can be retrieved in this query. You can select only one or both views.</p><br/>"
+                   style="vertical-align: middle;"></i><br />
                 <select id="module_selection" class="selectpicker" multiple title="Select an option ...">
-                    <option value="1">By ontology/color</option>
-                    <option value="2">By cell type</option>
+                    <option value="1">Ontology</option>
+                    <option value="2">Cell Type</option>
                 </select>
             </div>
 
@@ -78,25 +97,32 @@
         </div>
         <!-- Nav tabs -->
         <ul id="tabs" class="nav nav-tabs" style="display:none">
-            <li class="active"><a href="#tab1" data-toggle="tab">By Ontology</a></li>
-            <li><a href="#tab2" data-toggle="tab">By Cell Type</a></li>
+            <li class="active"><a href="#tab1" data-toggle="tab">Ontology view</a></li>
+            <li><a href="#tab2" data-toggle="tab">Cell Type view</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
+
             <div class="tab-pane fade in active" id="tab1">
                 <div id="goFromTissue_div" style="display:none">
+                    <h2>Ontology view</h2>
+                    <p>
+                        The data table below displays in the rows all modules that belong to the co-expression network selected. On the other hand, the columns provide information related to the ontology term that more strongly correlates with the genes clustered within each module.
+                        The p-value column supports the overlap between the ontology term returned and the genes clustered in the current module. 
+                        The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
+                    </p>
                     <br>
                     <table id="goFromTissue_table" class="table table-striped table-bordered wrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>module</th>
-                                <th>p.value</th>
-                                <th>module.size</th>
+                                <th>Module</th>
+                                <th>p-value</th>
+                                <th>Module Size</th>
                                 <th>term.id</th>
-                                <th>ontology</th>
-                                <th>term.name</th>
+                                <th>Ontology</th>
+                                <th>Term Name</th>
                                 <th>genes.in.both</th>
                             </tr>
                         </thead>
@@ -111,6 +137,12 @@
             </div>
             <div class="tab-pane fade" id="tab2">
                 <div id="cellType_div" style="display:none;">
+                    <h2>Cell Type view</h2>
+                    <p>
+                        The data table below displays in the columns all modules that belong to the co-expression network selected. On the other hand, the rows contain the different cell types.
+                        The intersection between each row and column contains a p-value, corrected by the Bonferroni method, that supports the linkage between each cell type and all genes found in the corresponding module.
+                        The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
+                    </p>
                     <br>
                     <table id="cellType_table" class="table table-striped table-bordered nowrap" style="width:100%">
                         <tbody><tr><td></td></tr></tbody>
@@ -144,19 +176,20 @@
     <script type="text/javascript">
             // Turn active current menu's option
             $(".nav-item").find(".active").removeClass("active");
-            $("#tab_network_catalog").addClass("active");
+            $("#tab_network_catalogue").addClass("active");
     </script>
 
     <script type="text/javascript" src="~/js/underscore-min.js"></script>
     <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
     <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
-    @*<environment include="Development,Docker">*@
+
+    <environment include="Development,Docker,Private">
         <script type="text/javascript" src="~/js/api.js"></script>
-    @*</environment>
-    <environment include="Production,Private">
+    </environment>
+    <environment include="Production">
         <script type="text/javascript" src="~/js/api.min.js"></script>
-    </environment>*@
+    </environment>
 
     <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
@@ -171,6 +204,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip()
 
             $("[data-placement='bottom']").popover();
 
@@ -198,47 +232,47 @@
             steps: [
               {
                 element: '#step1',
-                    intro: "<div class='customHelpHeader'>Category</div><p>Select here your preferred type of co-expression networks.</p>",
+                    intro: "<div class='customHelpHeader'>Category</div><p>Please, select here your preferred category of co-expression networks.</p>",
                     position: 'right',
                 
                 tooltipClass: 'customStep1'
               },
               {
                 element: '#step2',
-                intro: "<b>Network</b><br/><br/>Select here your preferred co-expression network.",
+                intro: "<b>Network</b><br/><br/>These are all co-expression networks that belong to the category selected in the previous step.",
                 position: 'right'
               },
               {
                 element: '#step3',
-                intro: "<b>Module</b><br/><br/>Select how you would like to visualize the results.",
+                intro: "<b>Show results by...</b><br/><br/>These are the different types of results that can be retrieved in this query. You can select only one or both options.",
                 position: 'right'
               },
               {
                 element: '#step4',
-                intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
+                intro: "<b>Accept</b><br/><br/>Once you are ready, press this button to send your query.",
                 position: 'right'
               },
               {
                 element: '#step5',
-                intro: "<b>Results</b><br/><br/>This is the results area. Here will appear all your results.",
+                intro: "<b>Results</b><br/><br/>This is the results area. Your results will appear here.",
                 position: 'bottom'
               }
             ]
           });
 
-        var doneTourCatalog = sessionStorage.getItem('EventTourCatalog') === 'Completed';
-        if (doneTourCatalog) {
+        var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
+        if (doneTourCatalogue) {
             return;
         }
         else {
             intro.start();
 
             intro.oncomplete(function () {
-                sessionStorage.setItem('EventTourCatalog', 'Completed');
+                sessionStorage.setItem('EventTourCatalogue', 'Completed');
             });
 
             intro.onexit(function () {
-                sessionStorage.setItem('EventTourCatalog', 'Completed');
+                sessionStorage.setItem('EventTourCatalogue', 'Completed');
             });
         }
    

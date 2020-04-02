@@ -22,7 +22,7 @@ API.prototype.menuInit = function (view) {
     
     if (view == 1) { 
         /*
-         * This is the view for 'Network Catalog' tab
+         * This is the view for 'Network Catalogue' tab
          * */
         $('#menu').show();
         $('#empty-initial-results').css("visibility","visible");
@@ -52,7 +52,7 @@ API.prototype.menuInit = function (view) {
     else if (view == 11) {
 
         /*
-         * This is the view for 'Network Catalog' tab when coming from 'Gene Set Annotation' view.
+         * This is the view for 'Network Catalogue' tab when coming from 'Gene Set Annotation' view.
          * */
         $("body").addClass("loading");
 
@@ -96,7 +96,7 @@ API.prototype.menuInit = function (view) {
     }
     else if (view == 2 || view == 3) {
         /*
-         * This is the view for 'Network Catalog' tab
+         * This is the view for 'Network Catalogue' tab
          * */
 
         //Fill the tree-menu
@@ -481,7 +481,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     if (view == 1 || view == 11) {
 
         /*
-         * 'Network Catalog' tab
+         * 'Network Catalogue' tab
          * */
 
         //hide previous errors/results
@@ -659,7 +659,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
 
 /**
  * Function to make a request to 'getGOFromTissue' CoExp R method.
- * The user is on 'network catalog' tab.
+ * The user is on 'network catalogue' tab.
  * @param {string} category Category selected by the user.
  * @param {string} tissue Category's network selected by the user.
  * @param {string} moduleColor Module color selected by the user. (in case of requesting from 'Get Set Annotation' tab).
@@ -759,7 +759,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
 
 /**
  * Function to make a request to 'getCellTypeFromTissue' CoExp R method.
- * The user is in the 'network catalog' tab.
+ * The user is in the 'network catalogue' tab.
  * @param {string} category Category selected by the user.
  * @param {string} tissue Category's network selected by the user.
  * @param {string} moduleColor Module color selected by the user. (in case of requesting from 'Get Set Annotation' tab).
@@ -1333,7 +1333,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
 }
 
 /**
- * Function to show the 'Network Catalog' view from the 'Gene set annotation' tab.
+ * Function to show the 'Network Catalogue' view from the 'Gene set annotation' tab.
  * The user is in the 'get set annotation' tab.
  * @param {string} moduleColor Module color selected by the user. The user
  * wants to know the 'getGOFromTissue' and 'getCellTypeFromTissue' information about the module-color selected.
@@ -1341,16 +1341,16 @@ API.prototype.globalReportOnGenes = function (data, genes) {
  * @param {string} network Module-color's network.
  */
 API.prototype.searchByModuleColor = function (moduleColor, category, network) {
-    /* We open a new window, showing the 'Network catalog' tab. 
+    /* We open a new window, showing the 'Network catalogue' tab. 
      * This tab will only have information related with the module color clicked by the user.
      * */
-    window.open(url = "/" + environment + "/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
+    window.open(url = "/" + environment + "/Run/Catalogue?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
         '', 'toolbar= 0, scrollbars = 1, statusbar = 0,menubar=0,resizable=0,height=500,width=1200');
 }
 
 /**
  * Function to show expand/contract the table's rows. 
- * This table correspond to the 'by ontology' table in the 'network catalog' tab.
+ * This table correspond to the 'by ontology' table in the 'network catalogue' tab.
  * @param {string} d Original data object for the row.
  * @param {string} tr Table's tr element (html element) to expand/contract
  * @param {string} row Table's row element to expand/contract.

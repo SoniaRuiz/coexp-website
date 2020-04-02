@@ -362,8 +362,8 @@ h2 {
 }
 
 
-/*****************************/
-/******* CATALOG TAB *********/
+/*******************************/
+/******* CATALOGUE TAB *********/
 #menu {
     display: none;
     
@@ -513,3 +513,8 @@ svg {
     color: #337ab7 !important;
 }
 
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 400px;
+}

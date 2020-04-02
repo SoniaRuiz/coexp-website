@@ -106,6 +106,9 @@ namespace CoExp_Web.Controllers
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetCellTypeFromTissue(coexpdata);
+
+            response = response.Replace("_row", "Cell Type");
+
             return response;
         }
 

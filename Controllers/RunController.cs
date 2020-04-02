@@ -17,10 +17,10 @@ namespace CoExp_Web.Controllers
     {
 
         public IActionResult Index(CoexpParams coexpParams) { 
-            return View("Catalog", coexpParams);
+            return View("Catalogue", coexpParams);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Catalog(CoexpParams coexpParams)
+        public IActionResult Catalogue(CoexpParams coexpParams)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace CoExp_Web.Controllers
         {
             return View();
         }
-        public IActionResult Help_Catalog()
+        public IActionResult Help_Catalogue()
         {
             return View();
         }
