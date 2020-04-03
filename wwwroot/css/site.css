@@ -522,3 +522,12 @@ svg {
 .tooltip {
     font-size: 14px;
 }
+
+/************************/
+/***** CATALOGUE ********/
+#goFromTissue_table {
+    width: 100% !important;
+}
+#cellType_table {
+    width: 100%
+}

@@ -707,6 +707,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                         },
                         {
                             data: 'query_number',
+                            title: 'Module',
                             render: function (data, type, row, meta) {
                                 if (type === 'display' && $("#ModuleColor").val() === "") {
                                     data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + $('#category_dropdown').val() + '\',\'' + $('#network_dropdown').val() + '\');" title="Find out more ...">' + data + '</a>';
@@ -714,16 +715,28 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                                 return data;
                             }
                         },
-                        //{ data: "query_number" },
-                        { data: 'p_value' },
-                        { data: 'query_size' },
+                        {
+                            data: 'p_value',
+                            title: 'p-value'
+                        },
+                        {
+                            data: 'query_size',
+                            title: 'Module Size'
+                        },
                         {
                             data: 'term_id',
-                            "visible": false,
-                            "searchable": true
+                            title: 'Ontology Term ID',
+                            visible: false,
+                            searchable: true
                         },
-                        { data: 'domain' },
-                        { data: 'term_name' },
+                        {
+                            data: 'domain',
+                            title: 'Ontology'
+                        },
+                        {
+                            data: 'term_name',
+                            title: 'Ontology Term'
+                        },
                         {
                             data: 'intersection',
                             "visible": false,
@@ -1202,9 +1215,12 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                     data: null,
                                     defaultContent: ''
                                 },
-
-                                { data: 'network' },
-                                { data: 'category' },
+                                {
+                                    data: 'network'
+                                },
+                                {
+                                    data: 'category'
+                                },
                                 {
                                     data: 'module',
                                     render: function (data, type, row, meta) {
@@ -1216,7 +1232,6 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                 },
                                 {
                                     data: 'gene',
-                                    title: 'overlap',
                                     render: function (data, type, row, meta) {
 
                                         return data.length;
@@ -1224,25 +1239,30 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                 },
                                 {
                                     data: 'gene',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
-                                { data: 'fisher' },
+                                {
+                                    data: 'fisher'
+                                },
                                 {
                                     data: 'FDR'
                                 },
-                                { data: 'Bonferroni' },
-                                { data: 'size' },
-
+                                {
+                                    data: 'Bonferroni'
+                                },
+                                {
+                                    data: 'size'
+                                },
                                 {
                                     data: 'go_report',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
                                 {
                                     data: 'cell_type_pred',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 }
                             ],
                             "order": [[5, 'asc']],
@@ -1279,15 +1299,27 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                     defaultContent: ''
                                 },
 
-                                { data: 'gene' },
-                                { data: 'category' },
-                                { data: 'network' },
-                                { data: 'ensgene' },
-                                { data: 'fisher' },
+                                {
+                                    data: 'gene'
+                                },
+                                {
+                                    data: 'category'
+                                },
+                                {
+                                    data: 'network'
+                                },
+                                {
+                                    data: 'ensgene'
+                                },
+                                {
+                                    data: 'fisher'
+                                },
                                 {
                                     data: 'FDR'
                                 },
-                                { data: 'Bonferroni' },
+                                {
+                                    data: 'Bonferroni'
+                                },
                                 {
                                     data: 'module',
                                     render: function (data, type, row, meta) {
@@ -1297,19 +1329,23 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                         return data;
                                     }
                                 },
-                                { data: 'mm' },
-                                { data: 'size' },
+                                {
+                                    data: 'mm'
+                                },
+                                {
+                                    data: 'size'
+                                },
                                 {
                                     data: 'go_report',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
                                 //{ data: 'pd_genes' },
                                 //{ data: 'preservation' },
                                 {
                                     data: 'cell_type_pred',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 }
                                 //{ data: '_row' }
                             ],
@@ -1554,18 +1590,20 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
             '</tr>';
     }
 
+    if (finalGoReport != "no data") {
+        finalGoReport = '<tr><td>GO Report: </td><td>' + finalGoReport + '</td></tr>'
+    } else {
+        finalGoReport = '<tr><td>GO Report: </td><td> - </td></tr>'
+    }
+
+    if (d.cell_type_pred != 'void') {
+        cell_type_pred = '<tr><td>Cell Type: </td><td>' + d.cell_type_pred + '</td></tr>'
+    } else {
+        cell_type_pred = '<tr><td>Cell Type: </td><td> - </td></tr>'
+    }
     // `d` is the original data object for the row
-    const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        genes +
-        '<tr>' +
-        '<td>GO Report: </td>' +
-        '<td>' + finalGoReport + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Cell Type: </td>' +
-        '<td>' + d.cell_type_pred + '</td>' +
-        '</tr>' +
-        '</table>';
+    const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + genes + finalGoReport + cell_type_pred + '</table>';
+
     $("body").removeClass("loading");
     row.child(table).show();
     tr.addClass('shown');

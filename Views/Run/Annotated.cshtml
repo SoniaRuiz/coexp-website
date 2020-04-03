@@ -27,24 +27,24 @@
         <hr class="menu-hr" />
         <div id="step1">
             <label for="tree">Network:</label>
-            <i class="glyphicon glyphicon-info-sign"
+            <span class="glyphicon glyphicon-info-sign"
                data-toggle="tooltip"
                data-placement="right"
                data-html="true"
-               title="<br/><p>NETWORK</p><hr/><p style='text-align: left;'>Select here your preferred co-expression network.<br/><br/>You can select one or more networks from the same or multiple categories.</p><br/>"
-               style="vertical-align: middle;"></i>
+               title="<br/>NETWORK<hr/><p style='text-align: left;'>Select here your preferred co-expression network.<br/><br/>You can select one or more networks from the same or multiple categories.</p><br/>"
+               style="vertical-align: middle;"></span>
             <br />
             <div id="tree"></div>
         </div>
 
         <div id="step2">
             <label for="genes">Genes:</label>
-            <i class="glyphicon glyphicon-info-sign"
+            <span class="glyphicon glyphicon-info-sign"
                data-toggle="tooltip"
                data-placement="right"
                data-html="true"
                title="<br/><p>GENES</p><hr/><p style='text-align: left;'>Type here a list with your genes of interest in a comma-separated or blank-space-separated fashion.<br/><br/>The gene list can contain from one single gene to a non-maximum stablished.<br/><br/>Please, be aware that the larger the list, the longer the request may take.</p><br/>"
-               style="vertical-align: middle;"></i>
+               style="vertical-align: middle;"></span>
             <br />
             <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
         </div>
@@ -180,7 +180,7 @@
             Each row contain each one of the typed genes that have been successfully found in any of the modules belonging to the networks selected.
             The columns, on the other hand, show information related to the gene and the module where it has been found, including different p-values supporting that membership.
             The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on its upper-left-side corner.<br />
-            Finally, press 'SUMMARISE CLUSTERING' to visualise the results grouped by module.
+            Press 'SUMMARISE CLUSTERING' button to group the results by module.
         </p>
         <br>
         <table id="globalReportOnGenes_table" class="table table-striped table-bordered">
@@ -191,12 +191,55 @@
                     <th>Category</th>
                     <th>Network</th>
                     <th>Gene Ensembl</th>
-                    <th>p-value Fisher</th>
-                    <th>p-value FDR</th>
-                    <th>p-value Bonferroni</th>
+                    <th>
+                        p-value Fisher
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value Fisher</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>"
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        p-value FDR
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value FDR</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing."
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        p-value Bonferroni
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value Bonferroni</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set."
+                              style="vertical-align: middle;"></span>
+                    </th>
                     <th>Module</th>
-                    <th>Module Membership</th>
-                    <th>Module Size</th>
+                    <th>
+                        Module Membership (mm)
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>Module Membership (mm)</u><br /><br />mm represents a degree of membership of a gene to a module. <br /><br />When the mm is close to 0, the likelihood of that gene belonging to the module is very low. When the mm is close to 1 or −1, the gene the likelihood of that gene belonging to the module is high.<br /><br />" 
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        Module Size
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>Module Size</u><br /><br />Total number of genes in the current module.<br /><br />" 
+                              style="vertical-align: middle;"></span>
+
+                    </th>
                     <th>GO Report</th>
                     <th>Cell Type</th>
                 </tr>
@@ -207,7 +250,8 @@
 
         <h2>Summarise Clustering</h2>
         <p>
-            The table below displays the results grouped by module, showing the overlap of the introduced genes that have clustered together in the same module.
+            The table below displays the results grouped by module, showing the overlap of the introduced genes that have clustered together in the same module.<br />
+            Press 'EXPAND RESULTS' button to come back to the original data table view.
         </p>
         <br>
         <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered">
@@ -217,11 +261,54 @@
                     <th>Network</th>
                     <th>Category</th>
                     <th>Module</th>
-                    <th>Genes Overlap</th>
+                    <th>
+                        Overlap
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>Overlap</u><br/><br/>Total number of genes from your gene list that have been found in the current module.</p>"
+                              style="vertical-align: middle;"></span>
+                    </th>
                     <th>Gene</th>
-                    <th>p-value Fisher</th>
-                    <th>p-value FDR</th>
-                    <th>p-value Bonferroni</th>
+                    <th>
+                        p-value Fisher
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value Fisher</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by applying the Fisher\'s exact test over the overlap mentioned before.</p>"
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        p-value FDR
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value FDR</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing."
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        p-value Bonferroni
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>p-value Bonferroni</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set."
+                              style="vertical-align: middle;"></span>
+                    </th>
+                    <th>
+                        Module Size
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-html="true"
+                              title="<p style='text-align: left;'><u>Module Size</u><br /><br />Total number of genes in the current module.<br /><br />"
+                              style="vertical-align: middle;"></span>
+                    </th>
                     <th>GO Report</th>
                     <th>Cell Type</th>
                 </tr>
@@ -242,8 +329,6 @@
     <link type="text/css" rel="stylesheet" href="~/css/buttons.dataTables.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
     <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
-
-
     <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.css" />
     <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
 
@@ -292,12 +377,12 @@
                 steps: [
                     {
                         element: '#step1',
-                        intro: "<p><b>Network</b></p><p>Please, select here your preferred co-expression networks.</p>",
+                        intro: "<p><b>Network</b></p><p>Select here your preferred co-expression network.<br/><br/>You can select one or more networks from the same or multiple categories.</p>",
                         position: 'right'
                     },
                     {
                         element: '#step2',
-                        intro: "<b>Genes</b><br/><br/>Type here a list with your genes of interest in a comma-separated or blank-space-separated fashion. The gene list can contain from one single gene to no maximum stablished. Please, be aware that the larger the list, the longer the request will take.",
+                        intro: "<b>Genes</b><br/><br/>Type here a list with your genes of interest in a comma-separated or blank-space-separated fashion.<br/><br/>The gene list can contain from one single gene to no maximum stablished.<br/><br/>Please, be aware that the larger the list, the longer the request may take.",
                         position: 'right'
                     },
                     {
