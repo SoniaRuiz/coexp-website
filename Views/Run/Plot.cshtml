@@ -40,7 +40,8 @@
                data-placement="right"
                data-html="true"
                title="<br/><p>NETWORK</p><hr/><p>Contains all co-expression networks that belong to the category selected in the 'Category' menu.</p><br/>"
-               style="vertical-align: middle;"></i><br />
+               style="vertical-align: middle;"></i>
+            <br />
             <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
         </div>
         <br>
@@ -52,7 +53,8 @@
                data-placement="right"
                data-html="true"
                title="<br/><p>MODULE</p><hr/><ul style='text-align: left;'><li>Contains all modules that belong to the co-expression network selected in the 'Network' menu.</li><br/> <li>Each module represents a different group where genes have clustered together.</li><br/><li>The same gene can be clustered only once, therefore one gene can only appear within one module of the current network.</li></ul><br/>"
-               style="vertical-align: middle;"></i><br />
+               style="vertical-align: middle;"></i>
+            <br />
             <select id="module_dropdown" name="module" class="selectpicker" title="Select an option ..."></select>
         </div>
         <br>
@@ -104,7 +106,14 @@
                 <tbody>
                     <tr>
                         <td>
-                            <h4>Link threshold</h4>
+                            <label style="font-size:14px;">Link threshold</label>
+                            <i class="glyphicon glyphicon-info-sign"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                data-html="true"
+                                title="'Link threshold' refers to the strength of the link that connects each pair of genes. This slide will remove the weakest links from the graph, until keeping connected the pair of genes that present a stronger connection within the current module."
+                                style="vertical-align: middle;"></i><br />
+                            
                             <input id="slider-range-treshold" type="range">
                             <input id="threshold_network" type="text" size="30" value=""><br />
                             <small>The links shown above are over this threshold value</small><br />
@@ -168,7 +177,6 @@
             });
 
             $('#empty-initial-results').css("visibility", "visible");
-            startIntro();
 
         });
 
@@ -190,7 +198,7 @@
                       },
                       {
                           element: '#step3',
-                          intro: "<b>Module</b><br/><br/>These are all modules that belong to the co-expression network selected in the previous step.<br/>Each module represents a different group where genes have clustered together.<br/>In this sense, the same gene can be clustered only once.",
+                          intro: "<b>Module</b><br/><br/>These are all modules that belong to the co-expression network selected in the previous step.<br/>Each module represents a different group where genes have clustered together.<br/>The same gene can be clustered only once, therefore one gene can only appear within one module of the current network.",
                           position: 'right'
                       },
                       {

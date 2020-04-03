@@ -457,10 +457,10 @@ h2 {
 /****** FOOTER  *******/
 #footer {
     width: 100%;
-    background-color: #171b27;
+    background-color: #101010;
     position: fixed;
     bottom: 0;
-    z-index:10;
+    z-index: 10;
 }
     
     #footer small {
@@ -517,4 +517,8 @@ svg {
     max-width: 350px;
     /* If max-width does not work, try using width instead */
     width: 400px;
+}
+
+.tooltip {
+    font-size: 14px;
 }

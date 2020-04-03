@@ -153,16 +153,18 @@ API.prototype.menuInit = function (view) {
 
         if (view == 1) {
             //Hide tabs
-            $("#tabs").hide();
+            //$("#tabs").hide();
+            //$("#goFromTissue_div").hide();
+            //$("#cellType_div").hide();
+            //$("#empty-initial-results").show();
 
-            //Hide results divs
-            $("#goFromTissue_div").hide();
-            $("#cellType_div").hide();
+
             //Clear and disable 'module_selection'
             $('#module_selection')
                 .selectpicker('deselectAll')
                 .prop('disabled', true)
                 .selectpicker('refresh');
+            
         }
         else if (view == 2) {
             $('#genes').val('');
@@ -185,23 +187,23 @@ API.prototype.menuInit = function (view) {
             $('#module_selection')
                 .prop('disabled', false)
                 .selectpicker('refresh');
+
+            //$('#goFromTissue_div').hide();
+            //$('#cellType_div').hide();
+            //$('#empty-initial-results').show();
         }
         else if (view == 2) {
             $('#genes').val('');
             $('#genes').prop('disabled', false);
         }
         else if (view == 4) {
+            $('#send_button').prop("disabled", true);
             $('#module_dropdown').children().remove();
-            API.prototype.getAvailableModules($('#category_dropdown').val(),
-                this.value);
-            //Disable third select
-            $('#module_dropdown')
-                .prop('disabled', false);
 
-            //$('#genes-range').prop("disabled", false);
-            //$('#text-box_genes-range').prop("disabled", false);
+            API.prototype.getAvailableModules($('#category_dropdown').val(), this.value);
+            $('#module_dropdown').prop('disabled', false);
 
-            //$('#send_button').prop("disabled", false);
+
         }
     });
     $('#module_dropdown').on('change', function () {
@@ -263,6 +265,8 @@ API.prototype.menuInit = function (view) {
             API.prototype.hideRowsReportOnGenes(row.data(), tr, row, id);
         }
     });
+
+    
 }
 
 /**
@@ -308,6 +312,7 @@ API.prototype.getNetworkCategories = function (category) {
                             .append(option)
                             .selectpicker('refresh');
                     }
+                    startIntro()
                 }
             },
             error: function (data) {
@@ -489,11 +494,10 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         //get the selection-types selected
         const module_selection_types = $('#module_selection').val();
 
-        $("body").addClass("loading");
-
         //remove old tables
-        if ($('#goFromTissue_table tr').length > 1) {
-            $('#goFromTissue_table').DataTable().destroy();
+        if ($('#goFromTissue_table tr').length > 1 && $.fn.DataTable.isDataTable('#goFromTissue_table')) {
+            table = $('#goFromTissue_table').DataTable();
+            table.destroy();
             $('#goFromTissue_table').remove("tbody");
             $('#goFromTissue_div').hide();
         }
@@ -502,7 +506,6 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $('#cellType_table').children().remove();
             $('#cellType_div').hide();
         }
-        $("body").addClass("loading");
         //show result divs
         if (module_selection_types.length == 1) {
             if (module_selection_types[0] == "1") { //only byontology and bycolor
@@ -510,7 +513,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
                 $("#empty-initial-results").hide();
-                $('.nav-tabs a[href="#tab1"]').tab("show");
+
                 $('.nav-tabs a[href="#tab1"]').tab().show();
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
@@ -519,7 +522,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 //hide/sow tabs and divs
                 $("#goFromTissue_div").hide();
                 $("#empty-initial-results").hide();
-                $('.nav-tabs a[href="#tab2"]').tab("show");
+
                 $('.nav-tabs a[href="#tab2"]').tab().show();
                 $('.nav-tabs a[href="#tab1"]').tab().hide();
             }
@@ -528,18 +531,17 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             $("#empty-initial-results").hide();
+
             //Show all tabs
-            $('.nav-tabs a[href="#tab1"]').tab("show");
             $('.nav-tabs a[href="#tab1"]').tab().show();
             $('.nav-tabs a[href="#tab2"]').tab().show();
         }
-        else {
-            $('#goFromTissue_div').hide();
-            $('#cellType_div').hide();
-            $("#empty-initial-results").hide();
-            $('#error').show();
-            $("body").removeClass("loading");
-        }
+        //else {
+        //    $('#goFromTissue_div').hide();
+        //    $('#cellType_div').hide();
+        //    $("#empty-initial-results").hide();
+        //    $('#error').show();
+        //}
 
     }
     else if (view == 2 || view == 3) {
@@ -557,8 +559,6 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $("body").removeClass("loading");
         }
         else {
-
-            $("body").addClass("loading");
             $("genes").focus();
 
             //REMOVING OLD DATATABLES
@@ -650,7 +650,6 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
 
         API.prototype.generateGraph();
         $('#plot_area').show();
-        //$("body").removeClass("loading");
         $('#save_plot').prop("disabled", false);
         $('#save_data').prop("disabled", false);
 
@@ -668,6 +667,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
     if (moduleColor === undefined) {
         moduleColor = null;
     }
+        
     $.ajax({
         url: '/' + environment + '/API/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
@@ -732,9 +732,12 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                     ],
                     order: [[2, 'asc']],
                     dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'excel', 'print'
-                    ]
+                    buttons: ['copy', 'print',
+                        {
+                            extend: 'excel',
+                            title: 'CoExp_' + $("#category_dropdown").val() + "_" + $("#network_dropdown").val() + "_GO-Report"
+                        }
+                    ],
                 });
                 if (moduleColor != null) {
                     $('#goFromTissue_table').DataTable()
@@ -745,14 +748,18 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                 $("#goFromTissue_divError").hide();
                 $("#goFromTissue_div").show();
             }
-            $("body").removeClass("loading");
+
+            $('#goFromTissue_div_spinner').hide();
             $("#empty-initial-results").hide();
             $("#tabs").show();
+            $("body").removeClass("loading");
+            
+            
         },
         error: function (data) {
             //If an error occurs:
             console.log(data);
-            $("body").removeClass("loading");
+            $('#goFromTissue_div_spinner').hide();
         }
     });
 }
@@ -875,8 +882,11 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                                 className: 'noVis'
                             }
                         ],
-                        buttons: [
-                            'copy', 'excel', 'print'
+                        buttons: ['copy', 'print',
+                            {
+                                extend: 'excel',
+                                title: 'CoExp_' + $("#category_dropdown").val() + "_" + $("#network_dropdown").val() + "_CellTypeReport" 
+                            }
                         ],
                         drawCallback: function () {
                             $('#cellType_table').find('td:not(:first-child):contains(.)').css('backgroundColor', 'yellow');
@@ -901,14 +911,19 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                 $("#cellType_divError").hide();
                 //$('#cellType_table').DataTable().draw();
             }
-            $("body").removeClass("loading");
+            
             $("#empty-initial-results").hide();
             $("#tabs").show();
+
+            
+            if ($('#module_selection').val().length == 1) {
+                $("body").removeClass("loading");
+            }
         },
         error: function (data) {
             //If an error occurs:
             console.log(data);
-            $("body").removeClass("loading");
+            
         }
     });
 }
@@ -1099,6 +1114,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
             error: function (data) {
                 //If an error occurs:
                 console.log(data);
+                $("body").removeClass("loading");
             }
         });
     }
@@ -1232,7 +1248,11 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                             "order": [[5, 'asc']],
                             dom: 'Bfrtip',
                             buttons: [
-                                'copy', 'excel', 'print',
+                                'copy', 'print',
+                                {
+                                    extend: 'excel',
+                                    title: 'CoExp_GeneSetAnnotation_Report'
+                                },
                                 {
                                     text: 'EXPAND RESULTS',
                                     action: function (e, dt, node, config) {
@@ -1297,7 +1317,11 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                             "order": [[4, 'asc']],
                             dom: 'Bfrtip',
                             buttons: [
-                                'copy', 'excel', 'print',
+                                'copy', 'print',
+                                {
+                                    extend: 'excel',
+                                    title: 'CoExp_GeneSetAnnotation_Report'
+                                },
                                 {
                                     text: 'SUMMARISE CLUSTERING',
 
@@ -1313,8 +1337,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                         $("body").removeClass("loading");
                         /*$("#globalReportOnGenes_div").show();
                         $('#empty-initial-results').hide();
-                        $("#error").hide();
-                        $("body").removeClass("loading");*/
+                        $("#error").hide();*/
                     }
                 }
 
@@ -1457,23 +1480,25 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
                 finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
             }
-            $("body").removeClass("loading");
+            
             const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
-                '<td>term_id: </td>' +
+                '<td>TermID: </td>' +
                 '<td>' + finalOntologyString + '</td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td>genes: </td>' +
+                '<td>Genes: </td>' +
                 '<td>' + finalGenesString + '</td>' +
                 '</tr>' +
                 '</table>';
             row.child(table).show();
             tr.addClass('shown');
             $("[data-placement='bottom']").popover();
+            $("body").removeClass("loading");
         },
         error: function () {
             return "No results found!";
+            $("body").removeClass("loading");
         }
     });
 }
@@ -1487,7 +1512,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
  * @param {string} id Table's id. This is for checking whether the user is in the 'summarise' or 'expand' table view.
  */
 API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details */
-    $("body").addClass("loading");
+
     let genes = "";
     let finalGoReport = d.go_report;
     const allGOTerms = d.go_report.match(/GO:[0-9]*/g);
@@ -1524,7 +1549,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
                 finalGenesString = finalGenesString + ", <a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
         }
         genes = '<tr>' +
-            '<td>genes: </td>' +
+            '<td>Genes: </td>' +
             '<td>' + finalGenesString + '</td>' +
             '</tr>';
     }
@@ -1533,11 +1558,11 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
     const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         genes +
         '<tr>' +
-        '<td>go_report: </td>' +
+        '<td>GO Report: </td>' +
         '<td>' + finalGoReport + '</td>' +
         '</tr>' +
         '<tr>' +
-        '<td>cell_type_pred: </td>' +
+        '<td>Cell Type: </td>' +
         '<td>' + d.cell_type_pred + '</td>' +
         '</tr>' +
         '</table>';
@@ -1650,6 +1675,7 @@ API.prototype.generateGraph = function () {
                 //If an error occurs:
                 console.log(data);
                 $('#send_button').prop("disabled", false);
+                $("body").removeClass("loading");
             }
         });
     }
