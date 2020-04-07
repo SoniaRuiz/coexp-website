@@ -584,36 +584,47 @@ APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
 
     //Set the size that every gene must have depending on the scores derived from the matrix
     var size_of_genes = [];
+    var max_size_of_genes = [];
+    var local_maximum = [];
     var acum_value = 0;
     for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
-        for (var j = APIPlot.prototype.number_of_NAN; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
+        for (var j = 1; j <= APIPlot.prototype.number_of_genes; j++) {
             //To avoid adding the number 1 corresponding with the 1s in the diagonal of the matrix
-            if (i != j) {
+            if (data_network_raw[i][j] != "1") {
                 acum_value += parseFloat(data_network_raw[i][j]);
+                local_maximum.push(parseFloat(data_network_raw[i][j]))
                 //console.log(JSON.stringify(data_network_raw[i]))
             }
         }
         size_of_genes.push(acum_value);
+        //using the destructuring assignment
+        max_size_of_genes.push(Math.max(...local_maximum))
+
         acum_value = 0;
+        local_maximum = [];
     }
-    
+ 
+    var sorted = max_size_of_genes.slice().sort(function (a, b) { return b - a })
+    var ranks = max_size_of_genes.slice().map(function (v) { return sorted.indexOf(v) + 1 });
+
     APIPlot.prototype.nodes = '{"nodes" : [';
     // number_of_genes - 1 : to get off the loop before setting the last element with a comma
-    for (var i = 0; i < APIPlot.prototype.number_of_genes - 1; i++) {
+    for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
+
         APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[i][0]
             + '", "id_node" : "node_' + i
             + '", "score" : ' + size_of_genes[i]
-            + ', "importance" : ' + ((APIPlot.prototype.number_of_genes+5) -i)
-            + '},';
+            + ', "importance" : ' + ((APIPlot.prototype.number_of_genes + 5) - ranks[i])
+
+        if (i == APIPlot.prototype.number_of_genes - 1)
+            APIPlot.prototype.nodes += '}],';
+        else {
+            APIPlot.prototype.nodes += '},';
+        }
+            
             //+ ', "module": "' + data_network_raw[i][2] + '"},';
     }
-    // And now, we set the last element (it must contain a '}],' at the end)
-    APIPlot.prototype.nodes += '{"id" : "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][0]
-        + '", "id_node" : "node_' + (APIPlot.prototype.number_of_genes - 1)
-        + '", "score" : ' + size_of_genes[APIPlot.prototype.number_of_genes - 1]
-        + ', "importance" : 5' 
-        //+ ', "module": "' + data_network_raw[APIPlot.prototype.number_of_genes - 1][2] + '"}],';
-        + '}],';
+
         
 
 
