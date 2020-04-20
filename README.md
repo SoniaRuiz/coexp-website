@@ -17,7 +17,7 @@ Due to the huge growth experienced by the Internet and mobile devices during the
 
 ## Getting Started
 
-CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/Run/Catalogue/).
+CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/).
 
 ## Built With
 
@@ -45,7 +45,9 @@ CoExp Webpage is also available in a Docker version. Please, visit [this link](h
 ## Authors
 
 * **Sonia García-Ruiz** - *CoExp Webpage UI developer*
+  * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
 * **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
+  * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
 
 ## Acknowledgments
 
