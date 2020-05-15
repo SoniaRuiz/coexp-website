@@ -304,7 +304,7 @@ API.prototype.getNetworkCategories = function (category) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
                     //If the request has gone as expected, we fill the select by adding 'option' type elements:
                     for (let i = 0; i < data.length; i++) {
                         const option = '<option value="' + data[i] + '">' + data[i] + '</option>';
@@ -359,7 +359,7 @@ API.prototype.getAvailableNetworks = function (category, network) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#network_dropdown')
@@ -401,7 +401,8 @@ API.prototype.getAvailableModules = function (category, network) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
+                   
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#module_dropdown')
