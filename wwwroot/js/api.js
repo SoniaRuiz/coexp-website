@@ -121,12 +121,15 @@ API.prototype.menuInit = function (view) {
         $('#module_dropdown')
             .prop('disabled', true);
 
+        $('#gene_dropdown')
+            .prop('disabled', true);
+
         //Disable buttons
         //Range for the number of genes
-        $('#genes-range').prop("disabled", true);
-        $('#text-box_genes-range').prop("disabled", true);
+        //$('#genes-range').prop("disabled", true);
+        //$('#text-box_genes-range').prop("disabled", true);
         //Range for the links connection
-        $('#slider-range-treshold').prop("disabled", true);
+        $('#slider-range-threshold').prop("disabled", true);
         $('#threshold_network').prop("disabled", true);
         //Buttons
         $('#send_button').prop("disabled", true);
@@ -176,6 +179,12 @@ API.prototype.menuInit = function (view) {
             $('#module_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
+
+           
+            $('#gene_dropdown').children().remove();
+            $('#gene_dropdown')
+                .prop('disabled', true)
+                .selectpicker('refresh');
         }
 
 
@@ -203,15 +212,38 @@ API.prototype.menuInit = function (view) {
             API.prototype.getAvailableModules($('#category_dropdown').val(), this.value);
             $('#module_dropdown').prop('disabled', false);
 
+            $('#gene_dropdown')
+                .prop('disabled', true)
+                .selectpicker('refresh');
+
+
 
         }
     });
     $('#module_dropdown').on('change', function () {
         if (view == 4) {
+            //Fill the genes
+            $('#gene_dropdown').prop('disabled', true);
+            $('#send_button').prop("disabled", true);
+            $('#gene_dropdown').children().remove();
+            API.prototype.getModuleTOMGenes($('#category_dropdown').val(), $('#network_dropdown').val(), this.value);
 
-            $('#genes-range').prop("disabled", false);
-            $('#text-box_genes-range').prop("disabled", false);
 
+            $('#gene_dropdown')
+                .prop('disabled', false)
+                .selectpicker('refresh');
+
+
+            //$('#genes-range').prop("disabled", false);
+            //$('#text-box_genes-range').prop("disabled", false);
+
+            //$('#send_button').prop("disabled", false);
+        }
+    });
+
+    $('#gene_dropdown').on('change', function () {
+        if (view == 4) {
+            
             $('#send_button').prop("disabled", false);
         }
     });
@@ -419,6 +451,49 @@ API.prototype.getAvailableModules = function (category, network) {
     }
 }
 
+
+API.prototype.getModuleTOMGenes = function (category, network, module) {
+
+    if (category === undefined || network === undefined || module === undefined) {
+        alert("Please, select a category, a network and a module values.")
+    }
+    else {
+        //Make a request to CoExp-R-software's API
+
+        $.ajax({
+            url: '/' + environment + '/API/GetModuleTOMGenes?Category=' + category + '&Network=' + network + '&ModuleColor=' + module,
+            type: 'GET',
+            success: function (data) {
+                if (data.indexOf("Problems") >= 0) {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else if (data == "{}") {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else {
+                    //$("#goFromTissue_divError").hide();
+                    console.log(data);
+                    data = JSON.parse(data);
+
+                    for (let i = 0; i < data.length; i++) {
+                        const gene_option = '<option value="' + i + '">' + data[i] + '</option>';
+                        $('#gene_dropdown')
+                            .append(gene_option)
+                            .selectpicker('refresh');
+                    }
+                }
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
+    }
+}
 /**
  * This function requests all data in a tree-menu format and fills it.
  */
@@ -1665,7 +1740,9 @@ API.prototype.generateGraph = function () {
     // Get module value
     const moduleColor = $('#module_dropdown').find(":selected").val();
     // Get slider-range value
-    const top = $('#text-box_genes-range').val();
+    //const top = $('#text-box_genes-range').val();
+
+    const gene = $('#gene_dropdown').find(":selected").val();
 
     //const url_network_plot = '/' + environment + '/API/PostGetModuleTOMGraph?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
     try {
@@ -1676,7 +1753,7 @@ API.prototype.generateGraph = function () {
                 "Category": category,
                 "Network": network,
                 "ModuleColor": moduleColor,
-                "TopGenes": top
+                "TopGenes": gene
             }),
             method: 'POST',
             contentType: 'application/json',
@@ -1703,7 +1780,7 @@ API.prototype.generateGraph = function () {
                     console.log(data);
                     
                     APIPlot.prototype.netPlot(data);
-                    $("#slider-range-treshold").prop('disabled', false);
+                    $("#slider-range-threshold").prop('disabled', false);
                     //$("#threshold_network").prop('disabled', false);
                     $("#hide_nodes").prop('disabled', false);
                     $("body").removeClass("loading");

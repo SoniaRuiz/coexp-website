@@ -21,7 +21,9 @@ APIPlot.prototype.number_of_NAN = 1;
 APIPlot.prototype.nodes = '{"nodes" : [';
 APIPlot.prototype.data_network_raw = "";
 APIPlot.prototype.force = d3.layout.force()
-
+var max_link_value = 0;
+var min_link_value = 1;
+var node_max = 0
 
 APIPlot.prototype.netPlot = function(data_network_temp) {
 
@@ -80,14 +82,12 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     console.log(data_network);
 
     //max link value
-    var max_link_value = d3.max(data_network.links, function (d) {
-        return d.value;
-    });
-    //min link value
-    var min_link_value = d3.min(data_network.links, function (d) {
-        return d.value;
-    });
-    //max node value
+    //var max_link_value = d3.max(data_network.links, function (d) {
+    //    return d.value;
+    //});
+    //var min_link_value = d3.min(data_network.links, function (d) {
+    //    return d.value;
+    //});
     var max_node_value = d3.max(data_network.nodes, function (d) {
         return d.score;
     });
@@ -106,24 +106,12 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     });
 
     APIPlot.prototype.force = APIPlot.prototype.force
-        .charge(-250)
-        .linkDistance(function (d) {
-
-            if (max_link_value != min_link_value) {
-                value_distance = (1 - (((d.value - min_link_value) / (max_link_value - min_link_value)) + 0.1)) * 100;
-                //console.log((d.value - min_link_value) / (max_link_value - min_link_value));
-            } else
-                value_distance = 60;
-
-            return value_distance;
-            //return (1 / d.value) * 10;
-        })
+        .charge(-70)
+        .linkDistance(100)
         .size([$("#network_plot").innerWidth(), $("#network_plot").innerHeight()])
         .nodes(data_network.nodes)
         .links(data_network.links)
         .start();
-
-
 
    
 
@@ -162,7 +150,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
                 //console.log(d.score - min_node_value, " - ",(max_node_value - min_node_value) + 1)
 
                 // Only get the decimal part of the current gene score.
-                return (((d.score - min_node_value) / (max_node_value) + 1) * d.importance);//(((d.score - min_node_value) / (max_node_value) + 1) * multi_node);
+                return (((d.score - min_node_value) / (max_node_value) + 2) * d.importance);//(((d.score - min_node_value) / (max_node_value) + 1) * multi_node);
                 //return (d.score)
             })
             .type(function (d) {
@@ -170,7 +158,9 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             }))
        
         .style(tocolor, function (d) {
-            if (APIPlot.prototype.isNumber(d.score) && d.score >= 0)
+            if ($('#gene_dropdown').find(":selected").text() == d.id)
+                return "#FF0000";
+            else if (APIPlot.prototype.isNumber(d.score) && d.score >= 0)
                 return d.score;
             else
                 return APIPlot.prototype.default_node_color;
@@ -188,6 +178,13 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         })
         .style("font-size", nominal_text_size + "px")
         .style("text-shadow", "-1.5px 0 white, 0 1.5px white, 1.5px 0 white, 0 -1.5px white")
+        .style("text-color", function (d) {
+            if (d.id == $('#gene_dropdown').find(":selected").text()) {
+                return "#FF0000";
+            } else {
+                return "black";
+            }
+        })
 
     if (text_center)
         text.text(function (d) {return d.id;})
@@ -199,8 +196,18 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             .text(function (d) {
                 return '\u2002' + d.id;
             });
-
+    
     node.on("mouseover", function (d) { APIPlot.prototype.setHighlight(d, color, focus_node, circle, towhite, text, link);})
+        .on("mousedown", function (d) {
+            d3.event.stopPropagation();
+            focus_node = d;
+            APIPlot.prototype.setFocus(d, circle, text, link)
+            if (highlight_node === null)
+                APIPlot.prototype.setHighlight(d, color, focus_node, circle, towhite, text, link)
+        }).on("mouseout", function (d) {
+            APIPlot.prototype.exitHighlight(color, focus_node, circle, towhite, text, link);
+        });
+    text.on("mouseover", function (d) { APIPlot.prototype.setHighlight(d, color, focus_node, circle, towhite, text, link); })
         .on("mousedown", function (d) {
             d3.event.stopPropagation();
             focus_node = d;
@@ -231,46 +238,16 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     var min_threshold_value_temp = min_link_value - parseFloat((min_link_value.toString().substring(0, min_link_value.toString().length - 5)));
     var max_threshold_value_temp = max_link_value - parseFloat((max_link_value.toString().substring(0, max_link_value.toString().length - 5)));
 
-    $('#slider-range-treshold').attr("min", (min_link_value - min_threshold_value_temp));
-    //$('#slider-range-treshold').attr("value", (min_link_value - min_threshold_value_temp));
-    $('#slider-range-treshold').val((min_link_value - min_threshold_value_temp));
-    $('#slider-range-treshold').attr("max", (max_link_value - max_threshold_value_temp));
-    $('#slider-range-treshold').attr("step", parseFloat(((max_link_value - max_threshold_value_temp) - (min_link_value - min_threshold_value_temp)) / 10));
-    $("#threshold_network").val($("#slider-range-treshold").val());
+    $('#slider-range-threshold').prop("min", node_max - (node_max/2));
+    $('#slider-range-threshold').prop("max", (max_link_value - max_threshold_value_temp));
+    $('#slider-range-threshold').prop("step", parseFloat(max_link_value/25));
 
-    /**** This function is executed when the 'Hide isolated genes' checkbox changes ****/
-    $("#hide_nodes").click(function () {
-        //$("#hide_nodes").checkboxradio("refresh");
-        hiding_nodes = !hiding_nodes;
-        if (hiding_nodes) {
-            //console.log(Object.keys(data_network.links).length);
-            current_node = 0;
-            for (let i = 0; i <= Object.keys(data_network.nodes).length; i++) {
-                node_isalone = true;
-                data_network.links.forEach(function (d) {
-                    //console.log("source: " + d.source.index + " -  target: " + d.target.index + " == " + current_node);
-                    if (d.source.index == current_node || d.target.index == current_node) {
-                        node_isalone = false;
-                    }
-                });
-
-                if (node_isalone) {
-                    d3.select("#node_" + current_node).style("visibility", "hidden");
-                    d3.select("#text_node_" + current_node).style("visibility", "hidden");
-                }
-                current_node++;
-            }
-        } else {
-            for (var i = 0; i <= Object.keys(data_network.nodes).length; i++) {
-                d3.select("#node_" + i).style("visibility", "visible");
-                d3.select("#text_node_" + i).style("visibility", "visible");
-            }
-        }
-        //node.style("visibility", "visible")
-    });
-
+    $('#slider-range-threshold').val(node_max);
+    $("#threshold_network").val($("#slider-range-threshold").val());
+    
+    
     /**** This function is executed when the threshold range changes ****/
-    $("#slider-range-treshold").on("change", function (e) {
+    $("#slider-range-threshold").on("change", function (e) {
 
         let start_storing = false,
             links = '"links" : [',
@@ -324,10 +301,14 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
 
             APIPlot.prototype.force.on("tick", function () {
                 node.attr("transform", function (d) {
+                    
                     return "translate(" + d.x + "," + d.y + ")";
+                    
                 });
                 text.attr("transform", function (d) {
+                    
                     return "translate(" + d.x + "," + d.y + ")";
+                    
                 });
                 link.attr("x1", function (d) {
                     return d.source.x;
@@ -348,7 +329,7 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
                         return d.y;
                     });
             });
-
+            
             APIPlot.prototype.force
                 .links(data_network.links)
                 .start();
@@ -386,6 +367,40 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
     });
 
 
+
+
+    /**** This function is executed when the 'Hide isolated genes' checkbox changes ****/
+    $("#hide_nodes").click(function () {
+        //$("#hide_nodes").checkboxradio("refresh");
+        hiding_nodes = !hiding_nodes;
+        if (hiding_nodes) {
+            //console.log(Object.keys(data_network.links).length);
+            current_node = 0;
+            for (let i = 0; i <= Object.keys(data_network.nodes).length; i++) {
+                node_isalone = true;
+                data_network.links.forEach(function (d) {
+                    //console.log("source: " + d.source.index + " -  target: " + d.target.index + " == " + current_node);
+                    if (d.source.index == current_node || d.target.index == current_node) {
+                        node_isalone = false;
+                    }
+                });
+
+                if (node_isalone) {
+                    d3.select("#node_" + current_node).style("visibility", "hidden");
+                    d3.select("#text_node_" + current_node).style("visibility", "hidden");
+                }
+                current_node++;
+            }
+        } else {
+            for (var i = 0; i <= Object.keys(data_network.nodes).length; i++) {
+                d3.select("#node_" + i).style("visibility", "visible");
+                d3.select("#text_node_" + i).style("visibility", "visible");
+            }
+        }
+        //node.style("visibility", "visible")
+    });
+
+
     APIPlot.prototype.force.on("tick", function () {
         node.attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
@@ -405,12 +420,13 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
             .attr("y2", function (d) {
                 return d.target.y;
             });
-        node.attr("cx", function (d) {
-            return d.x;
-        })
-            .attr("cy", function (d) {
-                return d.y;
-            });
+        //node.attr("cx", function (d) {
+        //    return d.x;
+        //})
+        //    .attr("cy", function (d) {
+        //        return d.y;
+        //    });
+        
     });
 
 
@@ -458,7 +474,8 @@ APIPlot.prototype.netPlot = function(data_network_temp) {
         .call(zoom)
         //.select("g").attr("transform", "translate(" + w / 2 + "," + h / 2 + ")scale(2)");
 
-    APIPlot.prototype.force.size([APIPlot.prototype.force.size()[0] / zoom.scale(), APIPlot.prototype.force.size()[1] / zoom.scale()]).resume();
+    APIPlot.prototype.force.size([APIPlot.prototype.force.size()[0] / zoom.scale(), APIPlot.prototype.force.size()[1] / zoom.scale()])
+        .resume();
     $('#send_button').prop("disabled", false);     
 
 }
@@ -625,8 +642,41 @@ APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
             //+ ', "module": "' + data_network_raw[i][2] + '"},';
     }
 
-        
+    node_min =0
+    
+    for (var i = 0; i < APIPlot.prototype.number_of_genes; i++) {
+        start_storing = false;
+        for (var j = 0; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
+            if (start_storing) {
+                if (parseFloat(data_network_raw[i][j]) > max_link_value)
+                    max_link_value = parseFloat(data_network_raw[i][j]);
+                if (parseFloat(data_network_raw[i][j]) < min_link_value) {
+                    min_link_value = parseFloat(data_network_raw[i][j]);
+                    node_min = i
+                }
+            }
+            if (data_network_raw[i][j] == 1) {
+                start_storing = true;
+            }
+        }
+    }
 
+    node_max = 0
+    all_node_scores = data_network_raw[node_min].slice(1)
+    for (var i = 0; i < all_node_scores.length; i++) {
+        data = parseFloat(all_node_scores[i]);
+        if (data != 1 && data > node_max)
+            node_max = data
+    }
+
+    //all_node = data_network_raw[node_min][-1]
+
+
+    if ($('#gene_dropdown').val() > 50) {
+        local_limit = 1.2
+    } else {
+        local_limit = 1.5
+    }
 
     //Creating the links between genes ---> Setting the strength of the connection between genes
     var start_storing;
@@ -636,25 +686,26 @@ APIPlot.prototype.buildJSONtoPlot = function (data_network_raw) {
         start_storing = false;
         for (var j = 0; j < APIPlot.prototype.number_of_genes + APIPlot.prototype.number_of_NAN; j++) {
             if (start_storing) {
-                //if (set_min_max_threshold) {
-                //    APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
-                //    APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
-                //    set_min_max_threshold = false;
-                //} else {
-                //    if (data_network_raw[i][j] < APIPlot.prototype.min_threshold_value) {
-                //        APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
-                //    }
-                //    if (data_network_raw[i][j] > APIPlot.prototype.max_threshold_value) {
-                //        APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
-                //    }
-                //}
-                   
+                if (parseFloat(data_network_raw[i][j]) >= (node_max)) {
+                    //if (set_min_max_threshold) {
+                    //    APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+                    //    APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
+                    //    set_min_max_threshold = false;
+                    //} else {
+                    //    if (data_network_raw[i][j] < APIPlot.prototype.min_threshold_value) {
+                    //        APIPlot.prototype.min_threshold_value = data_network_raw[i][j];
+                    //    }
+                    //    if (data_network_raw[i][j] > APIPlot.prototype.max_threshold_value) {
+                    //        APIPlot.prototype.max_threshold_value = data_network_raw[i][j];
+                    //    }
+                    //}
 
-                //if (data_network_raw[i][j] > APIPlot.prototype.links_value_treshold)
-                links += '{"source":' + i
-                    + ',"target":' + (j - APIPlot.prototype.number_of_NAN)
-                    + ',"value":' + data_network_raw[i][j] + '},';
 
+                    //if (data_network_raw[i][j] > APIPlot.prototype.links_value_treshold)
+                    links += '{"source":' + i
+                        + ',"target":' + (j - APIPlot.prototype.number_of_NAN)
+                        + ',"value":' + data_network_raw[i][j] + '},';
+                }
             }
             if (data_network_raw[i][j] == 1) {
                 start_storing = true;

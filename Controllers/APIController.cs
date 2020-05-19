@@ -77,6 +77,16 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [Route("GetModuleTOMGenes")]
+        public string GetModuleTOMGenes([FromQuery] CoexpParams coexpdata)
+        {
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            string response = repository.GetModuleTOMGenes(coexpdata);
+
+            return response;
+        }
+
+        [HttpGet]
         [Route("GetGOFromTissue")]
         public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
         {
@@ -326,7 +336,6 @@ namespace CoExp_Web.Controllers
 
             return parsed_response;
         }
-
 
         [HttpPost]
         [Route("PostGetModuleTOMGraph")]

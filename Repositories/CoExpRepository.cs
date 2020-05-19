@@ -152,7 +152,7 @@ namespace CoExp_Web.Repositories
 
             //Return the response
             return finalResponse;
-        }
+        }  
 
         public string GetMM(CoexpParams coexpdata)
         {
@@ -420,6 +420,34 @@ namespace CoExp_Web.Repositories
             var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
             
             return finalResponse.ToString();
+        }
+
+
+        public string GetModuleTOMGenes(CoexpParams coexpdata)
+        {
+            //Set the URL with parameters. This URL will allow us to establish a communication with
+            //CoExp R application API (published using Plumber R package)
+            if (coexpURL == ProductionEnv)
+            {
+                coexpURL += "GetModuleTOMGenes";
+                PostData = "{\"network\":\"" + coexpdata.Network +
+                "\",\"category\":\"" + coexpdata.Category +
+                "\",\"module\":\"" + coexpdata.ModuleColor + "\"}";
+            }
+            else
+            {
+                coexpURL += "getModuleTOMGenes";
+                PostData = "{\"tissue\":\"" + coexpdata.Network +
+                "\",\"which.one\":\"" + coexpdata.Category +
+                "\",\"module\":\"" + coexpdata.ModuleColor + "\"}";
+
+            }
+
+            //Make the request
+            var finalResponse = _adapter.POSTHttpRequestJSON(coexpURL, PostData);
+
+            //Return the response
+            return finalResponse;
         }
     }
 }
