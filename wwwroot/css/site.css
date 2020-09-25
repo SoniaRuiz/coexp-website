@@ -298,8 +298,12 @@ h2 {
 #plot_area{
     display:none;
 }
-#network_plot_table {
+/*#network_plot_table {*/
+#cy {
     width: 100% !important;
+    height: 700px !important;
+    min-height: 700px !important;
+    border-bottom: 5px solid grey;
 }
 #network_plot {
     text-align: center;
@@ -404,7 +408,7 @@ h2 {
     margin-top: 2px;
     text-align: center;
     position: relative;
-    min-height: 300px;
+    min-height: 450px;
     display: table;
     visibility: hidden;
     width: 100%;
@@ -530,4 +534,30 @@ svg {
 }
 #cellType_table {
     width: 100%
+}
+
+.links line {
+    stroke: #999;
+    stroke-opacity: 0.3;
+}
+
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 0.1px;
+}
+
+text {
+    font-family: sans-serif;
+    font-size: 10px;
+}
+
+
+#cy {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
 }

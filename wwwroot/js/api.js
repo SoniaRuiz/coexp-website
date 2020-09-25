@@ -40,7 +40,7 @@ API.prototype.menuInit = function (view) {
             .selectpicker('refresh');
 
         //Disable third select
-        $('#module_selection')
+        $('#view_selection')
             .prop('disabled', true)
             .selectpicker('refresh');
 
@@ -72,7 +72,7 @@ API.prototype.menuInit = function (view) {
         //$('#network_dropdown')
         //    .prop('disabled', true)
         //    .selectpicker('refresh');
-        $('#module_selection')
+        $('#view_selection')
             .selectpicker('val', ['1', '2'])
             //.prop('disabled', true)
             .selectpicker('refresh');
@@ -114,8 +114,7 @@ API.prototype.menuInit = function (view) {
        
         //Disable second select
         $('#network_dropdown')
-            .prop('disabled', true)
-            .selectpicker('refresh');
+            .prop('disabled', true);
 
         //Disable third select
         $('#module_dropdown')
@@ -145,25 +144,20 @@ API.prototype.menuInit = function (view) {
     $('#category_dropdown').on('change', function () {
 
         //Remove all options (from 'Network' dropdown)
-        $('#network_dropdown').children().remove();
+        $('#network_dropdown')
+            .children()
+            .remove()
+            .selectpicker('refresh');
+
         //Fill the 'Network' with new options and enable 'network' dropdown
         API.prototype.getAvailableNetworks(this.value);
-        $('#network_dropdown')
-            .prop("disabled", false)
-            .selectpicker('refresh');
+
         //Disable 'Send' button
         $('#send_button').prop("disabled", true);
-
+               
         if (view == 1) {
-            //Hide tabs
-            //$("#tabs").hide();
-            //$("#goFromTissue_div").hide();
-            //$("#cellType_div").hide();
-            //$("#empty-initial-results").show();
-
-
-            //Clear and disable 'module_selection'
-            $('#module_selection')
+            //Clear and disable 'view_selection'
+            $('#view_selection')
                 .selectpicker('deselectAll')
                 .prop('disabled', true)
                 .selectpicker('refresh');
@@ -175,25 +169,26 @@ API.prototype.menuInit = function (view) {
         }
         else if (view == 4) {
             $('#module_dropdown').children().remove();
-            //Clear and disable 'module_selection'
+            //Clear and disable 'module_dropdown'
             $('#module_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
-
-           
             $('#gene_dropdown').children().remove();
             $('#gene_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
         }
 
+        
 
+        
     });
+
     //When the value of 'Network' changes:
     $('#network_dropdown').on('change', function () {
         if (view == 1) {
-            //Enable 'Module' select
-            $('#module_selection')
+            //Enable 'show results by' dropdown
+            $('#view_selection')
                 .prop('disabled', false)
                 .selectpicker('refresh');
 
@@ -206,51 +201,57 @@ API.prototype.menuInit = function (view) {
             $('#genes').prop('disabled', false);
         }
         else if (view == 4) {
-            $('#send_button').prop("disabled", true);
-            $('#module_dropdown').children().remove();
 
+            $('#module_dropdown')
+                .children()
+                .remove()
+                .selectpicker('refresh');
             API.prototype.getAvailableModules($('#category_dropdown').val(), this.value);
-            $('#module_dropdown').prop('disabled', false);
 
+            $('#gene_dropdown').children().remove();
             $('#gene_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
 
+            $('#send_button').prop("disabled", true);
 
+            
 
         }
     });
+
+    //When the value of 'Modules' changes:
     $('#module_dropdown').on('change', function () {
-        if (view == 4) {
-            //Fill the genes
-            $('#gene_dropdown').prop('disabled', true);
+        if (view == 4) {        
+            $('#gene_dropdown').children().remove()
+            $('#gene_dropdown')
+                .prop('disabled', true)
+                .selectpicker('refresh');
             $('#send_button').prop("disabled", true);
-            $('#gene_dropdown').children().remove();
+            
+            //Fill the genes
             API.prototype.getModuleTOMGenes($('#category_dropdown').val(), $('#network_dropdown').val(), this.value);
 
-
-            $('#gene_dropdown')
-                .prop('disabled', false)
-                .selectpicker('refresh');
-
-
-            //$('#genes-range').prop("disabled", false);
-            //$('#text-box_genes-range').prop("disabled", false);
-
-            //$('#send_button').prop("disabled", false);
+            $('#genes-range').prop("disabled", false);
+            $('#text-box_genes-range').prop("disabled", false);
+            $('#send_button').prop("disabled", false);
         }
     });
 
     $('#gene_dropdown').on('change', function () {
-        if (view == 4) {
-            
-            $('#send_button').prop("disabled", false);
+        if (view == 4) {          
+            $('#send_button')
+                .prop("disabled", false);
         }
     });
-    //When the value of 'Module_selection' changes:
-    $('#module_selection').on('change', function () {
+
+    //When the value of 'view_selection' changes:
+    $('#view_selection').on('change', function () {
         //Enable 'button'
-        $('#send_button').prop("disabled", false);
+        $('#send_button')
+            .prop("disabled", false);
+
+        
     });
 
     //When the user press the 'Send' button:
@@ -341,9 +342,10 @@ API.prototype.getNetworkCategories = function (category) {
                     for (let i = 0; i < data.length; i++) {
                         const option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#category_dropdown')
-                            .append(option)
-                            .selectpicker('refresh');
+                            .append(option);
                     }
+                    $('#category_dropdown')
+                        .selectpicker('refresh')
                     startIntro()
                 }
             },
@@ -395,9 +397,11 @@ API.prototype.getAvailableNetworks = function (category, network) {
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#network_dropdown')
-                            .append(net_option)
-                            .selectpicker('refresh');
+                            .append(net_option);
                     }
+                    $('#network_dropdown')
+                        .prop("disabled", false)
+                        .selectpicker('refresh');
                 }
             },
             error: function (data) {
@@ -438,9 +442,14 @@ API.prototype.getAvailableModules = function (category, network) {
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#module_dropdown')
-                            .append(net_option)
-                            .selectpicker('refresh');
+                            .append(net_option);
+                            //.selectpicker('refresh');
                     }
+
+                    $('#module_dropdown')
+                        .prop('disabled', false)
+                        .selectpicker('refresh');
+
                 }
             },
             error: function (data) {
@@ -451,7 +460,6 @@ API.prototype.getAvailableModules = function (category, network) {
     }
 }
 
-
 API.prototype.getModuleTOMGenes = function (category, network, module) {
 
     if (category === undefined || network === undefined || module === undefined) {
@@ -459,9 +467,10 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
     }
     else {
         //Make a request to CoExp-R-software's API
-
+        $("body").addClass("loading");
         $.ajax({
-            url: '/' + environment + '/API/GetModuleTOMGenes?Category=' + category + '&Network=' + network + '&ModuleColor=' + module,
+            url: '/' + environment + '/API/GetModuleTOMGenes?Category=' + category +
+                '&Network=' + network + '&ModuleColor=' + module,
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
@@ -480,11 +489,17 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
                     data = JSON.parse(data);
 
                     for (let i = 0; i < data.length; i++) {
-                        const gene_option = '<option value="' + i + '">' + data[i] + '</option>';
-                        $('#gene_dropdown')
-                            .append(gene_option)
-                            .selectpicker('refresh');
+                        if (data[i] != "") {
+                            const gene_option = '<option value="' + i + '">' + data[i] + '</option>';
+                            $('#gene_dropdown')
+                                .append(gene_option);
+                        }
                     }
+                    $('#gene_dropdown')
+                        .prop('disabled', false)
+                        .selectpicker('refresh')
+                        .selectpicker('render');
+                    $("body").removeClass("loading");
                 }
             },
             error: function (data) {
@@ -555,8 +570,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     if (moduleColor === undefined) {
         moduleColor = null;
     }
-
-    
+        
     $("body").addClass("loading");
 
     if (view == 1 || view == 11) {
@@ -568,7 +582,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         //hide previous errors/results
         $('#error').hide();
         //get the selection-types selected
-        const module_selection_types = $('#module_selection').val();
+        const view_selection_types = $('#view_selection').val();
 
         //remove old tables
         if ($('#goFromTissue_table tr').length > 1 && $.fn.DataTable.isDataTable('#goFromTissue_table')) {
@@ -583,14 +597,16 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $('#cellType_div').hide();
         }
         //show result divs
-        if (module_selection_types.length == 1) {
-            if (module_selection_types[0] == "1") { //only byontology and bycolor
+        if (view_selection_types.length == 1) {
+            if (view_selection_types[0] == "1") { //only byontology and bycolor
                 API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
                 $("#empty-initial-results").hide();
 
-                $('.nav-tabs a[href="#tab1"]').tab().show();
+                //$('.nav-tabs a[href="#tab1"]').parent().addClass("active");
+                $('.nav-tabs a[href="#tab1"]').tab('show');
+
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
             else {//only bycelltype
@@ -599,11 +615,13 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 $("#goFromTissue_div").hide();
                 $("#empty-initial-results").hide();
 
-                $('.nav-tabs a[href="#tab2"]').tab().show();
+                $('.nav-tabs a[href="#tab2"]').tab('show');
+              
+
                 $('.nav-tabs a[href="#tab1"]').tab().hide();
             }
         }
-        else if (module_selection_types.length == 2) {//both bycelltype and bycolor
+        else if (view_selection_types.length == 2) {//both bycelltype and bycolor
             API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             $("#empty-initial-results").hide();
@@ -1005,7 +1023,7 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
             $("#tabs").show();
 
             
-            if ($('#module_selection').val().length == 1) {
+            if ($('#view_selection').val().length == 1) {
                 $("body").removeClass("loading");
             }
         },
@@ -1525,7 +1543,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
         const gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
         const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
 
-        let dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+        let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
         dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
         dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
         if (i == 0)
@@ -1652,7 +1670,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
             const gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
             const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
 
-            let dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+            let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
             dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
             dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
             if (i == 0)
@@ -1740,9 +1758,13 @@ API.prototype.generateGraph = function () {
     // Get module value
     const moduleColor = $('#module_dropdown').find(":selected").val();
     // Get slider-range value
-    //const top = $('#text-box_genes-range').val();
+    const top = $('#text-box_genes-range').val();
 
-    const gene = $('#gene_dropdown').find(":selected").val();
+    let gene = $('#gene_dropdown').find(":selected").val();
+
+    if (gene === undefined) {
+        gene = top
+    }
 
     //const url_network_plot = '/' + environment + '/API/PostGetModuleTOMGraph?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
     try {
@@ -1778,8 +1800,10 @@ API.prototype.generateGraph = function () {
                     //Update global variable with the JSON data. Necessary to download the xlsx file.
                     data = JSON.parse(data);
                     console.log(data);
+
                     
                     APIPlot.prototype.netPlot(data);
+                    
                     $("#slider-range-threshold").prop('disabled', false);
                     //$("#threshold_network").prop('disabled', false);
                     $("#hide_nodes").prop('disabled', false);

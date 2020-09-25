@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "C:\\Users\\skgtsg0\\.nuget\\packages\\cytoscape.js\\2.7.10\\content\\Scripts\\",
+      "destination": "wwwroot/js/"
+    }
+  ]
+}

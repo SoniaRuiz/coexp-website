@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "Cytoscape.js/2.7.10": {
+        "type": "package"
+      },
       "MailKit/2.0.1": {
         "type": "package",
         "dependencies": {
@@ -4900,6 +4903,19 @@
     }
   },
   "libraries": {
+    "Cytoscape.js/2.7.10": {
+      "sha512": "Oy9pBN6BO0xiPi9d/OryiFko6aqMF1h26uuwzKsdMM67l5OIPymAp2awdsIMoMNA0RpFJGC7fzUmQdjDt8/cmA==",
+      "type": "package",
+      "path": "cytoscape.js/2.7.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Scripts/cytoscape.js",
+        "content/Scripts/cytoscape.min.js",
+        "cytoscape.js.2.7.10.nupkg.sha512",
+        "cytoscape.js.nuspec"
+      ]
+    },
     "MailKit/2.0.1": {
       "sha512": "eRzHd5EN+ST3hGUED4QH44nINxnALQbFozPDVlZODydIWgYO19+m6/txvbV69qF4cpjXwlxO7ivpIcB+/97X2A==",
       "type": "package",
@@ -13262,6 +13278,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "Cytoscape.js >= 2.7.10",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.10",
@@ -13309,6 +13326,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "Cytoscape.js": {
+            "target": "Package",
+            "version": "[2.7.10, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
@@ -13340,7 +13361,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

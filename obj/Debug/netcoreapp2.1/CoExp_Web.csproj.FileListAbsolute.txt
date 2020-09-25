@@ -11,7 +11,6 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csprojAssemblyReference.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.RazorAssemblyInfo.cs
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.AssemblyInfoInputs.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.AssemblyInfo.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.TagHelpers.input.cache
@@ -40,5 +39,7 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Catalogue.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\Razor\Views\Run\Help_Catalogue.cshtml.g.cs
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CoreCompileInputs.cache
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.genruntimeconfig.cache
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CoreCompileInputs.cache
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\libman.json
