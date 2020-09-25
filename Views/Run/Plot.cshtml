@@ -267,18 +267,20 @@
         
 
         <!-- polyfills for testing on older browsers -->
-        <script src="https://unpkg.com/bluebird@3.5.1/js/browser/bluebird.min.js"></script>
-        <script src="https://unpkg.com/whatwg-fetch@2.0.4/fetch.js"></script>
+        @*<script src="https://unpkg.com/bluebird@3.5.1/js/browser/bluebird.min.js"></script>
+        <script src="https://unpkg.com/whatwg-fetch@2.0.4/fetch.js"></script>*@
 
 
 
         <environment include="Development,Docker,Private">
+
+            <link rel="stylesheet" type="text/css" href="~/css/jquery.qtip.css">
             <script type="text/javascript" src="~/js/api.js"></script>
             @*<script type="text/javascript" src="~/js/net_v2_test.js"></script>*@
             <script type="text/javascript" src="~/js/net_v2_cytoscape.js"></script>
             <script type="text/javascript" src="~/js/cytoscape.js"></script>
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
-            <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
+            <script type="text/javascript" src="~/js/jquery.qtip.js"></script>
+
             <script type="text/javascript" src="~/js/cytoscape-qtip.js"></script>
             <script type="text/javascript" src="~/js/cola.js"></script>
             <script type="text/javascript" src="~/js/cytoscape-cola.js"></script>
