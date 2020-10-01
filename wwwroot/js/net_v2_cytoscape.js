@@ -279,36 +279,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         connected = connected.union(node.incomers())
         cy.elements().not(connected).addClass('semitransp');
 
-        const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + node.data().label;
-        const gtex_url = "https://gtexportal.org/home/gene/" + node.data().label;
-        const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + node.data().label;
-
-        let dataContent = "<b>" + node.data().label + "</b><br/>";
-        dataContent = dataContent + 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
-        dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
-        dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
-
-        node.qtip({
-            content: dataContent,
-            show: {
-                event: e.type,
-                ready: true
-            },
-            position: {
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
-                }
-            },
-            hide: {
-                e: 'click unfocus mouseout'
-            }
-        }, e);
+        
 
     });
     cy.on('mouseout', 'node', function (e) {
@@ -323,6 +294,43 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             sel.connectedEdges().removeClass('highlight');
         }
         cy.elements().removeClass('semitransp');
+        
+    });
+
+    cy.on('mousedown', 'node', function (e) {
+        let node = e.cyTarget;
+
+        const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + node.data().label;
+        const gtex_url = "https://gtexportal.org/home/gene/" + node.data().label;
+        const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + node.data().label;
+
+        let dataContent = "<b>" + node.data().label + "</b><br/>";
+        dataContent = dataContent + 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+        dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+        dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+
+        node.qtip({
+            content: dataContent,
+            overwrite: false,
+            show: {
+                event: e.type, // Use the same show event as the one that triggered the event handler
+                ready: true 
+            },
+            position: {
+                my: 'top center',
+                at: 'bottom center'
+            },
+            style: {
+                classes: 'qtip-bootstrap',
+                tip: {
+                    width: 16,
+                    height: 8
+                }
+            },
+            hide: {
+                e: 'mouseup click'
+            }
+        }, e);
         
     });
     //cy.elements().qtip({

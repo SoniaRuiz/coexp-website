@@ -551,7 +551,8 @@ text {
     font-size: 10px;
 }
 
-
+/******************************/
+/***** CYTOSCAPE GRAPH ********/
 #cy {
     width: 100%;
     height: 100%;
@@ -560,4 +561,7 @@ text {
     left: 0px;
     right: 0;
     bottom: 0;
+}
+.tippy-popper {
+    transition: none !important;
 }
