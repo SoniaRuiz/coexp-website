@@ -515,7 +515,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 $("#cellType_div").hide();
                 $("#empty-initial-results").hide();
 
-                $('.nav-tabs a[href="#tab1"]').tab().show();
+                $('.nav-tabs a[href="#tab1"]').tab('show');
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
             else {//only bycelltype
@@ -524,7 +524,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 $("#goFromTissue_div").hide();
                 $("#empty-initial-results").hide();
 
-                $('.nav-tabs a[href="#tab2"]').tab().show();
+                $('.nav-tabs a[href="#tab2"]').tab('show');
                 $('.nav-tabs a[href="#tab1"]').tab().hide();
             }
         }
