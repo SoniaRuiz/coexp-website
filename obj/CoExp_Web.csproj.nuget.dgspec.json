@@ -1,30 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj": {}
+    "/var/www/CoExp_docker/CoExp_Web/CoExp_Web.csproj": {}
   },
   "projects": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj": {
+    "/var/www/CoExp_docker/CoExp_Web/CoExp_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
+        "projectUniqueName": "/var/www/CoExp_docker/CoExp_Web/CoExp_Web.csproj",
         "projectName": "CoExp_Web",
-        "projectPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
-        "packagesPath": "C:\\Users\\skgtsg0\\.nuget\\packages\\",
-        "outputPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\obj\\",
+        "projectPath": "/var/www/CoExp_docker/CoExp_Web/CoExp_Web.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/var/www/CoExp_docker/CoExp_Web/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\skgtsg0\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -72,7 +70,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
         }
       }
     }
