@@ -1,6 +1,6 @@
 # CoExp_Web
 
-CoExp Webpage is a webpage tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
+CoExp Website is a web tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
 
 
 ## Introduction
@@ -17,7 +17,7 @@ Due to the huge growth experienced by the Internet and mobile devices during the
 
 ## Getting Started
 
-CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/).
+CoExp Website is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/).
 
 ## Built With
 
@@ -44,7 +44,7 @@ CoExp Webpage is also available in a Docker version. Please, visit [this link](h
 
 ## Authors
 
-* **Sonia García-Ruiz** - *CoExp Webpage UI developer*
+* **Sonia García-Ruiz** - *CoExp Website UI developer*
   * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
 * **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
   * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
