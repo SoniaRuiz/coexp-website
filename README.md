@@ -1,6 +1,6 @@
 # CoExp_Web
 
-CoExp Webpage is a webpage tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
+CoExp Website is a web tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
 
 
 ## Introduction
@@ -17,7 +17,7 @@ Due to the huge growth experienced by the Internet and mobile devices during the
 
 ## Getting Started
 
-CoExp Webpage is fully working and can be reached following [this link](https://snca.atica.um.es/coexp/).
+CoExp Website is fully working and can be reached following [this link](https://rytenlab.com/coexp/).
 
 ## Built With
 
@@ -29,28 +29,28 @@ CoExp Webpage is fully working and can be reached following [this link](https://
 
 ## Toolkits and Plug-ins used
 
-* [Bootstrap](https://getbootstrap.com/) - To make the webpage responsible.
+* [Bootstrap](https://getbootstrap.com/) - To make the website responsible.
 * [DataTables](https://datatables.net/) - To display the data in a datatable format.
 * [SheetJS](https://sheetjs.com/) - To export data in a *xlsx* format.
-* [Underscore](https://underscorejs.org/) - To enhance the JavaScript functionality of the webpage.
-* [Intro.js](https://introjs.com/) - To generate the initial tour through the different options of the webpage.
+* [Underscore](https://underscorejs.org/) - To enhance the JavaScript functionality of the website.
+* [Intro.js](https://introjs.com/) - To generate the initial tour through the different pages of the website.
 * [D3](https://d3js.org/) - To generate the plot.
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
 
 ## Docker version
 
-CoExp Webpage is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
+CoExp Website is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
 
 ## Authors
 
-* **Sonia García-Ruiz** - *CoExp Webpage UI developer*
+* **Sonia García-Ruiz** - *CoExp Website UI developer*
   * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
 * **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
   * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
 
 ## Acknowledgments
 
-* All [RytenLab](https://snca.atica.um.es/RytenLab/Team) members
+* All [RytenLab](https://rytenlab.com/RytenLab/Team) members
 * [University of Murcia](https://www.um.es/)
 * [University College of London](https://www.ucl.ac.uk/)

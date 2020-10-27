@@ -67,7 +67,6 @@ namespace CoExp_Web.Controllers
                 return View("Error", errorModel);
             }
         }
-
         public IActionResult About()
         {
             try

@@ -1539,7 +1539,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
     let finalGenesString = null;
     for (let i = 0; i < allgenes.length; i++) {
-        const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + allgenes[i];
+        const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + allgenes[i];
         const gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
         const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
 
@@ -1666,7 +1666,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 
         let finalGenesString = null;
         for (let i = 0; i < (d.gene).length; i++) {
-            const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + d.gene[i];
+            const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + d.gene[i];
             const gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
             const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
 

@@ -8,6 +8,7 @@
     <title>CoExp WebSite</title>
     <link type="image/gif" rel="icon" href="~/images/ucl-icon.png">
     <link type="text/css" rel="stylesheet" href="~/css/bootstrap-select.min.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
 
     <environment include="Development">
         <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
@@ -110,7 +111,7 @@
                     <li class="nav-item" id="tab_network_catalogue"><a class="navbar-link" asp-controller="Run" asp-action="Catalogue">Network Catalogue</a></li>
                     <li class="nav-item" id="tab_gene_set_annotation"><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
                     @*<environment include="Development,Docker">*@
-                        <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
+                    <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
                     @*</environment>*@
 
                     <li id="tab_about" class="nav-item dropdown">
@@ -140,15 +141,14 @@
 
     <div class="container body-content">
         @RenderBody()
-
     </div>
 
     <div id="footer">
         @*<environment include="Development,Private">
-            <span class="glyphicon glyphicon-comment"></span>
-            <a href="" data-toggle="modal" data-target="#modalContactForm">Feedback</a>
-            <span class="pipe-footer">|</span>
-        </environment>*@
+                <span class="glyphicon glyphicon-comment"></span>
+                <a href="" data-toggle="modal" data-target="#modalContactForm">Feedback</a>
+                <span class="pipe-footer">|</span>
+            </environment>*@
         <a asp-area="" asp-controller="Run" asp-action="Terms">Terms & Conditions</a>
         <span class="pipe-footer">|</span>
         <a asp-area="" asp-controller="Run" asp-action="Privacy">Privacy</a>
@@ -205,6 +205,7 @@
 
 
     <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="~/lib/font-awesome/js/all.min.js"></script>
 
     <environment include="Development">
         <script type="text/javascript">
