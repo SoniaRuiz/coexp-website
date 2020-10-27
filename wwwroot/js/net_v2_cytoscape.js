@@ -148,7 +148,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             randomize: true,
             avoidOverlap: true,
             nodeDimensionsIncludeLabels: true,
-            maxSimulationTime: 100000
+            maxSimulationTime: 50000
         },
         //pixelRatio: 1, // default:'auto', normalise pixel ratio to 1 here so different screens don't alter performance
         //hideEdgesOnViewport: false, // default:false for cyjs, cytoscape-desktop does something like this by default
@@ -210,16 +210,16 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                 selector: "node[[degree >= 7]]",
                 css: {
                     'font-size': '50%',
-                    'width': '70%',
-                    'height': '70%'
+                    'width': '55%',
+                    'height': '55%'
                 }
             },
             {
                 selector: "node[[degree >= 9]]",
                 css: {
-                    'font-size': '75%',
-                    'width': '75%',
-                    'height': '75%'
+                    'font-size': '50%',
+                    'width': '55%',
+                    'height': '55%'
                 }
             },
             {
@@ -236,9 +236,9 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                     'border-color': $('#module_dropdown').find(":selected").val(),
                     'border-width': '4px',
                     'stroke-width': '5px',
-                    'width': '75%',
-                    'height': '75%',
-                    'font-size': '75%'
+                    'width': '55%',
+                    'height': '55%',
+                    'font-size': '55%'
                     
                 }
             },
@@ -300,7 +300,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     cy.on('mousedown', 'node', function (e) {
         let node = e.cyTarget;
 
-        const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + node.data().label;
+        const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + node.data().label;
         const gtex_url = "https://gtexportal.org/home/gene/" + node.data().label;
         const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + node.data().label;
 

@@ -60,9 +60,9 @@ namespace CoExp_Web.Repositories
         public CoExpRepository(IHostingEnvironment hostingEnvironment)
         {
             _adapter = new HttpAdapter();
-            ProductionEnv = "https://snca.atica.um.es/rytenlab_api/Coexp/";
-            TestEnv = "https://snca.atica.um.es/api_test/";
-            PrivateEnv = "https://snca.atica.um.es/api_private/";
+            ProductionEnv = "https://rytenlab.com/rytenlab_api/Coexp/";
+            TestEnv = "https://rytenlab.com/api_test/";
+            PrivateEnv = "https://rytenlab.com/api_private/";
             DockerEnv = "http://rcoexp:8800/";
             PostData = null;
            
