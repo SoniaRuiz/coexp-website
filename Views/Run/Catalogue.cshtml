@@ -1,7 +1,7 @@
 ﻿@model CoexpParams
 @{
     //View of the main page
-    ViewData["Title"] = "Network Catalog";
+    ViewData["Title"] = "Network Catalogue";
 }
 
 @Html.HiddenFor(m => m.Category)
@@ -10,23 +10,23 @@
 @Html.HiddenFor(m => m.Genes)
 
 
-    <div class="breadcrumb">
-        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-        {
-            <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        }
-        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-        {
-            <span class="active">Network Catalogue</span>
-            @*@if (Model.ModuleColor != null)
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+        <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    }
+    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+    {
+        <span class="active">Network Catalogue</span>
+        @*@if (Model.ModuleColor != null)
             {
                 <span class="active">Network Catalogue</span>
             }else {
                 @Html.ActionLink("Network Catalogue", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
             }*@
-        }
-    </div>
+    }
+</div>
 <div class="row">
     <div id="menu" class="col-sm-3 sidebar menu">
         <div id="menu_gene_list" class="hidden">
@@ -42,11 +42,11 @@
             <div id="step1">
                 <label for="category_dropdown">Category</label>
                 <i class="glyphicon glyphicon-info-sign"
-                    data-toggle="tooltip"
-                    data-placement="right"
-                    data-html="true"
-                    title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
-                    style="vertical-align: middle;"></i>
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
+                   style="vertical-align: middle;"></i>
                 <br />
                 <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
                     @*<option></option>*@
@@ -105,9 +105,10 @@
                 <div id="goFromTissue_div" style="display:none">
                     <h2>Ontology view</h2>
                     <p>
-                        The data table below displays in the rows all modules that belong to the co-expression network selected. On the other hand, the columns provide information related to the ontology term that more strongly correlates with the genes clustered within each module.
-                        The p-value column supports the overlap between the ontology term returned and the genes clustered in the current module. 
-                        The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
+                        The datatable below displays data in rows and columns, with one row for each module belonging to the co-expression network selected. The columns provide information related to the 
+                        ontology term that more strongly correlates with the genes clustered within each module.
+                        The p-value column supports the overlap between the ontology term returned and the genes clustered within the current module.
+                        The raw data behind the generation of this data table is available to be downloaded on the three buttons placed on the upper-left-side corner of the table.
                     </p>
                     <br>
                     <table id="goFromTissue_table" class="table table-striped table-bordered wrap"></table>
@@ -123,9 +124,9 @@
                 <div id="cellType_div" style="display:none;">
                     <h2>Cell Type view</h2>
                     <p>
-                        The data table below displays in the columns all modules that belong to the co-expression network selected. On the other hand, the rows contain the different cell types.
+                        The datatable below displays in the columns all modules that belong to the co-expression network selected. The rows contain information associated to the different cell types.
                         The intersection between each row and column contains a p-value, corrected by the Bonferroni method, that supports the linkage between each cell type and all genes found in the corresponding module.
-                        The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
+                        The raw data supporting the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
                     </p>
                     <br>
                     <table id="cellType_table" class="table table-striped table-bordered nowrap"></table>
@@ -155,9 +156,9 @@
 }
 @section Scripts{
     <script type="text/javascript">
-            // Turn active current menu's option
-            $(".nav-item").find(".active").removeClass("active");
-            $("#tab_network_catalogue").addClass("active");
+        // Turn active current menu's option
+        $(".nav-item").find(".active").removeClass("active");
+        $("#tab_network_catalogue").addClass("active");
     </script>
 
     <script type="text/javascript" src="~/js/underscore-min.js"></script>
@@ -175,8 +176,8 @@
     <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
     <script type="text/javascript" src="~/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/lib/pdfmake/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/lib/pdfmake/vfs_fonts.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="~/js/buttons.colVis.min.js"></script>
@@ -202,10 +203,10 @@
             else {
                 API.prototype.menuInit(11);
             }
-            
+
         });
 
-        
+
       function startIntro(){
         var intro = introJs();
           intro.setOptions({
@@ -215,7 +216,7 @@
                       intro: "<p><b>Category</b></p><p>Please, select here your preferred category of co-expression networks.</p>",
                       position: 'right',
                       scrollTo: 'tooltip'
-                      
+
                   },
                   {
                       element: '#step2',
@@ -255,9 +256,9 @@
                 sessionStorage.setItem('EventTourCatalogue', 'Completed');
             });
         }
-   
+
       }
-    
-        
+
+
     </script>
 }

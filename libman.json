@@ -10,6 +10,16 @@
       "provider": "cdnjs",
       "library": "font-awesome@5.15.1",
       "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "pdfmake@0.1.68",
+      "destination": "wwwroot/lib/pdfmake/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "cytoscape@3.16.2",
+      "destination": "wwwroot/lib/cytoscape/"
     }
   ]
 }

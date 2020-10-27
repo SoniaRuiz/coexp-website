@@ -10,12 +10,9 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="active">Plot Gene Network</span>
     }
-    @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-        {
-            @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }*@
 </div>
-<environment include="Development">
+
+<environment include="Development,Production">
     <div class="row">
         <div class="col-sm-3 sidebar menu">
             <h4>Please, make your selection:</h4>
@@ -56,35 +53,28 @@
                    title="<br/><p>MODULE</p><hr/><ul style='text-align: left;'><li>Contains all modules that belong to the co-expression network selected in the 'Network' menu.</li><br/> <li>Each module represents a different group where genes have clustered together.</li><br/><li>The same gene can be clustered only once, therefore one gene can only appear within one module of the current network.</li></ul><br/>"
                    style="vertical-align: middle;"></i>
                 <br />
-                <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7" 
+                <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7"
                         title="Select an option ..."></select>
             </div>
             <br>
 
             <div id="step4">
                 <label for="gene_dropdown">Gene of interest</label>
-                <br />
-                <select id="gene_dropdown" name="gene" class="selectpicker" data-live-search="true" data-size="7"
-                        title="Select a gene ..."></select>
-            </div>
-            @*<label for="genes-range">Number of genes</label>
                 <i class="glyphicon glyphicon-info-sign"
                    data-toggle="tooltip"
                    data-placement="right"
                    data-html="true"
-                   title="<br/><p>NUMBER OF GENES</p><hr/><ul style='text-align: left;'><li>These are the top genes that present the strongest association to the module selected in the 'Module' menu.</li><br/> <li>For usability reasons, the maximum number of genes allowed is 30. Any other greater value might compromise the graph performance.</li></ul>"
+                   title="<br/><p>GENES</p><hr/>These are all genes belonging to the current module. Please, select your gene of interest.<br/>"
                    style="vertical-align: middle;"></i>
                 <br />
-                <input id="genes-range" type="range" min="2" max="30" value="30">
-                <input id="text-box_genes-range" type="text" value="30">*@
-
-
+                <select id="gene_dropdown" name="gene" class="selectpicker" data-live-search="true" data-size="7"
+                        title="Select a gene ..."></select>
+            </div>
             <br>
             <hr class="menu-hr" />
 
             <div id="step5">
                 <button id="send_button" class="btn btn-primary">Accept</button>
-
             </div>
         </div>
 
@@ -97,50 +87,50 @@
             <div id="plot_area">
                 <div id="cy"></div>
                 @*<table id="network_plot_table">
-                    <tr>
-                        <td>
-                            <div id="network_plot" class="text-center"></div>
-
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div id="button_area" class="pull-right" style="margin-right:20px;">
-                    <button id="save_plot" class="btn btn-primary">Save Graph</button>
-                    <button id="save_data" class="btn btn-primary">Save Data</button>
-
-                </div>
-                <br>
-                <table id="table_treshold">
-                    <tbody>
                         <tr>
                             <td>
-                                <label style="font-size:14px;">Link threshold</label>
-                                <i class="glyphicon glyphicon-info-sign"
-                                   data-toggle="tooltip"
-                                   data-placement="right"
-                                   data-html="true"
-                                   title="'Link threshold' refers to the strength of the link that connects each pair of genes. This slide will remove the weakest links from the graph, until keeping connected the pair of genes that present a stronger connection within the current module."
-                                   style="vertical-align: middle;"></i><br />
+                                <div id="network_plot" class="text-center"></div>
 
-                                <input id="slider-range-threshold" type="range">
-                                <input id="threshold_network" type="text" size="30" value=""><br />
-                                <small>The links shown above are over this threshold value</small><br />
-                                <div class="center-block">
-                                    <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">
-                                    <label for="hide_nodes">Hide isolated nodes</label>
-                                </div>
                             </td>
                         </tr>
-                    </tbody>
-                </table>*@
+                    </table>
+                    <br>
+                    <div id="button_area" class="pull-right" style="margin-right:20px;">
+                        <button id="save_plot" class="btn btn-primary">Save Graph</button>
+                        <button id="save_data" class="btn btn-primary">Save Data</button>
+
+                    </div>
+                    <br>
+                    <table id="table_treshold">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label style="font-size:14px;">Link threshold</label>
+                                    <i class="glyphicon glyphicon-info-sign"
+                                       data-toggle="tooltip"
+                                       data-placement="right"
+                                       data-html="true"
+                                       title="'Link threshold' refers to the strength of the link that connects each pair of genes. This slide will remove the weakest links from the graph, until keeping connected the pair of genes that present a stronger connection within the current module."
+                                       style="vertical-align: middle;"></i><br />
+
+                                    <input id="slider-range-threshold" type="range">
+                                    <input id="threshold_network" type="text" size="30" value=""><br />
+                                    <small>The links shown above are over this threshold value</small><br />
+                                    <div class="center-block">
+                                        <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">
+                                        <label for="hide_nodes">Hide isolated nodes</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>*@
                 <div id="dvjson"></div>
             </div>
         </div>
         <div class="loading_layer"><!-- loading layer --></div>
     </div>
 </environment>
-<environment include="Production">
+<!--<environment include="Production">
     <div class="row">
         <div class="col-sm-3 sidebar menu">
             <h4>Please, make your selection:</h4>
@@ -186,12 +176,12 @@
             <br>
 
             <div id="step4">
-                <label for="genes-range">Number of genes</label>
+                <label for="genes-range">Gene of interest</label>
                 <i class="glyphicon glyphicon-info-sign"
                    data-toggle="tooltip"
                    data-placement="right"
                    data-html="true"
-                   title="<br/><p>NUMBER OF GENES</p><hr/><ul style='text-align: left;'><li>These are the top genes that present the strongest association to the module selected in the 'Module' menu.</li><br/> <li>For usability reasons, the maximum number of genes allowed is 30. Any other greater value might compromise the graph performance.</li></ul>"
+                   title="<p>These are all genes belonging to the current module. Please, select your gene of interest.</p>"
                    style="vertical-align: middle;"></i>
                 <br />
                 <input id="genes-range" type="range" min="2" max="30" value="30">
@@ -254,50 +244,39 @@
                 <div id="dvjson"></div>
             </div>
         </div>
-        <div class="loading_layer"><!-- loading layer --></div>
+        <div class="loading_layer">-->
+<!-- loading layer -->
+<!--</div>
     </div>
 
-</environment>
-    
-
-    @section Scripts{
-
-        <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
-        <script type="text/javascript" src="~/js/d3.v3.min.js"></script>
-        
-
-        <!-- polyfills for testing on older browsers -->
-        @*<script src="https://unpkg.com/bluebird@3.5.1/js/browser/bluebird.min.js"></script>
-        <script src="https://unpkg.com/whatwg-fetch@2.0.4/fetch.js"></script>*@
+</environment>-->
 
 
-
-<environment include="Development,Docker,Private">
+@section Scripts{
 
     <link rel="stylesheet" type="text/css" href="~/css/jquery.qtip.css">
-    <script type="text/javascript" src="~/js/api.js"></script>
-    @*<script type="text/javascript" src="~/js/net_v2_test.js"></script>*@
-    <script type="text/javascript" src="~/js/net_v2_cytoscape.js"></script>
-    <script type="text/javascript" src="~/js/cytoscape.js"></script>
-    <script type="text/javascript" src="~/js/jquery.qtip.js"></script>
 
-        <script type="text/javascript" src="~/js/cytoscape-qtip.js"></script>
+
+        <script type="text/javascript" src="~/js/api.js"></script>
+
+
+    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="~/js/d3.v3.min.js"></script>
+
+
+
+
+    <script type="text/javascript" src="~/js/cytoscape.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.qtip.js"></script>
+    <script type="text/javascript" src="~/js/cytoscape-qtip.js"></script>
     <script type="text/javascript" src="~/js/cola.js"></script>
     <script type="text/javascript" src="~/js/cytoscape-cola.js"></script>
-
-    @*<script type="text/javascript" src="~/js/popper.js"></script>
-    <script type="text/javascript" src="~/js/cytoscape-popper.js"></script>*@
-</environment>
-
-        <environment include="Production">
-            @*<script type="text/javascript" src="~/js/api.min.js"></script>*@
-            @*<script type="text/javascript" src="~/js/net_v2.min.js"></script>*@
-            <script type="text/javascript" src="~/js/api.js"></script>
-            <script type="text/javascript" src="~/js/net_v2.js"></script>
-        </environment>
+    <script type="text/javascript" src="~/js/net_v2_cytoscape.js"></script>
 
 
-        <script type="text/javascript">
+
+
+    <script type="text/javascript">
         $(document).ready(function () {
 
             $('[data-toggle="tooltip"]').tooltip()
@@ -355,7 +334,7 @@
                     },
                     {
                         element: '#step4',
-                        intro: "<b>Number of genes</b><br/><br/>Select the most important genes that would like to visualise in the graph.",
+                        intro: "<b>Genes</b><br/><br/>These are all genes belonging to the current module. Please, select your gene of interest.",
                         position: 'right'
                     },
                     {
@@ -388,6 +367,6 @@
             }
 
         }
-        </script>
-    }
+    </script>
+}
 
