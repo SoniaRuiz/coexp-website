@@ -38,6 +38,10 @@ CoExp Website is fully working and can be reached following [this link](https://
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
 
+## Browsers
+
+CoExp website has been tested on both Google Chrome and Firefox browsers.
+
 ## Docker version
 
 CoExp Website is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
