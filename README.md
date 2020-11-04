@@ -34,9 +34,13 @@ CoExp Website is fully working and can be reached following [this link](https://
 * [SheetJS](https://sheetjs.com/) - To export data in a *xlsx* format.
 * [Underscore](https://underscorejs.org/) - To enhance the JavaScript functionality of the website.
 * [Intro.js](https://introjs.com/) - To generate the initial tour through the different pages of the website.
-* [D3](https://d3js.org/) - To generate the plot.
+* [cytoscape.js](https://js.cytoscape.org/) - JS frameworks used to generate the plot.
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
+
+## Browsers
+
+CoExp website has been tested on both Google Chrome and Firefox browsers.
 
 ## Docker version
 
@@ -44,9 +48,9 @@ CoExp Website is also available in a Docker version. Please, visit [this link](h
 
 ## Authors
 
-* **Sonia García-Ruiz** - *CoExp Website UI developer*
+* **Sonia García-Ruiz** - CoExp Website UI developer
   * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
-* **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
+* **Juan A. Botía** - CoExp R suit-of-packages developer - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
   * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
 
 ## Acknowledgments
