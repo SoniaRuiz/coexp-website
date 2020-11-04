@@ -121,8 +121,21 @@ body.loading .loading_layer {
     .navbar-nav .dropdown-menu a {
         color: white !important;
     }
-        .navbar-nav .dropdown-menu a:hover {
-            color: black !important;
+    .navbar-nav .dropdown-menu a:hover {
+        color: black !important;
+    }
+
+ul.dropdown-menu li.nav-item {
+    background-color: #101010 !important;
+    color: #9d9d9d !important;
+}
+
+    ul.dropdown-menu li.nav-item a {
+        color: #9d9d9d !important;
+    }
+        ul.dropdown-menu li.nav-item a:hover {
+            background-color: #101010 !important;
+            color: white !important;
         }
 
 /******************************************/
@@ -290,6 +303,9 @@ input[type=range] {
 /******* ALL TABS ************/
 h2 {
     color:black !important;
+}
+img{
+    width: 100%
 }
 
 
@@ -507,8 +523,8 @@ svg {
 /******** TAB ABOUT ********/
 .about {
     background-color: #f5f5f5;
-    margin-left: 15px;
-    padding-bottom: 15px;
+    margin: 15px;
+    padding: 15px;
 }
 
 /************************/
