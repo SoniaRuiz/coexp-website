@@ -1,7 +1,6 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\appsettings.Development.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\appsettings.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\libman.json
-\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.deps.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.runtimeconfig.json
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\CoExp_Web\bin\Debug\netcoreapp2.1\CoExp_Web.runtimeconfig.dev.json
