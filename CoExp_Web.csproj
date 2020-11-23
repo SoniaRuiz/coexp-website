@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="tutorialCoExp\**" />
+    <Compile Remove="wwwroot\lib\font-awesome\**" />
     <Content Remove="tutorialCoExp\**" />
+    <Content Remove="wwwroot\lib\font-awesome\**" />
     <EmbeddedResource Remove="tutorialCoExp\**" />
+    <EmbeddedResource Remove="wwwroot\lib\font-awesome\**" />
     <None Remove="tutorialCoExp\**" />
+    <None Remove="wwwroot\lib\font-awesome\**" />
   </ItemGroup>
 
   <ItemGroup>
