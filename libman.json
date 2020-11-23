@@ -5,6 +5,11 @@
     {
       "library": "C:\\Users\\skgtsg0\\.nuget\\packages\\cytoscape.js\\2.7.10\\content\\Scripts\\",
       "destination": "wwwroot/js/"
+    },
+    {
+      "destination": "wwwroot/lib/font-awesome/",
+      "library": "font-awesome@5.15.1",
+      "provider": "cdnjs"
     }
   ]
 }

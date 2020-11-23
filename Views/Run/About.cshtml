@@ -8,15 +8,12 @@
     {
         <span class="main-label-breadcrumbs">CoExp</span>
         <span class="glyphicon glyphicon-chevron-right"></span>
-    }
-    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-    {
         <span class="active">About</span>
         @*@Html.ActionLink("About CoExp", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())*@
     }
 </div>
 <div class="row">
-    <div class="col-sm-11 about">
+    <div class="col-11 about">
         <h2>About</h2>
         <hr class="menu-hr" />
         <div>
@@ -65,7 +62,7 @@
 
             <br /><h4>FURTHER DETAILS</h4><br />
             <p>
-                <b>Version:</b> CoExp v2.0.1 <br>
+                <b>Current release:</b> <a href="https://github.com/SoniaRuiz/coexp-website/tree/v1.0.1" target="_blank">v1.0.1</a><br>
                 <b>Authors:</b>
                 <span class="author"><a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=LO96_F34158" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a></span>,
                 <span class="author"><a href="http://www.rytenlab.com/RytenLab/MemberInfo?Id=BP98-F74160" target="_blank" title="Juan A. Botía">Juan A. Botía</a></span> and
@@ -74,7 +71,7 @@
                 <b>RytenLab HomePage:</b> <a href="http://www.rytenlab.com/" target="_blank">http://www.rytenlab.com/</a>
             </p>
             <hr />
-            <div>
+            <div class="about-logos">
                 <a href="https://www.ucl.ac.uk/" target="_blank" title="Go to University College of London">
                     <img src="~/images/logo-ucl.png" alt="UCL logo" />
                 </a>
@@ -82,7 +79,7 @@
             </div>
 
             @*<legend>GNU General Public License</legend>
-        <p>TODO: Add some text here</p>*@
+                <p>TODO: Add some text here</p>*@
 
         </div>
 
@@ -92,14 +89,14 @@
 
 @section Scripts{
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Turn active current menu's option
-        $(".nav-item").find(".active").removeClass("active");
-        $("#tab_about").addClass("active");
-    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_about").addClass("active");
+        });
 
-</script>
+    </script>
 }
 
 

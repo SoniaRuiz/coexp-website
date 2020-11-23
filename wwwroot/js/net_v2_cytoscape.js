@@ -24,9 +24,9 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     if (cy != null)
         cy.elements().remove();
     const number_of_genes = data_network_raw.length;
-    
 
-/* JSON GENERATION */
+
+    /* JSON GENERATION */
 
     //Set the size that every gene must have depending on the scores derived from the matrix
     var size_of_genes = [];
@@ -58,7 +58,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     let max_weights = new Array();
     let start_storing = false
     let local_max = []
-    
+
     for (var i = 0; i < number_of_genes; i++) {
         local_max = []
         for (var j = 0; j <= number_of_genes; j++) {
@@ -75,21 +75,21 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             //max_weights.push(APIPlot.prototype.secondMax(local_max))
         }
     }
-    
+
 
     // Second, stablish the minimum threshold value
     //let max_value = Math.max.apply(Math, weights)
     //let min_value = Math.min.apply(Math, weights)
     //let min_threshold = max_value - ((max_value - min_value) / 3)
 
-    
+
     // Get all nodes from the TOM matrix
     let json_data = '{ "nodes" : [';
 
     for (var i = 0; i < number_of_genes; i++) {
         json_data += '{ "data": {"id": "' + i
             + '","label": "' + data_network_raw[i][0] + '"}}';
-            //+ '","importance": "' + (ranks[i] * number_of_genes) + '"}}';
+        //+ '","importance": "' + (ranks[i] * number_of_genes) + '"}}';
         if (i == number_of_genes - 1)
             json_data += '],';
         else {
@@ -103,15 +103,15 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
 
     for (var i = 0; i < number_of_genes; i++) {
         local_id += i
-        for (var j = 1; j <= number_of_genes; j++) {         
+        for (var j = 1; j <= number_of_genes; j++) {
             if (data_network_raw[i][j] == max_weights[i]) {
                 local_id += j
                 json_data += '{ "data": {"id": "' + local_id +
                     '","source": "' + i +
                     '","target": "' + (j - 1) +
                     '","weight": "' + data_network_raw[i][j] + '" } },';
-            } 
-        }  
+            }
+        }
     }
 
     json_data = json_data.substring(0, json_data.length - 1);
@@ -121,6 +121,8 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     /* Graph generation */
     var cy = cytoscape({
         container: $("#cy"),
+        minZoom: 0.1,
+        maxZoom: 4,
         /*maxZoom: 1,
         minZoom: 0.1,
         zoomingEnabled: true,
@@ -176,12 +178,12 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                     'line-color': '#333'
                 }
             },
-            {
-                selector: "node[label = '" + $('#gene_dropdown').find(":selected").text() + "']",
-                css: {
-                    "background-color": "red"
-                }
-            },
+            //{//$('#gene_dropdown option:selected').toArray().map(item => item.text).some((num) => num == 'DDX17')
+            //    selector: ($('#gene_dropdown option:selected').toArray().map(item => item.text).some(function (e) { e == "node[label]" })),
+            //    css: {
+            //        "background-color": "red"
+            //    }
+            //},
             {
                 selector: "node[[degree < 3]]",
                 css: {
@@ -194,32 +196,32 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                 selector: "node[[degree >= 3]]",
                 css: {
                     'font-size': '20%',
-                    'width': '30%',
-                    'height': '30%'
+                    'width': '40%',
+                    'height': '40%'
                 }
             },
             {
                 selector: "node[[degree >= 5]]",
                 css: {
                     'font-size': '30%',
-                    'width': '50%',
-                    'height': '50%'
+                    'width': '60%',
+                    'height': '60%'
                 }
             },
             {
                 selector: "node[[degree >= 7]]",
                 css: {
                     'font-size': '50%',
-                    'width': '55%',
-                    'height': '55%'
+                    'width': '65%',
+                    'height': '65%'
                 }
             },
             {
                 selector: "node[[degree >= 9]]",
                 css: {
                     'font-size': '50%',
-                    'width': '55%',
-                    'height': '55%'
+                    'width': '75%',
+                    'height': '75%'
                 }
             },
             {
@@ -239,7 +241,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                     'width': '55%',
                     'height': '55%',
                     'font-size': '55%'
-                    
+
                 }
             },
             {
@@ -260,7 +262,29 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             }
         ]
     });
+    /*****
+     * TARGET GENES ARE COLOURED IN RED
+     * */
 
+    let target_genes = $('#gene_dropdown option:selected').toArray().map(item => item.text)
+    for (gene in target_genes) {
+        target_nodes = cy.elements('node[label = "' + target_genes[gene] + '"]');
+        target_nodes.css({
+            "background-color": "red"
+        });
+        //"background-color": "red"
+    }
+
+    //var png64 = cy.png();
+
+    //// put the png data in an img tag
+    //document.querySelector('#save-plot-img').setAttribute('src', png64);
+    //document.querySelector('#save-plot').setAttribute('href', png64);
+    
+
+    /*
+     * HIGHLIGHT THE NODES IN WHICH THE USER HAS CLICKED
+     * */
     cy.on('mouseover', 'node', function (e) {
         let node = e.cyTarget;
 
@@ -271,17 +295,15 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         } else {
             node.addClass('highlight').outgoers().addClass('highlight');
             node.addClass('highlight').incomers().addClass('highlight');
-            node.addClass('highlight').connectedEdges().addClass('highlight')            
+            node.addClass('highlight').connectedEdges().addClass('highlight')
         }
 
         let connected = node
         connected = connected.union(node.outgoers())
         connected = connected.union(node.incomers())
         cy.elements().not(connected).addClass('semitransp');
-
-        
-
     });
+
     cy.on('mouseout', 'node', function (e) {
         let sel = e.cyTarget;
         if (((e.cy.elements().length + 1) / 2) > 60) {
@@ -294,64 +316,81 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             sel.connectedEdges().removeClass('highlight');
         }
         cy.elements().removeClass('semitransp');
-        
+
     });
 
+    /* 
+     * POPPER WITH INFO ABOUT THE GENE
+     * */
     cy.on('mousedown', 'node', function (e) {
+        if ($("#geneInfo").length) {
+            $("#geneInfo").remove();
+        }
+       
+
         let node = e.cyTarget;
 
-        const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + node.data().label;
-        const gtex_url = "https://gtexportal.org/home/gene/" + node.data().label;
-        const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + node.data().label;
+        let gene = node.data().label;
+        let url = '/' + environment + '/API/GetInfoFromGeneNetwork';
 
-        let dataContent = "<b>" + node.data().label + "</b><br/>";
-        dataContent = dataContent + 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
-        dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
-        dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { term: gene },
+            success: function (data) {
+                $("body").addClass("loading");
+                data = JSON.parse(data);
+                //console.log(data)
+                //let finalOntologyString = null;
 
-        node.qtip({
-            content: dataContent,
-            overwrite: false,
-            show: {
-                event: e.type, // Use the same show event as the one that triggered the event handler
-                ready: true 
+                data = data.gene;
+                //// id":"ENSG00000145335","index_":8680,"name":"SNCA","biotype":"protein_coding","chr":"4","start":89724099,"stop":89838315,"strand":-1,"description":"synuclein, alpha(non A4 component of amyloid precursor)[Source: HGNC Symbol; Acc: HGNC: 11138]"
+                let geneInfo = "";
+                geneInfo = (data.id != "") ? "<b>ID: </b> " + data.id + "<br/>" : "";
+                geneInfo = geneInfo + ((data.biotype != "") ? "<b>Biotype: </b> " + data.biotype + "<br/>" : "");
+                geneInfo = geneInfo + ((data.description != "") ? "<b>Description: </b> " + data.description + "<br/>" : "");
+                geneInfo = geneInfo + ((data.chr != "") ? "<b>Chr: </b> " + data.chr + "<br/>" : "");
+                geneInfo = geneInfo + ((data.start != "") ? "<b>Start: </b> " + data.start + "<br/>" : "");
+                geneInfo = geneInfo + ((data.stop != "") ? "<b>Stop: </b> " + data.stop + "<br/>" : "");
+
+                $("body").removeClass("loading");
+
+                let popper = node.popper({
+                    content: () => {
+                        let div = document.createElement('div');
+
+                        div.innerHTML = geneInfo;
+                        div.id = "geneInfo";
+
+                        //div.style.backgroundColor = "rgba(244, 242, 240, 0.5)";
+                        div.style.padding = "3px";
+                        
+
+                        document.body.appendChild(div);
+
+                        return div;
+                    }
+                });
+
+                let update = () => {
+                    popper.scheduleUpdate();
+                };
+
+                node.on('position', update);
+                cy.on('pan zoom resize', update);
             },
-            position: {
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
-                }
-            },
-            hide: {
-                e: 'mouseup click'
+            error: function () {
+                return "No results found!";
+                $("body").removeClass("loading");
             }
-        }, e);
-        
+        })
     });
-    //cy.elements().qtip({
-    //    content: function () { return 'Example qTip on ele ' + this.id() },
-    //    position: {
-    //        my: 'top center',
-    //        at: 'bottom center'
-    //    },
-    //    style: {
-    //        classes: 'qtip-bootstrap',
-    //        tip: {
-    //            width: 16,
-    //            height: 8
-    //        }
-    //    }
-    //});
-    //cy.elements().renderedBoundingBox().h = 700;
+    cy.on('mouseup', 'node', function (e) {
+        if ($("#geneInfo").length) {
+            $("#geneInfo").remove();
+        }
+    });
 
-
-
-    
 
 
 }
