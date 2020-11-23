@@ -1,6 +1,6 @@
-# CoExp_Web
+# CoExp Website
 
-CoExp Website is a web tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
+CoExp Website is a web tool developed in ASP.NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
 
 
 ## Introduction
@@ -21,11 +21,11 @@ CoExp Website is fully working and can be reached following [this link](https://
 
 ## Built With
 
-* [.NET Core](https://dotnet.microsoft.com) - The web framework used.
+* [ASP.NET Core](https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core) - The web framework used.
 * [MVC](https://dotnet.microsoft.com/apps/aspnet/mvc) - The design pattern used.
 * [Apache HTTP Server Project](http://httpd.apache.org/) - The webserver chosen.
 * [Plumber](https://www.rplumber.io/) - The R package used to create an API to expose CoExp R methods.
-* [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-3.0) - Web server natively used by .NET Core web applications.
+* [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-3.0) - Web server natively used by ASP.NET Core web applications.
 
 ## Toolkits and Plug-ins used
 
