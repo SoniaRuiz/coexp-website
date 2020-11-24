@@ -10,81 +10,66 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="active">Plot Gene Network</span>
     }
-    @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-        {
-            @Html.ActionLink("Plot", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }*@
 </div>
-<environment include="Development">
+
+<environment include="Development,Production">
     <div class="row">
         <div class="col-sm-3 sidebar menu">
-            <h4>Please, make your selection:</h4>
-            <hr class="menu-hr" />
+            @*<h4>Please, make your selection:</h4>
+            <hr class="menu-hr" />*@
 
             <div id="step1">
-                <label for="category_dropdown">Category</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
-                   style="vertical-align: middle;"></i>
-                <br />
+                <span class="fa-li" data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="<ul><li>CoExpROSMAP: 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6: 47 co-expression networks in control tissue;</li><br/><li>10UKBEC: 10 Illumina microarray-based gene expression profiling networks from brain control tissues;</li><br/><li>GTEx V7: a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC: a gene co-expression network from RNA-seq control Cortex samples.</li></ul>">
+                    <i class="fa fa-info-circle fa-fw"></i>
+                </span><p class="fa-li-p" for="category_dropdown">Category:</p>
+
                 <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
             </div>
             <br>
 
             <div id="step2">
-                <label for="network_dropdown">Network</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>NETWORK</p><hr/><p>Contains all co-expression networks that belong to the category selected in the 'Category' menu.</p><br/>"
-                   style="vertical-align: middle;"></i>
-                <br />
+                <span class="fa-li" data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="Contains all co-expression networks from the selected category.">
+                    <i class="fa fa-info-circle fa-fw"></i>
+                </span><p class="fa-li-p" for="network_dropdown">Network:</p>
+
                 <select id="network_dropdown" name="network" class="selectpicker" data-live-search="true" data-size="7" title="Select an option ..."></select>
             </div>
             <br>
 
             <div id="step3">
-                <label for="module_dropdown">Module</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>MODULE</p><hr/><ul style='text-align: left;'><li>Contains all modules that belong to the co-expression network selected in the 'Network' menu.</li><br/> <li>Each module represents a different group where genes have clustered together.</li><br/><li>The same gene can be clustered only once, therefore one gene can only appear within one module of the current network.</li></ul><br/>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7" 
+                <span class="fa-li" data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="Contains all modules that belong to the selected co-expression network.<br/>Each module represents a different cluster of genes.<br/>The same gene can be clustered only once, thus a gene can only appear within one single module from the current network.">
+                    <i class="fa fa-info-circle fa-fw"></i>
+                </span><p class="fa-li-p" for="module_dropdown">Module:</p>
+
+                <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7"
                         title="Select an option ..."></select>
             </div>
             <br>
 
             <div id="step4">
-                <label for="gene_dropdown">Gene of interest</label>
-                <br />
-                <select id="gene_dropdown" name="gene" class="selectpicker" data-live-search="true" data-size="7"
-                        title="Select a gene ..."></select>
+                <span class="fa-li" data-toggle="tooltip"
+                      data-placement="right"
+                      data-html="true"
+                      title="Contains all genes that belong to the selected module.<br/> Please, select one or more genes of interest.">
+                    <i class="fa fa-info-circle fa-fw"></i>
+                </span><p class="fa-li-p" for="gene_dropdown">Gene of interest:</p>
+
+                <select id="gene_dropdown" name="gene" class="selectpicker" multiple data-live-search="true" data-size="7"
+                        title="Select a gene ...">
+                </select>
             </div>
-            @*<label for="genes-range">Number of genes</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>NUMBER OF GENES</p><hr/><ul style='text-align: left;'><li>These are the top genes that present the strongest association to the module selected in the 'Module' menu.</li><br/> <li>For usability reasons, the maximum number of genes allowed is 30. Any other greater value might compromise the graph performance.</li></ul>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <input id="genes-range" type="range" min="2" max="30" value="30">
-                <input id="text-box_genes-range" type="text" value="30">*@
-
-
-            <br>
             <hr class="menu-hr" />
-
             <div id="step5">
                 <button id="send_button" class="btn btn-primary">Accept</button>
-
             </div>
         </div>
 
@@ -95,240 +80,42 @@
             </div>
 
             <div id="plot_area">
+
                 <div id="cy"></div>
-                @*<table id="network_plot_table">
-                    <tr>
-                        <td>
-                            <div id="network_plot" class="text-center"></div>
 
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div id="button_area" class="pull-right" style="margin-right:20px;">
-                    <button id="save_plot" class="btn btn-primary">Save Graph</button>
-                    <button id="save_data" class="btn btn-primary">Save Data</button>
-
-                </div>
-                <br>
-                <table id="table_treshold">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label style="font-size:14px;">Link threshold</label>
-                                <i class="glyphicon glyphicon-info-sign"
-                                   data-toggle="tooltip"
-                                   data-placement="right"
-                                   data-html="true"
-                                   title="'Link threshold' refers to the strength of the link that connects each pair of genes. This slide will remove the weakest links from the graph, until keeping connected the pair of genes that present a stronger connection within the current module."
-                                   style="vertical-align: middle;"></i><br />
-
-                                <input id="slider-range-threshold" type="range">
-                                <input id="threshold_network" type="text" size="30" value=""><br />
-                                <small>The links shown above are over this threshold value</small><br />
-                                <div class="center-block">
-                                    <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">
-                                    <label for="hide_nodes">Hide isolated nodes</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>*@
                 <div id="dvjson"></div>
             </div>
+
         </div>
+        <!--<div id="button_area" class="col-md-9">
+            <a id="save-plot" role="button" href="" download="filename.jpg">
+            <img src="" id="save-plot-img" style="visibility:hidden" />Save Graph
+            </a>-->
+            @*<button id="save-plot" class="btn btn-primary">Save Graph</button>
+            <img id="save-plot-img" src="" />*@
+            <!--<button id="save_data" class="btn btn-primary">Save Data</button>
+
+        </div>-->
         <div class="loading_layer"><!-- loading layer --></div>
     </div>
 </environment>
-<environment include="Production">
-    <div class="row">
-        <div class="col-sm-3 sidebar menu">
-            <h4>Please, make your selection:</h4>
-            <hr class="menu-hr" />
 
-            <div id="step1">
-                <label for="category_dropdown">Category</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
-            </div>
-            <br>
 
-            <div id="step2">
-                <label for="network_dropdown">Network</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>NETWORK</p><hr/><p>Contains all co-expression networks that belong to the category selected in the 'Category' menu.</p><br/>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ..."></select>
-            </div>
-            <br>
 
-            <div id="step3">
-                <label for="module_dropdown">Module</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>MODULE</p><hr/><ul style='text-align: left;'><li>Contains all modules that belong to the co-expression network selected in the 'Network' menu.</li><br/> <li>Each module represents a different group where genes have clustered together.</li><br/><li>The same gene can be clustered only once, therefore one gene can only appear within one module of the current network.</li></ul><br/>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <select id="module_dropdown" name="module" class="selectpicker" title="Select an option ..."></select>
-            </div>
-            <br>
+@section Scripts{
 
-            <div id="step4">
-                <label for="genes-range">Number of genes</label>
-                <i class="glyphicon glyphicon-info-sign"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   data-html="true"
-                   title="<br/><p>NUMBER OF GENES</p><hr/><ul style='text-align: left;'><li>These are the top genes that present the strongest association to the module selected in the 'Module' menu.</li><br/> <li>For usability reasons, the maximum number of genes allowed is 30. Any other greater value might compromise the graph performance.</li></ul>"
-                   style="vertical-align: middle;"></i>
-                <br />
-                <input id="genes-range" type="range" min="2" max="30" value="30">
-                <input id="text-box_genes-range" type="text" value="30">
-            </div>
-
-            <br>
-            <hr class="menu-hr" />
-
-            <div id="step5">
-                <button id="send_button" class="btn btn-primary">Accept</button>
-
-            </div>
-        </div>
-
-        <div id="step6" class="col-md-9">
-
-            <div id="empty-initial-results">
-                <p>Your results will appear here.</p>
-            </div>
-
-            <div id="plot_area">
-                <table id="network_plot_table">
-                    <tr>
-                        <td>
-                            <div id="network_plot" class="text-center"></div>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div id="button_area" class="pull-right" style="margin-right:20px;">
-                    <button id="save_plot" class="btn btn-primary">Save Graph</button>
-                    <button id="save_data" class="btn btn-primary">Save Data</button>
-
-                </div>
-                <br>
-                <table id="table_treshold">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label style="font-size:14px;">Link threshold</label>
-                                <i class="glyphicon glyphicon-info-sign"
-                                   data-toggle="tooltip"
-                                   data-placement="right"
-                                   data-html="true"
-                                   title="'Link threshold' refers to the strength of the link that connects each pair of genes. This slide will remove the weakest links from the graph, until keeping connected the pair of genes that present a stronger connection within the current module."
-                                   style="vertical-align: middle;"></i><br />
-
-                                <input id="slider-range-treshold" type="range">
-                                <input id="threshold_network" type="text" size="30" value=""><br />
-                                <small>The links shown above are over this threshold value</small><br />
-                                <div class="center-block">
-                                    <input id="hide_nodes" type="checkbox" name="hide_nodes" class="plot-checkbox">
-                                    <label for="hide_nodes">Hide isolated nodes</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="dvjson"></div>
-            </div>
-        </div>
-        <div class="loading_layer"><!-- loading layer --></div>
-    </div>
-
-</environment>
     
 
-    @section Scripts{
 
-        <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
-        <script type="text/javascript" src="~/js/d3.v3.min.js"></script>
-        
-
-        <!-- polyfills for testing on older browsers -->
-        @*<script src="https://unpkg.com/bluebird@3.5.1/js/browser/bluebird.min.js"></script>
-        <script src="https://unpkg.com/whatwg-fetch@2.0.4/fetch.js"></script>*@
-
-
-
-<environment include="Development,Docker,Private">
-
-    <link rel="stylesheet" type="text/css" href="~/css/jquery.qtip.css">
-    <script type="text/javascript" src="~/js/api.js"></script>
-    @*<script type="text/javascript" src="~/js/net_v2_test.js"></script>*@
-    <script type="text/javascript" src="~/js/net_v2_cytoscape.js"></script>
-    <script type="text/javascript" src="~/js/cytoscape.js"></script>
-    <script type="text/javascript" src="~/js/jquery.qtip.js"></script>
-
-        <script type="text/javascript" src="~/js/cytoscape-qtip.js"></script>
-    <script type="text/javascript" src="~/js/cola.js"></script>
-    <script type="text/javascript" src="~/js/cytoscape-cola.js"></script>
-
-    @*<script type="text/javascript" src="~/js/popper.js"></script>
-    <script type="text/javascript" src="~/js/cytoscape-popper.js"></script>*@
-</environment>
-
-        <environment include="Production">
-            @*<script type="text/javascript" src="~/js/api.min.js"></script>*@
-            @*<script type="text/javascript" src="~/js/net_v2.min.js"></script>*@
-            <script type="text/javascript" src="~/js/api.js"></script>
-            <script type="text/javascript" src="~/js/net_v2.js"></script>
-        </environment>
-
-
-        <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
-            $('[data-toggle="tooltip"]').tooltip()
+
             // Turn active current menu's option
             $(".nav-item").find(".active").removeClass("active");
             $("#tab_plot").addClass("active");
 
             API.prototype.menuInit(4);
-
-            $(function () {
-                $('input').filter(function () { return this.type == 'range' }).each(function () {
-                    let $slider = $(this);
-                    let $text_box = "";
-                    if ($(this)[0].id == "genes-range") {
-                        $text_box = $('#text-box_genes-range');
-                        $text_box.val(this.value);
-                    } else {
-                        $text_box = $('#threshold_network');
-                    }
-
-                    $slider.change(function () {
-                        $text_box.val(this.value);
-                    });
-
-                    $text_box.change(function () {
-                        $slider.val($text_box.val());
-                    });
-                });
-            });
-
-            $('#empty-initial-results').css("visibility", "visible");
 
         });
 
@@ -355,7 +142,7 @@
                     },
                     {
                         element: '#step4',
-                        intro: "<b>Number of genes</b><br/><br/>Select the most important genes that would like to visualise in the graph.",
+                        intro: "<b>Genes</b><br/><br/>These are all genes belonging to the current module. Please, select your gene of interest.",
                         position: 'right'
                     },
                     {
@@ -388,6 +175,6 @@
             }
 
         }
-        </script>
-    }
+    </script>
+}
 

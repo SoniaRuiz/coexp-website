@@ -54,6 +54,17 @@ namespace CoExp_Web.Repositories
             //Return the response
             return response;
         }
-        
+        public string GetInfoFromGeneNetwork(string gene)
+        {
+
+            var url = "https://www.genenetwork.nl/api/v1/gene/" + gene;
+            //Make the request
+            var response = _adapter.GETHttpRequestJSON(url);
+
+            //Return the response
+            return response;
+        }
+        //
+
     }
 }

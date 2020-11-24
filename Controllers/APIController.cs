@@ -248,6 +248,16 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpPost]
+        [Route("GetInfoFromGeneNetwork")]
+        public string GetInfoFromGeneNetwork([FromForm] string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromGeneNetwork(term);
+
+            return response;
+        }
+
+        [HttpPost]
         [Route("PostReportOnGenesMultipleTissue")]
         public string PostReportOnGenesMultipleTissue([FromBody] CoexpParams coexpdata)
         {

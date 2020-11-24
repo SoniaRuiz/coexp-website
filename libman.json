@@ -7,9 +7,9 @@
       "destination": "wwwroot/js/"
     },
     {
-      "provider": "cdnjs",
+      "destination": "wwwroot/lib/font-awesome/",
       "library": "font-awesome@5.15.1",
-      "destination": "wwwroot/lib/font-awesome/"
+      "provider": "cdnjs"
     }
   ]
 }
