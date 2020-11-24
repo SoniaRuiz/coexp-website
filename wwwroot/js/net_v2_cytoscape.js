@@ -322,7 +322,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     /* 
      * POPPER WITH INFO ABOUT THE GENE
      * */
-    cy.on('mousedown', 'node', function (e) {
+    cy.on('mousedown touchstart', 'node', function (e) {
         if ($("#geneInfo").length) {
             $("#geneInfo").remove();
         }
@@ -385,7 +385,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             }
         })
     });
-    cy.on('mouseup', 'node', function (e) {
+    cy.on('mouseup touchend', 'node', function (e) {
         if ($("#geneInfo").length) {
             $("#geneInfo").remove();
         }
