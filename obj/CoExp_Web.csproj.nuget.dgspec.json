@@ -43,10 +43,6 @@
         "netcoreapp2.1": {
           "targetAlias": "netcoreapp2.1",
           "dependencies": {
-            "Cytoscape.js": {
-              "target": "Package",
-              "version": "[2.7.10, )"
-            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -62,10 +58,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[2.1.10, )"
-            },
-            "NETCore.MailKit": {
-              "target": "Package",
-              "version": "[2.0.2, )"
             }
           },
           "imports": [

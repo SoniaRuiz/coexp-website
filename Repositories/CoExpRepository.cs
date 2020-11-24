@@ -1,11 +1,11 @@
 ﻿using CoExp_Web.Adapters;
 using CoExp_Web.Models;
 using CoExp_Web.Models.Email;
-using MailKit.Net.Smtp;
-using MailKit.Security;
+//using MailKit.Net.Smtp;
+//using MailKit.Security;
 using Microsoft.AspNetCore.Hosting;
-using MimeKit;
-using MimeKit.Text;
+//using MimeKit;
+//using MimeKit.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
