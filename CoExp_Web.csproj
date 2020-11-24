@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>eeede730-d3a0-4dbb-8fd9-96e168e06a93</UserSecretsId>
+	<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+	<MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
   </PropertyGroup>
 
   <ItemGroup>
