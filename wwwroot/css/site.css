@@ -567,6 +567,10 @@ svg {
     font-size: 14px;
 }
 
+.figure img{
+    width: auto;
+}
+
 /************************/
 /***** CATALOGUE ********/
 #goFromTissue_table {
