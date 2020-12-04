@@ -119,7 +119,7 @@
             // Turn active current menu's option
             $(".nav-item").find(".active").removeClass("active");
             $("#tab_plot").addClass("active");
-
+            $("#empty-initial-results").css("visibility", "visible");
             API.prototype.menuInit(4);
 
         });

@@ -50,7 +50,51 @@ body {
     padding-left: 15px;
 }
 
-/************ DATA TABLES **************/
+
+/******************************************/
+/************ INDEX ***********************/
+/******************************************/
+
+/*.home {
+    background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
+    background: -webkit-linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;*/
+    /*background-size: cover;
+    width: 100%;
+    height: 100%;*/
+/*}*/
+div.home-video {
+    clip-path: polygon(26% 0, 44% 53%, 24% 100%, 0% 100%, 0 53%, 0% 0%);
+    position: fixed;
+
+}
+
+    /*div.home-video::before {
+        background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
+        content:normal;
+    }
+    div.home-video:after {
+        background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
+        content:"";
+    }*/
+div.home-text {
+    position: fixed;
+    top: 40%;
+    left: 55%;
+    text-align: right;
+}
+
+    div.home-text h1 {
+        font-size: 70px;
+        font-weight: 600;
+        
+        /*padding-right: 40px;*/
+    }
+
+
+
+/******************************************/
+/************ DATA TABLES *****************/
+/******************************************/
 .table > thead:first-child > tr:first-child > th {
     min-width: 50px !important;
 }
@@ -460,6 +504,9 @@ img{
     .container {
         width: 100% !important;
     }
+    .col-sm-6 {
+        padding-left: 0 !important;
+    }
     .col-sm-9 {
         width: 80% !important;
     }
@@ -468,6 +515,9 @@ img{
 @media (min-width: 768px) {
     .col-sm-3 {
         width: 13% !important;
+    }
+    .col-sm-6 {
+        padding-left: 0 !important;
     }
     .col-sm-9 {
         width: 60% !important;
@@ -478,7 +528,9 @@ img{
     .col-sm-3 {
         width: 13% !important;
     }
-
+    .col-sm-6 {
+        padding-left: 0 !important;
+    }
     .col-sm-9 {
         width: 65% !important;
     }

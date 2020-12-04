@@ -16,9 +16,10 @@ namespace CoExp_Web.Controllers
     public class RunController : Controller
     {
 
-        public IActionResult Index(CoexpParams coexpParams) { 
-            return View("Catalogue", coexpParams);
+        public IActionResult Index() { 
+            return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Catalogue(CoexpParams coexpParams)
         {
