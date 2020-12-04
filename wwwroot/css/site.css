@@ -55,27 +55,12 @@ body {
 /************ INDEX ***********************/
 /******************************************/
 
-/*.home {
-    background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
-    background: -webkit-linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;*/
-    /*background-size: cover;
-    width: 100%;
-    height: 100%;*/
-/*}*/
-/*div.home-video {
-    clip-path: polygon(25% 0, 50% 50%, 25% 100%, 0% 100%, 0 50%, 0% 0%);*/
-  /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
-    /*position: fixed;
-}*/
+div.home-video {
+    clip-path: polygon(25% 0, 50% 50%, 25% 100%, 0% 100%, 0 50%, 0% 0%);
+    /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
+    position: fixed;
+}
 
-    /*div.home-video::before {
-        background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
-        content:normal;
-    }
-    div.home-video:after {
-        background: linear-gradient(90deg, rgba(16,16,16,1) 0%, rgba(41,127,184,1) 35%, rgba(0,151,255,1) 100%) !important;
-        content:"";
-    }*/
 div.home-text {
     position: fixed;
     top: 40%;
@@ -86,8 +71,6 @@ div.home-text {
     div.home-text h1 {
         font-size: 70px;
         font-weight: 600;
-        
-        /*padding-right: 40px;*/
     }
 
 
@@ -539,15 +522,6 @@ img{
     }
 }
 
-
-@media screen and (device-aspect-ratio: 16/9) {
-   
-    div.home-video {
-        clip-path: polygon(25% 0, 50% 50%, 25% 100%, 0% 100%, 0 50%, 0% 0%);
-        /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
-        position: fixed;
-    }
-}
 
 
 
