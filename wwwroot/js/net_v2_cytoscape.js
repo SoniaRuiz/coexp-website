@@ -1,3 +1,7 @@
+/**
+ * @fileoverview This file contains all JS functions needed for building the graph.
+ * @author Sonia García Ruiz (s.ruiz@ucl.ac.uk)
+ */
 
 let APIPlot = function () {
     //this.svg;

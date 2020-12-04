@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains all JS functions needed for the correct performance
- * of CoExp webpage.
+ * of CoExp Web Application.
  * @author Sonia García Ruiz (s.ruiz@ucl.ac.uk)
  */
 
