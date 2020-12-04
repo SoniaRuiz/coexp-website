@@ -548,16 +548,7 @@ img{
         position: fixed;
     }
 }
-@media screen and (device-aspect-ratio: 4/3) {
 
-    div.home-video {
-        /*clip-path: polygon(25% 0, 50% 50%, 25% 100%, 0% 100%, 0 50%, 0% 0%);*/
-        /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
-        position: fixed;
-        color:white;
-        font-weight:bold;
-    }
-}
 
 
 
