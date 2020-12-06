@@ -473,9 +473,9 @@ img{
 
 
     div.home-video {
-        clip-path: polygon(12% 0, 
-        20% 25%, 
-        12% 50%, 
+        clip-path: polygon(15% 0, 
+        25% 25%, 
+        15% 50%, 
         0 50%, 
         0 25%, 
         0% 0%);
@@ -487,11 +487,12 @@ img{
         top: 30% !important;
     }
         div.home-text h1 {
-            font-size: 60px;
+            font-size: 55px;
             font-weight: 600;
             text-shadow: 1px 1px 3px white;
         }
         div.home-text h2 {
+            font-size: 25px;
             text-shadow: 1px 1px 3px white;
         }
 
