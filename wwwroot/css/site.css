@@ -351,36 +351,7 @@ img{
 #plot_area{
     display:none;
 }
-/*#network_plot_table {*/
-#cy {
-    width: 100% !important;
-    min-height: 700px !important;
-    max-height: 1000px !important;
-    border: 1px solid grey;
-}
-/*#network_plot {
-    text-align: center;
-    margin: 0 auto;
-    width: 100%;
-    min-height: 700px;
-    border: 1px;
-    border-color: black;
-    border-style: solid;
-}
-#table_treshold {
-    text-align: center;
-    margin: 0 auto;
-    width: 500px;
-    height: 20px;
-    border: 0px;
-}
-#threshold_network {
-    text-align: center;
-}
 
-.plot-checkbox {
-    float: inherit;
-}*/
 /*****************************/
 /******* ANNOTATED TAB *******/
 #genes {
@@ -473,23 +444,63 @@ img{
         text-align: center;
     }
 
+/*************************/
+/******** PLOT ***********/
+#cy {
+    width: 100% !important;
+    min-height: 700px;
+    max-height: 1000px;
+    border: 1px solid grey;
+}
+
 
 /*************************/
 /***** LAYOUT SIZES *****/
 
-@media (min-width: 1200px){
+/* This are the measures for my laptop*/
+@media screen and (min-width: 1200px), screen and (max-width: 1400px) {
     .container {
         width: 100% !important;
     }
-    
+
     .col-sm-6 {
         padding-left: 0 !important;
-
     }
+
     .col-sm-9 {
         width: 80% !important;
     }
-    
+
+
+    div.home-video {
+        clip-path: polygon(12% 0, 
+        20% 25%, 
+        12% 50%, 
+        0 50%, 
+        0 25%, 
+        0% 0%);
+        /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
+        position: fixed;
+    }
+
+    div.home-text {
+        top: 30% !important;
+    }
+        div.home-text h1 {
+            font-size: 60px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px white;
+        }
+        div.home-text h2 {
+            text-shadow: 1px 1px 3px white;
+        }
+
+    #cy {
+        width: 100%;
+        min-height: 550px;
+        max-height: 550px;
+        border: 1px solid grey;
+    }
 }
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
@@ -522,34 +533,13 @@ img{
         width: 65% !important;
     }
 }
-@media (max-width: 1430px) {
-
-
-    .col-sm-6 {
-        padding-left: 0 !important;
-    }
+@media screen and (max-width: 470px) {
 
     div.home-video {
-        clip-path: polygon(20% 0, 
-        35% 35%, 
-        20% 70%,
-        0 70%, 
-        0 35%, 
-        0% 0%);
+        clip-path: polygon(100% 0, 100% 49%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
         /*  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0% 100%, 0 50%, 0% 0%);*/
         position: fixed;
     }
-    div.home-text {
-        top: 30% !important;
-    }
-    div.home-text h1 {
-        font-size: 60px;
-        font-weight: 600;
-        text-shadow: 2px white !important;
-    }
-}
-@media (max-width: 470px) {
-
 
     .col-sm-6 {
         padding-left: 0 !important;
@@ -557,17 +547,25 @@ img{
     div.home-text {
         top: 10% !important;
     }
-
         div.home-text h1 {
             font-size: 50px;
             font-weight: 600;           
-            text-shadow: 2px white !important;
+            text-shadow: 1px 1px 3px black;
+            color: white !important;
+        }
+        div.home-text h2 {
+            color: white !important;
+            font-size: 20px;
+            text-shadow: 1px 1px 3px black;
         }
 
+    #cy {
+        width: 100% !important;
+        min-height: 400px !important;
+        max-height: 500px !important;
+        border: 1px solid grey;
+    }
 }
-
-
-
 
 
 
