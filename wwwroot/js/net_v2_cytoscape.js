@@ -1,5 +1,5 @@
 /**
- * @fileoverview This file contains all JS functions needed for building the graph.
+ * @fileoverview This file contains all JS functions needed for building the graph using cytoscape.js framework.
  * @author Sonia García Ruiz (s.ruiz@ucl.ac.uk)
  */
 
@@ -55,8 +55,8 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         local_maximum = [];
     }
 
-    var sorted = max_size_of_genes.slice().sort(function (a, b) { return b - a })
-    var ranks = max_size_of_genes.slice().map(function (v) { return sorted.indexOf(v) + 1 });
+    //var sorted = max_size_of_genes.slice().sort(function (a, b) { return b - a })
+    //var ranks = max_size_of_genes.slice().map(function (v) { return sorted.indexOf(v) + 1 });
 
     // First, obtain the range of weights associated to the target gene
 
@@ -128,20 +128,6 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         container: $("#cy"),
         minZoom: 0.1,
         maxZoom: 4,
-        /*maxZoom: 1,
-        minZoom: 0.1,
-        zoomingEnabled: true,
-        userZoomingEnabled: true,
-        panningEnabled: true,
-        userPanningEnabled: true,*/
-        //autoungrabifyNodes: true,
-        //autoungrabifyEdges: true,
-        //autoungrabify: true,
-        //hideEdgesOnViewport: true,
-        //hideLabelsOnViewport: true,
-        //textureOnViewport: true,
-        //autounselectify: false,
-        //motionBlur: false,
         pixelRatio: 1,
         //boxSelectionEnabled: false,
         renderer: {
@@ -279,12 +265,6 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         });
         //"background-color": "red"
     }
-
-    //var png64 = cy.png();
-
-    //// put the png data in an img tag
-    //document.querySelector('#save-plot-img').setAttribute('src', png64);
-    //document.querySelector('#save-plot').setAttribute('href', png64);
     
 
     /*
@@ -397,27 +377,19 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     });
 
     
-
+    /*
+     * BUTTONS TO DOWNLOAD THE GRAPH DATA
+     * */
     cy.ready(function (event) {
         $('#button_area').show();
-        
     });
     $("#save-plot").click(function () {
         var png64 = cy.png({ full: true, quality: 1 });
-        //var url = png64.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
-        //window.open(url);
-        // put the png data in an img tag
-        //$('#save-plot').attr('href', '');
         $('#save-plot').attr('href', png64);
     });
     $("#save-data").click(function () {
-        var json = cy.json();
-        //var url = png64.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
-        //window.open(url);
-        // put the png data in an img tag
-        //$('#save-plot').attr('href', '');
-        $('#save-data').attr('href', "data:application/json," + encodeURIComponent(JSON.stringify(json_data)));
+        //var json = cy.json();
+        $('#save-data').attr('href', "data:application/json," + encodeURIComponent(json_data));
     });
-
 
 }
