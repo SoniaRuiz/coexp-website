@@ -90,15 +90,12 @@
             </div>
 
         </div>
-        <!--<div id="button_area" class="col-md-9">
-            <a id="save-plot" role="button" href="" download="filename.jpg">
-            <img src="" id="save-plot-img" style="visibility:hidden" />Save Graph
-            </a>-->
-            @*<button id="save-plot" class="btn btn-primary">Save Graph</button>
-            <img id="save-plot-img" src="" />*@
-            <!--<button id="save_data" class="btn btn-primary">Save Data</button>
+        <div id="button_area" class="col-md-3" hidden>
+            <a id="save-plot" class="btn btn-primary" role="button" href="" download="plot_graph_CoExpWebApplication.png">Save Graph</a>
+            <a id="save-data" class="btn btn-primary" role="button" href="" download="plot_data_CoExpWebApplication.json">Save Data</a>
 
-        </div>-->
+
+        </div>
         <div class="loading_layer"><!-- loading layer --></div>
     </div>
 </environment>
@@ -111,7 +108,9 @@
 
 
     <script type="text/javascript">
+     
         $(document).ready(function () {
+
             $('[data-toggle="tooltip"]').tooltip()
 
             $("[data-placement='bottom']").popover();

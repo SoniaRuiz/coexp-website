@@ -255,22 +255,22 @@ API.prototype.menuInit = function (view) {
         API.prototype.sendButtonFunction(view);
     });
     //When the user press the 'Save Plot' button (in 'Plot' view):
-    $('#save_plot').on('click', function () {
+    //$('#save_plot').on('click', function () {
         
-        var blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, "hello world.txt");
-        //var b64key = 'base64,';
-        //var b64 = cy.png().substring( cy.png().indexOf(b64key) + b64key.length );
-        //var imgBlob = base64ToBlob(b64, 'image/png');
+    //    var blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
+    //    saveAs(blob, "hello world.txt");
+    //    //var b64key = 'base64,';
+    //    //var b64 = cy.png().substring( cy.png().indexOf(b64key) + b64key.length );
+    //    //var imgBlob = base64ToBlob(b64, 'image/png');
 
-        //saveAs(imgBlob, 'graph.png');
-    });
-    //When the user press the 'Save Data' button (in 'Plot' view):
-    $('#save_data').on('click', function () {
-        var jsonBlob = new Blob([JSON.stringify(cy.json())], { type: 'application/javascript;charset=utf-8' });
+    //    //saveAs(imgBlob, 'graph.png');
+    //});
+    ////When the user press the 'Save Data' button (in 'Plot' view):
+    //$('#save_data').on('click', function () {
+    //    var jsonBlob = new Blob([JSON.stringify(cy.json())], { type: 'application/javascript;charset=utf-8' });
 
-        saveAs(jsonBlob, 'graph.json');
-    });
+    //    saveAs(jsonBlob, 'graph.json');
+    //});
 
     // Add event listener for opening and closing table details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
@@ -743,6 +743,10 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     }
     else if (view == 4) {
 
+        if (cy != null) {
+            cy.destroy()
+        }
+        $('#button_area').hide();
         /*
          * 'Plot' tab
          * */

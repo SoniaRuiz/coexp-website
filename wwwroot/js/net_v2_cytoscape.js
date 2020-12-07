@@ -12,6 +12,7 @@ let APIPlot = function () {
 };
 
 var cy = null;
+let json_data = '';
 
 APIPlot.prototype.secondMax = function (arr) {
     var max = Math.max.apply(null, arr), // get the max of the array
@@ -88,7 +89,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
 
 
     // Get all nodes from the TOM matrix
-    let json_data = '{ "nodes" : [';
+    json_data = '{ "nodes" : [';
 
     for (var i = 0; i < number_of_genes; i++) {
         json_data += '{ "data": {"id": "' + i
@@ -123,7 +124,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     console.log(json_data)
 
     /* Graph generation */
-    var cy = cytoscape({
+    cy = cytoscape({
         container: $("#cy"),
         minZoom: 0.1,
         maxZoom: 4,
@@ -395,6 +396,28 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         }
     });
 
+    
+
+    cy.ready(function (event) {
+        $('#button_area').show();
+        
+    });
+    $("#save-plot").click(function () {
+        var png64 = cy.png({ full: true, quality: 1 });
+        //var url = png64.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+        //window.open(url);
+        // put the png data in an img tag
+        //$('#save-plot').attr('href', '');
+        $('#save-plot').attr('href', png64);
+    });
+    $("#save-data").click(function () {
+        var json = cy.json();
+        //var url = png64.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+        //window.open(url);
+        // put the png data in an img tag
+        //$('#save-plot').attr('href', '');
+        $('#save-data').attr('href', "data:application/json," + encodeURIComponent(JSON.stringify(json_data)));
+    });
 
 
 }

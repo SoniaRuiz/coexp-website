@@ -7,14 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Email\**" />
     <Compile Remove="tutorialCoExp\**" />
     <Compile Remove="Views\Run\Help\**" />
+    <Content Remove="Models\Email\**" />
     <Content Remove="tutorialCoExp\**" />
     <Content Remove="Views\Run\Help\**" />
+    <EmbeddedResource Remove="Models\Email\**" />
     <EmbeddedResource Remove="tutorialCoExp\**" />
     <EmbeddedResource Remove="Views\Run\Help\**" />
+    <None Remove="Models\Email\**" />
     <None Remove="tutorialCoExp\**" />
     <None Remove="Views\Run\Help\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\BraineacParams.cs" />
+    <Compile Remove="Repositories\BraineacRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
