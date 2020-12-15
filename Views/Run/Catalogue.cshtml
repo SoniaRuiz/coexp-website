@@ -15,11 +15,20 @@
     {
         <span class="main-label-breadcrumbs">CoExp</span>@*@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())*@
         <span class="glyphicon glyphicon-chevron-right"></span>
+    }
+    @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+    {
         <span class="active">Network Catalogue</span>
+        @*@if (Model.ModuleColor != null)
+            {
+                <span class="active">Network Catalogue</span>
+            }else {
+                @Html.ActionLink("Network Catalogue", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+            }*@
     }
 </div>
 <div class="row">
-    <div id="menu" class="col-sm-3 col-md-3 col-lg-3 sidebar menu">
+    <div id="menu" class="col-sm-3 sidebar menu">
         <div id="menu_gene_list" class="hidden">
             <h4>Gene List</h4>
             <hr class="menu-hr" />
@@ -27,48 +36,50 @@
             <button id="get_gene_list" type="button" class="btn btn-info">Get Gene List</button>
         </div>
         <div id="menu_data">
-            @*<h4>Please, make your selection:</h4>
-            <hr class="menu-hr" />*@
+            <h4>Please, make your selection:</h4>
+            <hr class="menu-hr" />
 
             <div id="step1">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<li>CoExpROSMAP: 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6: 47 co-expression networks in control tissue;</li><br/><li>10UKBEC: 10 Illumina microarray-based gene expression profiling networks from brain control tissues;</li><br/><li>GTEx V7: a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC: a gene co-expression network from RNA-seq control Cortex samples.</li>">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="category_dropdown">Category:</p>
-                
+                <label for="category_dropdown">Category</label>
+                <i class="glyphicon glyphicon-info-sign"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>CATEGORY</p><hr/><ul style='text-align: left;'> <li>ROSMAP, contains 4 case and control Frontal Cortex co-expression networks;</li><br/><li>GTEx V6, contains 47 co-expression networks in control tissue;</li><br/><li>10UKBEC, contains 10 Illumina microarray-based gene expression profiling networks from brain control tissue;</li><br/><li>GTEx V7, contains a beta version of the same 47 co-expression networks from GTExV6;</li><br/><li>NABEC, contains 1 gene co-expression network created from RNA-seq control Cortex samples.</li></ul>"
+                   style="vertical-align: middle;"></i>
+                <br />
                 <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
                     @*<option></option>*@
                 </select>
             </div><br>
 
             <div id="step2">
-                <span class="fa-li" data-toggle="tooltip"
+                <label for="network_dropdown">Network</label>
+                <span class="glyphicon glyphicon-info-sign"
+                      aria-hidden="true"
+                      data-toggle="tooltip"
                       data-placement="right"
                       data-html="true"
-                      title="Contains all co-expression networks from the selected category.">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="network_dropdown">Network:</p>
-                
+                      title="<br/><p>NETWORK</p><hr/><p>Contains all co-expression networks that belong to the category selected in the 'Category' dropdown menu.</p><br/>"
+                      style="vertical-align: middle;"></span><br />
                 <select id="network_dropdown" name="network" class="selectpicker" title="Select an option ...">
                     <option></option>
                 </select>
             </div> <br>
 
             <div id="step3">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="These are the different types of results that can be retrieved in this query. You can select only one or both views.">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="view_selection">Show results by ...</p>
-                
+                <label for="view_selection">Show results by ...</label>
+                <i class="glyphicon glyphicon-info-sign"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   data-html="true"
+                   title="<br/><p>SHOW RESULTS BY ...</p><hr/><p>These are the different types of results that can be retrieved in this query. You can select only one or both views.</p><br/>"
+                   style="vertical-align: middle;"></i><br />
                 <select id="view_selection" class="selectpicker" multiple title="Select an option ...">
-                    <option value="1">Gene Ontology</option>
+                    <option value="1">Ontology</option>
                     <option value="2">Cell Type</option>
                 </select>
-            </div>
+            </div><br>
 
             <hr class="menu-hr" />
             <div id="step4">
@@ -104,9 +115,9 @@
                 </div>
                 <br>
                 <div id="goFromTissue_divError" style="display:none;" class="alert alert-danger">
-                    <h4>Sorry, an error has occurred.<br />
-                    The webmaster has been informed about this error. Please, try again later.</h4>
+                    <h4>Sorry. An error has occurred.</h4>
                 </div>
+
 
             </div>
             <div class="tab-pane fade" id="tab2">
@@ -118,7 +129,7 @@
                         The raw data supporting the generation of this data table is available to be downloaded under the three buttons placed on the upper-left-side corner of the table.
                     </p>
                     <br>
-                    <table id="cellType_table" class="table table-striped table-bordered nowrap table-responsive"></table>
+                    <table id="cellType_table" class="table table-striped table-bordered nowrap"></table>
                 </div>
                 <br>
                 <div id="cellType_divError" style="display:none;" class="alert alert-danger">
@@ -137,7 +148,11 @@
     <div class="loading_layer"><!-- loading layer --></div>
 </div>
 @section HeadStyles{
-    
+    <link type="text/css" rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.min.css">
 }
 @section Scripts{
     <script type="text/javascript">
@@ -146,7 +161,29 @@
         $("#tab_network_catalogue").addClass("active");
     </script>
 
-   
+    <script type="text/javascript" src="~/js/underscore-min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+
+    <environment include="Development,Docker,Private">
+        <script type="text/javascript" src="~/js/api.js"></script>
+    </environment>
+    <environment include="Production">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/lib/pdfmake/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/lib/pdfmake/vfs_fonts.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTables.fixedColumns.min.js"></script>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -168,6 +205,7 @@
             }
 
         });
+
 
       function startIntro(){
         var intro = introJs();
@@ -207,7 +245,7 @@
         if (doneTourCatalogue) {
             return;
         }
-        else {      
+        else {
             intro.start();
 
             intro.oncomplete(function () {
@@ -218,7 +256,9 @@
                 sessionStorage.setItem('EventTourCatalogue', 'Completed');
             });
         }
+
       }
+
 
     </script>
 }

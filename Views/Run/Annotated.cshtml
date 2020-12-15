@@ -23,25 +23,33 @@
 </div>
 <div class="row">
     <div class="col-sm-3 sidebar menu">
+        <h4>Please, make your selection:</h4>
+        <hr class="menu-hr" />
         <div id="step1">
-            <span class="fa-li" data-toggle="tooltip"
-                  data-placement="right"
-                  data-html="true"
-                  title="<p style='text-align: left;'>Select your preferred gene co-expression network.</p><p style='text-align: left;'>You can select one or more networks from the same or from multiple categories.</p>">
-                <i class="fa fa-info-circle fa-fw"></i>
-            </span><p class="fa-li-p" for="tree">Network:</p>
+            <label for="tree">Network:</label>
+            <span class="glyphicon glyphicon-info-sign"
+               data-toggle="tooltip"
+               data-placement="right"
+               data-html="true"
+               title="<br/>NETWORK<hr/><p style='text-align: left;'>Select here your preferred co-expression network.<br/><br/>You can select one or more networks from the same or multiple categories.</p><br/>"
+               style="vertical-align: middle;"></span>
+            <br />
             <div id="tree"></div>
         </div>
 
         <div id="step2">
-            <span class="fa-li" data-toggle="tooltip"
-                  data-placement="right"
-                  data-html="true"
-                  title="<p>Paste your list of genes in a comma-separated or blank-space-separated format. There is no maximum of genes per list.<br/><br/>Please, be aware that the larger the list, the longer the request may take.</p>">
-                <i class="fa fa-info-circle fa-fw"></i>
-            </span><p class="fa-li-p" for="genes">Genes:</p>            
-            <textarea class="form-control" rows="5" id="genes" placeholder="Type your genes ..."></textarea>
+            <label for="genes">Genes:</label>
+            <span class="glyphicon glyphicon-info-sign"
+               data-toggle="tooltip"
+               data-placement="right"
+               data-html="true"
+               title="<br/><p>GENES</p><hr/><p style='text-align: left;'>Type here a list with your genes of interest in a comma-separated or blank-space-separated fashion.<br/><br/>The gene list can contain from one single gene to a non-maximum stablished.<br/><br/>Please, be aware that the larger the list, the longer the request may take.</p><br/>"
+               style="vertical-align: middle;"></span>
+            <br />
+            <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
         </div>
+
+        <br>
         <hr class="menu-hr" />
         <div id="step3">
             <button id="send_button" class="btn btn-primary">Accept</button>
@@ -184,45 +192,53 @@
                     <th>Network</th>
                     <th>Gene Ensembl</th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value Fisher
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
-                            <i class="fa fa-info fa-fw"></i>
-                        </span><span class="fa-li-p">Fisher p-value</span>
+                              title="<p style='text-align: left;'><u>p-value Fisher</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>"
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value FDR
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
-                            <i class="fa fa-info fa-fw"></i>
-                        </span><span class="fa-li-p">FDR p-value</span>
+                              title="<p style='text-align: left;'><u>p-value FDR</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing."
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value Bonferroni
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module. <br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
-                            <i class="fa fa-info fa-fw"></i>
-                        </span><span class="fa-li-p">Bonferroni p-value</span>
+                              title="<p style='text-align: left;'><u>p-value Bonferroni</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set."
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>Module</th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        Module Membership (mm)
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>Represents a degree of membership of a gene to a module. <br /><br />When the mm is close to 0, the likelihood of that gene belonging to the module is very low. When the mm is close to 1 or −1, the gene the likelihood of that gene belonging to the module is high.</p>">
-                            <i class="fa fa-info fa-fw"></i>
-                        </span><span class="fa-li-p">Module Membership</span>
+                              title="<p style='text-align: left;'><u>Module Membership (mm)</u><br /><br />mm represents a degree of membership of a gene to a module. <br /><br />When the mm is close to 0, the likelihood of that gene belonging to the module is very low. When the mm is close to 1 or −1, the gene the likelihood of that gene belonging to the module is high.<br /><br />" 
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        Module Size
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>Total number of genes in the current module.</p>">
-                            <i class="fa fa-info fa-fw"></i>
-                        </span><span class="fa-li-p">Module Size</span>
+                              title="<p style='text-align: left;'><u>Module Size</u><br /><br />Total number of genes in the current module.<br /><br />" 
+                              style="vertical-align: middle;"></span>
+
                     </th>
                     <th>GO Report</th>
                     <th>Cell Type</th>
@@ -238,7 +254,7 @@
             Press 'EXPAND RESULTS' button to come back to the original data table view.
         </p>
         <br>
-        <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered nowrap table-responsive">
+        <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th></th>
@@ -246,46 +262,52 @@
                     <th>Category</th>
                     <th>Module</th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        Overlap
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>Total number of genes from your gene list that have been found in the current module.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Overlap</span>
-
+                              title="<p style='text-align: left;'><u>Overlap</u><br/><br/>Total number of genes from your gene list that have been found in the current module.</p>"
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>Gene</th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value Fisher
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Fisher p-value</span>
+                              title="<p style='text-align: left;'><u>p-value Fisher</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by applying the Fisher\'s exact test over the overlap mentioned before.</p>"
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value FDR
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">FDR p-value</span>
+                              title="<p style='text-align: left;'><u>p-value FDR</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing."
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        p-value Bonferroni
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module. <br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Bonferroni p-value</span>
+                              title="<p style='text-align: left;'><u>p-value Bonferroni</u><br/><br/>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>
+                               This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set."
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
+                        Module Size
+                        <span class="glyphicon glyphicon-info-sign"
+                              data-toggle="tooltip"
+                              data-placement="right"
                               data-html="true"
-                              title="<p>Total number of genes in the current module.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Module Size</span>
+                              title="<p style='text-align: left;'><u>Module Size</u><br /><br />Total number of genes in the current module.<br /><br />"
+                              style="vertical-align: middle;"></span>
                     </th>
                     <th>GO Report</th>
                     <th>Cell Type</th>
@@ -302,9 +324,41 @@
 
 </div>
 <br>
-@section HeadStyles{}
+@section HeadStyles{
+    <link type="text/css" rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/buttons.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/fixedColumns.dataTables.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/custom.dataTables.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/simTree.css">
+
+}
 @section Scripts{
-    
+    <script type="text/javascript" src="~/js/underscore-min.js"></script>
+
+    <!--Multiselect scripts -->
+    <script type="text/javascript" src="~/js/simTree.min.js"></script>
+
+    <!-- DataTable scripts-->
+    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/js/dataTables.bootstrap4.min.js"></script>
+
+    <environment include="Development,Docker,Private">
+        <script type="text/javascript" src="~/js/api.js"></script>
+    </environment>
+    <environment include="Production">
+        <script type="text/javascript" src="~/js/api.min.js"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="~/js/jszip.min.js"></script>
+    @*<script type="text/javascript" src="~/js/pdfmake.min.js"></script>*@
+    <script type="text/javascript" src="~/lib/pdfmake/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/lib/pdfmake/vfs_fonts.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()
