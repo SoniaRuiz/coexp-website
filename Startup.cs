@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CoExp_Web.Models.Email;
+//using CoExp_Web.Models.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,7 +56,7 @@ namespace CoExp_Web
             
             
             //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            services.AddTransient<IEmailService, EmailService>();
+            //services.AddTransient<IEmailService, EmailService>();
 
 
         }

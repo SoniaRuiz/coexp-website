@@ -1,11 +1,11 @@
 ﻿using CoExp_Web.Adapters;
 using CoExp_Web.Models;
-using CoExp_Web.Models.Email;
-using MailKit.Net.Smtp;
-using MailKit.Security;
+//using CoExp_Web.Models.Email;
+//using MailKit.Net.Smtp;
+//using MailKit.Security;
 using Microsoft.AspNetCore.Hosting;
-using MimeKit;
-using MimeKit.Text;
+//using MimeKit;
+//using MimeKit.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -180,11 +180,11 @@ namespace CoExp_Web.Repositories
             return finalResponse;
         }
 
-        public void SendFeedback(EmailMessage emailMessage)
-        {
-            EmailService emailService = new EmailService();
-            emailService.Send(emailMessage);
-        }
+        //public void SendFeedback(EmailMessage emailMessage)
+        //{
+        //    EmailService emailService = new EmailService();
+        //    emailService.Send(emailMessage);
+        //}
 
 
 

@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains all JS functions needed for the correct performance
- * of CoExp webpage.
+ * of CoExp Web Application.
  * @author Sonia García Ruiz (s.ruiz@ucl.ac.uk)
  */
 
@@ -120,20 +120,14 @@ API.prototype.menuInit = function (view) {
         $('#module_dropdown')
             .prop('disabled', true);
 
+        //Disable fourth select
         $('#gene_dropdown')
             .prop('disabled', true);
 
-        //Disable buttons
-        //Range for the number of genes
-        //$('#genes-range').prop("disabled", true);
-        //$('#text-box_genes-range').prop("disabled", true);
-        //Range for the links connection
-        $('#slider-range-threshold').prop("disabled", true);
-        $('#threshold_network').prop("disabled", true);
         //Buttons
         $('#send_button').prop("disabled", true);
-        $('#save_plot').prop("disabled", true);
-        $('#save_data').prop("disabled", true);
+        //$('#save_plot').prop("disabled", true);
+        //$('#save_data').prop("disabled", true);
     }
 
     /*
@@ -168,15 +162,21 @@ API.prototype.menuInit = function (view) {
             $('#genes').prop('disabled', true);
         }
         else if (view == 4) {
-            $('#module_dropdown').children().remove();
             //Clear and disable 'module_dropdown'
+
+            $('#module_dropdown')
+                .children()
+                .remove();
             $('#module_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
-            $('#gene_dropdown').children().remove();
+
+            $('#gene_dropdown')
+                .children()
+                .remove();
             $('#gene_dropdown')
                 .prop('disabled', true)
-                .selectpicker('refresh');
+
         }
 
         
@@ -210,31 +210,27 @@ API.prototype.menuInit = function (view) {
 
             $('#gene_dropdown').children().remove();
             $('#gene_dropdown')
-                .prop('disabled', true)
-                .selectpicker('refresh');
+                .prop('disabled', true)           
 
             $('#send_button').prop("disabled", true);
-
-            
-
         }
     });
 
     //When the value of 'Modules' changes:
     $('#module_dropdown').on('change', function () {
-        if (view == 4) {        
+        if (view == 4) {
             $('#gene_dropdown').children().remove()
             $('#gene_dropdown')
                 .prop('disabled', true)
-                .selectpicker('refresh');
+
             $('#send_button').prop("disabled", true);
             
             //Fill the genes
             API.prototype.getModuleTOMGenes($('#category_dropdown').val(), $('#network_dropdown').val(), this.value);
 
-            $('#genes-range').prop("disabled", false);
-            $('#text-box_genes-range').prop("disabled", false);
-            $('#send_button').prop("disabled", false);
+            //$('#genes-range').prop("disabled", false);
+            //$('#text-box_genes-range').prop("disabled", false);
+            //$('#send_button').prop("disabled", false);
         }
     });
 
@@ -259,13 +255,22 @@ API.prototype.menuInit = function (view) {
         API.prototype.sendButtonFunction(view);
     });
     //When the user press the 'Save Plot' button (in 'Plot' view):
-    $('#save_plot').on('click', function () {
-        API.prototype.downloadSVGPlot();
-    });
-    //When the user press the 'Save Data' button (in 'Plot' view):
-    $('#save_data').on('click', function () {
-        API.prototype.downloadSVGData();
-    });
+    //$('#save_plot').on('click', function () {
+        
+    //    var blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
+    //    saveAs(blob, "hello world.txt");
+    //    //var b64key = 'base64,';
+    //    //var b64 = cy.png().substring( cy.png().indexOf(b64key) + b64key.length );
+    //    //var imgBlob = base64ToBlob(b64, 'image/png');
+
+    //    //saveAs(imgBlob, 'graph.png');
+    //});
+    ////When the user press the 'Save Data' button (in 'Plot' view):
+    //$('#save_data').on('click', function () {
+    //    var jsonBlob = new Blob([JSON.stringify(cy.json())], { type: 'application/javascript;charset=utf-8' });
+
+    //    saveAs(jsonBlob, 'graph.json');
+    //});
 
     // Add event listener for opening and closing table details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
@@ -402,6 +407,8 @@ API.prototype.getAvailableNetworks = function (category, network) {
                     $('#network_dropdown')
                         .prop("disabled", false)
                         .selectpicker('refresh');
+
+                    
                 }
             },
             error: function (data) {
@@ -498,7 +505,8 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
                     $('#gene_dropdown')
                         .prop('disabled', false)
                         .selectpicker('refresh')
-                        .selectpicker('render');
+                        .selectpicker('render')
+                        .prop('maxOptions', 2)
                     $("body").removeClass("loading");
                 }
             },
@@ -679,22 +687,22 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             //ERROR CHECK
             if (($('#genes').val()).indexOf('"') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('  ') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('{') > -1 || ($('#genes').val()).indexOf('}') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('[') > -1 || ($('#genes').val()).indexOf(']') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else {
@@ -735,6 +743,10 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     }
     else if (view == 4) {
 
+        if (cy != null) {
+            cy.destroy()
+        }
+        $('#button_area').hide();
         /*
          * 'Plot' tab
          * */
@@ -1446,6 +1458,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
 
                             "order": [[4, 'asc']],
                             dom: 'Bfrtip',
+                            //scrollX: true,
                             buttons: [
                                 'copy', 'print',
                                 {
@@ -1757,15 +1770,9 @@ API.prototype.generateGraph = function () {
     const network = $('#network_dropdown').find(":selected").val();
     // Get module value
     const moduleColor = $('#module_dropdown').find(":selected").val();
-    // Get slider-range value
-    const top = $('#text-box_genes-range').val();
-
-    let gene = $('#gene_dropdown').find(":selected").val();
-
-    if (gene === undefined) {
-        gene = top
-    }
-
+    
+    let gene = $('#gene_dropdown').val()[$('#gene_dropdown').val().length - 1]//$('#gene_dropdown').find(":selected").val();
+    
     //const url_network_plot = '/' + environment + '/API/PostGetModuleTOMGraph?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
     try {
         $("body").addClass("loading");
@@ -1849,62 +1856,69 @@ API.prototype.generateGraph = function () {
 /**
  * Function to download a png image from the SVG graph. 
  */
-API.prototype.downloadSVGPlot = function () {
-    $("body").addClass("loading");
-    // Serialize the SVG object
-    const svgNode = document.getElementsByTagName('svg')[0];
-    svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
-    const serializer = new XMLSerializer();
-    let svgString = serializer.serializeToString(svgNode);
-    svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
-    svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+//API.prototype.downloadSVGPlot = function () {
+//    $("body").addClass("loading");
 
-    const width = $("#network_plot").innerWidth()*3;
-    const height = $("#network_plot").innerHeight()*3;
+//    var b64key = 'base64,';
+//    var b64 = cy.png().substring(content.indexOf(b64key) + b64key.length);
+//    var imgBlob = base64ToBlob(b64, 'image/png');
 
+    
+//    //// Serialize the SVG object
+//    //const svgNode = document.getElementsByTagName('svg')[0];
+//    //svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+//    //const serializer = new XMLSerializer();
+//    //let svgString = serializer.serializeToString(svgNode);
+//    //svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+//    //svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
 
-    // Fill the canvas object with the serialized SVG object
-    let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
-    canvas.width = width;
-    canvas.height = height;
-
-
-    const category = $('#category_dropdown').find(":selected").val();
-    const network = $('#network_dropdown').find(":selected").val();
-    const moduleColor = $('#module_dropdown').find(":selected").val();
-    const top = $('#text-box_genes-range').val();
-    var dt = new Date();
-    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
-    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
+//    //const width = $("#cy").innerWidth()*3;
+//    //const height = $("#cy").innerHeight()*3;
 
 
-    let image = new Image();
-    image.onload = function () {
-        ctx.clearRect(0, 0, width, height);
-        ctx.rect(0, 0, width, height);
-        ctx.fillStyle = "white"; // : "rgb(43,43,43)";
-        ctx.fill();
-        ctx.drawImage(image, 0, 0, width, height);
+//    //// Fill the canvas object with the serialized SVG object
+//    //let canvas = document.createElement("canvas");
+//    //let ctx = canvas.getContext("2d");
+//    //canvas.width = width;
+//    //canvas.height = height;
+
+
+//    const category = $('#category_dropdown').find(":selected").val();
+//    const network = $('#network_dropdown').find(":selected").val();
+//    const moduleColor = $('#module_dropdown').find(":selected").val();
+//    //const top = $('#text-box_genes-range').val();
+//    var dt = new Date();
+//    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
+//    //const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
+//    const fileName = category + '_' + network + '_' + moduleColor + '_' + time + '.png';
+
+//    saveAs(imgBlob, fileName);
+//    //let image = new Image();
+//    //image.onload = function () {
+//    //    ctx.clearRect(0, 0, width, height);
+//    //    ctx.rect(0, 0, width, height);
+//    //    ctx.fillStyle = "white"; // : "rgb(43,43,43)";
+//    //    ctx.fill();
+//    //    ctx.drawImage(image, 0, 0, width, height);
       
-        if (canvas.msToBlob) { //for IE
-            //const blob = canvas.msToBlob();
-            //window.navigator.msSaveBlob(blob, 'test.png');
-            alert("This feature is only available on Chrome and Firefox.");          
-        } else {
-            let link = document.createElement('a');
-            link.setAttribute('download', fileName);
-            link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
-            // create a mouse event
-            let event = new MouseEvent('click');
-            // dispatching it will open a save as dialog in FF
-            link.dispatchEvent(event);
-        }
-    };
+//    //    if (canvas.msToBlob) { //for IE
+//    //        //const blob = canvas.msToBlob();
+//    //        //window.navigator.msSaveBlob(blob, 'test.png');
+//    //        alert("This feature is only available on Chrome and Firefox.");          
+//    //    } else {
+//    //        let link = document.createElement('a');
+//    //        link.setAttribute('download', fileName);
+//    //        link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
+//    //        // create a mouse event
+//    //        let event = new MouseEvent('click');
+//    //        // dispatching it will open a save as dialog in FF
+//    //        link.dispatchEvent(event);
+//    //    }
+//    //};
 
-    image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
-    $("body").removeClass("loading");
-}
+//    //image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
+//    $("body").removeClass("loading");
+//}
 
 /**
  * Function to download the plot's raw data. The data is downloaded using a xlsx file. 
