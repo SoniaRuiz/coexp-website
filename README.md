@@ -37,6 +37,7 @@ CoExp Website is fully working and can be reached following [this link](https://
 * [cytoscape.js](https://js.cytoscape.org/) - JS frameworks used to generate the plot.
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
+* [B Roll provided by Videezy!](http://www.videezy.com) - Video shown in the index page.</a>
 
 ## Browsers
 
