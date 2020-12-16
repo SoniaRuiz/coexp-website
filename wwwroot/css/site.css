@@ -52,7 +52,7 @@ body {
 .loading_layer {
     display: none;
     position: fixed;
-    z-index: 10000;
+    z-index: 100;
     top: 0;
     left: 0;
     height: 100%;
@@ -121,8 +121,21 @@ body.loading .loading_layer {
     .navbar-nav .dropdown-menu a {
         color: white !important;
     }
-        .navbar-nav .dropdown-menu a:hover {
-            color: black !important;
+    .navbar-nav .dropdown-menu a:hover {
+        color: black !important;
+    }
+
+ul.dropdown-menu li.nav-item {
+    background-color: #101010 !important;
+    color: #9d9d9d !important;
+}
+
+    ul.dropdown-menu li.nav-item a {
+        color: #9d9d9d !important;
+    }
+        ul.dropdown-menu li.nav-item a:hover {
+            background-color: #101010 !important;
+            color: white !important;
         }
 
 /******************************************/
@@ -291,6 +304,9 @@ input[type=range] {
 h2 {
     color:black !important;
 }
+img{
+    width: 100%
+}
 
 
 /*****************************/
@@ -298,14 +314,18 @@ h2 {
 #plot_area{
     display:none;
 }
-#network_plot_table {
+/*#network_plot_table {*/
+#cy {
     width: 100% !important;
+    height: 700px !important;
+    min-height: 700px !important;
+    border-bottom: 5px solid grey;
 }
 #network_plot {
     text-align: center;
     margin: 0 auto;
     width: 100%;
-    min-height: 600px;
+    min-height: 700px;
     border: 1px;
     border-color: black;
     border-style: solid;
@@ -362,8 +382,8 @@ h2 {
 }
 
 
-/*****************************/
-/******* CATALOG TAB *********/
+/*******************************/
+/******* CATALOGUE TAB *********/
 #menu {
     display: none;
     
@@ -404,7 +424,7 @@ h2 {
     margin-top: 2px;
     text-align: center;
     position: relative;
-    min-height: 300px;
+    min-height: 450px;
     display: table;
     visibility: hidden;
     width: 100%;
@@ -457,10 +477,10 @@ h2 {
 /****** FOOTER  *******/
 #footer {
     width: 100%;
-    background-color: #171b27;
+    background-color: #101010;
     position: fixed;
     bottom: 0;
-    z-index:10;
+    z-index: 10;
 }
     
     #footer small {
@@ -503,8 +523,8 @@ svg {
 /******** TAB ABOUT ********/
 .about {
     background-color: #f5f5f5;
-    margin-left: 15px;
-    padding-bottom: 15px;
+    margin: 15px;
+    padding: 15px;
 }
 
 /************************/
@@ -513,3 +533,51 @@ svg {
     color: #337ab7 !important;
 }
 
+.tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 400px;
+}
+
+.tooltip {
+    font-size: 14px;
+}
+
+/************************/
+/***** CATALOGUE ********/
+#goFromTissue_table {
+    width: 100% !important;
+}
+#cellType_table {
+    width: 100%
+}
+
+.links line {
+    stroke: #999;
+    stroke-opacity: 0.3;
+}
+
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 0.1px;
+}
+
+text {
+    font-family: sans-serif;
+    font-size: 10px;
+}
+
+/******************************/
+/***** CYTOSCAPE GRAPH ********/
+#cy {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+}
+.tippy-popper {
+    transition: none !important;
+}

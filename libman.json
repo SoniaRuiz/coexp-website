@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "C:\\Users\\skgtsg0\\.nuget\\packages\\cytoscape.js\\2.7.10\\content\\Scripts\\",
+      "destination": "wwwroot/js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.15.1",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "pdfmake@0.1.68",
+      "destination": "wwwroot/lib/pdfmake/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "cytoscape@3.16.2",
+      "destination": "wwwroot/lib/cytoscape/"
+    }
+  ]
+}

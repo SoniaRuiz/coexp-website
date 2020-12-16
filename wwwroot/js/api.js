@@ -1,6 +1,6 @@
 /**
  * @fileoverview This file contains all JS functions needed for the correct performance
- * of CoExp webpage.
+ * of CoExp Web Application.
  * @author Sonia García Ruiz (s.ruiz@ucl.ac.uk)
  */
 
@@ -22,7 +22,7 @@ API.prototype.menuInit = function (view) {
     
     if (view == 1) { 
         /*
-         * This is the view for 'Network Catalog' tab
+         * This is the view for 'Network Catalogue' tab
          * */
         $('#menu').show();
         $('#empty-initial-results').css("visibility","visible");
@@ -40,7 +40,7 @@ API.prototype.menuInit = function (view) {
             .selectpicker('refresh');
 
         //Disable third select
-        $('#module_selection')
+        $('#view_selection')
             .prop('disabled', true)
             .selectpicker('refresh');
 
@@ -52,7 +52,7 @@ API.prototype.menuInit = function (view) {
     else if (view == 11) {
 
         /*
-         * This is the view for 'Network Catalog' tab when coming from 'Gene Set Annotation' view.
+         * This is the view for 'Network Catalogue' tab when coming from 'Gene Set Annotation' view.
          * */
         $("body").addClass("loading");
 
@@ -72,7 +72,7 @@ API.prototype.menuInit = function (view) {
         //$('#network_dropdown')
         //    .prop('disabled', true)
         //    .selectpicker('refresh');
-        $('#module_selection')
+        $('#view_selection')
             .selectpicker('val', ['1', '2'])
             //.prop('disabled', true)
             .selectpicker('refresh');
@@ -96,7 +96,7 @@ API.prototype.menuInit = function (view) {
     }
     else if (view == 2 || view == 3) {
         /*
-         * This is the view for 'Network Catalog' tab
+         * This is the view for 'Network Catalogue' tab
          * */
 
         //Fill the tree-menu
@@ -114,24 +114,20 @@ API.prototype.menuInit = function (view) {
        
         //Disable second select
         $('#network_dropdown')
-            .prop('disabled', true)
-            .selectpicker('refresh');
+            .prop('disabled', true);
 
         //Disable third select
         $('#module_dropdown')
             .prop('disabled', true);
 
-        //Disable buttons
-        //Range for the number of genes
-        $('#genes-range').prop("disabled", true);
-        $('#text-box_genes-range').prop("disabled", true);
-        //Range for the links connection
-        $('#slider-range-treshold').prop("disabled", true);
-        $('#threshold_network').prop("disabled", true);
+        //Disable fourth select
+        $('#gene_dropdown')
+            .prop('disabled', true);
+
         //Buttons
         $('#send_button').prop("disabled", true);
-        $('#save_plot').prop("disabled", true);
-        $('#save_data').prop("disabled", true);
+        //$('#save_plot').prop("disabled", true);
+        //$('#save_data').prop("disabled", true);
     }
 
     /*
@@ -142,81 +138,116 @@ API.prototype.menuInit = function (view) {
     $('#category_dropdown').on('change', function () {
 
         //Remove all options (from 'Network' dropdown)
-        $('#network_dropdown').children().remove();
+        $('#network_dropdown')
+            .children()
+            .remove()
+            .selectpicker('refresh');
+
         //Fill the 'Network' with new options and enable 'network' dropdown
         API.prototype.getAvailableNetworks(this.value);
-        $('#network_dropdown')
-            .prop("disabled", false)
-            .selectpicker('refresh');
+
         //Disable 'Send' button
         $('#send_button').prop("disabled", true);
-
+               
         if (view == 1) {
-            //Hide tabs
-            $("#tabs").hide();
-
-            //Hide results divs
-            $("#goFromTissue_div").hide();
-            $("#cellType_div").hide();
-            //Clear and disable 'module_selection'
-            $('#module_selection')
+            //Clear and disable 'view_selection'
+            $('#view_selection')
                 .selectpicker('deselectAll')
                 .prop('disabled', true)
                 .selectpicker('refresh');
+            
         }
         else if (view == 2) {
             $('#genes').val('');
             $('#genes').prop('disabled', true);
         }
         else if (view == 4) {
-            $('#module_dropdown').children().remove();
-            //Clear and disable 'module_selection'
+            //Clear and disable 'module_dropdown'
+
+            $('#module_dropdown')
+                .children()
+                .remove();
             $('#module_dropdown')
                 .prop('disabled', true)
                 .selectpicker('refresh');
+
+            $('#gene_dropdown')
+                .children()
+                .remove();
+            $('#gene_dropdown')
+                .prop('disabled', true)
+
         }
 
+        
 
+        
     });
+
     //When the value of 'Network' changes:
     $('#network_dropdown').on('change', function () {
         if (view == 1) {
-            //Enable 'Module' select
-            $('#module_selection')
+            //Enable 'show results by' dropdown
+            $('#view_selection')
                 .prop('disabled', false)
                 .selectpicker('refresh');
+
+            //$('#goFromTissue_div').hide();
+            //$('#cellType_div').hide();
+            //$('#empty-initial-results').show();
         }
         else if (view == 2) {
             $('#genes').val('');
             $('#genes').prop('disabled', false);
         }
         else if (view == 4) {
-            $('#module_dropdown').children().remove();
-            API.prototype.getAvailableModules($('#category_dropdown').val(),
-                this.value);
-            //Disable third select
+
             $('#module_dropdown')
-                .prop('disabled', false);
+                .children()
+                .remove()
+                .selectpicker('refresh');
+            API.prototype.getAvailableModules($('#category_dropdown').val(), this.value);
+
+            $('#gene_dropdown').children().remove();
+            $('#gene_dropdown')
+                .prop('disabled', true)           
+
+            $('#send_button').prop("disabled", true);
+        }
+    });
+
+    //When the value of 'Modules' changes:
+    $('#module_dropdown').on('change', function () {
+        if (view == 4) {
+            $('#gene_dropdown').children().remove()
+            $('#gene_dropdown')
+                .prop('disabled', true)
+
+            $('#send_button').prop("disabled", true);
+            
+            //Fill the genes
+            API.prototype.getModuleTOMGenes($('#category_dropdown').val(), $('#network_dropdown').val(), this.value);
 
             //$('#genes-range').prop("disabled", false);
             //$('#text-box_genes-range').prop("disabled", false);
-
             //$('#send_button').prop("disabled", false);
         }
     });
-    $('#module_dropdown').on('change', function () {
-        if (view == 4) {
 
-            $('#genes-range').prop("disabled", false);
-            $('#text-box_genes-range').prop("disabled", false);
-
-            $('#send_button').prop("disabled", false);
+    $('#gene_dropdown').on('change', function () {
+        if (view == 4) {          
+            $('#send_button')
+                .prop("disabled", false);
         }
     });
-    //When the value of 'Module_selection' changes:
-    $('#module_selection').on('change', function () {
+
+    //When the value of 'view_selection' changes:
+    $('#view_selection').on('change', function () {
         //Enable 'button'
-        $('#send_button').prop("disabled", false);
+        $('#send_button')
+            .prop("disabled", false);
+
+        
     });
 
     //When the user press the 'Send' button:
@@ -224,13 +255,22 @@ API.prototype.menuInit = function (view) {
         API.prototype.sendButtonFunction(view);
     });
     //When the user press the 'Save Plot' button (in 'Plot' view):
-    $('#save_plot').on('click', function () {
-        API.prototype.downloadSVGPlot();
-    });
-    //When the user press the 'Save Data' button (in 'Plot' view):
-    $('#save_data').on('click', function () {
-        API.prototype.downloadSVGData();
-    });
+    //$('#save_plot').on('click', function () {
+        
+    //    var blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
+    //    saveAs(blob, "hello world.txt");
+    //    //var b64key = 'base64,';
+    //    //var b64 = cy.png().substring( cy.png().indexOf(b64key) + b64key.length );
+    //    //var imgBlob = base64ToBlob(b64, 'image/png');
+
+    //    //saveAs(imgBlob, 'graph.png');
+    //});
+    ////When the user press the 'Save Data' button (in 'Plot' view):
+    //$('#save_data').on('click', function () {
+    //    var jsonBlob = new Blob([JSON.stringify(cy.json())], { type: 'application/javascript;charset=utf-8' });
+
+    //    saveAs(jsonBlob, 'graph.json');
+    //});
 
     // Add event listener for opening and closing table details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
@@ -263,6 +303,8 @@ API.prototype.menuInit = function (view) {
             API.prototype.hideRowsReportOnGenes(row.data(), tr, row, id);
         }
     });
+
+    
 }
 
 /**
@@ -300,14 +342,16 @@ API.prototype.getNetworkCategories = function (category) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
                     //If the request has gone as expected, we fill the select by adding 'option' type elements:
                     for (let i = 0; i < data.length; i++) {
                         const option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#category_dropdown')
-                            .append(option)
-                            .selectpicker('refresh');
+                            .append(option);
                     }
+                    $('#category_dropdown')
+                        .selectpicker('refresh')
+                    startIntro()
                 }
             },
             error: function (data) {
@@ -354,13 +398,17 @@ API.prototype.getAvailableNetworks = function (category, network) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#network_dropdown')
-                            .append(net_option)
-                            .selectpicker('refresh');
+                            .append(net_option);
                     }
+                    $('#network_dropdown')
+                        .prop("disabled", false)
+                        .selectpicker('refresh');
+
+                    
                 }
             },
             error: function (data) {
@@ -396,13 +444,19 @@ API.prototype.getAvailableModules = function (category, network) {
                 else {
                     $("#goFromTissue_divError").hide();
                     console.log(data);
-                    data = JSON.parse(data);
+                    data = JSON.parse(data).sort();
+                   
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
                         $('#module_dropdown')
-                            .append(net_option)
-                            .selectpicker('refresh');
+                            .append(net_option);
+                            //.selectpicker('refresh');
                     }
+
+                    $('#module_dropdown')
+                        .prop('disabled', false)
+                        .selectpicker('refresh');
+
                 }
             },
             error: function (data) {
@@ -413,6 +467,56 @@ API.prototype.getAvailableModules = function (category, network) {
     }
 }
 
+API.prototype.getModuleTOMGenes = function (category, network, module) {
+
+    if (category === undefined || network === undefined || module === undefined) {
+        alert("Please, select a category, a network and a module values.")
+    }
+    else {
+        //Make a request to CoExp-R-software's API
+        $("body").addClass("loading");
+        $.ajax({
+            url: '/' + environment + '/API/GetModuleTOMGenes?Category=' + category +
+                '&Network=' + network + '&ModuleColor=' + module,
+            type: 'GET',
+            success: function (data) {
+                if (data.indexOf("Problems") >= 0) {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else if (data == "{}") {
+                    $("#goFromTissue_divError").children("p").remove();
+                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
+                    $("#goFromTissue_divError").show();
+                }
+                else {
+                    //$("#goFromTissue_divError").hide();
+                    console.log(data);
+                    data = JSON.parse(data);
+
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i] != "") {
+                            const gene_option = '<option value="' + i + '">' + data[i] + '</option>';
+                            $('#gene_dropdown')
+                                .append(gene_option);
+                        }
+                    }
+                    $('#gene_dropdown')
+                        .prop('disabled', false)
+                        .selectpicker('refresh')
+                        .selectpicker('render')
+                        .prop('maxOptions', 2)
+                    $("body").removeClass("loading");
+                }
+            },
+            error: function (data) {
+                //If an error occurs:
+                console.log(data);
+            }
+        });
+    }
+}
 /**
  * This function requests all data in a tree-menu format and fills it.
  */
@@ -474,26 +578,24 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     if (moduleColor === undefined) {
         moduleColor = null;
     }
-
-    
+        
     $("body").addClass("loading");
 
     if (view == 1 || view == 11) {
 
         /*
-         * 'Network Catalog' tab
+         * 'Network Catalogue' tab
          * */
 
         //hide previous errors/results
         $('#error').hide();
         //get the selection-types selected
-        const module_selection_types = $('#module_selection').val();
-
-        $("body").addClass("loading");
+        const view_selection_types = $('#view_selection').val();
 
         //remove old tables
-        if ($('#goFromTissue_table tr').length > 1) {
-            $('#goFromTissue_table').DataTable().destroy();
+        if ($('#goFromTissue_table tr').length > 1 && $.fn.DataTable.isDataTable('#goFromTissue_table')) {
+            table = $('#goFromTissue_table').DataTable();
+            table.destroy();
             $('#goFromTissue_table').remove("tbody");
             $('#goFromTissue_div').hide();
         }
@@ -502,16 +604,17 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $('#cellType_table').children().remove();
             $('#cellType_div').hide();
         }
-        $("body").addClass("loading");
         //show result divs
-        if (module_selection_types.length == 1) {
-            if (module_selection_types[0] == "1") { //only byontology and bycolor
+        if (view_selection_types.length == 1) {
+            if (view_selection_types[0] == "1") { //only byontology and bycolor
                 API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
                 //hide/sow tabs and divs
                 $("#cellType_div").hide();
                 $("#empty-initial-results").hide();
-                $('.nav-tabs a[href="#tab1"]').tab("show");
-                $('.nav-tabs a[href="#tab1"]').tab().show();
+
+                //$('.nav-tabs a[href="#tab1"]').parent().addClass("active");
+                $('.nav-tabs a[href="#tab1"]').tab('show');
+
                 $('.nav-tabs a[href="#tab2"]').tab().hide();
             }
             else {//only bycelltype
@@ -519,27 +622,28 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
                 //hide/sow tabs and divs
                 $("#goFromTissue_div").hide();
                 $("#empty-initial-results").hide();
-                $('.nav-tabs a[href="#tab2"]').tab("show");
-                $('.nav-tabs a[href="#tab2"]').tab().show();
+
+                $('.nav-tabs a[href="#tab2"]').tab('show');
+              
+
                 $('.nav-tabs a[href="#tab1"]').tab().hide();
             }
         }
-        else if (module_selection_types.length == 2) {//both bycelltype and bycolor
+        else if (view_selection_types.length == 2) {//both bycelltype and bycolor
             API.prototype.getGOFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             API.prototype.getCellTypeFromTissue($('#category_dropdown').val(), $('#network_dropdown').val(), moduleColor);
             $("#empty-initial-results").hide();
+
             //Show all tabs
-            $('.nav-tabs a[href="#tab1"]').tab("show");
             $('.nav-tabs a[href="#tab1"]').tab().show();
             $('.nav-tabs a[href="#tab2"]').tab().show();
         }
-        else {
-            $('#goFromTissue_div').hide();
-            $('#cellType_div').hide();
-            $("#empty-initial-results").hide();
-            $('#error').show();
-            $("body").removeClass("loading");
-        }
+        //else {
+        //    $('#goFromTissue_div').hide();
+        //    $('#cellType_div').hide();
+        //    $("#empty-initial-results").hide();
+        //    $('#error').show();
+        //}
 
     }
     else if (view == 2 || view == 3) {
@@ -557,8 +661,6 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             $("body").removeClass("loading");
         }
         else {
-
-            $("body").addClass("loading");
             $("genes").focus();
 
             //REMOVING OLD DATATABLES
@@ -585,22 +687,22 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
             //ERROR CHECK
             if (($('#genes').val()).indexOf('"') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('  ') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('{') > -1 || ($('#genes').val()).indexOf('}') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else if (($('#genes').val()).indexOf('[') > -1 || ($('#genes').val()).indexOf(']') > -1) {
                 alert("Please, introduce your non-quoted genes using one of the following formats:\nComma-separated: GENE1,GENE2\nSpace-separated: GENE1 GENE2\nComma and space sparated: GENE1, GENE2");
-                $('#genes').val("");
+                //$('#genes').val("");
                 $("body").removeClass("loading");
             }
             else {
@@ -641,21 +743,28 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
     }
     else if (view == 4) {
 
+        if (cy != null) {
+            cy.destroy()
+        }
+        $('#button_area').hide();
         /*
          * 'Plot' tab
          * */
+        $('#send_button').prop("disabled", true);
+
         $('#empty-initial-results').hide();
+
         API.prototype.generateGraph();
         $('#plot_area').show();
-        $("body").removeClass("loading");
         $('#save_plot').prop("disabled", false);
         $('#save_data').prop("disabled", false);
+
     }
 }
 
 /**
  * Function to make a request to 'getGOFromTissue' CoExp R method.
- * The user is on 'network catalog' tab.
+ * The user is on 'network catalogue' tab.
  * @param {string} category Category selected by the user.
  * @param {string} tissue Category's network selected by the user.
  * @param {string} moduleColor Module color selected by the user. (in case of requesting from 'Get Set Annotation' tab).
@@ -664,6 +773,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
     if (moduleColor === undefined) {
         moduleColor = null;
     }
+        
     $.ajax({
         url: '/' + environment + '/API/GetGOFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
@@ -703,6 +813,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                         },
                         {
                             data: 'query_number',
+                            title: 'Module',
                             render: function (data, type, row, meta) {
                                 if (type === 'display' && $("#ModuleColor").val() === "") {
                                     data = '<a href="javascript:API.prototype.searchByModuleColor(\'' + data + '\',\'' + $('#category_dropdown').val() + '\',\'' + $('#network_dropdown').val() + '\');" title="Find out more ...">' + data + '</a>';
@@ -710,16 +821,28 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                                 return data;
                             }
                         },
-                        //{ data: "query_number" },
-                        { data: 'p_value' },
-                        { data: 'query_size' },
+                        {
+                            data: 'p_value',
+                            title: 'p-value'
+                        },
+                        {
+                            data: 'query_size',
+                            title: 'Module Size'
+                        },
                         {
                             data: 'term_id',
-                            "visible": false,
-                            "searchable": true
+                            title: 'Ontology Term ID',
+                            visible: false,
+                            searchable: true
                         },
-                        { data: 'domain' },
-                        { data: 'term_name' },
+                        {
+                            data: 'domain',
+                            title: 'Ontology'
+                        },
+                        {
+                            data: 'term_name',
+                            title: 'Ontology Term'
+                        },
                         {
                             data: 'intersection',
                             "visible": false,
@@ -728,9 +851,12 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                     ],
                     order: [[2, 'asc']],
                     dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'excel', 'print'
-                    ]
+                    buttons: ['copy', 'print',
+                        {
+                            extend: 'excel',
+                            title: 'CoExp_' + $("#category_dropdown").val() + "_" + $("#network_dropdown").val() + "_GO-Report"
+                        }
+                    ],
                 });
                 if (moduleColor != null) {
                     $('#goFromTissue_table').DataTable()
@@ -741,21 +867,25 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                 $("#goFromTissue_divError").hide();
                 $("#goFromTissue_div").show();
             }
-            $("body").removeClass("loading");
+
+            $('#goFromTissue_div_spinner').hide();
             $("#empty-initial-results").hide();
             $("#tabs").show();
+            $("body").removeClass("loading");
+            
+            
         },
         error: function (data) {
             //If an error occurs:
             console.log(data);
-            $("body").removeClass("loading");
+            $('#goFromTissue_div_spinner').hide();
         }
     });
 }
 
 /**
  * Function to make a request to 'getCellTypeFromTissue' CoExp R method.
- * The user is in the 'network catalog' tab.
+ * The user is in the 'network catalogue' tab.
  * @param {string} category Category selected by the user.
  * @param {string} tissue Category's network selected by the user.
  * @param {string} moduleColor Module color selected by the user. (in case of requesting from 'Get Set Annotation' tab).
@@ -871,8 +1001,11 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                                 className: 'noVis'
                             }
                         ],
-                        buttons: [
-                            'copy', 'excel', 'print'
+                        buttons: ['copy', 'print',
+                            {
+                                extend: 'excel',
+                                title: 'CoExp_' + $("#category_dropdown").val() + "_" + $("#network_dropdown").val() + "_CellTypeReport" 
+                            }
                         ],
                         drawCallback: function () {
                             $('#cellType_table').find('td:not(:first-child):contains(.)').css('backgroundColor', 'yellow');
@@ -897,14 +1030,19 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
                 $("#cellType_divError").hide();
                 //$('#cellType_table').DataTable().draw();
             }
-            $("body").removeClass("loading");
+            
             $("#empty-initial-results").hide();
             $("#tabs").show();
+
+            
+            if ($('#view_selection').val().length == 1) {
+                $("body").removeClass("loading");
+            }
         },
         error: function (data) {
             //If an error occurs:
             console.log(data);
-            $("body").removeClass("loading");
+            
         }
     });
 }
@@ -1095,6 +1233,7 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
             error: function (data) {
                 //If an error occurs:
                 console.log(data);
+                $("body").removeClass("loading");
             }
         });
     }
@@ -1182,9 +1321,12 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                     data: null,
                                     defaultContent: ''
                                 },
-
-                                { data: 'network' },
-                                { data: 'category' },
+                                {
+                                    data: 'network'
+                                },
+                                {
+                                    data: 'category'
+                                },
                                 {
                                     data: 'module',
                                     render: function (data, type, row, meta) {
@@ -1196,7 +1338,6 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                 },
                                 {
                                     data: 'gene',
-                                    title: 'overlap',
                                     render: function (data, type, row, meta) {
 
                                         return data.length;
@@ -1204,31 +1345,40 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                 },
                                 {
                                     data: 'gene',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
-                                { data: 'fisher' },
+                                {
+                                    data: 'fisher'
+                                },
                                 {
                                     data: 'FDR'
                                 },
-                                { data: 'Bonferroni' },
-                                { data: 'size' },
-
+                                {
+                                    data: 'Bonferroni'
+                                },
+                                {
+                                    data: 'size'
+                                },
                                 {
                                     data: 'go_report',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
                                 {
                                     data: 'cell_type_pred',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 }
                             ],
                             "order": [[5, 'asc']],
                             dom: 'Bfrtip',
                             buttons: [
-                                'copy', 'excel', 'print',
+                                'copy', 'print',
+                                {
+                                    extend: 'excel',
+                                    title: 'CoExp_GeneSetAnnotation_Report'
+                                },
                                 {
                                     text: 'EXPAND RESULTS',
                                     action: function (e, dt, node, config) {
@@ -1255,15 +1405,27 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                     defaultContent: ''
                                 },
 
-                                { data: 'gene' },
-                                { data: 'category' },
-                                { data: 'network' },
-                                { data: 'ensgene' },
-                                { data: 'fisher' },
+                                {
+                                    data: 'gene'
+                                },
+                                {
+                                    data: 'category'
+                                },
+                                {
+                                    data: 'network'
+                                },
+                                {
+                                    data: 'ensgene'
+                                },
+                                {
+                                    data: 'fisher'
+                                },
                                 {
                                     data: 'FDR'
                                 },
-                                { data: 'Bonferroni' },
+                                {
+                                    data: 'Bonferroni'
+                                },
                                 {
                                     data: 'module',
                                     render: function (data, type, row, meta) {
@@ -1273,27 +1435,36 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                                         return data;
                                     }
                                 },
-                                { data: 'mm' },
-                                { data: 'size' },
+                                {
+                                    data: 'mm'
+                                },
+                                {
+                                    data: 'size'
+                                },
                                 {
                                     data: 'go_report',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 },
                                 //{ data: 'pd_genes' },
                                 //{ data: 'preservation' },
                                 {
                                     data: 'cell_type_pred',
-                                    "visible": false,
-                                    "searchable": true
+                                    visible: false,
+                                    searchable: true
                                 }
                                 //{ data: '_row' }
                             ],
 
                             "order": [[4, 'asc']],
                             dom: 'Bfrtip',
+                            //scrollX: true,
                             buttons: [
-                                'copy', 'excel', 'print',
+                                'copy', 'print',
+                                {
+                                    extend: 'excel',
+                                    title: 'CoExp_GeneSetAnnotation_Report'
+                                },
                                 {
                                     text: 'SUMMARISE CLUSTERING',
 
@@ -1309,8 +1480,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                         $("body").removeClass("loading");
                         /*$("#globalReportOnGenes_div").show();
                         $('#empty-initial-results').hide();
-                        $("#error").hide();
-                        $("body").removeClass("loading");*/
+                        $("#error").hide();*/
                     }
                 }
 
@@ -1329,7 +1499,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
 }
 
 /**
- * Function to show the 'Network Catalog' view from the 'Gene set annotation' tab.
+ * Function to show the 'Network Catalogue' view from the 'Gene set annotation' tab.
  * The user is in the 'get set annotation' tab.
  * @param {string} moduleColor Module color selected by the user. The user
  * wants to know the 'getGOFromTissue' and 'getCellTypeFromTissue' information about the module-color selected.
@@ -1337,16 +1507,16 @@ API.prototype.globalReportOnGenes = function (data, genes) {
  * @param {string} network Module-color's network.
  */
 API.prototype.searchByModuleColor = function (moduleColor, category, network) {
-    /* We open a new window, showing the 'Network catalog' tab. 
+    /* We open a new window, showing the 'Network catalogue' tab. 
      * This tab will only have information related with the module color clicked by the user.
      * */
-    window.open(url = "/" + environment + "/Run/Catalog?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
+    window.open(url = "/" + environment + "/Run/Catalogue?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
         '', 'toolbar= 0, scrollbars = 1, statusbar = 0,menubar=0,resizable=0,height=500,width=1200');
 }
 
 /**
  * Function to show expand/contract the table's rows. 
- * This table correspond to the 'by ontology' table in the 'network catalog' tab.
+ * This table correspond to the 'by ontology' table in the 'network catalogue' tab.
  * @param {string} d Original data object for the row.
  * @param {string} tr Table's tr element (html element) to expand/contract
  * @param {string} row Table's row element to expand/contract.
@@ -1382,11 +1552,11 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
     let finalGenesString = null;
     for (let i = 0; i < allgenes.length; i++) {
-        const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + allgenes[i];
+        const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + allgenes[i];
         const gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
         const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
 
-        let dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+        let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
         dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
         dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
         if (i == 0)
@@ -1453,23 +1623,25 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
 
                 finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
             }
-            $("body").removeClass("loading");
+            
             const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
-                '<td>term_id: </td>' +
+                '<td>TermID: </td>' +
                 '<td>' + finalOntologyString + '</td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td>genes: </td>' +
+                '<td>Genes: </td>' +
                 '<td>' + finalGenesString + '</td>' +
                 '</tr>' +
                 '</table>';
             row.child(table).show();
             tr.addClass('shown');
             $("[data-placement='bottom']").popover();
+            $("body").removeClass("loading");
         },
         error: function () {
             return "No results found!";
+            $("body").removeClass("loading");
         }
     });
 }
@@ -1483,7 +1655,7 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
  * @param {string} id Table's id. This is for checking whether the user is in the 'summarise' or 'expand' table view.
  */
 API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details */
-    $("body").addClass("loading");
+
     let genes = "";
     let finalGoReport = d.go_report;
     const allGOTerms = d.go_report.match(/GO:[0-9]*/g);
@@ -1507,11 +1679,11 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
 
         let finalGenesString = null;
         for (let i = 0; i < (d.gene).length; i++) {
-            const vizER_url = "https://snca.atica.um.es/browser/app/vizER/?gene=" + d.gene[i];
+            const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + d.gene[i];
             const gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
             const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
 
-            let dataContent = 'Check in splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+            let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
             dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
             dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
             if (i == 0)
@@ -1520,23 +1692,25 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
                 finalGenesString = finalGenesString + ", <a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
         }
         genes = '<tr>' +
-            '<td>genes: </td>' +
+            '<td>Genes: </td>' +
             '<td>' + finalGenesString + '</td>' +
             '</tr>';
     }
 
+    if (finalGoReport != "no data") {
+        finalGoReport = '<tr><td>GO Report: </td><td>' + finalGoReport + '</td></tr>'
+    } else {
+        finalGoReport = '<tr><td>GO Report: </td><td> - </td></tr>'
+    }
+
+    if (d.cell_type_pred != 'void') {
+        cell_type_pred = '<tr><td>Cell Type: </td><td>' + d.cell_type_pred + '</td></tr>'
+    } else {
+        cell_type_pred = '<tr><td>Cell Type: </td><td> - </td></tr>'
+    }
     // `d` is the original data object for the row
-    const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        genes +
-        '<tr>' +
-        '<td>go_report: </td>' +
-        '<td>' + finalGoReport + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>cell_type_pred: </td>' +
-        '<td>' + d.cell_type_pred + '</td>' +
-        '</tr>' +
-        '</table>';
+    const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + genes + finalGoReport + cell_type_pred + '</table>';
+
     $("body").removeClass("loading");
     row.child(table).show();
     tr.addClass('shown');
@@ -1596,9 +1770,9 @@ API.prototype.generateGraph = function () {
     const network = $('#network_dropdown').find(":selected").val();
     // Get module value
     const moduleColor = $('#module_dropdown').find(":selected").val();
-    // Get slider-range value
-    const top = $('#text-box_genes-range').val();
-
+    
+    let gene = $('#gene_dropdown').val()[$('#gene_dropdown').val().length - 1]//$('#gene_dropdown').find(":selected").val();
+    
     //const url_network_plot = '/' + environment + '/API/PostGetModuleTOMGraph?moduleColor=' + moduleColor + '&network=' + network + '&top=' + top;
     try {
         $("body").addClass("loading");
@@ -1608,7 +1782,7 @@ API.prototype.generateGraph = function () {
                 "Category": category,
                 "Network": network,
                 "ModuleColor": moduleColor,
-                "TopGenes": top
+                "TopGenes": gene
             }),
             method: 'POST',
             contentType: 'application/json',
@@ -1619,6 +1793,7 @@ API.prototype.generateGraph = function () {
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
+                    $('#send_button').prop("disabled", false);
                 }
                 //else if (data.indexOf("Please") >= 0) {
                 //    /*$("#error").children("p").remove();
@@ -1632,16 +1807,22 @@ API.prototype.generateGraph = function () {
                     //Update global variable with the JSON data. Necessary to download the xlsx file.
                     data = JSON.parse(data);
                     console.log(data);
+
+                    
                     APIPlot.prototype.netPlot(data);
-                    $("#slider-range-treshold").prop('disabled', false);
+                    
+                    $("#slider-range-threshold").prop('disabled', false);
                     //$("#threshold_network").prop('disabled', false);
                     $("#hide_nodes").prop('disabled', false);
                     $("body").removeClass("loading");
+                    
                 }
             },
             error: function (data) {
                 //If an error occurs:
                 console.log(data);
+                $('#send_button').prop("disabled", false);
+                $("body").removeClass("loading");
             }
         });
     }
@@ -1675,62 +1856,69 @@ API.prototype.generateGraph = function () {
 /**
  * Function to download a png image from the SVG graph. 
  */
-API.prototype.downloadSVGPlot = function () {
-    $("body").addClass("loading");
-    // Serialize the SVG object
-    const svgNode = document.getElementsByTagName('svg')[0];
-    svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
-    const serializer = new XMLSerializer();
-    let svgString = serializer.serializeToString(svgNode);
-    svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
-    svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+//API.prototype.downloadSVGPlot = function () {
+//    $("body").addClass("loading");
 
-    const width = $("#network_plot").innerWidth()*3;
-    const height = $("#network_plot").innerHeight()*3;
+//    var b64key = 'base64,';
+//    var b64 = cy.png().substring(content.indexOf(b64key) + b64key.length);
+//    var imgBlob = base64ToBlob(b64, 'image/png');
 
+    
+//    //// Serialize the SVG object
+//    //const svgNode = document.getElementsByTagName('svg')[0];
+//    //svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+//    //const serializer = new XMLSerializer();
+//    //let svgString = serializer.serializeToString(svgNode);
+//    //svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+//    //svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
 
-    // Fill the canvas object with the serialized SVG object
-    let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
-    canvas.width = width;
-    canvas.height = height;
-
-
-    const category = $('#category_dropdown').find(":selected").val();
-    const network = $('#network_dropdown').find(":selected").val();
-    const moduleColor = $('#module_dropdown').find(":selected").val();
-    const top = $('#text-box_genes-range').val();
-    var dt = new Date();
-    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
-    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
+//    //const width = $("#cy").innerWidth()*3;
+//    //const height = $("#cy").innerHeight()*3;
 
 
-    let image = new Image();
-    image.onload = function () {
-        ctx.clearRect(0, 0, width, height);
-        ctx.rect(0, 0, width, height);
-        ctx.fillStyle = "white"; // : "rgb(43,43,43)";
-        ctx.fill();
-        ctx.drawImage(image, 0, 0, width, height);
+//    //// Fill the canvas object with the serialized SVG object
+//    //let canvas = document.createElement("canvas");
+//    //let ctx = canvas.getContext("2d");
+//    //canvas.width = width;
+//    //canvas.height = height;
+
+
+//    const category = $('#category_dropdown').find(":selected").val();
+//    const network = $('#network_dropdown').find(":selected").val();
+//    const moduleColor = $('#module_dropdown').find(":selected").val();
+//    //const top = $('#text-box_genes-range').val();
+//    var dt = new Date();
+//    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
+//    //const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
+//    const fileName = category + '_' + network + '_' + moduleColor + '_' + time + '.png';
+
+//    saveAs(imgBlob, fileName);
+//    //let image = new Image();
+//    //image.onload = function () {
+//    //    ctx.clearRect(0, 0, width, height);
+//    //    ctx.rect(0, 0, width, height);
+//    //    ctx.fillStyle = "white"; // : "rgb(43,43,43)";
+//    //    ctx.fill();
+//    //    ctx.drawImage(image, 0, 0, width, height);
       
-        if (canvas.msToBlob) { //for IE
-            //const blob = canvas.msToBlob();
-            //window.navigator.msSaveBlob(blob, 'test.png');
-            alert("This feature is only available on Chrome and Firefox.");          
-        } else {
-            let link = document.createElement('a');
-            link.setAttribute('download', fileName);
-            link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
-            // create a mouse event
-            let event = new MouseEvent('click');
-            // dispatching it will open a save as dialog in FF
-            link.dispatchEvent(event);
-        }
-    };
+//    //    if (canvas.msToBlob) { //for IE
+//    //        //const blob = canvas.msToBlob();
+//    //        //window.navigator.msSaveBlob(blob, 'test.png');
+//    //        alert("This feature is only available on Chrome and Firefox.");          
+//    //    } else {
+//    //        let link = document.createElement('a');
+//    //        link.setAttribute('download', fileName);
+//    //        link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
+//    //        // create a mouse event
+//    //        let event = new MouseEvent('click');
+//    //        // dispatching it will open a save as dialog in FF
+//    //        link.dispatchEvent(event);
+//    //    }
+//    //};
 
-    image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
-    $("body").removeClass("loading");
-}
+//    //image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
+//    $("body").removeClass("loading");
+//}
 
 /**
  * Function to download the plot's raw data. The data is downloaded using a xlsx file. 
@@ -1874,8 +2062,8 @@ API.prototype.checkGenesFound = function (data) {
 
     //Obtain all genes introduced by the user
     var all_genes_introduced = $("#genes").val()
-    if (all_genes_introduced.indexOf(" ,") > -1) {
-        all_genes_introduced = all_genes_introduced.split(" ,")
+    if (all_genes_introduced.indexOf(", ") > -1) {
+        all_genes_introduced = all_genes_introduced.split(", ")
     }
     else if (all_genes_introduced.indexOf(",") > -1) {
         all_genes_introduced = all_genes_introduced.split(",")

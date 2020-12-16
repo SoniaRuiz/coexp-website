@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CoExp_Web.Models;
-using CoExp_Web.Models.Email;
+//using CoExp_Web.Models.Email;
 using CoExp_Web.Repositories;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -77,6 +77,16 @@ namespace CoExp_Web.Controllers
         }
 
         [HttpGet]
+        [Route("GetModuleTOMGenes")]
+        public string GetModuleTOMGenes([FromQuery] CoexpParams coexpdata)
+        {
+            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+            string response = repository.GetModuleTOMGenes(coexpdata);
+
+            return response;
+        }
+
+        [HttpGet]
         [Route("GetGOFromTissue")]
         public string GetGOFromTissue([FromQuery] CoexpParams coexpdata)
         {
@@ -106,6 +116,9 @@ namespace CoExp_Web.Controllers
         {
             CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
             string response = repository.GetCellTypeFromTissue(coexpdata);
+
+            response = response.Replace("_row", "Cell Type");
+
             return response;
         }
 
@@ -192,13 +205,13 @@ namespace CoExp_Web.Controllers
             return response;
         }
 
-        [HttpGet]
-        [Route("SendFeedback")]
-        public void SendFeedback([FromQuery] EmailMessage emailMessage)
-        {
-            CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
-            repository.SendFeedback(emailMessage);
-        }
+        //[HttpGet]
+        //[Route("SendFeedback")]
+        //public void SendFeedback([FromQuery] EmailMessage emailMessage)
+        //{
+        //    CoExpRepository repository = new CoExpRepository(_hostingEnvironment);
+        //    repository.SendFeedback(emailMessage);
+        //}
 
         /****************************************************************************/
         /******************************* POST METHODS *******************************/
@@ -230,6 +243,16 @@ namespace CoExp_Web.Controllers
         {
             ExternalDataRepository repository = new ExternalDataRepository();
             string response = repository.GetInfoFromKEGG(term);
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("GetInfoFromGeneNetwork")]
+        public string GetInfoFromGeneNetwork([FromForm] string term)
+        {
+            ExternalDataRepository repository = new ExternalDataRepository();
+            string response = repository.GetInfoFromGeneNetwork(term);
 
             return response;
         }
@@ -323,7 +346,6 @@ namespace CoExp_Web.Controllers
 
             return parsed_response;
         }
-
 
         [HttpPost]
         [Route("PostGetModuleTOMGraph")]

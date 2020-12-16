@@ -20,14 +20,17 @@
     <Content Remove="wwwroot\js\Blob.js" />
     <Content Remove="wwwroot\js\canvas-toBlob.js" />
     <Content Remove="wwwroot\js\coexp_menu_data.json" />
+    <Content Remove="wwwroot\js\cytoscape.js" />
     <Content Remove="wwwroot\js\dependent_dropdown.js" />
     <Content Remove="wwwroot\js\eqtl_view.js" />
     <Content Remove="wwwroot\js\excelexportjs.js" />
     <Content Remove="wwwroot\js\FileSaver.js" />
+    <Content Remove="wwwroot\js\pdfmake.min.js" />
     <Content Remove="wwwroot\js\plugins.js" />
     <Content Remove="wwwroot\js\shim.min.js" />
     <Content Remove="wwwroot\js\site.js" />
     <Content Remove="wwwroot\js\site.min.js" />
+    <Content Remove="wwwroot\js\vfs_fonts.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cytoscape.js" Version="2.7.10" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.2" />

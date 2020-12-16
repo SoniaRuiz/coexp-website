@@ -11,10 +11,7 @@
     "Default": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Docker"
-      },
-      "applicationUrl": "http://localhost/"
+      "applicationUrl": "http://localhost:5004/"
     }
   }
 }

@@ -16,11 +16,13 @@ namespace CoExp_Web.Controllers
     public class RunController : Controller
     {
 
-        public IActionResult Index(CoexpParams coexpParams) { 
-            return View("Catalog", coexpParams);
+
+        public IActionResult Index() { 
+            return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Catalog(CoexpParams coexpParams)
+        public IActionResult Catalogue(CoexpParams coexpParams)
         {
             try
             {
@@ -67,7 +69,6 @@ namespace CoExp_Web.Controllers
                 return View("Error", errorModel);
             }
         }
-
         public IActionResult About()
         {
             try
@@ -125,7 +126,7 @@ namespace CoExp_Web.Controllers
         {
             return View();
         }
-        public IActionResult Help_Catalog()
+        public IActionResult Help_Catalogue()
         {
             return View();
         }
