@@ -1,6 +1,6 @@
-# CoExp Website
+# CoExp_Web
 
-CoExp Website is a web tool developed in ASP.NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
+CoExp Web Application is a web tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
 
 
 ## Introduction
@@ -17,15 +17,15 @@ Due to the huge growth experienced by the Internet and mobile devices during the
 
 ## Getting Started
 
-CoExp Website is fully working and can be reached following [this link](https://rytenlab.com/coexp/).
+CoExp Web Application is fully working and can be reached following [this link](https://rytenlab.com/coexp/).
 
 ## Built With
 
-* [ASP.NET Core](https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core) - The web framework used.
+* [.NET Core](https://dotnet.microsoft.com) - The web framework used.
 * [MVC](https://dotnet.microsoft.com/apps/aspnet/mvc) - The design pattern used.
 * [Apache HTTP Server Project](http://httpd.apache.org/) - The webserver chosen.
 * [Plumber](https://www.rplumber.io/) - The R package used to create an API to expose CoExp R methods.
-* [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-3.0) - Web server natively used by ASP.NET Core web applications.
+* [Kestrel](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-3.0) - Web server natively used by .NET Core web applications.
 
 ## Toolkits and Plug-ins used
 
@@ -34,24 +34,19 @@ CoExp Website is fully working and can be reached following [this link](https://
 * [SheetJS](https://sheetjs.com/) - To export data in a *xlsx* format.
 * [Underscore](https://underscorejs.org/) - To enhance the JavaScript functionality of the website.
 * [Intro.js](https://introjs.com/) - To generate the initial tour through the different pages of the website.
-* [cytoscape.js](https://js.cytoscape.org/) - JS frameworks used to generate the plot.
+* [D3](https://d3js.org/) - To generate the plot.
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
-* [B Roll provided by Videezy!](http://www.videezy.com) - Video shown in the index page.</a>
-
-## Browsers
-
-CoExp website has been tested on both Google Chrome and Firefox browsers.
 
 ## Docker version
 
-CoExp Website is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
+CoExp Web Application is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
 
 ## Authors
 
-* **Sonia García-Ruiz** - CoExp Website UI developer
+* **Sonia García-Ruiz** - *CoExp Web Application UI developer*
   * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
-* **Juan A. Botía** - CoExp R suit-of-packages developer - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
+* **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
   * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
 
 ## Acknowledgments

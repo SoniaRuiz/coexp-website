@@ -5,14 +5,33 @@
     <meta http-equiv="encoding" content="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CoExp WebSite</title>
+    <title>CoExp Web Application</title>
     <link type="image/gif" rel="icon" href="~/images/ucl-icon.png">
-    <link type="text/css" rel="stylesheet" href="~/css/bootstrap-select.min.css">
-    @*<link type="text/css" rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">*@
+
+    @* site css *@
+    <link type="text/css" rel="stylesheet" href="~/css/site.css">
+
+
+    @* css from libraries *@
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
+
+    <link type="text/css" rel="stylesheet" href="~/css/lib/bootstrap-multiselect.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/bootstrap-select.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/buttons.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/custom.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/dataTables.bootstrap4.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/fixedColumns.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/introjs.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/jquery.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/lib/simTree.min.css">
+
+
+    @*<link type="text/css" rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap.min.css">*@
+
+
 
     <environment include="Development">
-        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
-        <link type="text/css" rel="stylesheet" href="~/css/site.css">
         <style type="text/css">
             .loading_layer {
                 background: rgba( 255, 255, 255, .8 ) url('/coexp_test/images/loading.gif') 50% 50% no-repeat;
@@ -27,12 +46,8 @@
                 background: url('/coexp_test/images/details_close.png') no-repeat center center;
             }
         </style>
-        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.css">*@
-        <link type="text/css" rel="stylesheet" href="~/css/introjs.css">
     </environment>
     <environment include="Docker">
-        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
-        <link type="text/css" rel="stylesheet" href="~/css/site.css">
         <style type="text/css">
             .loading_layer {
                 background: rgba( 255, 255, 255, .8 ) url('/images/loading.gif') 50% 50% no-repeat;
@@ -47,14 +62,6 @@
                 background: url('/images/details_close.png') no-repeat center center;
             }
         </style>
-        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.css">*@
-        <link type="text/css" rel="stylesheet" href="~/css/introjs.css">
-    </environment>
-    <environment include="Production,Private">
-        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="~/css/site.css">
-        @*<link type="text/css" rel="stylesheet" href="~/css/introjs-rtl.min.css">*@
-        <link type="text/css" rel="stylesheet" href="~/css/introjs.min.css">
     </environment>
     <environment include="Production">
         <style type="text/css">
@@ -90,12 +97,13 @@
     </environment>
     @if (IsSectionDefined("HeadStyles"))
     {
-        @RenderSection("HeadStyles", required: false)
+    @RenderSection("HeadStyles", required: false)
     }
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @* Menu *@
+    <div class="navbar navbar-expand navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#coexp-menu">
@@ -104,127 +112,155 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" style="color:white;">CoExp</a>
-            </div>
-            <div class="navbar-collapse collapse" id="coexp-menu">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item" id="tab_network_catalogue"><a class="navbar-link" asp-controller="Run" asp-action="Catalogue">Network Catalogue</a></li>
-                    <li class="nav-item" id="tab_gene_set_annotation"><a asp-area="" asp-controller="Run" asp-action="Annotated">Gene Set Annotation</a></li>
-                    <li class="nav-item" id="tab_plot"><a asp-area="" asp-controller="Run" asp-action="Plot">Plot Gene Network</a></li>
-                    <li class="nav-item dropdown" id="tab_about">
-                        <a class="nav-item dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="About">About</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Publication">Publication</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown" id="tab_help">
-                        <a class="nav-item dropdown-toggle" data-toggle="dropdown">Help <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help">Getting started</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Introduction">Introduction</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">Network Catalogue</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Gene Set Annotation</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <a class="navbar-brand" asp-area="" asp-controller="Run" asp-action="Index">CoExp</a>
+</div>
+
+
+            <div class="navbar-collapse collapse navbar-dark bg-dark" id="coexp-menu">
+
+                <div style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" id="tab_about">
+                            <a asp-area="" asp-controller="Run" asp-action="About">
+                                <span class="fa-li"><i class="fa fa-home fa-fw"></i></span>
+                                About
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tab_publication">
+                            <a asp-area="" asp-controller="Run" asp-action="Publication">
+                                <span class="fa-li"><i class="fa fa-newspaper"></i></span>
+                                Publication
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown" id="tab_help">
+                            <a class="nav-item dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa-li"><i class="fa fa-question"></i></span>
+                                Help <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help">Getting started</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Introduction">Introduction</a></li>
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">
+                                        Network Catalogue
+                                    </a>
+                                </li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Gene Set Annotation</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div style="float:left;">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" id="tab_network_catalogue">
+                            <a class="navbar-link" asp-controller="Run" asp-action="Catalogue">
+                                <span class="fa-li"><i class="fas fa-archive"></i></span>
+                                Network Catalogue
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tab_gene_set_annotation">
+                            <a asp-area="" asp-controller="Run" asp-action="Annotated">
+                                <span class="fa-li"><i class="fas fa-paste"></i></span>
+                                Gene Set Annotation
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tab_plot">
+                            <a asp-area="" asp-controller="Run" asp-action="Plot" class="navbar-link">
+                                <span class="fa-li"><i class="fas fa-project-diagram"></i></span>
+                                Plot Gene Network
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
 
-    @*<partial name="_CookieConsentPartial" />*@
-
+    @* Body *@
     <div class="container body-content">
         @RenderBody()
     </div>
 
+    @* Footer *@
     <div id="footer">
-        @*<environment include="Development,Private">
-                <span class="glyphicon glyphicon-comment"></span>
-                <a href="" data-toggle="modal" data-target="#modalContactForm">Feedback</a>
-                <span class="pipe-footer">|</span>
-            </environment>*@
         <a asp-area="" asp-controller="Run" asp-action="Terms">Terms & Conditions</a>
         <span class="pipe-footer">|</span>
         <a asp-area="" asp-controller="Run" asp-action="Privacy">Privacy</a>
         <small>&copy; 2018 - 2020 - CoExp_Web. All rights reserved.</small>
     </div>
-    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <button id="close_feedback" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title w-100 font-weight-bold">Feedback for CoExp Website</h4>
-                    <p>Thanks for taking the time to provide feedback!</p>
-                </div>
-                <div class="modal-body mx-3">
 
-                    <div class="md-form mb-5">
-                        <label for="feedback_name">Your name</label>
-                        <input type="text" id="feedback_name" class="form-control validate">
-                    </div>
-                    <br />
-                    <div class="md-form mb-5">
-                        <label for="feedback_email">Your email</label>
-                        <input type="email" id="feedback_email" class="form-control validate">
-                    </div>
-                    <br />
-                    <div class="md-form">
-                        <label for="feedback_comments">Enter your comments below.</label>
-                        <textarea type="text" id="feedback_comments" class="md-textarea form-control" rows="4"></textarea>
+    @* site js *@
+    <script type="text/javascript" src="~/js/api.js"></script>
 
-                    </div>
-                    <br />
-                    <div class="md-form mb-5">
-                        <label for="feedback_radio">Are you satisfied with your experience?</label>
-                        <div class="radio">
-                            <label><input type="radio" name="feedback_radio" value="neutral" checked>Neutral</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="feedback_radio" value="yes">Yes</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="feedback_radio" value="no">No</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button onclick="javascript: API.prototype.sendFeedback();" class="btn btn-primary disabled">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @* js from libraries *@
 
 
-    <script type="text/javascript" src="~/js/xlsx.full.min.js"></script>
-    @*<script type="text/javascript" src="~/lib/font-awesome/js/all.min.js"></script>*@
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="~/js/lib/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/dataTables.fixedColumns.min.js"></script>
+
+
+    <script type="text/javascript" src="~/js/lib/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="~/js/lib/bootstrap-select.js"></script>
+
+    <script type="text/javascript" src="~/js/lib/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/buttons.print.min.js"></script>
+
+
+    <script type="text/javascript" src="~/js/lib/cola.js"></script>
+    <script type="text/javascript" src="~/js/lib/popper.js"></script>
+    <script type="text/javascript" src="~/js/lib/cytoscape.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/cytoscape-cola.js"></script>
+    <script type="text/javascript" src="~/js/lib/cytoscape-popper.js"></script>
+
+
+
+
+
+    <script type="text/javascript" src="~/js/lib/intro.min.js"></script>
+
+    <script type="text/javascript" src="~/js/lib/jszip.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/plugins.js"></script>
+    <script type="text/javascript" src="~/js/lib/popper.js"></script>
+    <script type="text/javascript" src="~/js/lib/simTree.min.js"></script>
+    <script type="text/javascript" src="~/js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="~/js/lib/xlsx.full.min.js"></script>
+
+
+
+    <script type="text/javascript" src="~/lib/font-awesome/js/all.min.js"></script>
+
+    <script type="text/javascript" src="~/js/net_v2_cytoscape.js"></script>
+
+
+    <!--Multiselect scripts -->
+
+
 
     <environment include="Development">
         <script type="text/javascript">
             const environment = "coexp_test";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
-        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script type="text/javascript" src="~/js/intro.js"></script>
     </environment>
     <environment include="Docker">
         <script type="text/javascript">
             const environment = "docker";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
-        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script type="text/javascript" src="~/js/intro.js"></script>
     </environment>
     <environment include="Private">
         <script type="text/javascript">
             const environment = "ATN_5843218Gt";//"ATN_5843218Gt"//"coexp"//coexp_test
         </script>
-        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script type="text/javascript" src="~/js/intro.js"></script>
     </environment>
     <environment include="Production">
         <script type="text/javascript">
@@ -240,19 +276,6 @@
 
             gtag('config', 'UA-129116044-1');
         </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script type="text/javascript" src="~/js/intro.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

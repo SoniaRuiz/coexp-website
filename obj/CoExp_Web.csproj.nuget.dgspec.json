@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj": {}
+    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\coexp-website\\CoExp_Web.csproj": {}
   },
   "projects": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj": {
+    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\coexp-website\\CoExp_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
+        "projectUniqueName": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\coexp-website\\CoExp_Web.csproj",
         "projectName": "CoExp_Web",
-        "projectPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\CoExp_Web.csproj",
+        "projectPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\coexp-website\\CoExp_Web.csproj",
         "packagesPath": "C:\\Users\\skgtsg0\\.nuget\\packages\\",
-        "outputPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\CoExp_Web\\obj\\",
+        "outputPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\coexp-website\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -70,7 +70,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
