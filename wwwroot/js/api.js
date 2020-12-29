@@ -349,6 +349,7 @@ API.prototype.getNetworkCategories = function (category) {
                         $('#category_dropdown')
                             .append(option);
                     }
+                    $('#category_dropdown').val('10UKBEC').change();
                     $('#category_dropdown')
                         .selectpicker('refresh')
                     startIntro()
@@ -404,6 +405,9 @@ API.prototype.getAvailableNetworks = function (category, network) {
                         $('#network_dropdown')
                             .append(net_option);
                     }
+                    //if (category == '10UKBEC') {
+                    //    $('#network_dropdown').val('SNIG');
+                    //}
                     $('#network_dropdown')
                         .prop("disabled", false)
                         .selectpicker('refresh');

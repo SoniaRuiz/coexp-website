@@ -175,39 +175,52 @@
               steps: [
                   {
                       element: '#step1',
-                      intro: "<p><b>Category</b></p><p>Please, select here your preferred category of co-expression networks.</p>",
+                      intro: "<p><b>Category</b></p><p>Please, select here a category of co-expression networks.<br/><br/>It has been pre-selected the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section</p>",
                       position: 'right',
                       scrollTo: 'tooltip'
 
                   },
                   {
                       element: '#step2',
-                      intro: "<b>Network</b><br/><br/>These are all co-expression networks that belong to the category selected in the previous step.",
+                      intro: "<b>Network</b><br/><br/>These are all gene co-expression networks that belong to the category selected in the previous step.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section</p>",
                       position: 'right'
                   },
                   {
                       element: '#step3',
-                      intro: "<b>Show results by...</b><br/><br/>These are the different types of results that can be retrieved in this query. You can select only one or both options.",
+                      intro: "<b>Show results by...</b><br/><br/>These are the different types of results that can be retrieved in this query.<br/><br/>Only the <b>'Gene Ontology'</b> view has been pre-selected by default. You can select only one or both views.",
                       position: 'right'
                   },
                   {
                       element: '#step4',
-                      intro: "<b>Accept</b><br/><br/>Once you are ready, press this button to send your query.",
+                      intro: "<b>Accept</b><br/><br/>Once you are ready, press this button to submit your query.",
                       position: 'right'
                   },
                   {
                       element: '#step5',
-                      intro: "<b>Results</b><br/><br/>This is the results area. Your results will appear here.",
+                      intro: "<b>Results</b><br/><br/>This is the results area.",
                       position: 'bottom'
                   }
               ]
           });
-
+          intro.onbeforechange(function (targetElement) {
+              
+              if (targetElement.id == "step2" && $("#category_dropdown").val() == "10UKBEC") {
+                  $('#network_dropdown').val('SNIG').change();
+                  $('#network_dropdown')
+                      .prop("disabled", false)
+                      .selectpicker('refresh');
+              }
+              if (targetElement.id == "step3") {
+                  $('#view_selection').val('1').change();
+                  $('#view_selection')
+                      .selectpicker('refresh');
+              }
+          });
         var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
         if (doneTourCatalogue) {
             return;
         }
-        else {      
+        else {
             intro.start();
 
             intro.oncomplete(function () {

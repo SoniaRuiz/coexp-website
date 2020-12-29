@@ -17,6 +17,14 @@ body {
     padding-right: 15px;
 }
 
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -33,9 +41,15 @@ body {
     margin: 15px;
 }
 
+/******************************************/
+/************ FA ICONS ********************/
+/******************************************/
 
 .nav > li > a {
     padding-left: 35px !important;
+}
+.introjs-showElement > .fa-li {
+    left: -10px !important;
 }
 .fa-li {
     left: 5px !important;
@@ -79,7 +93,7 @@ div.home-text {
 
 
 /******************************************/
-/******************************************/
+/************* LOADING BODY ***************/
 /******************************************/
 /* Start by setting display:none to make this hidden.
 Then we position it in relation to the viewport window
@@ -87,13 +101,13 @@ with position:fixed. Width, height, top and left speak
 for themselves. Background we set to 80% white with
 our animation centered, and no-repeating */
 .loading_layer {
-display: none;
-position: fixed;
-z-index: 100;
-top: 0;
-left: 0;
-height: 100%;
-width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -104,15 +118,7 @@ body.loading .loading_layer {
     display: block;
 }
 
-/******************************************/
-/******************************************/
-/******************************************/
-.hide{
-    display:none;
-}
-.show {
-    display: block;
-}
+
 
 /******************************************/
 /******************************************/

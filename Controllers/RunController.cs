@@ -116,7 +116,10 @@ namespace CoExp_Web.Controllers
                 return View("Error", errorModel);
             }
         }
-
+        public IActionResult Datasets()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

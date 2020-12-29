@@ -68,6 +68,7 @@
     <Content Remove="wwwroot\js\jquery.dataTables.min.js" />
     <Content Remove="wwwroot\js\jquery.qtip.js" />
     <Content Remove="wwwroot\js\jszip.min.js" />
+    <Content Remove="wwwroot\js\lib\cola.js" />
     <Content Remove="wwwroot\js\net_v2.js" />
     <Content Remove="wwwroot\js\net_v2.min.js" />
     <Content Remove="wwwroot\js\net_v2_cytoscape.js~RFb48ba77.TMP" />

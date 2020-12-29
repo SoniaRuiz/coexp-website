@@ -113,7 +113,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" asp-area="" asp-controller="Run" asp-action="Index">CoExp</a>
-</div>
+            </div>
 
 
             <div class="navbar-collapse collapse navbar-dark bg-dark" id="coexp-menu">
@@ -124,6 +124,12 @@
                             <a asp-area="" asp-controller="Run" asp-action="About">
                                 <span class="fa-li"><i class="fa fa-home fa-fw"></i></span>
                                 About
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tab_datasets">
+                            <a asp-area="" asp-controller="Run" asp-action="Datasets">
+                                <span class="fa-li"><i class="fa fa-database fa-fw"></i></span>
+                                Datasets
                             </a>
                         </li>
                         <li class="nav-item" id="tab_publication">
@@ -138,14 +144,10 @@
                                 Help <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help">Getting started</a></li>
-                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Introduction">Introduction</a></li>
-                                <li class="nav-item">
-                                    <a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">
-                                        Network Catalogue
-                                    </a>
-                                </li>
-                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Gene Set Annotation</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help" target="_blank">Getting started</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Introduction" target="_blank">Introduction</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Catalogue" target="_blank">Network Catalogue</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Run" asp-action="Help_Annotation" target="_blank">Gene Set Annotation</a></li>
                             </ul>
                         </li>
 
@@ -216,7 +218,7 @@
     <script type="text/javascript" src="~/js/lib/buttons.print.min.js"></script>
 
 
-    <script type="text/javascript" src="~/js/lib/cola.js"></script>
+    <script type="text/javascript" src="~/js/lib/cola.min.js"></script>
     <script type="text/javascript" src="~/js/lib/popper.js"></script>
     <script type="text/javascript" src="~/js/lib/cytoscape.min.js"></script>
     <script type="text/javascript" src="~/js/lib/cytoscape-cola.js"></script>
@@ -229,7 +231,7 @@
     <script type="text/javascript" src="~/js/lib/intro.min.js"></script>
 
     <script type="text/javascript" src="~/js/lib/jszip.min.js"></script>
-    <script type="text/javascript" src="~/js/lib/pdfmake.min.js"></script>
+    @*<script type="text/javascript" src="~/js/lib/pdfmake.min.js"></script>*@
     <script type="text/javascript" src="~/js/lib/plugins.js"></script>
     <script type="text/javascript" src="~/js/lib/popper.js"></script>
     <script type="text/javascript" src="~/js/lib/simTree.min.js"></script>
