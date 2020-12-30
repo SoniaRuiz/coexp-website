@@ -16,10 +16,6 @@
         <span class="active">Gene Set Annotation</span>
 
     }
-    @*@if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-        {
-            @Html.ActionLink("Gene Set Annotation", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }*@
 </div>
 <div class="row">
     <div class="col-sm-3 sidebar menu">
@@ -27,7 +23,7 @@
             <span class="fa-li" data-toggle="tooltip"
                   data-placement="right"
                   data-html="true"
-                  title="<p style='text-align: left;'>Select your preferred gene co-expression network.</p><p style='text-align: left;'>You can select one or more networks from the same or from multiple categories.</p>">
+                  title="<br/><p style='text-align: left;'>Select your preferred gene co-expression network.</p><p style='text-align: left;'>You can select one or more networks from the same category or from multiple categories.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="tree">Network:</p>
             <div id="tree"></div>
@@ -39,8 +35,9 @@
                   data-html="true"
                   title="<p>Paste your list of genes in a comma-separated or blank-space-separated format. There is no maximum of genes per list.<br/><br/>Please, be aware that the larger the list, the longer the request may take.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
-            </span><p class="fa-li-p" for="genes">Genes:</p>            
-            <textarea class="form-control" rows="5" id="genes" placeholder="Type your genes ..."></textarea>
+            </span><p class="fa-li-p" for="genes">Genes:</p>
+            <button id="button-paste-list" class="btn btn-default">Paste Default</button>&nbsp;<button id="button-clear-list" class="btn btn-default">Clear list</button><br />
+            <textarea class="form-control" rows="7" id="genes" placeholder="Type your genes ..."></textarea>
         </div>
         <hr class="menu-hr" />
         <div id="step3">
@@ -187,24 +184,24 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
-                            <i class="fa fa-info fa-fw"></i>
+                              title="<p>This p-value figure represents the level of significance corresponding to the overlap between your gene list and the genes lying within the current module.<br/><br/>This p-value has been obtained by applying the Fisher's exact test over the beforementioned overlap of genes.</p>">
+                            <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Fisher p-value</span>
                     </th>
                     <th>
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
-                            <i class="fa fa-info fa-fw"></i>
+                              title="<p>This p-value represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
+                            <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">FDR p-value</span>
                     </th>
                     <th>
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module. <br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
-                            <i class="fa fa-info fa-fw"></i>
+                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
+                            <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Bonferroni p-value</span>
                     </th>
                     <th>Module</th>
@@ -212,16 +209,16 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>Represents a degree of membership of a gene to a module. <br /><br />When the mm is close to 0, the likelihood of that gene belonging to the module is very low. When the mm is close to 1 or −1, the gene the likelihood of that gene belonging to the module is high.</p>">
-                            <i class="fa fa-info fa-fw"></i>
+                              title="<p>Represents the degree of membership of the current gene to the current module.<br /><br />When the module membership (mm) is close to 0, the likelihood of that gene belonging to the current module is very low. When the mm is close to 1 or −1, the likelihood of that gene belonging to the current module is very high.</p>">
+                            <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Module Membership</span>
                     </th>
                     <th>
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>Total number of genes in the current module.</p>">
-                            <i class="fa fa-info fa-fw"></i>
+                              title="<p>Total number of genes that have been clustered together within the current module.</p>">
+                            <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Module Size</span>
                     </th>
                     <th>GO Report</th>
@@ -259,7 +256,7 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
+                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
                             <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Fisher p-value</span>
                     </th>
@@ -267,7 +264,7 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
+                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
                             <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">FDR p-value</span>
                     </th>
@@ -275,7 +272,7 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module. <br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
+                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
                             <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Bonferroni p-value</span>
                     </th>
@@ -283,7 +280,7 @@
                         <span class="fa-li" data-toggle="tooltip"
                               data-placement="top"
                               data-html="true"
-                              title="<p>Total number of genes in the current module.</p>">
+                              title="<p>Total number of genes that have been clustered together within the current module.</p>">
                             <i class="fa fa-info-circle fa-fw"></i>
                         </span><span class="fa-li-p">Module Size</span>
                     </th>
@@ -306,6 +303,7 @@
 @section Scripts{
     
     <script>
+
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()
             // Turn active current menu's option
@@ -318,37 +316,53 @@
 
         });
 
+        $("#button-paste-list").click(function () {
+            $('#genes').val('ATP13A2 ATP1A3 C19orf12 CSF1R DCTN1 DNAJC6 FBXO7 FTL GBA GCH1 GRN LRRK2 LYST MAPT OPA3 PANK2 PARK7 PINK1 PLA2G6 PRKN PRKRA PTRHD1 RAB39B SLC30A10 SLC39A14 SLC6A3 SNCA SPG11 SPR SYNJ1 TH TUBB4A VPS13A VPS35 WDR45');
+
+        });
+        $("#button-clear-list").click(function () {
+            $('#genes').val('');
+
+        });
+
         function startIntro() {
             var intro = introJs();
             intro.setOptions({
                 steps: [
                     {
                         element: '#step1',
-                        intro: "<p><b>Network</b></p><p>Select here your preferred co-expression network.<br/><br/>You can select one or more networks from the same or multiple categories.</p>",
+                        intro: "<p><b>Network</b></p><p>Select here your preferred gene co-expression network. You can select one or more networks from the same category or from multiple categories.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network from the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
                         position: 'right'
                     },
                     {
                         element: '#step2',
-                        intro: "<b>Genes</b><br/><br/>Type here a list with your genes of interest in a comma-separated or blank-space-separated fashion.<br/><br/>The gene list can contain from one single gene to no maximum stablished.<br/><br/>Please, be aware that the larger the list, the longer the request may take.",
+                        intro: "<b>Genes</b><br/><br/>Type here a list with your genes of interest in a comma-separated or blank-space-separated format.<br/><br/>The gene list provided by default contains 35 green genes obtained from the Parkinson Disease and Complex Parkinsonism (Version 1.68) Genomics England panel App. More info (<a href='https://panelapp.genomicsengland.co.uk/panels/39/' target='_blank'>here</a>). <br/><br/> Please, feel free to use your own gene list (be aware that the larger is the list, the longer the request may take).",
                         position: 'right'
                     },
                     {
                         element: '#step3',
-                        intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to send your query.",
+                        intro: "<b>Accept</b><br/><br/>Once you are ready, press 'Accept' to submit your query.",
                         position: 'right'
                     },
                     {
                         element: '#step4',
-                        intro: "<b>Results</b><br/><br/>This is the results area. Your results will appear here.",
+                        intro: "<b>Results</b><br/><br/>This is the results area.",
                         position: 'right'
                     }
                 ]
             });
+            intro.onbeforechange(function (targetElement) {
 
+                if (targetElement.id == "step2") {
+                    $('#genes').val('ATP13A2 ATP1A3 C19orf12 CSF1R DCTN1 DNAJC6 FBXO7 FTL GBA GCH1 GRN LRRK2 LYST MAPT OPA3 PANK2 PARK7 PINK1 PLA2G6 PRKN PRKRA PTRHD1 RAB39B SLC30A10 SLC39A14 SLC6A3 SNCA SPG11 SPR SYNJ1 TH TUBB4A VPS13A VPS35 WDR45');
+                }
+            });
 
 
             var doneTourAnnotated = sessionStorage.getItem('EventTourAnnotated') === 'Completed';
             if (doneTourAnnotated) {
+                $('#genes').val('ATP13A2 ATP1A3 C19orf12 CSF1R DCTN1 DNAJC6 FBXO7 FTL GBA GCH1 GRN LRRK2 LYST MAPT OPA3 PANK2 PARK7 PINK1 PLA2G6 PRKN PRKRA PTRHD1 RAB39B SLC30A10 SLC39A14 SLC6A3 SNCA SPG11 SPR SYNJ1 TH TUBB4A VPS13A VPS35 WDR45');
+
                 return;
             }
             else {

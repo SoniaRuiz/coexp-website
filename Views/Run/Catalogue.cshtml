@@ -167,6 +167,8 @@
                 API.prototype.menuInit(11);
             }
 
+            
+
         });
 
       function startIntro(){
@@ -175,14 +177,13 @@
               steps: [
                   {
                       element: '#step1',
-                      intro: "<p><b>Category</b></p><p>Please, select here a category of co-expression networks.<br/><br/>It has been pre-selected the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section</p>",
+                      intro: "<p><b>Category</b></p><p>Please, select here a category of co-expression networks.<br/><br/>It has been pre-selected the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
                       position: 'right',
                       scrollTo: 'tooltip'
-
                   },
                   {
                       element: '#step2',
-                      intro: "<b>Network</b><br/><br/>These are all gene co-expression networks that belong to the category selected in the previous step.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section</p>",
+                      intro: "<b>Network</b><br/><br/>These are all gene co-expression networks that belong to the category selected in the previous step.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
                       position: 'right'
                   },
                   {
@@ -216,8 +217,10 @@
                       .selectpicker('refresh');
               }
           });
+
+
         var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
-        if (doneTourCatalogue) {
+          if (doneTourCatalogue) {
             return;
         }
         else {

@@ -8,7 +8,12 @@
     <div class="col-sm-6 col-lg-6 col-md-6">
         <div class="home-video">
             <video autoplay="" loop="" muted="" class="vid-bg aos-init aos-animate" data-aos="fade-right" data-aos-delay="500">
-                <source type="video/mp4" src="/coexp/images/abstract_line1.mp4">
+                <environment include="Development">
+                    <source type="video/mp4" src="/coexp_test/images/abstract_line1.mp4">
+                </environment>
+                <environment include="Production">
+                    <source type="video/mp4" src="/coexp/images/abstract_line1.mp4">
+                </environment>
             </video>
         </div>
     </div>

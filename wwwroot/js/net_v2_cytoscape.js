@@ -229,8 +229,8 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                     'border-color': $('#module_dropdown').find(":selected").val(),
                     'border-width': '4px',
                     'stroke-width': '5px',
-                    'width': '55%',
-                    'height': '55%',
+                    //'width': '55%',
+                    //'height': '55%',
                     'font-size': '55%'
 
                 }

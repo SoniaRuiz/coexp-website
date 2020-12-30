@@ -502,6 +502,8 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
                     for (let i = 0; i < data.length; i++) {
                         if (data[i] != "") {
                             const gene_option = '<option value="' + i + '">' + data[i] + '</option>';
+                            //if (data[i] == 'ATP1A3')
+                            //    console.log(gene_option)
                             $('#gene_dropdown')
                                 .append(gene_option);
                         }
@@ -554,12 +556,15 @@ API.prototype.getTreeMenuData = function () {
                 });
                 //Expand and mark the first option of the tree-menu
                 $("ul.show").removeClass("show");//.find("ul.show").addClass("show");
-                $("li[data-id = '100']").closest("ul").first().addClass("show");
-                $("li[data-id = '1']").closest("ul").addClass("show");
+                
+                $("ul.sim-tree > li[data-id = '0'] > ul").addClass("show");
+                $("li[data-id = '3'] > ul").addClass("show");
+                $("li[data-id = '3']").find("li[data-id = '106']").find("i.sim-tree-checkbox").first().addClass("checked");
+                $("li[data-id = '3'] > a").find("i.sim-tree-checkbox").first().addClass("checked");
 
-                $("ul.sim-tree").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
-                $("li[data-id = '1']").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
-                $("li[data-id = '100']").find("i.sim-tree-checkbox").first().addClass("checked")
+                //$("ul.sim-tree").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
+                //$("li[data-id = '3']").find("i.sim-tree-checkbox").first().addClass("sim-tree-semi")
+                //$("li[data-id = '106']").find("i.sim-tree-checkbox").first().addClass("checked")
 
                 startIntro();
             }
