@@ -52,7 +52,7 @@ namespace CoExp_Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //Add trailing slash to the end
-            services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
+            //services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
             
             
             //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
@@ -69,7 +69,7 @@ namespace CoExp_Web
             //coexp
 
             if (env.IsDevelopment()){
-                app.UsePathBase("/coexp_test/");
+                app.UsePathBase("/coexp_test");
                 app.UseHttpsRedirection();
             }else if(env.IsEnvironment("Docker")){
                 app.UsePathBase("/docker/");
@@ -77,7 +77,7 @@ namespace CoExp_Web
             else
             {
                 if (env.IsProduction()){
-                    app.UsePathBase("/coexp/");
+                    app.UsePathBase("/coexp");
                     app.UseHttpsRedirection();
                 }
                 else if (env.IsEnvironment("Private")){
