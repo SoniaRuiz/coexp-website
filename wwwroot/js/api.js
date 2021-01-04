@@ -172,16 +172,12 @@ API.prototype.menuInit = function (view) {
                 .selectpicker('refresh');
 
             $('#gene_dropdown')
+                .selectpicker('deselectAll')
                 .children()
                 .remove();
             $('#gene_dropdown')
                 .prop('disabled', true)
-
         }
-
-        
-
-        
     });
 
     //When the value of 'Network' changes:
@@ -208,9 +204,12 @@ API.prototype.menuInit = function (view) {
                 .selectpicker('refresh');
             API.prototype.getAvailableModules($('#category_dropdown').val(), this.value);
 
-            $('#gene_dropdown').children().remove();
             $('#gene_dropdown')
-                .prop('disabled', true)           
+                .selectpicker('deselectAll')
+                .children()
+                .remove();
+            $('#gene_dropdown')
+                .prop('disabled', true)        
 
             $('#send_button').prop("disabled", true);
         }

@@ -114,7 +114,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                 json_data += '{ "data": {"id": "' + local_id +
                     '","source": "' + i +
                     '","target": "' + (j - 1) +
-                    '","weight": "' + data_network_raw[i][j] + '" } },';
+                    '","weight": "' + parseFloat(data_network_raw[i][j]).toFixed(4) + '" } },';
             }
         }
     }
@@ -164,17 +164,17 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             {
                 selector: 'edge',
                 style: {
-                    //'haystack-radius': 0.1,
+                    'label': 'data(weight)',
+                    'font-size': '7px',
+                    "text-rotation": "autorotate",
+                    "text-margin-x": "0px",
+                    "text-margin-y": "0px",
+                    "text-outline-color": "white",
+                    "text-outline-width": 1,
                     'opacity': 0.5,
                     'line-color': '#333'
                 }
             },
-            //{//$('#gene_dropdown option:selected').toArray().map(item => item.text).some((num) => num == 'DDX17')
-            //    selector: ($('#gene_dropdown option:selected').toArray().map(item => item.text).some(function (e) { e == "node[label]" })),
-            //    css: {
-            //        "background-color": "red"
-            //    }
-            //},
             {
                 selector: "node[[degree < 3]]",
                 css: {
@@ -229,8 +229,6 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                     'border-color': $('#module_dropdown').find(":selected").val(),
                     'border-width': '4px',
                     'stroke-width': '5px',
-                    //'width': '55%',
-                    //'height': '55%',
                     'font-size': '55%'
 
                 }
@@ -240,7 +238,9 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
                 style: {
                     'line-color': $('#module_dropdown').find(":selected").val(),
                     'opacity': 1,
-                    'width': 6
+                    'width': 6,
+                    'font-size': '20%'
+                    
                 }
             },
             {
@@ -270,13 +270,15 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
     /*
      * HIGHLIGHT THE NODES IN WHICH THE USER HAS CLICKED
      * */
+
     cy.on('mouseover', 'node', function (e) {
         let node = e.cyTarget;
 
         if (((e.cy.elements().length + 1) / 2) > 60) {
             node.addClass('highlight_large').outgoers().addClass('highlight_large');
             node.addClass('highlight_large').incomers().addClass('highlight_large');
-            node.addClass('highlight_large').connectedEdges().addClass('highlight_large')
+            node.addClass('highlight_large');
+            node.connectedEdges().addClass('highlight_large')
         } else {
             node.addClass('highlight').outgoers().addClass('highlight');
             node.addClass('highlight').incomers().addClass('highlight');
@@ -288,8 +290,7 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
         connected = connected.union(node.incomers())
         cy.elements().not(connected).addClass('semitransp');
     });
-
-    cy.on('mouseout', 'node', function (e) {
+    cy.on('mouseout mouseup touchend', 'node', function (e) {
         let sel = e.cyTarget;
         if (((e.cy.elements().length + 1) / 2) > 60) {
             sel.removeClass('highlight_large').outgoers().removeClass('highlight_large');
@@ -301,19 +302,35 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             sel.connectedEdges().removeClass('highlight');
         }
         cy.elements().removeClass('semitransp');
-
+        if ($("#geneInfo").length > 0) {
+            $("#geneInfo").remove();
+        }
     });
 
     /* 
      * POPPER WITH INFO ABOUT THE GENE
      * */
     cy.on('mousedown touchstart', 'node', function (e) {
-        if ($("#geneInfo").length) {
+        if ($("#geneInfo").length > 0) {
             $("#geneInfo").remove();
         }
-       
 
         let node = e.cyTarget;
+        if (((e.cy.elements().length + 1) / 2) > 60) {
+            node.addClass('highlight_large').outgoers().addClass('highlight_large');
+            node.addClass('highlight_large').incomers().addClass('highlight_large');
+            node.addClass('highlight_large');
+            node.connectedEdges().addClass('highlight_large')
+        } else {
+            node.addClass('highlight').outgoers().addClass('highlight');
+            node.addClass('highlight').incomers().addClass('highlight');
+            node.addClass('highlight').connectedEdges().addClass('highlight')
+        }
+
+        let connected = node
+        connected = connected.union(node.outgoers())
+        connected = connected.union(node.incomers())
+        cy.elements().not(connected).addClass('semitransp');
 
         let gene = node.data().label;
         let url = '/' + environment + '/API/GetInfoFromGeneNetwork';
@@ -323,58 +340,81 @@ APIPlot.prototype.netPlot = function (data_network_raw) {
             type: 'POST',
             data: { term: gene },
             success: function (data) {
-                $("body").addClass("loading");
-                data = JSON.parse(data);
-                //console.log(data)
-                //let finalOntologyString = null;
+                if (data.indexOf("Problems") == -1) {
 
-                data = data.gene;
-                //// id":"ENSG00000145335","index_":8680,"name":"SNCA","biotype":"protein_coding","chr":"4","start":89724099,"stop":89838315,"strand":-1,"description":"synuclein, alpha(non A4 component of amyloid precursor)[Source: HGNC Symbol; Acc: HGNC: 11138]"
-                let geneInfo = "";
-                geneInfo = (data.id != "") ? "<b>ID: </b> " + data.id + "<br/>" : "";
-                geneInfo = geneInfo + ((data.biotype != "") ? "<b>Biotype: </b> " + data.biotype + "<br/>" : "");
-                geneInfo = geneInfo + ((data.description != "") ? "<b>Description: </b> " + data.description + "<br/>" : "");
-                geneInfo = geneInfo + ((data.chr != "") ? "<b>Chr: </b> " + data.chr + "<br/>" : "");
-                geneInfo = geneInfo + ((data.start != "") ? "<b>Start: </b> " + data.start + "<br/>" : "");
-                geneInfo = geneInfo + ((data.stop != "") ? "<b>Stop: </b> " + data.stop + "<br/>" : "");
+                    $("body").addClass("loading");
+                    data = JSON.parse(data);
+                    //console.log(data)
+                    //let finalOntologyString = null;
 
-                $("body").removeClass("loading");
+                    data = data.gene;
+                    //// id":"ENSG00000145335","index_":8680,"name":"SNCA","biotype":"protein_coding","chr":"4","start":89724099,"stop":89838315,"strand":-1,"description":"synuclein, alpha(non A4 component of amyloid precursor)[Source: HGNC Symbol; Acc: HGNC: 11138]"
+                    let geneInfo = "";
+                    geneInfo = (data.id != "") ? "<b>ID: </b> " + data.id + "<br/>" : "";
+                    geneInfo = geneInfo + ((data.biotype != "") ? "<b>Biotype: </b> " + data.biotype + "<br/>" : "");
+                    geneInfo = geneInfo + ((data.description != "") ? "<b>Description: </b> " + data.description + "<br/>" : "");
+                    geneInfo = geneInfo + ((data.chr != "") ? "<b>Chr: </b> " + data.chr + "<br/>" : "");
+                    geneInfo = geneInfo + ((data.start != "") ? "<b>Start: </b> " + data.start + "<br/>" : "");
+                    geneInfo = geneInfo + ((data.stop != "") ? "<b>Stop: </b> " + data.stop + "<br/>" : "");
 
-                let popper = node.popper({
-                    content: () => {
-                        let div = document.createElement('div');
+                    $("body").removeClass("loading");
 
-                        div.innerHTML = geneInfo;
-                        div.id = "geneInfo";
+                    let popper = node.popper({
+                        content: () => {
+                            let div = document.createElement('div');
 
-                        //div.style.backgroundColor = "rgba(244, 242, 240, 0.5)";
-                        div.style.padding = "3px";
-                        
+                            div.innerHTML = geneInfo;
+                            div.id = "geneInfo";
 
-                        document.body.appendChild(div);
+                            //div.style.backgroundColor = "rgba(244, 242, 240, 0.5)";
+                            div.style.padding = "3px";
 
-                        return div;
-                    }
-                });
 
-                let update = () => {
-                    popper.scheduleUpdate();
-                };
+                            document.body.appendChild(div);
 
-                node.on('position', update);
-                cy.on('pan zoom resize', update);
+                            return div;
+                        }
+                    });
+
+                    let update = () => {
+                        popper.scheduleUpdate();
+                    };
+
+                    node.on('position', update);
+                    cy.on('pan zoom resize', update);
+                }
             },
             error: function () {
-                return "No results found!";
+                //return "No results found!";
                 $("body").removeClass("loading");
             }
         })
     });
-    cy.on('mouseup touchend', 'node', function (e) {
-        if ($("#geneInfo").length) {
-            $("#geneInfo").remove();
-        }
+    
+
+    /***************************************
+     * HIGHLIGHT THE EDGES *****************
+     ***************************************/
+
+    cy.on('mouseover mousedown touchstart', 'edge', function (e) {
+        let edge = e.cyTarget;
+        edge.connectedNodes().addClass('highlight');
+        edge.addClass('highlight');
+
+        let connected = edge
+        connected = connected.union(edge.connectedNodes())
+        cy.elements().not(connected).addClass('semitransp');
     });
+    cy.on('mouseout mouseup touchend', 'edge', function (e) {
+        let edge = e.cyTarget;
+        edge.connectedNodes().removeClass('highlight');
+        edge.removeClass('highlight');
+
+        cy.elements().removeClass('semitransp');
+    });
+
+
+
 
     
     /*

@@ -13,25 +13,23 @@
 <div class="row">
     <div class="col-11 about">
         <h2>Annotating your genes</h2>
-        <small>Created: April 04, 2019<br />Last updated: November 22, 2019</small>
+        <small>Last updated: Jan 04, 2021</small>
         <p class="author">
             by <a href="https://rytenlab.com/RytenLab/MemberInfo?Id=BP98-F74160" target="_blank" title="Juan A. Botía">Juan A. Botía</a> and
             <a href="https://rytenlab.com/RytenLab/MemberInfo?Id=LO96_F34158" target="_blank" title="Sonia García-Ruiz">Sonia García-Ruiz</a>
         </p>
         <hr class="menu-hr" />
         <p>This is the third and last part of the tutorial series <a asp-area="" asp-controller="Run" asp-action="Help">"Getting started with CoExp Web Application"</a>.</p>
-        <p><span class="glyphicon glyphicon-chevron-left"></span><b>Previous: </b><a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">Surfing the Catalog</a></p>
+        <p><span class="glyphicon glyphicon-chevron-left"></span><b>Previous: </b><a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">Surfing the Catalogue</a></p>
 
         <div>
             <br />
             <p>
-                In the <a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">previous</a> tutorial, we explained how to make use of the "Network Catalog" tab.
+                In the <a asp-area="" asp-controller="Run" asp-action="Help_Catalogue">previous</a> tutorial, we explained how to make use of the "Network Catalogue" tab.
                 In this one, we will explain how to use the "Gene Set Annotation" tab.
-            </p>
-            <p>
-                Let us suppose that we want to study the same genes as in the previous tutorial (these are our list of PD genes obtained from the Genomics England panel App), but now within the Putamen and the Substantia Nigra tissues. 
-                In order to do that, we will firstly make click over the <b>Gene Set Annotation</b> tab. Once we are there, we will then move onto the menu placed on the left-hand side of the webpage. 
-                As we can see, that menu contains a tree-view of all categories and networks available in CoExp. Let's now display the <b>gtexv6</b> category and select both the "Putamen" and "Substantia Nigra" tissues:
+                <br />
+                Let us suppose we want to study the same set of PD genes used in the previous tutorial (the list of PD genes obtained from the Genomics England panel App) within the Putamen and the Substantia Nigra tissues.
+                First, click on the <b>Gene Set Annotation</b> tab and, in the menu placed on the left-hand side of the webpage select the "Putamen" and "Substantia Nigra" tissues from the <b>gtexv6</b> category.
             </p>
             <div class="figure">
                 <img src="~/images/snigputm.png"
@@ -39,8 +37,8 @@
                 <p><small class="help_caption">Fig9: Selecting substantia nigra and putamen networks from GTEx V6.</small></p>
             </div>
             <p>
-                The next thing we will need to do is to paste our list of genes (separated by spaces or commas) in the text-area field placed at the bottom part of the menu. Finally, we have to click the "Accept" button, and that's all!
-                After a few seconds, the results will be displayed in the middle of the webpage in the shape of a table.
+                The next thing we will need to do is to paste our list of genes (separated by blank spaces or commas) in the text-area field placed at the bottom part of the menu (click 'Paste Default').
+                 Once you have clicked over the "Accept" button, the results will appear within a data table.
             </p>
             <p>
                 If everything has gone as expected, we will be able now to see a similar table to the one below. Each row corresponds to each one of our input genes (in case it has been found in any of the selected networks)

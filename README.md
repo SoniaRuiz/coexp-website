@@ -1,16 +1,16 @@
 # CoExp_Web
 
-CoExp Web Application is a web tool developed in .NET Core Framework, for the easy usage of [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets) (author: [Juan A. Botía](https://github.com/juanbot/)) - a framework for the generation, deployment, sharing and exploitation of co-expression networks as annotation models of genes and their role in transcription. 
+CoExp Web Application is a webpage tool developed using the ASP.NET Core Framework and built with the aim of easy the use of the family of [CoExpNets R packages](https://github.com/juanbot/CoExpNets) (author: Juan A. Botía) outside a command-line environment.
 
 
 ## Introduction
 
-R programming language has spread across the scientific community as the preferred way of running statistical and graphical analysis. In a biological-data-analysis context, the likelihood of using an R package noticeably increases when the data to be analyzed presents a genetic nature. However, the usage of the R language raises an important drawback: it requires command-line and coding skills to be able to use it in an effective way. Moreover, the complexity of some R operations and calculations could increase the difficulty in the interpretations of some results, even for expert users. The aim of this document is to explain the basis of the solution proposed to increase the usability of [CoExp R suite-of-packages](https://github.com/juanbot/CoExpNets) ([Juan A. Botía](https://github.com/juanbot)).
+R programming language has spread across the scientific community as the preferred way of running statistical and graphical analysis. In a biological-data-analysis context, the likelihood of using an R package noticeably increases when the data to be analyzed presents a genetic nature. However, the usage of the R language raises an important drawback: it requires command-line and coding skills to be able to use it in an effective way. Moreover, the complexity of some R operations and calculations could increase the difficulty in the interpretations of some results, even for expert users. The aim of this document is to explain the basis of the solution proposed to increase the usability of the family of [CoExpNets](https://github.com/juanbot/CoExpNets) R packages (author [Juan A. Botía](https://github.com/juanbot)).
 
 
 #### Why a web-based user interface?
 
-Due to the huge growth experienced by the Internet and mobile devices during the last decades, it is undeniable that a web-page format is the most well-known and accepted way of browsing the Internet around the world. In this sense, a web-page structure was chosen to make [CoExp R suite-of-packages](https://github.com/juanbot/CoExpNets) easily accessible to every potential user around the world, at any time and from anywhere they decide to do so.
+Due to the huge growth experienced by the Internet and mobile devices during the last decades, it is undeniable that a web-page format is the most well-known and accepted way of browsing the Internet around the world. In this sense, a web-page structure was chosen to make the family of [CoExpNets](https://github.com/juanbot/CoExpNets) R packages easily accessible to every potential user around the world, at any time and from anywhere they decide to do so.
 
 **Please, visit our [WIKI](https://github.com/SoniaRuiz/CoExp_Web/wiki) section for any further information.**
 
@@ -46,7 +46,7 @@ CoExp Web Application is also available in a Docker version. Please, visit [this
 
 * **Sonia García-Ruiz** - *CoExp Web Application UI developer*
   * Get in touch with Sonia García at [s.ruiz@ucl.ac.uk](mailto:s.ruiz@ucl.ac.uk).
-* **Juan A. Botía** - *CoExp R suit-of-packages developer* - [CoExp R suit-of-packages](https://github.com/juanbot/CoExpNets)
+* **Juan A. Botía** - *developer of the family of CoExpNets R packages* - [CoExpNets](https://github.com/juanbot/CoExpNets)
   * Get in touch with Juan A. Botía at [j.botia@ucl.ac.uk](mailto:j.botia@ucl.ac.uk).
 
 ## Acknowledgments

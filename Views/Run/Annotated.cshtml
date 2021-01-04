@@ -23,7 +23,7 @@
             <span class="fa-li" data-toggle="tooltip"
                   data-placement="right"
                   data-html="true"
-                  title="<br/><p style='text-align: left;'>Select your preferred gene co-expression network.</p><p style='text-align: left;'>You can select one or more networks from the same category or from multiple categories.</p>">
+                  title="<p>Select here your preferred <b>gene co-expression network</b>. You can select one or more networks from the same category or from multiple categories. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="tree">Network:</p>
             <div id="tree"></div>
@@ -33,7 +33,7 @@
             <span class="fa-li" data-toggle="tooltip"
                   data-placement="right"
                   data-html="true"
-                  title="<p>Paste your list of genes in a comma-separated or blank-space-separated format. There is no maximum of genes per list.<br/><br/>Please, be aware that the larger the list, the longer the request may take.</p>">
+                  title="Type here a <b>list of genes</b> in a comma-separated or blank-space-separated format. The list provided by default contains 35 green genes obtained from the Parkinson Disease and Complex Parkinsonism (Version 1.68) Genomics England panel App.<br/>Please, feel free to use your own gene list (be aware that the larger is the list, the longer the request may take).">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="genes">Genes:</p>
             <button id="button-paste-list" class="btn btn-default">Paste Default</button>&nbsp;<button id="button-clear-list" class="btn btn-default">Clear list</button><br />
@@ -63,8 +63,6 @@
                         <h3>Your Gene List</h3>
                         <hr />
                         <div class="text-left">
-                            <h4></h4><hr />
-                            <h4></h4>
                             <p>
                                 The following genes have not been found within the networks selected.<br />
                                 Would you like to continue with your query?
@@ -172,7 +170,7 @@
             Press 'SUMMARISE CLUSTERING' button to group the results by module.
         </p>
         <br>
-        <table id="globalReportOnGenes_table" class="table table-striped table-bordered">
+        <table id="globalReportOnGenes_table" class="table table-striped table-bordered table-responsive">
             <thead>
                 <tr>
                     <th></th>
@@ -235,7 +233,7 @@
             Press 'EXPAND RESULTS' button to come back to the original data table view.
         </p>
         <br>
-        <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered nowrap table-responsive">
+        <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered table-responsive">
             <thead>
                 <tr>
                     <th></th>
