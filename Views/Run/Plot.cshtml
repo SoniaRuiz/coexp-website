@@ -12,93 +12,90 @@
     }
 </div>
 
-<environment include="Development,Production">
-    <div class="row">
-        <div class="col-sm-3 sidebar menu">
-            @*<h4>Please, make your selection:</h4>
-            <hr class="menu-hr" />*@
 
-            <div id="step1">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<p><b>Category</b> of gene co-expression networks. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="category_dropdown">Category:</p>
+<div class="row">
+    <div class="col-sm-3 sidebar menu">
+        @*<h4>Please, make your selection:</h4>
+        <hr class="menu-hr" />*@
 
-                <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
-            </div>
-            <br>
+        <div id="step1">
+            <span class="fa-li" data-toggle="tooltip"
+                    data-placement="right"
+                    data-html="true"
+                    title="<p><b>Category</b> of gene co-expression networks. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
+                <i class="fa fa-info-circle fa-fw"></i>
+            </span><p class="fa-li-p" for="category_dropdown">Category:</p>
 
-            <div id="step2">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<p><b>Gene co-expression networks</b> that belong to the selected category. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="network_dropdown">Network:</p>
-
-                <select id="network_dropdown" name="network" class="selectpicker" data-live-search="true" data-size="7" title="Select an option ..."></select>
-            </div>
-            <br>
-
-            <div id="step3">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="<p><b>Modules</b> from the selected network. Each module represents a different cluster of genes, therefore, each gene will be clustered only once.</p>">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="module_dropdown">Module:</p>
-
-                <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7"
-                        title="Select an option ..."></select>
-            </div>
-            <br>
-
-            <div id="step4">
-                <span class="fa-li" data-toggle="tooltip"
-                      data-placement="right"
-                      data-html="true"
-                      title="Contains all genes that belong to the selected module.<br/> Please, select one or more genes of interest.">
-                    <i class="fa fa-info-circle fa-fw"></i>
-                </span><p class="fa-li-p" for="gene_dropdown">Gene of interest:</p>
-
-                <select id="gene_dropdown" name="gene" class="selectpicker" multiple 
-                        data-live-search="true" 
-                        data-size="7"
-                        data-allow-clear="true"
-                        data-actions-box="true"
-                        title="Select a gene ..."> </select>
-            </div>
-            <hr class="menu-hr" />
-            <div id="step5">
-                <button id="send_button" class="btn btn-primary">Accept</button>
-            </div>
+            <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ..."></select>
         </div>
+        <br>
 
-        <div id="step6" class="col-md-9">
+        <div id="step2">
+            <span class="fa-li" data-toggle="tooltip"
+                    data-placement="right"
+                    data-html="true"
+                    title="<p><b>Gene co-expression networks</b> that belong to the selected category. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
+                <i class="fa fa-info-circle fa-fw"></i>
+            </span><p class="fa-li-p" for="network_dropdown">Network:</p>
 
-            <div id="empty-initial-results">
-                <p>Your results will appear here.</p>
-            </div>
-
-            <div id="plot_area">
-
-                <div id="cy"></div>
-
-                <div id="dvjson"></div>
-            </div>
-
+            <select id="network_dropdown" name="network" class="selectpicker" data-live-search="true" data-size="7" title="Select an option ..."></select>
         </div>
-        <div id="button_area" class="col-md-3" hidden>
-            <a id="save-plot" class="btn btn-primary" role="button" href="" download="plot_graph_CoExpWebApplication.png">Save Graph</a>
-            <a id="save-data" class="btn btn-primary" role="button" href="" download="plot_data_CoExpWebApplication.json">Save Data</a>
+        <br>
 
+        <div id="step3">
+            <span class="fa-li" data-toggle="tooltip"
+                    data-placement="right"
+                    data-html="true"
+                    title="<p><b>Modules</b> from the selected network. Each module represents a different cluster of genes, therefore, each gene will be clustered only once.</p>">
+                <i class="fa fa-info-circle fa-fw"></i>
+            </span><p class="fa-li-p" for="module_dropdown">Module:</p>
 
+            <select id="module_dropdown" name="module" class="selectpicker" data-live-search="true" data-size="7"
+                    title="Select an option ..."></select>
         </div>
-        <div class="loading_layer"><!-- loading layer --></div>
+        <br>
+
+        <div id="step4">
+            <span class="fa-li" data-toggle="tooltip"
+                    data-placement="right"
+                    data-html="true"
+                    title="Contains all genes that belong to the selected module.<br/> Please, select one or more genes of interest.">
+                <i class="fa fa-info-circle fa-fw"></i>
+            </span><p class="fa-li-p" for="gene_dropdown">Gene of interest:</p>
+
+            <select id="gene_dropdown" name="gene" class="selectpicker" multiple 
+                    data-live-search="true" 
+                    data-size="7"
+                    data-allow-clear="true"
+                    data-actions-box="true"
+                    title="Select a gene ..."> </select>
+        </div>
+        <hr class="menu-hr" />
+        <div id="step5">
+            <button id="send_button" class="btn btn-primary">Accept</button>
+        </div>
     </div>
-</environment>
+
+    <div id="step6" class="col-md-9">
+
+        <div id="empty-initial-results">
+            <p>Your results will appear here.</p>
+        </div>
+
+        <div id="plot_area">
+
+            <div id="cy"></div>
+
+            <div id="dvjson"></div>
+        </div>
+
+    </div>
+    <div id="button_area" class="col-md-3" hidden>
+        <a id="save-plot" class="btn btn-primary" role="button" href="" download="plot_graph_CoExpWebApplication.png">Save Graph</a>
+        <a id="save-data" class="btn btn-primary" role="button" href="" download="plot_data_CoExpWebApplication.json">Save Data</a>
+    </div>
+    <div class="loading_layer"><!-- loading layer --></div>
+</div>
 
 
 
