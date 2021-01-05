@@ -1,4 +1,4 @@
-# CoExp_Web
+# CoExp Web Application
 
 CoExp Web Application is a webpage tool developed using the ASP.NET Core Framework and built with the aim of easy the use of the family of [CoExpNets R packages](https://github.com/juanbot/CoExpNets) (author: Juan A. Botía) outside a command-line environment.
 
@@ -40,7 +40,7 @@ CoExp Web Application is fully working and can be reached following [this link](
 
 ## Docker version
 
-CoExp Web Application is also available in a Docker version. Please, visit [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
+CoExp Web Application is also available in a Docker version. Please, visit [the wiki](https://github.com/SoniaRuiz/coexp-website/wiki) and [this link](https://hub.docker.com/r/soniaruiz/coexp) for further information.
 
 ## Authors
 
