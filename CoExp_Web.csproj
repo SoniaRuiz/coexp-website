@@ -10,15 +10,23 @@
     <Compile Remove="Models\Email\**" />
     <Compile Remove="tutorialCoExp\**" />
     <Compile Remove="Views\Run\Help\**" />
+    <Compile Remove="wwwroot\lib\cytoscape\**" />
+    <Compile Remove="wwwroot\lib\pdfmake\**" />
     <Content Remove="Models\Email\**" />
     <Content Remove="tutorialCoExp\**" />
     <Content Remove="Views\Run\Help\**" />
+    <Content Remove="wwwroot\lib\cytoscape\**" />
+    <Content Remove="wwwroot\lib\pdfmake\**" />
     <EmbeddedResource Remove="Models\Email\**" />
     <EmbeddedResource Remove="tutorialCoExp\**" />
     <EmbeddedResource Remove="Views\Run\Help\**" />
+    <EmbeddedResource Remove="wwwroot\lib\cytoscape\**" />
+    <EmbeddedResource Remove="wwwroot\lib\pdfmake\**" />
     <None Remove="Models\Email\**" />
     <None Remove="tutorialCoExp\**" />
     <None Remove="Views\Run\Help\**" />
+    <None Remove="wwwroot\lib\cytoscape\**" />
+    <None Remove="wwwroot\lib\pdfmake\**" />
   </ItemGroup>
 
   <ItemGroup>

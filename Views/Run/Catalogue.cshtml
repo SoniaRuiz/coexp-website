@@ -89,12 +89,11 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-
             <div class="tab-pane fade in active" id="tab1">
                 <div id="goFromTissue_div" style="display:none">
                     <h2>Ontology view</h2>
                     <p>
-                        The datatable below displays data in rows and columns, with one row for each module belonging to the co-expression network selected. The columns provide information related to the 
+                        The datatable below displays data in rows and columns, with one row for each module belonging to the co-expression network selected. The columns provide information related to the
                         ontology term that more strongly correlates with the genes clustered within each module.
                         The p-value column supports the overlap between the ontology term returned and the genes clustered within the current module.
                         The raw data behind the generation of this data table is available to be downloaded on the three buttons placed on the upper-left-side corner of the table.
@@ -102,11 +101,7 @@
                     <br>
                     <table id="goFromTissue_table" class="table table-striped table-bordered wrap"></table>
                 </div>
-                <br>
-                <div id="goFromTissue_divError" style="display:none;" class="alert alert-danger">
-                    <h4>Sorry, an error has occurred.<br />
-                    The webmaster has been informed about this error. Please, try again later.</h4>
-                </div>
+
 
             </div>
             <div class="tab-pane fade" id="tab2">
@@ -120,19 +115,18 @@
                     <br>
                     <table id="cellType_table" class="table table-striped table-bordered nowrap table-responsive"></table>
                 </div>
-                <br>
-                <div id="cellType_divError" style="display:none;" class="alert alert-danger">
-                    <h4>Sorry. An error has occurred.</h4>
-                </div>
             </div>
         </div>
+        <div id="error" style="display:none;" class="alert alert-danger">
+            <h4>Sorry, a temporary error has occurred during the data retrieval.</h4>
+            <h5>The webmaster has already been informed about this error and it will be sorted shortly. <br />Please, try again later.</h5>
+        </div>
 
-
-        <div id="error">
+        @*<div id="error">
             <br>
             <h4>Please, select a module selection type.</h4>
             <br>
-        </div>
+        </div>*@
     </div>
     <div class="loading_layer"><!-- loading layer --></div>
 </div>
@@ -174,6 +168,7 @@
       function startIntro(){
         var intro = introJs();
           intro.setOptions({
+              disableInteraction: true,
               steps: [
                   {
                       element: '#step1',

@@ -329,18 +329,22 @@ API.prototype.getNetworkCategories = function (category) {
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
+                    
                 }
                 else if (data == "{}") {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
+
                 }
                 else {
-                    $("#goFromTissue_divError").hide();
-                    console.log(data);
+                    $("#error").hide();
+                    //console.log(data);
                     data = JSON.parse(data).sort();
                     //If the request has gone as expected, we fill the select by adding 'option' type elements:
                     for (let i = 0; i < data.length; i++) {
@@ -386,18 +390,20 @@ API.prototype.getAvailableNetworks = function (category, network) {
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else if (data == "{}") {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else {
-                    $("#goFromTissue_divError").hide();
-                    console.log(data);
+                    $("#error").hide();
+                    //console.log(data);
                     data = JSON.parse(data).sort();
                     for (let i = 0; i < data.length; i++) {
                         const net_option = '<option value="' + data[i] + '">' + data[i] + '</option>';
@@ -435,18 +441,20 @@ API.prototype.getAvailableModules = function (category, network) {
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else if (data == "{}") {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else {
-                    $("#goFromTissue_divError").hide();
-                    console.log(data);
+                    $("#error").hide();
+                    //console.log(data);
                     data = JSON.parse(data).sort();
                    
                     for (let i = 0; i < data.length; i++) {
@@ -484,18 +492,20 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
             type: 'GET',
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>" + data + "</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else if (data == "{}") {
-                    $("#goFromTissue_divError").children("p").remove();
-                    $("#goFromTissue_divError").append("<p>No data has been received!</p>");
-                    $("#goFromTissue_divError").show();
+                    $("#error").children("p").remove();
+                    $("#error").append("<p>Problems during data retrieval.</p>");
+                    $("#error").show();
+                    $("#empty-initial-results").hide()
                 }
                 else {
-                    //$("#goFromTissue_divError").hide();
-                    console.log(data);
+                    $("#error").hide();
+                    //console.log(data);
                     data = JSON.parse(data);
 
                     for (let i = 0; i < data.length; i++) {
@@ -513,10 +523,13 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
                         .selectpicker('render')
                         .prop('maxOptions', 2)
                     $("body").removeClass("loading");
+                    $("div.introjs-tooltipbuttons").show();
                 }
             },
             error: function (data) {
                 //If an error occurs:
+                $("body").removeClass("loading");
+                $("div.introjs-tooltipbuttons").show();
                 console.log(data);
             }
         });
@@ -531,12 +544,14 @@ API.prototype.getTreeMenuData = function () {
         url: '/' + environment + '/API/GetTreeMenuData',
         type: 'GET',
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             if (data.indexOf("Problems") >= 0) {
                 $("#error").children("p").remove();
-                $("#error").append("<p>" + data + "</p>");
+                //$("#error").append("<p>" + data + "</p>");
+                $("#error").append("<p>Problems during data retrieval.</p>");
                 $("#empty-initial-results").hide();
                 $("#error").show();
+                $('#send_button').prop("disabled", true);
             }
             else {
                 //The request has gone well. We fill the tree-menu.
@@ -788,17 +803,22 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
         success: function (data) {
             
             if (data.indexOf("Problems") >= 0) {
-                $("#goFromTissue_divError").children("p").remove();
-                $("#goFromTissue_divError").append("<p>" + data + "</p>");
-                $("#goFromTissue_divError").show();
+                $("#error").children("p").remove();
+                //$("#error").append("<p>" + data + "</p>");
+                $("#error").append("<p>Problems during data retrieval.</p>");
+                $("#error").show();
+                $("#empty-initial-results").hide()
             }
             else if (data == "{}") {
-                $("#goFromTissue_divError").children("p").remove();
-                $("#goFromTissue_divError").append("<p>No data has been received!</p>");
-                $("#goFromTissue_divError").show();
+                $("#error").children("p").remove();
+                //$("#error").append("<p>No data has been received!</p>");
+                $("#error").append("<p>Problems during data retrieval.</p>");
+                $("#error").show();
+                $("#empty-initial-results").hide()
             }
             else {
-                console.log(data);
+                $("#empty-initial-results").hide()
+                //console.log(data);
                 data = JSON.parse(data);
 
                 //Delete from 'data' all rows with p-value = 0
@@ -872,7 +892,7 @@ API.prototype.getGOFromTissue = function (category, tissue, moduleColor) {
                         .search("^" + moduleColor + "$", true, false)
                         .draw();
                 }
-                $("#goFromTissue_divError").hide();
+                $("#error").hide();
                 $("#goFromTissue_div").show();
             }
 
@@ -905,22 +925,26 @@ API.prototype.getCellTypeFromTissue = function (category, tissue, moduleColor) {
     $.ajax({
         url: '/' + environment + '/API/GetCellTypeFromTissue?Category=' + category + '&Network=' + tissue,
         type: 'GET',
-        success: function (midata) {
-            if (midata.indexOf("Problems") >= 0) {
+        success: function (data) {
+            if (data.indexOf("Problems") >= 0) {
                 $("#cellType_divError").children("p").remove();
-                $("#cellType_divError").append("<p>" + midata + "</p>");
+                //$("#cellType_divError").append("<p>" + data + "</p>");
+                $("#cellType_divError").append("<p>Problems during data retrieval.</p>");
                 $("#cellType_divError").show();
+                $("#empty-initial-results").hide()
             }
-            else if (midata == "{}") {
+            else if (data == "{}") {
                 $("#cellType_divError").children("p").remove();
-                $("#cellType_divError").append("<p>No data has been received!</p>");
+                //$("#cellType_divError").append("<p>No data has been received!</p>");
+                $("#cellType_divError").append("<p>Problems during data retrieval.</p>");
                 $("#cellType_divError").show();
+                $("#empty-initial-results").hide()
             }
             else {
-                console.log(midata);
+                //console.log(data);
                 let columns = [];
                 let value = null;
-                data = JSON.parse(midata);
+                data = JSON.parse(data);
 
                 for (let i = 0; i < data.length; i++) {
                     value = Object.keys(data[i]).sort();
@@ -1076,13 +1100,14 @@ API.prototype.reportOnGenesMultipleTissue = function (data, genes) {
                 
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").children("p").remove();
-                    $("#error").append("<p>" + data + "</p>");
+                    //$("#error").append("<p>" + data + "</p>");
+                    $("#error").append("<p>Problems during data retrieval.</p>");
                     $("#error").show();
                     $('#empty-initial-results').hide();
                 }
                 else {
 
-                    console.log(data);
+                    //console.log(data);
 
                     /***********************************/
                     /****** 'Sumarise Clustering' ******/
@@ -1269,21 +1294,24 @@ API.prototype.globalReportOnGenes = function (data, genes) {
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").empty();
-                    $("#error").append("<h4>Sorry, none of the introduced genes have been found in any of the selected networks.</h4><p>Please, try again with another network selection.</p>");
+                    $("#error").html("<h4>Sorry, none of the introduced genes have been found in any of the selected networks.</h4><p>Please, try again with another network selection.</p>");
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
                 }
                 else if (data.indexOf("Please") >= 0) {
-                    /*$("#error").children("p").remove();
-                    $("#error").append("<p>" + data + "</p>");
-                    $("#error").show();*/
-                    alert(data);
                     $("body").removeClass("loading");
+                    $("#error").empty();
+                    $("#error").append("<p>" + data + "</p>");
+                    $("#error").show();
+                    $("body").removeClass("loading");
+                    $('#empty-initial-results').hide();
                 }
                 else {
-                    API.prototype.checkGenesFound(data);
+                    $('#error').hide();
+                    $('#empty-initial-results').hide();
 
+                    API.prototype.checkGenesFound(data);
 
                     if (JSON.parse(data).message !== undefined) {
                         data = JSON.parse(data);
@@ -1297,7 +1325,7 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                     }
                     else {
 
-                        console.log(data);
+                        //console.log(data);
 
                         /***********************************/
                         /****** 'Sumarise Clustering' ******/
@@ -1486,9 +1514,9 @@ API.prototype.globalReportOnGenes = function (data, genes) {
                             ]
                         });
                         $("body").removeClass("loading");
-                        /*$("#globalReportOnGenes_div").show();
+                        $("#globalReportOnGenes_div").show();
                         $('#empty-initial-results').hide();
-                        $("#error").hide();*/
+                        $("#error").hide();
                     }
                 }
 
@@ -1531,127 +1559,131 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
  */
 API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting function for row details */
 
-    const term = (d.term_id).split(':');
-    const id = term[1];
-    let url = "";
-    let dataToSend = "";
-    let allgenes = "";
+    try {
+        const term = (d.term_id).split(':');
+        const id = term[1];
+        let url = "";
+        let dataToSend = "";
+        let allgenes = "";
 
-    if (term[0] == "GO") {
-        url = '/' + environment + '/API/GetInfoFromQuickGO';
-        dataToSend = d.term_id;
-    }
-    else if (term[0] == "REAC") {
-        url = '/' + environment + '/API/GetInfoFromREACTOME';
-        dataToSend = term[1];
-    }
-    else {
-        url = '/' + environment + '/API/GetInfoFromKEGG';
-        dataToSend = term[1];
-    }
-
-    /*********************************/
-    /************* GENES *************/
-    /*********************************/
-    if ((d.intersection).indexOf(", ") >= 0)
-        allgenes = (d.intersection).split(", ");
-    else if ((d.intersection).indexOf(" ") >= 0)
-        allgenes = (d.intersection).split(" ");
-
-    let finalGenesString = null;
-    for (let i = 0; i < allgenes.length; i++) {
-        const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + allgenes[i];
-        const gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
-        const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
-
-        let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
-        dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
-        dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
-        if (i == 0)
-            finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
-        else
-            finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
-    }
-
-    /*********************************/
-    /****** ONTOLOGY # REACTOME ******/
-    /*********************************/
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: { term: dataToSend },
-        success: function (data) {
-            $("body").addClass("loading");
-            data = JSON.parse(data);
-            let finalOntologyString = null;
-
-            if (term[0] == "GO" && data["results"].length > 0) {
-                data = data["results"][0];
-                const goInfo = "<b>Id: </b> " + data.id
-                    + "<br/><b>Name: </b> " + data.name
-                    + "<br/><b>Aspect: </b> " + data.aspect
-                    + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
-
-                finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + goInfo + "'>" + d.term_id + "</a>";
-            }
-            else if (term[0] == "REAC" && data.dbId != null) {
-                console.log(data);
-                let lastElement = "";
-
-                if (data.isInDisease) {
-                    lastElement = "<br/><b>Disease: </b> (" + data.disease[0].displayName + ") " + data.disease[0].definition + "<br/>";
-                }
-                else if (data.goBiologicalProcess != undefined) {
-                    lastElement = "<br/><b>Biological Process: </b> " + data.goBiologicalProcess.definition + "<br/>";
-                }
-                const reacInfo = "<b>Id: </b> " + d.term_id
-                    + "<br/><b>Name: </b> " + data.displayName
-                    + "<br/><b>Species: </b> " + data.speciesName
-                    + lastElement;
-
-                finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + reacInfo + "'>" + d.term_id + "</a>";
-            }
-            else if (term[0] == "KEGG" && data.length > 0) {
-                data = data[0];
-
-                let lastElement = "";
-                if (data.description != "") {
-                    lastElement = "<b>Description: </b> " + data.description + "<br/>";
-                }
-                else if (data.diseases != "") {
-                    lastElement = lastElement + "<b>Diseases: </b> ";
-                    for (let disease in data.diseases) {
-                        lastElement = lastElement + data.diseases[disease] + "<br/>";
-                    }
-                }
-                const keggInfo = "<b>Id: </b> " + data.entry_id
-                    + "<br/><b>Name: </b> " + data.name + "<br/>"
-                    + lastElement;
-
-                finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
-            }
-            
-            const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td>TermID: </td>' +
-                '<td>' + finalOntologyString + '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Genes: </td>' +
-                '<td>' + finalGenesString + '</td>' +
-                '</tr>' +
-                '</table>';
-            row.child(table).show();
-            tr.addClass('shown');
-            $("[data-placement='bottom']").popover();
-            $("body").removeClass("loading");
-        },
-        error: function () {
-            return "No results found!";
-            $("body").removeClass("loading");
+        if (term[0] == "GO") {
+            url = '/' + environment + '/API/GetInfoFromQuickGO';
+            dataToSend = d.term_id;
         }
-    });
+        else if (term[0] == "REAC") {
+            url = '/' + environment + '/API/GetInfoFromREACTOME';
+            dataToSend = term[1];
+        }
+        else {
+            url = '/' + environment + '/API/GetInfoFromKEGG';
+            dataToSend = term[1];
+        }
+
+        /*********************************/
+        /************* GENES *************/
+        /*********************************/
+        if ((d.intersection).indexOf(", ") >= 0)
+            allgenes = (d.intersection).split(", ");
+        else if ((d.intersection).indexOf(" ") >= 0)
+            allgenes = (d.intersection).split(" ");
+
+        let finalGenesString = null;
+        for (let i = 0; i < allgenes.length; i++) {
+            const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + allgenes[i];
+            const gtex_url = "https://gtexportal.org/home/gene/" + allgenes[i];
+            const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + allgenes[i];
+
+            let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+            dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+            dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+            if (i == 0)
+                finalGenesString = "<a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+            else
+                finalGenesString = finalGenesString + ", <a href='#' id='" + allgenes[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + allgenes[i] + "' data-content='" + dataContent + "'>" + allgenes[i] + "</a>";
+        }
+
+        /*********************************/
+        /****** ONTOLOGY # REACTOME ******/
+        /*********************************/
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { term: dataToSend },
+            success: function (data) {
+                $("body").addClass("loading");
+                data = JSON.parse(data);
+                let finalOntologyString = null;
+
+                if (term[0] == "GO" && data["results"].length > 0) {
+                    data = data["results"][0];
+                    const goInfo = "<b>Id: </b> " + data.id
+                        + "<br/><b>Name: </b> " + data.name
+                        + "<br/><b>Aspect: </b> " + data.aspect
+                        + "<br/><b>Definition: </b> " + data.definition.text + "<br/>";
+
+                    finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + goInfo + "'>" + d.term_id + "</a>";
+                }
+                else if (term[0] == "REAC" && data.dbId != null) {
+                    //console.log(data);
+                    let lastElement = "";
+
+                    if (data.isInDisease) {
+                        lastElement = "<br/><b>Disease: </b> (" + data.disease[0].displayName + ") " + data.disease[0].definition + "<br/>";
+                    }
+                    else if (data.goBiologicalProcess != undefined) {
+                        lastElement = "<br/><b>Biological Process: </b> " + data.goBiologicalProcess.definition + "<br/>";
+                    }
+                    const reacInfo = "<b>Id: </b> " + d.term_id
+                        + "<br/><b>Name: </b> " + data.displayName
+                        + "<br/><b>Species: </b> " + data.speciesName
+                        + lastElement;
+
+                    finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + reacInfo + "'>" + d.term_id + "</a>";
+                }
+                else if (term[0] == "KEGG" && data.length > 0) {
+                    data = data[0];
+
+                    let lastElement = "";
+                    if (data.description != "") {
+                        lastElement = "<b>Description: </b> " + data.description + "<br/>";
+                    }
+                    else if (data.diseases != "") {
+                        lastElement = lastElement + "<b>Diseases: </b> ";
+                        for (let disease in data.diseases) {
+                            lastElement = lastElement + data.diseases[disease] + "<br/>";
+                        }
+                    }
+                    const keggInfo = "<b>Id: </b> " + data.entry_id
+                        + "<br/><b>Name: </b> " + data.name + "<br/>"
+                        + lastElement;
+
+                    finalOntologyString = "<a id='" + id + "' href='#' data-trigger='hover' data-html='true' data-placement='bottom' title='" + d.term_id + "' data-content='" + keggInfo + "'>" + d.term_id + "</a>";
+                }
+
+                const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>' +
+                    '<td>TermID: </td>' +
+                    '<td>' + finalOntologyString + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>Genes: </td>' +
+                    '<td>' + finalGenesString + '</td>' +
+                    '</tr>' +
+                    '</table>';
+                row.child(table).show();
+                tr.addClass('shown');
+                $("[data-placement='bottom']").popover();
+                $("body").removeClass("loading");
+            },
+            error: function () {
+                //return "No results found!";
+                $("body").removeClass("loading");
+            }
+        });
+    } catch (err) {
+        $("body").removeClass("loading");
+    }
 }
 
 /**
@@ -1664,65 +1696,69 @@ API.prototype.hideRowsGOFromTissue = function (d, tr, row) {/* Formatting functi
  */
 API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting function for row details */
 
-    let genes = "";
-    let finalGoReport = d.go_report;
-    const allGOTerms = d.go_report.match(/GO:[0-9]*/g);
+    try {
+        let genes = "";
+        let finalGoReport = d.go_report;
+        const allGOTerms = d.go_report.match(/GO:[0-9]*/g);
 
-    if (allGOTerms != null) {
-        for (let i = 0; i < allGOTerms.length; i++) {
-            finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] +
-                "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] +
-                "\")' data-placement='bottom' data-trigger='hover' data-html='true' title='" + allGOTerms[i] +
-                "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
+        if (allGOTerms != null) {
+            for (let i = 0; i < allGOTerms.length; i++) {
+                finalGoReport = finalGoReport.replace(allGOTerms[i], "<a id='" + allGOTerms[i] +
+                    "' href='#' onmouseover='javascript:API.prototype.getCardData(\"" + allGOTerms[i] +
+                    "\")' data-placement='bottom' data-trigger='hover' data-html='true' title='" + allGOTerms[i] +
+                    "' data-content='<div class=\"loader\"></div>'>" + allGOTerms[i] + "</a>");
+            }
         }
-    }
-    else
-        finalGoReport = "no data"
+        else
+            finalGoReport = "no data"
 
-    if (id.toLowerCase().indexOf("summarise") >= 0) {
+        if (id.toLowerCase().indexOf("summarise") >= 0) {
 
-        /*********************************/
-        /************* GENES *************/
-        /*********************************/
+            /*********************************/
+            /************* GENES *************/
+            /*********************************/
 
-        let finalGenesString = null;
-        for (let i = 0; i < (d.gene).length; i++) {
-            const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + d.gene[i];
-            const gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
-            const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
+            let finalGenesString = null;
+            for (let i = 0; i < (d.gene).length; i++) {
+                const vizER_url = "https://rytenlab.com/browser/app/vizER/?gene=" + d.gene[i];
+                const gtex_url = "https://gtexportal.org/home/gene/" + d.gene[i];
+                const gene_cards = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=" + d.gene[i];
 
-            let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
-            dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
-            dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
-            if (i == 0)
-                finalGenesString = "<a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
-            else
-                finalGenesString = finalGenesString + ", <a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
+                let dataContent = 'Check splicing reads in <a href=\"' + vizER_url + '\" target=\"_blank\">vizER</a>.<br/>';
+                dataContent = dataContent + 'Check expression in <a href=\"' + gtex_url + '\" target=\"_blank\">GTEx</a>.<br/>';
+                dataContent = dataContent + 'Check gene details in <a href=\"' + gene_cards + '\" target=\"_blank\">GeneCards</a>.';
+                if (i == 0)
+                    finalGenesString = "<a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
+                else
+                    finalGenesString = finalGenesString + ", <a href='#' id='" + d.gene[i] + "' data-html='true' data-trigger='click' data-placement='bottom' title='" + d.gene[i] + "' data-content='" + dataContent + "'>" + d.gene[i] + "</a>";
+            }
+            genes = '<tr>' +
+                '<td>Genes: </td>' +
+                '<td>' + finalGenesString + '</td>' +
+                '</tr>';
         }
-        genes = '<tr>' +
-            '<td>Genes: </td>' +
-            '<td>' + finalGenesString + '</td>' +
-            '</tr>';
-    }
 
-    if (finalGoReport != "no data") {
-        finalGoReport = '<tr><td>GO Report: </td><td>' + finalGoReport + '</td></tr>'
-    } else {
-        finalGoReport = '<tr><td>GO Report: </td><td> - </td></tr>'
-    }
+        if (finalGoReport != "no data") {
+            finalGoReport = '<tr><td>GO Report: </td><td>' + finalGoReport + '</td></tr>'
+        } else {
+            finalGoReport = '<tr><td>GO Report: </td><td> - </td></tr>'
+        }
 
-    if (d.cell_type_pred != 'void') {
-        cell_type_pred = '<tr><td>Cell Type: </td><td>' + d.cell_type_pred + '</td></tr>'
-    } else {
-        cell_type_pred = '<tr><td>Cell Type: </td><td> - </td></tr>'
-    }
-    // `d` is the original data object for the row
-    const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + genes + finalGoReport + cell_type_pred + '</table>';
+        if (d.cell_type_pred != 'void') {
+            cell_type_pred = '<tr><td>Cell Type: </td><td>' + d.cell_type_pred + '</td></tr>'
+        } else {
+            cell_type_pred = '<tr><td>Cell Type: </td><td> - </td></tr>'
+        }
+        // `d` is the original data object for the row
+        const table = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + genes + finalGoReport + cell_type_pred + '</table>';
 
-    $("body").removeClass("loading");
-    row.child(table).show();
-    tr.addClass('shown');
-    $("[data-placement='bottom']").popover();
+        $("body").removeClass("loading");
+        row.child(table).show();
+        tr.addClass('shown');
+        $("[data-placement='bottom']").popover();
+    }  catch (err) {
+        $("body").removeClass("loading");
+    }
 }
 
 /**
@@ -1797,7 +1833,7 @@ API.prototype.generateGraph = function () {
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").empty();
-                    $("#error").append("<h4>Sorry, an error has ocurred when generating the plot.</h4>",data,"<p>Please, try again with another selection.</p>");
+                    $("#error").append("<h4>Sorry, an error has ocurred during the generation of the plot.</h4><p>Please, try again with another selection.</p>");
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
@@ -1814,7 +1850,7 @@ API.prototype.generateGraph = function () {
                     
                     //Update global variable with the JSON data. Necessary to download the xlsx file.
                     data = JSON.parse(data);
-                    console.log(data);
+                    //console.log(data);
 
                     
                     APIPlot.prototype.netPlot(data);
@@ -1837,125 +1873,34 @@ API.prototype.generateGraph = function () {
     catch (err) {
         $("body").removeClass("loading");
     }
-
-
-    //make request
-    //$.ajax({
-    //    url: url_network_plot,
-    //    type: 'GET',
-    //    success: function (data) {
-    //        //const generateCSV = () => {
-    //        console.log(JSON.parse(data))
-
-    //        data = JSON.parse(data);
-    //        net_plot(data);
-
-    //        //Update global variable with the JSON data. Necessary to download the xlsx file.
-    //        SVGData = data;
-
-    //        //Range for the links connection
-    //        $('#slider-range-treshold').prop("disabled", false);
-    //        $('#threshold_network').prop("disabled", false);
-    //    },
-    //    error: function () { }
-    //});
 }
 
-/**
- * Function to download a png image from the SVG graph. 
- */
-//API.prototype.downloadSVGPlot = function () {
-//    $("body").addClass("loading");
+///**
+// * Function to download the plot's raw data. The data is downloaded using a xlsx file. 
+// */
+//API.prototype.downloadSVGData = function () {
 
-//    var b64key = 'base64,';
-//    var b64 = cy.png().substring(content.indexOf(b64key) + b64key.length);
-//    var imgBlob = base64ToBlob(b64, 'image/png');
+//    /* make the worksheet */
+//    const ws = XLSX.utils.json_to_sheet(SVGData.nodes, { header: Object.keys(SVGData.nodes[1]) })
 
-    
-//    //// Serialize the SVG object
-//    //const svgNode = document.getElementsByTagName('svg')[0];
-//    //svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
-//    //const serializer = new XMLSerializer();
-//    //let svgString = serializer.serializeToString(svgNode);
-//    //svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
-//    //svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
-
-//    //const width = $("#cy").innerWidth()*3;
-//    //const height = $("#cy").innerHeight()*3;
-
-
-//    //// Fill the canvas object with the serialized SVG object
-//    //let canvas = document.createElement("canvas");
-//    //let ctx = canvas.getContext("2d");
-//    //canvas.width = width;
-//    //canvas.height = height;
-
+//    /* add to workbook */
+//    const wb = XLSX.utils.book_new();
+//    XLSX.utils.book_append_sheet(wb, ws, "CoExpData");
 
 //    const category = $('#category_dropdown').find(":selected").val();
 //    const network = $('#network_dropdown').find(":selected").val();
 //    const moduleColor = $('#module_dropdown').find(":selected").val();
-//    //const top = $('#text-box_genes-range').val();
+//    const top = $('#text-box_genes-range').val();
 //    var dt = new Date();
 //    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
-//    //const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.png';
-//    const fileName = category + '_' + network + '_' + moduleColor + '_' + time + '.png';
+//    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.xlsx';
 
-//    saveAs(imgBlob, fileName);
-//    //let image = new Image();
-//    //image.onload = function () {
-//    //    ctx.clearRect(0, 0, width, height);
-//    //    ctx.rect(0, 0, width, height);
-//    //    ctx.fillStyle = "white"; // : "rgb(43,43,43)";
-//    //    ctx.fill();
-//    //    ctx.drawImage(image, 0, 0, width, height);
-      
-//    //    if (canvas.msToBlob) { //for IE
-//    //        //const blob = canvas.msToBlob();
-//    //        //window.navigator.msSaveBlob(blob, 'test.png');
-//    //        alert("This feature is only available on Chrome and Firefox.");          
-//    //    } else {
-//    //        let link = document.createElement('a');
-//    //        link.setAttribute('download', fileName);
-//    //        link.setAttribute('href', canvas.toDataURL("image/png",1).replace("image/png", "image/octet-stream"));
-//    //        // create a mouse event
-//    //        let event = new MouseEvent('click');
-//    //        // dispatching it will open a save as dialog in FF
-//    //        link.dispatchEvent(event);
-//    //    }
-//    //};
-
-//    //image.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
-//    $("body").removeClass("loading");
+//    /* generate an XLSX file */
+//    XLSX.writeFile(wb, fileName); 
 //}
 
-/**
- * Function to download the plot's raw data. The data is downloaded using a xlsx file. 
- */
-API.prototype.downloadSVGData = function () {
-
-    /* make the worksheet */
-    const ws = XLSX.utils.json_to_sheet(SVGData.nodes, { header: Object.keys(SVGData.nodes[1]) })
-
-    /* add to workbook */
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "CoExpData");
-
-    const category = $('#category_dropdown').find(":selected").val();
-    const network = $('#network_dropdown').find(":selected").val();
-    const moduleColor = $('#module_dropdown').find(":selected").val();
-    const top = $('#text-box_genes-range').val();
-    var dt = new Date();
-    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
-    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.xlsx';
-
-    /* generate an XLSX file */
-    XLSX.writeFile(wb, fileName); 
-}
-
 API.prototype.getMM = function (network, category, module) {
-
-
-   
+       
     if (category === undefined || network === undefined || module === undefined) {
         alert("No data received.")
     }
@@ -1966,8 +1911,8 @@ API.prototype.getMM = function (network, category, module) {
             type: 'GET',
             success: function (data) {
 
-                $("#goFromTissue_divError").hide();
-                console.log(data);
+                $("#error").hide();
+                //console.log(data);
 
                 var createXLSLFormatObj = [];
 
@@ -1998,7 +1943,8 @@ API.prototype.getMM = function (network, category, module) {
                 /* Sheet Name */
                 var ws_name = "FreakySheet";
 
-                if (typeof console !== 'undefined') console.log(new Date());
+                //if (typeof console !== 'undefined')
+                //    console.log(new Date());
                 var wb = XLSX.utils.book_new(),
                     ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
 
@@ -2006,9 +1952,11 @@ API.prototype.getMM = function (network, category, module) {
                 XLSX.utils.book_append_sheet(wb, ws, ws_name);
 
                 /* Write workbook and Download */
-                if (typeof console !== 'undefined') console.log(new Date());
+                //if (typeof console !== 'undefined')
+                //    console.log(new Date());
                 XLSX.writeFile(wb, filename);
-                if (typeof console !== 'undefined') console.log(new Date());
+                //if (typeof console !== 'undefined')
+                //    console.log(new Date());
             },
             error: function (data) {
                 //If an error occurs:
@@ -2017,41 +1965,41 @@ API.prototype.getMM = function (network, category, module) {
         });
 }
 
-API.prototype.sendFeedback = function() {
+//API.prototype.sendFeedback = function() {
 
-    let comments = $("#feedback_comments").val();
-    let grade_experience = $('input[name=feedback_radio]:checked').val()
-    let name_feedback = $('#feedback_name').val()
-    let email_feedback = $('#feedback_email').val()
-    var email_regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+//    let comments = $("#feedback_comments").val();
+//    let grade_experience = $('input[name=feedback_radio]:checked').val()
+//    let name_feedback = $('#feedback_name').val()
+//    let email_feedback = $('#feedback_email').val()
+//    var email_regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-    if (name_feedback == "") {
-        alert("Please, introduce your name.")
-    } else if (email_feedback == "") {
-        alert("Please, introduce your email.")
-    } else if (comments == "") {
-        alert("Please, introduce your comments.")
-    } else if (!email_regex.test(email_feedback)) {
-        alert("You have entered an invalid e-mail address. Please, try it again.")
-    } else {
+//    if (name_feedback == "") {
+//        alert("Please, introduce your name.")
+//    } else if (email_feedback == "") {
+//        alert("Please, introduce your email.")
+//    } else if (comments == "") {
+//        alert("Please, introduce your comments.")
+//    } else if (!email_regex.test(email_feedback)) {
+//        alert("You have entered an invalid e-mail address. Please, try it again.")
+//    } else {
 
-        //Make a request to CoExp-R-software's API
-        $.ajax({
-            url: '/' + environment + '/API/SendFeedback?Name=' + name_feedback + '&Address=' + email_feedback
-                +'&Subject=CoExp_Feedback&Content=' + comments + '&LevelSatisfaction=' + grade_experience,
-            type: 'GET',
-            success: function (data) {
-                alert("Your feedback has been successfully sent! Thanks for taking the time to provide it!\n")
-                $("#close_feedback").trigger("click")
-            },
-            error: function (data) {
-                //If an error occurs:
-                alert("Sorry, an error has occurred. You may have entered an invalid e-mail address. Please, try it again.")
-                console.log(data);
-            }
-        });
-    }
-};
+//        //Make a request to CoExp-R-software's API
+//        $.ajax({
+//            url: '/' + environment + '/API/SendFeedback?Name=' + name_feedback + '&Address=' + email_feedback
+//                +'&Subject=CoExp_Feedback&Content=' + comments + '&LevelSatisfaction=' + grade_experience,
+//            type: 'GET',
+//            success: function (data) {
+//                alert("Your feedback has been successfully sent! Thanks for taking the time to provide it!\n")
+//                $("#close_feedback").trigger("click")
+//            },
+//            error: function (data) {
+//                //If an error occurs:
+//                alert("Sorry, an error has occurred. You may have entered an invalid e-mail address. Please, try it again.")
+//                console.log(data);
+//            }
+//        });
+//    }
+//};
 
 API.prototype.arrayDiff = function (array1, array2) {
     var ret = [];

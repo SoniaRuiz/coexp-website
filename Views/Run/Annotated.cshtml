@@ -88,10 +88,20 @@
                 </div>
             </div>
         </div>
-        @*<div id="reportOnGenes_div" style="display:none;">
-            <h3><u>Gene Annotation</u></h3>
+        
+        
+        <div id="globalReportOnGenes_div">
+
+            <h2>Gene Annotation</h2>
+            <p>
+                The table below displays in which modules, from the selected co-expression networks, have clustered together the list of genes introduced.
+                Each row contain each one of the typed genes that have been successfully found in any of the modules belonging to the networks selected.
+                The columns, on the other hand, show information related to the gene and the module where it has been found, including different p-values supporting that membership.
+                The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on its upper-left-side corner.<br />
+                Press 'SUMMARISE CLUSTERING' button to group the results by module.
+            </p>
             <br>
-            <table id="reportOnGenes_table" class="table table-striped table-bordered">
+            <table id="globalReportOnGenes_table" class="table table-striped table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th></th>
@@ -99,198 +109,119 @@
                         <th>Category</th>
                         <th>Network</th>
                         <th>Gene Ensembl</th>
-                        <th>p-value Fisher</th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>This p-value figure represents the level of significance corresponding to the overlap between your gene list and the genes lying within the current module.<br/><br/>This p-value has been obtained by applying the Fisher's exact test over the beforementioned overlap of genes.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Fisher p-value</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>This p-value represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">FDR p-value</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Bonferroni p-value</span>
+                        </th>
                         <th>Module</th>
-                        <th>Module Membership</th>
-                        <th>Module Size</th>
-                        <th>Go Term</th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>Represents the degree of membership of the current gene to the current module.<br /><br />When the module membership (mm) is close to 0, the likelihood of that gene belonging to the current module is very low. When the mm is close to 1 or −1, the likelihood of that gene belonging to the current module is very high.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Module Membership</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>Total number of genes that have been clustered together within the current module.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Module Size</span>
+                        </th>
+                        <th>GO Report</th>
                         <th>Cell Type</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Gene</th>
-                        <th>Category</th>
-                        <th>Network</th>
-                        <th>Gene Ensembl</th>
-                        <th>p-value Fisher</th>
-                        <th>Module</th>
-                        <th>Module Membership</th>
-                        <th>Module Size</th>
-                        <th>Go Term</th>
-                        <th>Cell Type</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
-        <div id="summariseClustering_div">
-            <h3><u>Summarise Clustering</u></h3>
+        <div id="globalSummariseReportOnGenes_div">
+
+            <h2>Summarise Clustering</h2>
+            <p>
+                The table below displays the results grouped by module, showing the overlap of the introduced genes that have clustered together in the same module.<br />
+                Press 'EXPAND RESULTS' button to come back to the original data table view.
+            </p>
             <br>
-            <table id="summariseClustering_table" class="table table-striped table-bordered">
+            <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>network</th>
-                        <th>category</th>
-                        <th>module</th>
-                        <th>overlap</th>
-                        <th>gene</th>
-                        <th>fisher</th>
-                        <th>size</th>
-                        <th>go_report</th>
-                        <th>cell_type_pred</th>
+                        <th>Network</th>
+                        <th>Category</th>
+                        <th>Module</th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>Total number of genes from your gene list that have been found in the current module.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Overlap</span>
+
+                        </th>
+                        <th>Gene</th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Fisher p-value</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">FDR p-value</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Bonferroni p-value</span>
+                        </th>
+                        <th>
+                            <span class="fa-li" data-toggle="tooltip"
+                                  data-placement="top"
+                                  data-html="true"
+                                  title="<p>Total number of genes that have been clustered together within the current module.</p>">
+                                <i class="fa fa-info-circle fa-fw"></i>
+                            </span><span class="fa-li-p">Module Size</span>
+                        </th>
+                        <th>GO Report</th>
+                        <th>Cell Type</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>network</th>
-                        <th>category</th>
-                        <th>module</th>
-                        <th>overlap</th>
-                        <th>gene</th>
-                        <th>fisher</th>
-                        <th>size</th>
-                        <th>go_report</th>
-                        <th>cell_type_pred</th>
-                    </tr>
-                </tfoot>
             </table>
-        </div>*@
-        
-    <div id="globalReportOnGenes_div">
-
-        <h2>Gene Annotation</h2>
-        <p>
-            The table below displays in which modules, from the selected co-expression networks, have clustered together the list of genes introduced.
-            Each row contain each one of the typed genes that have been successfully found in any of the modules belonging to the networks selected.
-            The columns, on the other hand, show information related to the gene and the module where it has been found, including different p-values supporting that membership.
-            The raw data that supports the generation of this data table is available to be downloaded under the three buttons placed on its upper-left-side corner.<br />
-            Press 'SUMMARISE CLUSTERING' button to group the results by module.
-        </p>
-        <br>
-        <table id="globalReportOnGenes_table" class="table table-striped table-bordered table-responsive">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Gene</th>
-                    <th>Category</th>
-                    <th>Network</th>
-                    <th>Gene Ensembl</th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>This p-value figure represents the level of significance corresponding to the overlap between your gene list and the genes lying within the current module.<br/><br/>This p-value has been obtained by applying the Fisher's exact test over the beforementioned overlap of genes.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Fisher p-value</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>This p-value represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">FDR p-value</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br/><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Bonferroni p-value</span>
-                    </th>
-                    <th>Module</th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>Represents the degree of membership of the current gene to the current module.<br /><br />When the module membership (mm) is close to 0, the likelihood of that gene belonging to the current module is very low. When the mm is close to 1 or −1, the likelihood of that gene belonging to the current module is very high.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Module Membership</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>Total number of genes that have been clustered together within the current module.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Module Size</span>
-                    </th>
-                    <th>GO Report</th>
-                    <th>Cell Type</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div id="globalSummariseReportOnGenes_div">
-
-        <h2>Summarise Clustering</h2>
-        <p>
-            The table below displays the results grouped by module, showing the overlap of the introduced genes that have clustered together in the same module.<br />
-            Press 'EXPAND RESULTS' button to come back to the original data table view.
-        </p>
-        <br>
-        <table id="globalSummariseReportOnGenes_table" class="table table-striped table-bordered table-responsive">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Network</th>
-                    <th>Category</th>
-                    <th>Module</th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>Total number of genes from your gene list that have been found in the current module.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Overlap</span>
-
-                    </th>
-                    <th>Gene</th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>This p-value figure represents the level of significance in the overlap between the genes from your list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by applying the Fisher's exact test over the overlap of genes mentioned before.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Fisher p-value</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been obtained by the Fisher's Exact test adjusted by a 'False Discovery Rate' function for multiple testing.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">FDR p-value</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>p-value that represents how significant is the overlap between your gene list and the genes that lie within the current module.<br /><br/>This p-value has been corrected by the Bonferroni correction factor. This method applies its correction based on the number of modules per each network that contains any gene from your input set.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Bonferroni p-value</span>
-                    </th>
-                    <th>
-                        <span class="fa-li" data-toggle="tooltip"
-                              data-placement="top"
-                              data-html="true"
-                              title="<p>Total number of genes that have been clustered together within the current module.</p>">
-                            <i class="fa fa-info-circle fa-fw"></i>
-                        </span><span class="fa-li-p">Module Size</span>
-                    </th>
-                    <th>GO Report</th>
-                    <th>Cell Type</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-        <br>
+        </div>
         <div id="error" class="alert alert-danger">
-            <h4></h4>
+            <h4>Sorry, a temporary error has occurred during the data retrieval.</h4>
+            <h5>The webmaster has already been informed about this error and it will be sorted shortly. <br />Please, try again later.</h5>
         </div>
     </div>
     <div class="loading_layer"><!-- loading layer --></div>
@@ -326,6 +257,7 @@
         function startIntro() {
             var intro = introJs();
             intro.setOptions({
+                disableInteraction: true,
                 steps: [
                     {
                         element: '#step1',

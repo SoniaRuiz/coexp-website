@@ -16,13 +16,13 @@
 <div class="row">
     <div class="col-sm-3 sidebar menu">
         @*<h4>Please, make your selection:</h4>
-        <hr class="menu-hr" />*@
+            <hr class="menu-hr" />*@
 
         <div id="step1">
             <span class="fa-li" data-toggle="tooltip"
-                    data-placement="right"
-                    data-html="true"
-                    title="<p><b>Category</b> of gene co-expression networks. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
+                  data-placement="right"
+                  data-html="true"
+                  title="<p><b>Category</b> of gene co-expression networks. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="category_dropdown">Category:</p>
 
@@ -32,9 +32,9 @@
 
         <div id="step2">
             <span class="fa-li" data-toggle="tooltip"
-                    data-placement="right"
-                    data-html="true"
-                    title="<p><b>Gene co-expression networks</b> that belong to the selected category. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
+                  data-placement="right"
+                  data-html="true"
+                  title="<p><b>Gene co-expression networks</b> that belong to the selected category. For further information, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="network_dropdown">Network:</p>
 
@@ -44,9 +44,9 @@
 
         <div id="step3">
             <span class="fa-li" data-toggle="tooltip"
-                    data-placement="right"
-                    data-html="true"
-                    title="<p><b>Modules</b> from the selected network. Each module represents a different cluster of genes, therefore, each gene will be clustered only once.</p>">
+                  data-placement="right"
+                  data-html="true"
+                  title="<p><b>Modules</b> from the selected network. Each module represents a different cluster of genes, therefore, each gene will be clustered only once.</p>">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="module_dropdown">Module:</p>
 
@@ -57,14 +57,14 @@
 
         <div id="step4">
             <span class="fa-li" data-toggle="tooltip"
-                    data-placement="right"
-                    data-html="true"
-                    title="Contains all genes that belong to the selected module.<br/> Please, select one or more genes of interest.">
+                  data-placement="right"
+                  data-html="true"
+                  title="Contains all genes that belong to the selected module.<br/> Please, select one or more genes of interest.">
                 <i class="fa fa-info-circle fa-fw"></i>
             </span><p class="fa-li-p" for="gene_dropdown">Gene of interest:</p>
 
-            <select id="gene_dropdown" name="gene" class="selectpicker" multiple 
-                    data-live-search="true" 
+            <select id="gene_dropdown" name="gene" class="selectpicker" multiple
+                    data-live-search="true"
                     data-size="7"
                     data-allow-clear="true"
                     data-actions-box="true"
@@ -88,8 +88,12 @@
 
             <div id="dvjson"></div>
         </div>
-
+        <div id="error" class="alert alert-danger">
+            <h4>Sorry, a temporary error has occurred during the data retrieval.</h4>
+            <h5>The webmaster has already been informed about this error and it will be sorted shortly. <br />Please, try again later.</h5>
+        </div>
     </div>
+    
     <div id="button_area" class="col-md-3" hidden>
         <a id="save-plot" class="btn btn-primary" role="button" href="" download="plot_graph_CoExpWebApplication.png">Save Graph</a>
         <a id="save-data" class="btn btn-primary" role="button" href="" download="plot_data_CoExpWebApplication.json">Save Data</a>
@@ -122,6 +126,7 @@
         function startIntro() {
             var intro = introJs();
             intro.setOptions({
+                disableInteraction: true,
                 steps: [
                     {
                         element: '#step1',
@@ -138,6 +143,7 @@
                     {
                         element: '#step3',
                         intro: "<b>Module</b><br/><br/>These are all modules that belong to the selected gene co-expression network. Each module represents a different group where genes have clustered together. The same gene can be clustered only once, therefore it will only appear within one single module from the current network.<br/><br/>It has been pre-selected the <b>'yellow'</b> module.",
+                        showButtons: false,
                         position: 'right'
                     },
                     {
@@ -177,6 +183,13 @@
                     $('#gene_dropdown')
                         .prop("disabled", false)
                         .selectpicker('refresh');
+                }
+            });
+            intro.onafterchange(function (targetElement) {
+                if (targetElement.id == "step3") {
+                    
+                    $("div.introjs-tooltipbuttons").hide();
+
                 }
             });
             var doneTourPlot = sessionStorage.getItem('EventTourPlot') === 'Completed';
