@@ -658,7 +658,12 @@ svg {
 }
 
 .figure img{
-    width: auto;
+    width: 70%;
+    height: 70%
+}
+.figure-small img {
+    width: 40%;
+    height: 40%
 }
 
 /************************/

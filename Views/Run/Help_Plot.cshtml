@@ -1,0 +1,48 @@
+﻿@{ ViewData["Title"] = "Help_Plot"; }
+
+<div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
+<span class="main-label-breadcrumbs">CoExp</span>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="active">Help - Plot Gene Network</span>}
+</div>
+<div class="row">
+    <div class="col-11 about">
+        <h2>Plot Gene Network</h2>
+        <div>
+            <br />
+            <h3>Plot Gene Network</h3>
+            <span>
+                <b>'Plot Gene Network'</b> has been created to represent the most important genes neighbouring a gene/genes of interest through an undirected graph.
+            </span>
+
+            <div class="center-block text-center">
+                <video width="420" height="340" controls class="text-center">
+                    <source src="~/images/help/CoExp_plot.mp4" type="video/mp4">
+                </video>
+            </div>
+            <br /><br />
+
+            <p>
+                Following up with the example shown in <a asp-area="" asp-controller="Run" asp-action="Help_Annotation">'Gene Set Annotation'</a> tutorial, let us now visualize the gene 'ATP1A3' from the 'yellow' module,
+                'SNIG' network and '10UKBEC' category and its most important neighbouring genes.<br />After clicking the 'Accept' button, the plot is generated and the gene 'ATP1A3' appears as a <b>very important gene within its module as it presents a node with a very high size</b>.
+                In addition, a total number of 16 other genes appear neighbouring it.
+            </p><br />
+            <div class="figure">
+                <img src="~/images/help/plot.PNG"
+                     alt="Available categories" title="Fig1: Available categories." />
+            </div><br /><br />
+            <p><span class="glyphicon glyphicon-chevron-right"></span><b>Previous tutorial: </b><a asp-area="" asp-controller="Run" asp-action="Help_Annotation">Gene Set Annotation</a></p><br />
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">$(document).ready(function () {
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_help").addClass("active");
+        });</script>
+}

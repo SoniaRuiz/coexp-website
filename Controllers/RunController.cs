@@ -193,6 +193,21 @@ namespace CoExp_Web.Controllers
                 return View("Error", errorModel);
             }
         }
+        public IActionResult Help_Plot()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrorViewModel errorModel = new ErrorViewModel()
+                {
+                    Message = e.Message
+                };
+                return View("Error", errorModel);
+            }
+        }
 
         public IActionResult Publication()
         {
