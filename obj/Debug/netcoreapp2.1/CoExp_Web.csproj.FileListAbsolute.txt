@@ -46,3 +46,4 @@
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\coexp-website\obj\Debug\netcoreapp2.1\CoExp_Web.csproj.CopyComplete
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\coexp-website\obj\Debug\netcoreapp2.1\Razor\Views\Run\Datasets.cshtml.g.cs
 \\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\coexp-website\obj\Debug\netcoreapp2.1\Razor\Views\Run\Help_Plot.cshtml.g.cs
+\\ad.ucl.ac.uk\home0\skgtsg0\Documents\GitHub\coexp-website\bin\Debug\netcoreapp2.1\appsettings.Private.json
