@@ -51,10 +51,14 @@ namespace CoExp_Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //Add trailing slash to the end
-            //services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
-            
-            
+            //if (env.IsDevelopment() || env.IsEnvironment("Private"))
+            //{
+                //Add trailing slash to the end
+                services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
+
+            //}
+
+
             //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             //services.AddTransient<IEmailService, EmailService>();
 
@@ -68,22 +72,25 @@ namespace CoExp_Web
             //coexp_test
             //coexp
 
-            if (env.IsDevelopment()){
-                app.UsePathBase("/coexp_test");
+            if (env.IsProduction())
+            {
+                app.UsePathBase("/coexp");
                 app.UseHttpsRedirection();
-            }else if(env.IsEnvironment("Docker")){
+            } 
+            else if (env.IsDevelopment())
+            {
+                app.UsePathBase("/coexp_test/");
+                app.UseHttpsRedirection();
+            }
+            else if (env.IsEnvironment("Docker"))
+            {
                 app.UsePathBase("/docker/");
             }
-            else
+            else if (env.IsEnvironment("Private"))
             {
-                if (env.IsProduction()){
-                    app.UsePathBase("/coexp");
-                    app.UseHttpsRedirection();
-                }
-                else if (env.IsEnvironment("Private")){
-                    app.UsePathBase("/ATN_5843218Gt/");
-                    app.UseHttpsRedirection();
-                }
+                app.UsePathBase("/ATN_5843218Gt/");
+                app.UseHttpsRedirection();
+                
             }
 
             app.UseExceptionHandler("/Home/Error");

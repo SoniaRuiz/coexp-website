@@ -15,7 +15,7 @@ namespace CoExp_Web
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args)
-                .UseEnvironment("Production")
+                .UseEnvironment("Private")
                 .Build()
                 .Run();
         }
