@@ -23,21 +23,26 @@
             We have built CoExp Web Application through a web-page formatting because we believe a web-page structure will make CoExpNets networks easily accessible to every potential user around the world, at any time and from any device they decide to do so, without the inconvenience and difficulty of installing and preparing a command-line environment.
             In this sense, all networks and models made available through the family of CoExpNets R packages are ready to be used on CoExp Web Application. In addition, they are also free to <b>be used for your own research</b>.
         </p>
-        <br /><h4>Architecture</h4>
-              <p>
-                  The anatomy of CoExp Web Application has been designed to communicate two different runtime environments, each one specified in R and ASP.NET Core programming languages respectively.
-                  The front end of CoExp has been developed following a Model View Controller (MVC) architecture implemented through the ASP.NET Core MVC framework, which is a cross-platform and open-source tool from the ASP.NET Core family of frameworks.
-                  The back end of CoExp is based on the family of CoExpNets R packages. 
-                  To make accessible the collection of CoExpNets R methods to the front end, a web Application Programming Interface or API was chosen to define the interactions between the two runtime environments. 
-                  To build the API, different CoExpNets R methods were first published using the Plumber R package and secondly exposed using the Swagger (OpenAPI) language-agnostic specification to describe them in a user-friendly interface (visit the API <a href="https://rytenlab.com/swagger/index.html" target="_blank">here</a>).
-                  The API was built under the Representational State Transfer or REST architectural style.
-                  Finally, the webserver chosen to serve the CoExp Website was the Apache HTTP Server Project. The communication between the CoExp ASP.NET Core libraries, which are natively served by a Kestrel server, and the APACHE server was made by using a reverse-proxy service, which acted as an intermediate layer connecting both servers.
-                  To reduce the complexity of this architectural design and make possible the local installation and usage of CoExp Web Application, both the front end and back end have been encapsulated within two different Docker containers and made available on DockerHub platform (<a href="https://github.com/SoniaRuiz/coexp-website/wiki" target="_blank">Docker tutorials</a> and <a href="https://hub.docker.com/r/soniaruiz/coexp" target="_blank">Docker images</a>).
-              </p>
+        <br />
+        <h4>Architecture</h4>
+        <p>
+            The anatomy of CoExp Web Application has been designed to communicate two different runtime environments, each one specified in R and ASP.NET Core programming languages respectively.
+            The front end of CoExp has been developed following a Model View Controller (MVC) architecture implemented through the ASP.NET Core MVC framework, which is a cross-platform and open-source tool from the ASP.NET Core family of frameworks.
+            The back end of CoExp is based on the family of CoExpNets R packages. 
+            To make accessible the collection of CoExpNets R methods to the front end, a web Application Programming Interface or API was chosen to define the interactions between the two runtime environments. 
+            To build the API, different CoExpNets R methods were first published using the Plumber R package and secondly exposed using the Swagger (OpenAPI) language-agnostic specification to describe them in a user-friendly interface (visit the API <a href="https://rytenlab.com/swagger/index.html" target="_blank">here</a>).
+            The API was built under the Representational State Transfer or REST architectural style.
+            Finally, the webserver chosen to serve the CoExp Website was the Apache HTTP Server Project. The communication between the CoExp ASP.NET Core libraries, which are natively served by a Kestrel server, and the APACHE server was made by using a reverse-proxy service, which acted as an intermediate layer connecting both servers.
+            To reduce the complexity of this architectural design and make possible the local installation and usage of CoExp Web Application, both the front end and back end have been encapsulated within two different Docker containers and made available on DockerHub platform (<a href="https://github.com/SoniaRuiz/coexp-website/wiki" target="_blank">Docker tutorials</a> and <a href="https://hub.docker.com/r/soniaruiz/coexp" target="_blank">Docker images</a>).
+        </p>
+        <div class="text-center">
+            <img src="~/images/coexp_web_application_structure.png" alt="Architecture of CoExp Web Application" title="Architecture of CoExp Web Application" class="figure-medium"/>
+            <p><small class="help_caption">Image adapted from <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-5.0" target="_blank">Kestrel web server implementation in ASP.NET Core</a>.</small></p>
+        </div>
 
         <br /><h4>Licence</h4>
         <div>
-            <p>Copyright 2020 CoExp_Web</p>
+            <p>Copyright 2021 CoExp Web Application</p>
             <p>
                 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
                 You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a><br />
