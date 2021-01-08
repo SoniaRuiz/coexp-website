@@ -296,15 +296,18 @@
                 return;
             }
             else {
-                intro.start();
+                if (environment != "ATN_5843218Gt") {
+                    intro.start();
 
-                intro.oncomplete(function () {
-                    sessionStorage.setItem('EventTourAnnotated', 'Completed');
-                });
+                    intro.oncomplete(function () {
+                        sessionStorage.setItem('EventTourAnnotated', 'Completed');
+                    });
 
-                intro.onexit(function () {
-                    sessionStorage.setItem('EventTourAnnotated', 'Completed');
-                });
+                    intro.onexit(function () {
+                        sessionStorage.setItem('EventTourAnnotated', 'Completed');
+                    });
+
+                }
             }
 
         }

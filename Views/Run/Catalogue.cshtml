@@ -217,17 +217,19 @@
         var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
           if (doneTourCatalogue) {
             return;
-        }
-        else {
-            intro.start();
+            }
+          else {
+              if (environment != "ATN_5843218Gt") {
+                  intro.start();
 
-            intro.oncomplete(function () {
-                sessionStorage.setItem('EventTourCatalogue', 'Completed');
-            });
+                  intro.oncomplete(function () {
+                      sessionStorage.setItem('EventTourCatalogue', 'Completed');
+                  });
 
-            intro.onexit(function () {
-                sessionStorage.setItem('EventTourCatalogue', 'Completed');
-            });
+                  intro.onexit(function () {
+                      sessionStorage.setItem('EventTourCatalogue', 'Completed');
+                  });
+              }
         }
       }
 
