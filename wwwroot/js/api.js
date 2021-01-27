@@ -253,23 +253,7 @@ API.prototype.menuInit = function (view) {
     $('#send_button').on('click', function () {
         API.prototype.sendButtonFunction(view);
     });
-    //When the user press the 'Save Plot' button (in 'Plot' view):
-    //$('#save_plot').on('click', function () {
-        
-    //    var blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
-    //    saveAs(blob, "hello world.txt");
-    //    //var b64key = 'base64,';
-    //    //var b64 = cy.png().substring( cy.png().indexOf(b64key) + b64key.length );
-    //    //var imgBlob = base64ToBlob(b64, 'image/png');
 
-    //    //saveAs(imgBlob, 'graph.png');
-    //});
-    ////When the user press the 'Save Data' button (in 'Plot' view):
-    //$('#save_data').on('click', function () {
-    //    var jsonBlob = new Blob([JSON.stringify(cy.json())], { type: 'application/javascript;charset=utf-8' });
-
-    //    saveAs(jsonBlob, 'graph.json');
-    //});
 
     // Add event listener for opening and closing table details
     $('#goFromTissue_table').on('click', 'td.details-control', function () {
@@ -535,6 +519,7 @@ API.prototype.getModuleTOMGenes = function (category, network, module) {
         });
     }
 }
+
 /**
  * This function requests all data in a tree-menu format and fills it.
  */
@@ -1766,8 +1751,7 @@ API.prototype.hideRowsReportOnGenes = function (d, tr, row, id) {/* Formatting f
  * @param {string} term Gene name.
  */
 API.prototype.getCardData = function (term) {
-    
-        
+            
     let url = '/' + environment + '/API/GetInfoFromQuickGO';
 
     $.ajax({
@@ -1875,29 +1859,6 @@ API.prototype.generateGraph = function () {
     }
 }
 
-///**
-// * Function to download the plot's raw data. The data is downloaded using a xlsx file. 
-// */
-//API.prototype.downloadSVGData = function () {
-
-//    /* make the worksheet */
-//    const ws = XLSX.utils.json_to_sheet(SVGData.nodes, { header: Object.keys(SVGData.nodes[1]) })
-
-//    /* add to workbook */
-//    const wb = XLSX.utils.book_new();
-//    XLSX.utils.book_append_sheet(wb, ws, "CoExpData");
-
-//    const category = $('#category_dropdown').find(":selected").val();
-//    const network = $('#network_dropdown').find(":selected").val();
-//    const moduleColor = $('#module_dropdown').find(":selected").val();
-//    const top = $('#text-box_genes-range').val();
-//    var dt = new Date();
-//    var time = dt.getDay() + "-" + dt.getMonth() + "-" + dt.getFullYear()
-//    const fileName = category + '_' + network + '_' + moduleColor + '_' + top + 'genes_' + time + '.xlsx';
-
-//    /* generate an XLSX file */
-//    XLSX.writeFile(wb, fileName); 
-//}
 
 API.prototype.getMM = function (network, category, module) {
        
@@ -1964,42 +1925,6 @@ API.prototype.getMM = function (network, category, module) {
             }
         });
 }
-
-//API.prototype.sendFeedback = function() {
-
-//    let comments = $("#feedback_comments").val();
-//    let grade_experience = $('input[name=feedback_radio]:checked').val()
-//    let name_feedback = $('#feedback_name').val()
-//    let email_feedback = $('#feedback_email').val()
-//    var email_regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-//    if (name_feedback == "") {
-//        alert("Please, introduce your name.")
-//    } else if (email_feedback == "") {
-//        alert("Please, introduce your email.")
-//    } else if (comments == "") {
-//        alert("Please, introduce your comments.")
-//    } else if (!email_regex.test(email_feedback)) {
-//        alert("You have entered an invalid e-mail address. Please, try it again.")
-//    } else {
-
-//        //Make a request to CoExp-R-software's API
-//        $.ajax({
-//            url: '/' + environment + '/API/SendFeedback?Name=' + name_feedback + '&Address=' + email_feedback
-//                +'&Subject=CoExp_Feedback&Content=' + comments + '&LevelSatisfaction=' + grade_experience,
-//            type: 'GET',
-//            success: function (data) {
-//                alert("Your feedback has been successfully sent! Thanks for taking the time to provide it!\n")
-//                $("#close_feedback").trigger("click")
-//            },
-//            error: function (data) {
-//                //If an error occurs:
-//                alert("Sorry, an error has occurred. You may have entered an invalid e-mail address. Please, try it again.")
-//                console.log(data);
-//            }
-//        });
-//    }
-//};
 
 API.prototype.arrayDiff = function (array1, array2) {
     var ret = [];

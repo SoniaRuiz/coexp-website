@@ -26,9 +26,8 @@
             <h5>Please, click the button below to download the gene list of this module:</h5>
             <button id="get_gene_list" type="button" class="btn btn-info">Get Gene List</button>
         </div>
+
         <div id="menu_data">
-            @*<h4>Please, make your selection:</h4>
-            <hr class="menu-hr" />*@
 
             <div id="step1">
                 <span class="fa-li" data-toggle="tooltip"
@@ -39,7 +38,6 @@
                 </span><p class="fa-li-p" for="category_dropdown">Category:</p>
                 
                 <select id="category_dropdown" name="category" class="selectpicker" title="Select an option ...">
-                    @*<option></option>*@
                 </select>
             </div><br>
 
@@ -71,6 +69,7 @@
             </div>
 
             <hr class="menu-hr" />
+
             <div id="step4">
                 <button id="send_button" class="btn btn-primary">Accept</button>
             </div>
@@ -78,9 +77,11 @@
     </div>
 
     <div id="step5" class="col-md-9">
+
         <div id="empty-initial-results">
             <p>Your results will appear here.</p>
         </div>
+
         <!-- Nav tabs -->
         <ul id="tabs" class="nav nav-tabs" style="display:none">
             <li class="active"><a href="#tab1" data-toggle="tab">Ontology view</a></li>
@@ -122,18 +123,15 @@
             <h5>The webmaster has already been informed about this error and it will be sorted shortly. <br />Please, try again later.</h5>
         </div>
 
-        @*<div id="error">
-            <br>
-            <h4>Please, select a module selection type.</h4>
-            <br>
-        </div>*@
     </div>
     <div class="loading_layer"><!-- loading layer --></div>
+
 </div>
 @section HeadStyles{
     
 }
 @section Scripts{
+
     <script type="text/javascript">
         // Turn active current menu's option
         $(".nav-item").find(".active").removeClass("active");
@@ -142,7 +140,11 @@
 
    
     <script type="text/javascript">
+
         $(document).ready(function () {
+
+            // Initiate the tooltips
+
             $('[data-toggle="tooltip"]').tooltip()
 
             $("[data-placement='bottom']").popover();
@@ -161,77 +163,75 @@
                 API.prototype.menuInit(11);
             }
 
-            
-
         });
 
-      function startIntro(){
-        var intro = introJs();
-          intro.setOptions({
-              disableInteraction: true,
-              steps: [
-                  {
-                      element: '#step1',
-                      intro: "<p><b>Category</b></p><p>Please, select here a category of co-expression networks.<br/><br/>It has been pre-selected the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
-                      position: 'right',
-                      scrollTo: 'tooltip'
-                  },
-                  {
-                      element: '#step2',
-                      intro: "<b>Network</b><br/><br/>These are all gene co-expression networks that belong to the category selected in the previous step.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
-                      position: 'right'
-                  },
-                  {
-                      element: '#step3',
-                      intro: "<b>Show results by...</b><br/><br/>These are the different types of results that can be retrieved in this query.<br/><br/>Only the <b>'Gene Ontology'</b> view has been pre-selected by default. You can select only one or both views.",
-                      position: 'right'
-                  },
-                  {
-                      element: '#step4',
-                      intro: "<b>Accept</b><br/><br/>Once you are ready, press this button to submit your query.",
-                      position: 'right'
-                  },
-                  {
-                      element: '#step5',
-                      intro: "<b>Results</b><br/><br/>This is the results area.",
-                      position: 'bottom'
-                  }
-              ]
-          });
-          intro.onbeforechange(function (targetElement) {
+        // Code for the initial tour (i.e. the aid)
+          function startIntro(){
+            var intro = introJs();
+              intro.setOptions({
+                  disableInteraction: true,
+                  steps: [
+                      {
+                          element: '#step1',
+                          intro: "<p><b>Category</b></p><p>Please, select here a category of co-expression networks.<br/><br/>It has been pre-selected the <b>'10UKBEC'</b> category. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
+                          position: 'right',
+                          scrollTo: 'tooltip'
+                      },
+                      {
+                          element: '#step2',
+                          intro: "<b>Network</b><br/><br/>These are all gene co-expression networks that belong to the category selected in the previous step.<br/><br/>It has been pre-selected the <b>'SNIG'</b> network. For further information about the networks, please visit the <a href='@Url.Action("Datasets", "Run")' target='_blank'>Datasets</a> section.</p>",
+                          position: 'right'
+                      },
+                      {
+                          element: '#step3',
+                          intro: "<b>Show results by...</b><br/><br/>These are the different types of results that can be retrieved in this query.<br/><br/>Only the <b>'Gene Ontology'</b> view has been pre-selected by default. You can select only one or both views.",
+                          position: 'right'
+                      },
+                      {
+                          element: '#step4',
+                          intro: "<b>Accept</b><br/><br/>Once you are ready, press this button to submit your query.",
+                          position: 'right'
+                      },
+                      {
+                          element: '#step5',
+                          intro: "<b>Results</b><br/><br/>This is the results area.",
+                          position: 'bottom'
+                      }
+                  ]
+              });
+              intro.onbeforechange(function (targetElement) {
               
-              if (targetElement.id == "step2" && $("#category_dropdown").val() == "10UKBEC") {
-                  $('#network_dropdown').val('SNIG').change();
-                  $('#network_dropdown')
-                      .prop("disabled", false)
-                      .selectpicker('refresh');
+                  if (targetElement.id == "step2" && $("#category_dropdown").val() == "10UKBEC") {
+                      $('#network_dropdown').val('SNIG').change();
+                      $('#network_dropdown')
+                          .prop("disabled", false)
+                          .selectpicker('refresh');
+                  }
+                  if (targetElement.id == "step3") {
+                      $('#view_selection').val('1').change();
+                      $('#view_selection')
+                          .selectpicker('refresh');
+                  }
+              });
+
+              var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
+              if (doneTourCatalogue) {
+                  return;
               }
-              if (targetElement.id == "step3") {
-                  $('#view_selection').val('1').change();
-                  $('#view_selection')
-                      .selectpicker('refresh');
+              else {
+                  if (environment != "ATN_5843218Gt") {
+                      intro.start();
+
+                      intro.oncomplete(function () {
+                          sessionStorage.setItem('EventTourCatalogue', 'Completed');
+                      });
+
+                      intro.onexit(function () {
+                          sessionStorage.setItem('EventTourCatalogue', 'Completed');
+                      });
+                  }
               }
-          });
-
-
-        var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
-          if (doneTourCatalogue) {
-            return;
-            }
-          else {
-              if (environment != "ATN_5843218Gt") {
-                  intro.start();
-
-                  intro.oncomplete(function () {
-                      sessionStorage.setItem('EventTourCatalogue', 'Completed');
-                  });
-
-                  intro.onexit(function () {
-                      sessionStorage.setItem('EventTourCatalogue', 'Completed');
-                  });
-              }
-        }
-      }
+          }
 
     </script>
 }

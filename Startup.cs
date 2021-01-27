@@ -51,12 +51,7 @@ namespace CoExp_Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //if (env.IsDevelopment() || env.IsEnvironment("Private"))
-            //{
-                //Add trailing slash to the end
-                services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
-
-            //}
+            //services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
 
 
             //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
@@ -79,7 +74,7 @@ namespace CoExp_Web
             } 
             else if (env.IsDevelopment())
             {
-                app.UsePathBase("/coexp_test/");
+                app.UsePathBase("/coexp_test");
                 app.UseHttpsRedirection();
             }
             else if (env.IsEnvironment("Docker"))
