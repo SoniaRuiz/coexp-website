@@ -200,7 +200,13 @@
                   ]
               });
               intro.onbeforechange(function (targetElement) {
-              
+
+                  if (targetElement.id == "step1") {
+                      $('#category_dropdown').val('10UKBEC').change();
+                      $('#category_dropdown')
+                          .prop("disabled", false)
+                          .selectpicker('refresh');
+                  }
                   if (targetElement.id == "step2" && $("#category_dropdown").val() == "10UKBEC") {
                       $('#network_dropdown').val('SNIG').change();
                       $('#network_dropdown')
@@ -216,6 +222,10 @@
 
               var doneTourCatalogue = sessionStorage.getItem('EventTourCatalogue') === 'Completed';
               if (doneTourCatalogue) {
+                  $('#category_dropdown').val('10UKBEC').change();
+                  $('#category_dropdown')
+                      .prop("disabled", false)
+                      .selectpicker('refresh');
                   return;
               }
               else {

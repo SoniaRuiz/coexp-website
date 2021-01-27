@@ -16,7 +16,7 @@ namespace CoExp_Web
         {
             CreateWebHostBuilder(args)
                 //Change here the environment. Possible values: "Production", "Development", "Private", "Docker"
-                .UseEnvironment("Development")
+                .UseEnvironment("Production")
                 .Build()
                 .Run();
         }

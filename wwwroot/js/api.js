@@ -336,8 +336,9 @@ API.prototype.getNetworkCategories = function (category) {
                         $('#category_dropdown')
                             .append(option);
                     }
-                    $('#category_dropdown').val('10UKBEC').change();
                     $('#category_dropdown')
+                        .val('10UKBEC')
+                        .change()
                         .selectpicker('refresh')
                     startIntro()
                 }
