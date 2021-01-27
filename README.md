@@ -37,6 +37,7 @@ CoExp Web Application is fully working and can be reached following [this link](
 * [D3](https://d3js.org/) - To generate the plot.
 * [simTree](https://www.jqueryscript.net/other/Checkable-Hierarchical-Tree.html) - To generate the tree menu.
 * [pdfmake](http://pdfmake.org/#/) - To export data in a PDF format.
+* The intro video [B Roll provided by Videezy!](https://www.videezy.com/) - The video shown in the home page.
 
 ## Docker version
 
