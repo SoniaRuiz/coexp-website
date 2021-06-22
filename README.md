@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/159829943.svg)](https://zenodo.org/badge/latestdoi/159829943)
+
 # CoExp Web Application
 
 CoExp Web Application is a webpage tool developed using the ASP.NET Core Framework and built with the aim of easy the use of the family of [CoExpNets R packages](https://github.com/juanbot/CoExpNets) (author: Juan A. Botía) outside a command-line environment.
@@ -56,5 +58,4 @@ CoExp Web Application is also available in a Docker version. Please, visit [the 
 * [University of Murcia](https://www.um.es/)
 * [University College of London](https://www.ucl.ac.uk/)
 
----
-[![DOI](https://zenodo.org/badge/159829943.svg)](https://zenodo.org/badge/latestdoi/159829943)
+
