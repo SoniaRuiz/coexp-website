@@ -55,3 +55,6 @@ CoExp Web Application is also available in a Docker version. Please, visit [the 
 * All [RytenLab](https://rytenlab.com/RytenLab/Team) members
 * [University of Murcia](https://www.um.es/)
 * [University College of London](https://www.ucl.ac.uk/)
+
+---
+[![DOI](https://zenodo.org/badge/159829943.svg)](https://zenodo.org/badge/latestdoi/159829943)
