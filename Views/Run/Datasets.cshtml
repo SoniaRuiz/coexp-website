@@ -1,8 +1,12 @@
 ﻿@{ ViewData["Title"] = "Datasets"; }
 <div class="breadcrumb">
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+    {
         <span class="main-label-breadcrumbs">CoExp</span>
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="active">Datasets</span>
+        @*@Html.ActionLink("About CoExp", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())*@
+    }
 </div>
 <div class="row">
     <div class="col-11 about">
@@ -367,7 +371,6 @@
                 <table>
                     <tr>
                         <td>
-                            
                         </td>
                     </tr>
                 </table>
@@ -384,3 +387,14 @@
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Turn active current menu's option
+            $(".nav-item").find(".active").removeClass("active");
+            $("#tab_datasets").addClass("active");
+        });
+
+    </script>
+}
