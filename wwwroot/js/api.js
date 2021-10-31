@@ -1532,8 +1532,7 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
     /* We open a new window, showing the 'Network catalogue' tab. 
      * This tab will only have information related with the module color clicked by the user.
      * */
-    window.open(url = "/" + environment + "/Run/Catalogue?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,
-        '', '_blank');
+    window.open(URL = "/" + environment + "/Run/Catalogue?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,name = '_blank');
         /*toolbar = 0, scrollbars = 1, statusbar = 0, menubar = 0, resizable = 0, height = 500, width = 1200');*/
 }
 
