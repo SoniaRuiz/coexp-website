@@ -1280,13 +1280,12 @@ API.prototype.globalReportOnGenes = function (data, genes) {
             success: function (data) {
                 if (data.indexOf("Problems") >= 0) {
                     $("#error").empty();
-                    $("#error").html("<h4>Sorry, none of the introduced genes have been found in any of the selected networks.</h4><p>Please, try again with another network selection.</p>");
+                    $("#error").append("<h4>" + data + "</h4><p>Please, try again later.</p>");
                     $("#error").show();
                     $("body").removeClass("loading");
                     $('#empty-initial-results').hide();
                 }
                 else if (data.indexOf("Please") >= 0) {
-                    $("body").removeClass("loading");
                     $("#error").empty();
                     $("#error").append("<p>" + data + "</p>");
                     $("#error").show();
@@ -1532,7 +1531,8 @@ API.prototype.searchByModuleColor = function (moduleColor, category, network) {
     /* We open a new window, showing the 'Network catalogue' tab. 
      * This tab will only have information related with the module color clicked by the user.
      * */
-    window.open(URL = "/" + environment + "/Run/Catalogue?category=" + category + "&network=" + network + "&modulecolor=" + moduleColor,name = '_blank');
+    window.open(URL = "/" + environment + "/Run/Catalogue?category=" + category +
+        "&network=" + network + "&modulecolor=" + moduleColor, name = '_blank');
         /*toolbar = 0, scrollbars = 1, statusbar = 0, menubar = 0, resizable = 0, height = 500, width = 1200');*/
 }
 

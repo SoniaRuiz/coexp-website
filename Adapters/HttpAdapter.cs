@@ -67,7 +67,7 @@ namespace CoExp_Web.Adapters
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 
-                //request.Timeout = 1500000;
+                request.Timeout = 2000000;
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=utf-8";
 
