@@ -6,6 +6,14 @@
 
 CoExp Web Application is a webpage tool developed using the ASP.NET Core Framework and built with the aim of easy the use of the family of [CoExpNets R packages](https://github.com/juanbot/CoExpNets) (author: Juan A. Botía) outside a command-line environment.
 
+## Publication
+
+**CoExp: A Web Tool for the Exploitation of Co-expression Networks**
+
+Sonia García-Ruiz, Ana L. Gil-Martínez, Alejandro Cisterna, Federico Jurado-Ruiz4, Regina H. Reynolds, NABEC (North America Brain Expression Consortium), Mark R. Cookson, John Hardy, Mina Ryten and Juan A. Botía
+
+**Front. Genet., 24 February 2021** *Sec. Computational Genomics
+Volume 12 - 2021* | [https://doi.org/10.3389/fgene.2021.630187](https://doi.org/10.3389/fgene.2021.630187)
 
 ## Introduction
 
