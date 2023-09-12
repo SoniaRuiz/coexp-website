@@ -1,5 +1,4 @@
 [![DOI](https://zenodo.org/badge/159829943.svg)](https://zenodo.org/badge/latestdoi/159829943)
-[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![Visual Studio](https://badgen.net/badge/icon/visualstudio?icon=visualstudio&label)](https://visualstudio.microsoft.com)
 
 # CoExp Web Application
