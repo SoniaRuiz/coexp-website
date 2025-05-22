@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
 namespace CoExp_Web
@@ -43,32 +44,17 @@ namespace CoExp_Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //ATN_5843218Gt
             //coexp_test
             //coexp
 
-            //if (env.IsProduction())
-            //{
+            if (env.IsProduction())
+            {
                 app.UsePathBase("/coexp");
                 app.UseHttpsRedirection();
-            //} 
-            /*else if (env.IsDevelopment())
-            {
-                app.UsePathBase("/coexp_test");
-                app.UseHttpsRedirection();
-            }
-            else if (env.IsEnvironment("Docker"))
-            {
-                app.UsePathBase("/docker/");
-            }
-            else if (env.IsEnvironment("Private"))
-            {
-                app.UsePathBase("/ATN_5843218Gt/");
-                app.UseHttpsRedirection();
-                
-            }*/
+            } 
 
             app.UseExceptionHandler("/Home/Error");
             app.UseStaticFiles();

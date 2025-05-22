@@ -3,15 +3,18 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:51107",
-      "sslPort": 0
+        "applicationUrl": "http://localhost:51107",
+        "launchUrl": "coexp",
+        "sslPort": 0
     }
   },
   "profiles": {
     "Default": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:51108/"
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "applicationUrl": "http://localhost:51108/",
+        "launchUrl": "coexp"
+
     }
   }
 }
