@@ -37,42 +37,24 @@ namespace CoExp_Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CoExpDockerSpecificOrigins",
-            //    builder =>
-            //    {
-            //        builder.WithOrigins("http://localhost/")
-            //        .AllowAnyHeader()
-            //        .AllowAnyMethod();
-            //    });
-            //});
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //services.Configure<RouteOptions>(options => options.AppendTrailingSlash = true);
-
-
-            //services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            //services.AddTransient<IEmailService, EmailService>();
-
+            services.AddMvc();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             //ATN_5843218Gt
             //coexp_test
             //coexp
 
-            if (env.IsProduction())
-            {
+            //if (env.IsProduction())
+            //{
                 app.UsePathBase("/coexp");
                 app.UseHttpsRedirection();
-            } 
-            else if (env.IsDevelopment())
+            //} 
+            /*else if (env.IsDevelopment())
             {
                 app.UsePathBase("/coexp_test");
                 app.UseHttpsRedirection();
@@ -86,19 +68,18 @@ namespace CoExp_Web
                 app.UsePathBase("/ATN_5843218Gt/");
                 app.UseHttpsRedirection();
                 
-            }
+            }*/
 
             app.UseExceptionHandler("/Home/Error");
-
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Run}/{action=Index}/{id?}");
+                    pattern: "{controller=Run}/{action=Index}/{id?}");
             });
 
 

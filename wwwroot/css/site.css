@@ -457,6 +457,10 @@ img{
     min-height: 700px;
     max-height: 1000px;
     border: 1px solid grey;
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
 }
 
 

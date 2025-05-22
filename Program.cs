@@ -14,7 +14,8 @@ namespace CoExp_Web
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
+            CreateWebHostBuilder(args).
+                UseIIS()
                 //Change here the environment. Possible values: "Production", "Development", "Private", "Docker"
                 .UseEnvironment("Production")
                 .Build()

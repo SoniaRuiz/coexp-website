@@ -1,35 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\repositories\\coexp-website\\CoExp_Web.csproj": {}
+    "C:\\Users\\sonia\\source\\repos\\coexp-website\\CoExp_Web.csproj": {}
   },
   "projects": {
-    "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\repositories\\coexp-website\\CoExp_Web.csproj": {
+    "C:\\Users\\sonia\\source\\repos\\coexp-website\\CoExp_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\repositories\\coexp-website\\CoExp_Web.csproj",
+        "projectUniqueName": "C:\\Users\\sonia\\source\\repos\\coexp-website\\CoExp_Web.csproj",
         "projectName": "CoExp_Web",
-        "projectPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\repositories\\coexp-website\\CoExp_Web.csproj",
-        "packagesPath": "C:\\Users\\skgtsg0\\.nuget\\packages\\",
-        "outputPath": "\\\\ad.ucl.ac.uk\\home0\\skgtsg0\\Documents\\GitHub\\repositories\\coexp-website\\obj\\",
+        "projectPath": "C:\\Users\\sonia\\source\\repos\\coexp-website\\CoExp_Web.csproj",
+        "packagesPath": "C:\\Users\\sonia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sonia\\source\\repos\\coexp-website\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\skgtsg0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sonia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
-            "targetAlias": "netcoreapp2.1",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -37,27 +38,21 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "netcoreapp2.1": {
-          "targetAlias": "netcoreapp2.1",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.1, )",
-              "autoReferenced": true
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[2.1.10, )"
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -66,11 +61,20 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

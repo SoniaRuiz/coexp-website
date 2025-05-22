@@ -125,7 +125,7 @@ API.prototype.menuInit = function (view) {
             .prop('disabled', true);
 
         //Buttons
-        $('#send_button').prop("disabled", true);
+       // $('#send_button').prop("disabled", true);
         //$('#save_plot').prop("disabled", true);
         //$('#save_data').prop("disabled", true);
     }
@@ -211,7 +211,7 @@ API.prototype.menuInit = function (view) {
             $('#gene_dropdown')
                 .prop('disabled', true)        
 
-            $('#send_button').prop("disabled", true);
+            //$('#send_button').prop("disabled", true);
         }
     });
 
@@ -759,7 +759,7 @@ API.prototype.sendButtonFunction = function (view, moduleColor) {
         /*
          * 'Plot' tab
          * */
-        $('#send_button').prop("disabled", true);
+        //$('#send_button').prop("disabled", true);
 
         $('#empty-initial-results').hide();
 

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Views",
+    "\\Views\\Run"
   ],
-  "SelectedNode": "\\CoExp_Web.sln",
+  "SelectedNode": "\\Views\\Run\\Plot.cshtml",
   "PreviewInSolutionExplorer": false
 }
